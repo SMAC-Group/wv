@@ -18,7 +18,6 @@
 #' @title Discrete Wavelet Transform
 #' @description 
 #' Calculation of the coefficients for the discrete wavelet transformation
-#' @inheritParams modwt
 #' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.

@@ -83,7 +83,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
   for(unsigned int j = 0; j < J; j++) {
 
     unsigned int M = N/pow(2,j);
-    unsigned int M_over_2 = double(M)/2;
+    unsigned int M_over_2 = M/2;
 
     arma::vec Wj(M_over_2);
     arma::vec Vj(M_over_2);

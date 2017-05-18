@@ -80,9 +80,9 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
 
   arma::field<arma::vec> y(J);
 
-  for(unsigned int j = 1; j <= J; j++) {
+  for(unsigned int j = 0; j < J; j++) {
 
-    unsigned int M = N/pow(2,(j-1));
+    unsigned int M = N/pow(2,j);
     unsigned int M_over_2 = double(M)/2;
 
     arma::vec Wj(M_over_2);
@@ -108,7 +108,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
       Vj[t] = Vjt;
     }
 
-    y(j-1) = Wj;
+    y(j) = Wj;
     x = Vj;
   }
 

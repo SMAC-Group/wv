@@ -112,12 +112,6 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
     x = Vj;
   }
 
-
-  // Apply brickwall
-  if(brickwall){
-    y = brick_wall(y, filter_info, "dwt");
-  }
-
   return y;
 }
 

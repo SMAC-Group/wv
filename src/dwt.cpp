@@ -115,6 +115,82 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
   return y;
 }
 
+arma::field<arma::vec> dwt_cpp_brickWall(arma::vec x, std::string filter_name,
+                               unsigned int nlevels, std::string boundary, bool brickwall) {
+  
+  if(boundary == "periodic"){
+    //
+  }else if(boundary == "reflection"){
+    unsigned int temp_N = x.n_elem;
+    arma::vec rev_vec = reverse_vec(x);
+    x.resize(2*temp_N);
+    x.rows(temp_N, 2*temp_N-1) = rev_vec;
+  }else{
+    Rcpp::stop("The supplied 'boundary' argument is not supported! Choose either periodic or reflection.");
+  }
+  
+  unsigned int N = x.n_elem;
+  
+  unsigned int J = nlevels;
+  
+  unsigned int tau = pow(2,J);
+  
+  if(double(N)/double(tau) != floor(double(N)/double(tau))){
+    Rcpp::stop("The supplied sample size ('x') must be divisible by 2^(nlevels). Either truncate or expand the number of samples.");
+  }
+  if(tau > N){
+    Rcpp::stop("The number of levels [ 2^(nlevels) ] exceeds sample size ('x'). Supply a lower number of levels.");
+  }
+  
+  arma::field<arma::vec> filter_info = select_filter(filter_name);
+  
+  int L = arma::as_scalar(filter_info(0));
+  arma::vec h = filter_info(1); //check the pulls
+  arma::vec g = filter_info(2);
+  
+  arma::field<arma::vec> y(J);
+  
+  for(unsigned int j = 1; j <= J; j++) {
+    
+    unsigned int M = N/pow(2,(j-1));
+    unsigned int M_over_2 = double(M)/2;
+    
+    arma::vec Wj(M_over_2);
+    arma::vec Vj(M_over_2);
+    
+    for(unsigned t = 0; t < M_over_2; t++) {
+      
+      int u = 2*t + 1;
+      
+      double Wjt = h(0)*x(u);
+      double Vjt = g(0)*x(u);
+      
+      for(int n = 1; n < L; n++){
+        u -= 1;
+        if(u < 0){
+          u = M - 1;
+        }
+        Wjt += h(n)*x(u);
+        Vjt += g(n)*x(u);
+      }
+      
+      Wj[t] = Wjt;
+      Vj[t] = Vjt;
+    }
+    
+    y(j-1) = Wj;
+    x = Vj;
+  }
+  
+  
+  // Apply brickwall
+  if(brickwall){
+    y = brick_wall(y, filter_info, "dwt");
+  }
+  
+  return y;
+}
+
 
 
 //' @title Maximum Overlap Discrete Wavelet Transform

@@ -51,6 +51,30 @@ dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="p
   out
 }
 
+dwt.BrickWall = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
+  
+  if(is.vector(x) && length(x) %% nlevels != 0){
+    warning("The data has been truncated so that it is divisible by `nlevels` (e.g. 2^*)")
+    x = x[1:2^nlevels]
+  }else if(is.matrix(x) || is.data.frame(x)){
+    if(ncol(x) != 1){
+      stop("Only one column is allowed to be decomposed at a time.")
+    }
+    
+    if(nrow(x) %% nlevels !=0){
+      warning("The data has been truncated so that it is divisible by `nlevels` (e.g. 2^*)")
+      idx = 1:2^nlevels
+      x[idx,1] = x[idx,1]
+    }
+  }
+  
+  sourceCpp("dwt.cpp")  # R interface to the C++ function is now available
+  out = dwt_cpp_brickWall(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)  # call to C++ version of dwt
+  names(out) = paste0("S",1:nlevels)
+  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("dwt","list"))
+  out
+}
+
 #' @title Print Discrete Wavelet Transform
 #' @description
 #' Prints the results of the modwt list

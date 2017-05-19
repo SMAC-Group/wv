@@ -66,7 +66,7 @@ brickwall = function(signal.decomp){
 #' x = rnorm(100)
 #' a = modwt(x)
 modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
-  out = .Call('gmwm_modwt_cpp', PACKAGE = 'gmwm', x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
+  out = modwt_cpp(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
   names(out) = paste0("S",1:nlevels)
   mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt","list"))
   out

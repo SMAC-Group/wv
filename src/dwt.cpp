@@ -97,7 +97,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
 
       for(int n = 1; n < L; n++){
         u -= 1;
-        if(u < 0){
+        if(u < 0){ // unsure of this check 
           u = M - 1;
         }
         Wjt += h(n)*x(u);
@@ -172,7 +172,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
   arma::vec Wj(N);
   arma::vec Vj(N);
 
-  for(unsigned int j = 1; j <= J; j++) {
+  for(unsigned int j = 0; j < J; j++) {
     for(unsigned t = 0; t < N; t++) {
 
       int k = t;
@@ -181,7 +181,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
       double Vjt = gt(0)*x(k);
 
       for(int n = 1; n < L; n++){
-        k -= pow(2, j-1);
+        k -= pow(2, j);
         if(k < 0){
           k += N;
         }
@@ -193,7 +193,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
       Vj[t] = Vjt;
     }
 
-    y(j-1) = Wj;
+    y(j) = Wj;
     x = Vj;
   }
 

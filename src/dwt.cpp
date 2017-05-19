@@ -173,9 +173,9 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
   arma::vec Vj(N);
 
   for(unsigned int j = 0; j < J; j++) {
-    for(unsigned t = 0; t < N; t++) {
+    for(unsigned int t = 0; t < N; t++) {
 
-      int k = t;
+      int k = t; // necessary ? 
 
       double Wjt = ht(0)*x(k);
       double Vjt = gt(0)*x(k);

@@ -111,12 +111,10 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
     y(j) = Wj;
     x = Vj;
   }
-
-  // Apply brickwall
-  if(brickwall){
-    y = brick_wall(y, filter_info, "dwt");
-  }
   
+  // Replace last element with empty vector like original dwt 
+  // Note: "hack" approach, will need more test cases to see if equivalent 
+  y(J-1) = arma::zeros<arma::vec>(0); 
   
   return y;
 }
@@ -188,7 +186,6 @@ arma::field<arma::vec> dwt_cpp_bw(arma::vec x, std::string filter_name,
     y(j-1) = Wj;
     x = Vj;
   }
-  
   
   // Apply brickwall
   if(brickwall){

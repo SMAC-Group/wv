@@ -16,7 +16,6 @@ out
 # Note that dwt(x) runs relatively faster than dwt_bw(x) 
 # Some significant relative difference. In terms of bigger datasets this may be hugely beneficial
 
-
 # Test for equality 
 a = dwt_bw(x, nlevels = 4)
 b = dwt(x, nlevels = 4)

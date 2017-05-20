@@ -44,14 +44,13 @@ dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="p
     }
   }
   
-  sourceCpp("dwt.cpp")  # R interface to the C++ function is now available
   out = dwt_cpp(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)  # call to C++ version of dwt
   names(out) = paste0("S",1:nlevels)
   mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("dwt","list"))
   out
 }
 
-dwt.BrickWall = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
+dwt_bw = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
   
   if(is.vector(x) && length(x) %% nlevels != 0){
     warning("The data has been truncated so that it is divisible by `nlevels` (e.g. 2^*)")
@@ -68,10 +67,9 @@ dwt.BrickWall = function(x, nlevels = floor(log2(length(x))), filter = "haar", b
     }
   }
   
-  sourceCpp("dwt.cpp")  # R interface to the C++ function is now available
-  out = dwt_cpp_brickWall(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)  # call to C++ version of dwt
+  out = dwt_cpp_bw(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)  # call to C++ version of dwt
   names(out) = paste0("S",1:nlevels)
-  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("dwt","list"))
+  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("dwt_bw","list"))
   out
 }
 
@@ -93,6 +91,10 @@ print.dwt=function(x, ...){
   NextMethod("print")
 }
 
+print.dwt_bw=function(x, ...){
+  NextMethod("print")
+}
+
 #' @title Summary Discrete Wavelet Transform
 #' @description Unlists DWT object and places it in matrix form
 #' @method summary dwt
@@ -107,6 +109,12 @@ print.dwt=function(x, ...){
 #' x = rnorm(2^8)
 #' summary(dwt(x))
 summary.dwt=function(object, ...){
+  cat("Results of the DWT containing ",attr(object,"J")," scales\n")
+  cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
+  print.dwt(object)
+}
+
+summary.dwt_bw=function(object, ...){
   cat("Results of the DWT containing ",attr(object,"J")," scales\n")
   cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
   print.dwt(object)

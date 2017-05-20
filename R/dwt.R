@@ -117,5 +117,5 @@ summary.dwt=function(object, ...){
 summary.dwt_bw=function(object, ...){
   cat("Results of the DWT containing ",attr(object,"J")," scales\n")
   cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
-  print.dwt(object)
+  print.dwt_bw(object)
 }

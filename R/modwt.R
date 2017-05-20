@@ -72,6 +72,14 @@ modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary=
   out
 }
 
+modwt_bw = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
+  out = modwt_cpp_bw(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
+  names(out) = paste0("S",1:nlevels)
+  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt_bw","list"))
+  out
+}
+
+
 #' @title Print Maximum Overlap Discrete Wavelet Transform
 #' @description
 #' Prints the results of the modwt list
@@ -87,6 +95,10 @@ modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary=
 #' x = rnorm(100)
 #' print(modwt(x))
 print.modwt = function(x, ...){
+  NextMethod("print")
+}
+
+print.modwt_bw = function(x, ...){
   NextMethod("print")
 }
 
@@ -107,4 +119,10 @@ summary.modwt=function(object, ...){
   cat("Results of the MODWT containing ",attr(object,"J")," scales\n")
   cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
   print.modwt(object)
+}
+
+summary.modwt_bw=function(object, ...){
+  cat("Results of the MODWT containing ",attr(object,"J")," scales\n")
+  cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
+  print.modwt_bw(object)
 }

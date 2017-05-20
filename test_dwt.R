@@ -20,8 +20,7 @@ out
 a = dwt_bw(x, nlevels = 4)
 b = dwt(x, nlevels = 4)
 
-
-all.equal(dwt(x),dwt_bw(x)) 
+all.equal(a,b) 
 # Result: Equal except for class name 
 
 

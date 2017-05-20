@@ -114,7 +114,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
   
   // Replace last element with empty vector like original dwt 
   // Note: "hack" approach, will need more test cases to see if equivalent 
-  y(J-1) = arma::zeros<arma::vec>(0); 
+  if(pow(2, J) == N) y(J-1) = arma::zeros<arma::vec>(0); 
   
   return y;
 }

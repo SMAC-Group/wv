@@ -6,7 +6,7 @@ if (length(inst_pkg)>0) install.packages(inst_pkg)
 pkgs_loaded = lapply(load_pkg, require, character.only = TRUE)
 
 set.seed(1)
-x = rnorm(2^20)
+x = rnorm(2^16)
 
 # Run benchmark
 out = benchmark(dwt(x), dwt_bw(x))
@@ -18,6 +18,10 @@ out
 
 
 # Test for equality 
+a = dwt_bw(x, nlevels = 4)
+b = dwt(x, nlevels = 4)
+
+
 all.equal(dwt(x),dwt_bw(x)) 
 # Result: Equal except for class name 
 

@@ -47,18 +47,7 @@
 // [[Rcpp::export]]
 arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
                                    unsigned int nlevels, std::string boundary, bool brickwall) {
-
-  if(boundary == "periodic"){
-    //
-  }else if(boundary == "reflection"){
-    unsigned int temp_N = x.n_elem;
-    arma::vec rev_vec = reverse_vec(x);
-    x.resize(2*temp_N);
-    x.rows(temp_N, 2*temp_N-1) = rev_vec;
-  }else{
-      Rcpp::stop("The supplied 'boundary' argument is not supported! Choose either periodic or reflection.");
-  }
-
+  
   unsigned int N = x.n_elem;
 
   unsigned int J = nlevels;

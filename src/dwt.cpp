@@ -222,7 +222,8 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
   unsigned int J = nlevels;
 
   unsigned int tau = pow(2,J);
-
+  
+  // may be unnecessary for modwt because levels are different from dwt / possible space for change 
   if(tau > N) Rcpp::stop("The number of levels [ 2^(nlevels) ] exceeds sample size ('x'). Supply a lower number of levels.");
 
   arma::field<arma::vec> filter_info = select_filter(filter_name);
@@ -266,6 +267,74 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
     x = Vj;
   }
 
+  return y;
+}
+
+// [[Rcpp::export]]
+arma::field<arma::vec> modwt_cpp_test(arma::vec x, std::string filter_name,
+                                 unsigned int nlevels, std::string boundary, bool brickwall){
+  
+  if(boundary == "periodic"){
+    //
+  }else if(boundary == "reflection"){
+    unsigned int temp_N = x.n_elem;
+    arma::vec rev_vec = reverse_vec(x);
+    x.resize(2*temp_N);
+    x.rows(temp_N, 2*temp_N-1) = rev_vec;
+  }else{
+    Rcpp::stop("The supplied 'boundary' argument is not supported! Choose either periodic or reflection.");
+  }
+  
+  unsigned int N = x.n_elem;
+  
+  unsigned int J = nlevels;
+  
+  unsigned int tau = pow(2,J);
+  
+  // may be unnecessary for modwt because levels are different from dwt / possible space for change 
+  if(tau > N) Rcpp::stop("The number of levels [ 2^(nlevels) ] exceeds sample size ('x'). Supply a lower number of levels.");
+  
+  arma::field<arma::vec> filter_info = select_filter(filter_name);
+  
+  int L = arma::as_scalar(filter_info(0));
+  arma::vec ht = filter_info(1);
+  arma::vec gt = filter_info(2);
+  
+  // modwt transform
+  double transform_factor = sqrt(2);
+  ht /= transform_factor;
+  gt /= transform_factor;
+  
+  arma::field<arma::vec> y(J);
+  
+  arma::vec Wj(N);
+  arma::vec Vj(N);
+  
+  for(unsigned int j = 0; j < J; j++) {
+    for(unsigned int t = 2*j+1; t < N; t++) {
+      
+      int k = t; // necessary ? 
+      
+      double Wjt = ht(0)*x(k);
+      double Vjt = gt(0)*x(k);
+      
+      for(int n = 1; n < L; n++){
+        k -= pow(2, j);
+        if(k < 0){
+          k += N;
+        }
+        Wjt += ht(n)*x(k);
+        Vjt += gt(n)*x(k);
+      }
+      
+      Wj[t] = Wjt;
+      Vj[t] = Vjt;
+    }
+    
+    y(j) = Wj.rows(2*j+1,N-1);
+    x = Vj;
+  }
+  
   return y;
 }
 

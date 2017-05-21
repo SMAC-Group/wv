@@ -79,6 +79,12 @@ modwt_bw = function(x, nlevels = floor(log2(length(x))), filter = "haar", bounda
   out
 }
 
+modwt_test = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
+  out = modwt_cpp_test(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
+  names(out) = paste0("S",1:nlevels)
+  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt_test","list"))
+  out
+}
 
 #' @title Print Maximum Overlap Discrete Wavelet Transform
 #' @description

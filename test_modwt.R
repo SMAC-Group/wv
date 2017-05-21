@@ -5,13 +5,17 @@ if (length(inst_pkg)>0) install.packages(inst_pkg)
 # load all necessary packages 
 pkgs_loaded = lapply(load_pkg, require, character.only = TRUE)
 
+sourceCpp("src/dwt.cpp")
+source("src/modwt.R")
+
 set.seed(1)
 x = rnorm(100)
 
 
 # Test for equality 
-a = modwt(x, nlevels = 5)
-b = modwt_bw(x, nlevels = 5)
+a = modwt(x, nlevels = 2)
+b = modwt_bw(x, nlevels = 2)
+d = modwt_test(x, nlevels = 2)
 
 d = modwt(x, boundary = "reflection", nlevels = 5)
 e = modwt_bw(x, boundary = "reflection", nlevels = 5)

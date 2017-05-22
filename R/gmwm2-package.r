@@ -5,5 +5,4 @@
 #'
 #' @name gmwm2
 #' @docType package
-#' @exportPattern ^[[:alpha:]]+ 
 NULL

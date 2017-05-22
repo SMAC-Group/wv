@@ -108,7 +108,6 @@ sum_field_vec <- function(x) {
 #' set.seed(999)
 #' x = rnorm(2^8)
 #' dwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
-#' @export
 dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('gmwm2_dwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
 }
@@ -129,47 +128,10 @@ dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
 #' set.seed(999)
 #' x = rnorm(100)
 #' modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
-#' @export
 modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('gmwm2_modwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
 }
 
-#' @title Quadrature Mirror Filter
-#' @description Calculate the series quadrature mirror filter (QMF). Requires a series of an even length.
-#' @usage qmf(g, inverse)
-#' @param g A \code{vector} that contains the filter constants.
-#' @param inverse A \code{bool} that indicates whether the inverse quadrature mirror filter is computed. 
-#' By default, the inverse quadrature mirror is computed.
-#' @return A \code{vector} that contains either the forward QMF (evalute in order) or the inverse QMF (reverse order). 
-#' @author JJB
-#' @keywords internal
-#' @examples
-#' # Haar values
-#' g = rep(1/sqrt(2),2)
-#' qmf(g)
-qmf <- function(g, inverse = TRUE) {
-    .Call('gmwm2_qmf', PACKAGE = 'gmwm2', g, inverse)
-}
-
-#' @title Haar filter construction
-#' @description Creates the haar filter
-#' @usage haar_filter()
-#' @return A \code{field<vec>} that contains:
-#' \itemize{
-#'  \item{"L"}{A \code{integer} specifying the length of the filter}
-#'  \item{"h"}{A \code{vector} containing the coefficients for the wavelet filter}
-#'  \item{"g"}{A \code{vector} containing the coefficients for the scaling filter}
-#' }
-#' @details
-#' This template can be used to increase the amount of filters available for selection.
-#' @author JJB
-#' @keywords internal
-#' @examples
-#' haar_filter()
-#' @export
-haar_filter <- function() {
-    .Call('gmwm2_haar_filter', PACKAGE = 'gmwm2')
-}
 
 #' @title Select the Wavelet Filter
 #' @description Constructs the wavelet filter to be used.

@@ -107,28 +107,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// qmf
-arma::vec qmf(arma::vec g, bool inverse);
-RcppExport SEXP gmwm2_qmf(SEXP gSEXP, SEXP inverseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type g(gSEXP);
-    Rcpp::traits::input_parameter< bool >::type inverse(inverseSEXP);
-    rcpp_result_gen = Rcpp::wrap(qmf(g, inverse));
-    return rcpp_result_gen;
-END_RCPP
-}
-// haar_filter
-arma::field<arma::vec> haar_filter();
-RcppExport SEXP gmwm2_haar_filter() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(haar_filter());
-    return rcpp_result_gen;
-END_RCPP
-}
 // select_filter
 arma::field<arma::vec> select_filter(std::string filter_name);
 RcppExport SEXP gmwm2_select_filter(SEXP filter_nameSEXP) {

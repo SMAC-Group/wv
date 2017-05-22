@@ -55,7 +55,6 @@ const std::map<std::string, arma::field<arma::vec> (*)()> A::filterMap =  A::cre
 //' # Haar values
 //' g = rep(1/sqrt(2),2)
 //' qmf(g)
-// [[Rcpp::export]]
 arma::vec qmf(arma::vec g, bool inverse = true) {
   
   unsigned int L = g.n_elem;
@@ -88,7 +87,6 @@ arma::vec qmf(arma::vec g, bool inverse = true) {
 //' @keywords internal
 //' @examples
 //' haar_filter()
-// [[Rcpp::export]]
 arma::field<arma::vec> haar_filter() {
   
     arma::vec L(1);

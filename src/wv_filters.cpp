@@ -122,7 +122,6 @@ arma::field<arma::vec> haar_filter() {
 //' @keywords internal
 //' @examples
 //' select_filter("haar")
-// [[Rcpp::export]]
 arma::field<arma::vec> select_filter(std::string filter_name = "haar")
 {
   

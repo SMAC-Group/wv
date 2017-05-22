@@ -44,6 +44,7 @@
 //' set.seed(999)
 //' x = rnorm(2^8)
 //' dwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+//' @export
 // [[Rcpp::export]]
 arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
                                    unsigned int nlevels, std::string boundary, bool brickwall) {
@@ -124,6 +125,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
 //' set.seed(999)
 //' x = rnorm(100)
 //' modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+//' @export
 // [[Rcpp::export]]
 arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
                                    unsigned int nlevels, std::string boundary, bool brickwall){

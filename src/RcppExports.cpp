@@ -6,77 +6,6 @@
 
 using namespace Rcpp;
 
-// sort_mat
-arma::mat sort_mat(arma::mat x, unsigned int col);
-RcppExport SEXP gmwm2_sort_mat(SEXP xSEXP, SEXP colSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type x(xSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type col(colSEXP);
-    rcpp_result_gen = Rcpp::wrap(sort_mat(x, col));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rev_col_subset
-arma::mat rev_col_subset(arma::mat x, unsigned int start, unsigned int end);
-RcppExport SEXP gmwm2_rev_col_subset(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type x(xSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type start(startSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type end(endSEXP);
-    rcpp_result_gen = Rcpp::wrap(rev_col_subset(x, start, end));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rev_row_subset
-arma::mat rev_row_subset(arma::mat x, unsigned int start, unsigned int end);
-RcppExport SEXP gmwm2_rev_row_subset(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type x(xSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type start(startSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type end(endSEXP);
-    rcpp_result_gen = Rcpp::wrap(rev_row_subset(x, start, end));
-    return rcpp_result_gen;
-END_RCPP
-}
-// reverse_vec
-arma::vec reverse_vec(arma::vec x);
-RcppExport SEXP gmwm2_reverse_vec(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(reverse_vec(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// field_to_matrix
-arma::mat field_to_matrix(arma::field<arma::vec> x);
-RcppExport SEXP gmwm2_field_to_matrix(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::field<arma::vec> >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(field_to_matrix(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// sum_field_vec
-double sum_field_vec(const arma::field<arma::vec>& x);
-RcppExport SEXP gmwm2_sum_field_vec(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::field<arma::vec>& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(sum_field_vec(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // dwt_cpp
 arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels, std::string boundary, bool brickwall);
 RcppExport SEXP gmwm2_dwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP, SEXP boundarySEXP, SEXP brickwallSEXP) {
@@ -104,17 +33,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type boundary(boundarySEXP);
     Rcpp::traits::input_parameter< bool >::type brickwall(brickwallSEXP);
     rcpp_result_gen = Rcpp::wrap(modwt_cpp(x, filter_name, nlevels, boundary, brickwall));
-    return rcpp_result_gen;
-END_RCPP
-}
-// select_filter
-arma::field<arma::vec> select_filter(std::string filter_name);
-RcppExport SEXP gmwm2_select_filter(SEXP filter_nameSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type filter_name(filter_nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(select_filter(filter_name));
     return rcpp_result_gen;
 END_RCPP
 }

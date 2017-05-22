@@ -31,6 +31,7 @@
 #' set.seed(999)
 #' x = rnorm(100)
 #' a = modwt(x)
+#' @export
 modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
   out = .Call('modwt_cpp', PACKAGE = 'gmwm2', x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
   names(out) = paste0("S",1:nlevels)

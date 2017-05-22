@@ -27,6 +27,7 @@
 #' set.seed(999)
 #' x = rnorm(2^8)
 #' dwt(x)
+#' @export
 dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
   
   if(is.vector(x) && length(x) %% nlevels != 0){

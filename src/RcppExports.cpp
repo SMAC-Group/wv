@@ -135,49 +135,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ci_eta3
-arma::mat ci_eta3(const arma::vec& y, const arma::vec& dims, double alpha_ov_2);
-RcppExport SEXP gmwm2_ci_eta3(SEXP ySEXP, SEXP dimsSEXP, SEXP alpha_ov_2SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type dims(dimsSEXP);
-    Rcpp::traits::input_parameter< double >::type alpha_ov_2(alpha_ov_2SEXP);
-    rcpp_result_gen = Rcpp::wrap(ci_eta3(y, dims, alpha_ov_2));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ci_eta3_robust
-arma::mat ci_eta3_robust(const arma::vec& wv_robust, const arma::mat& wv_ci_class, double alpha_ov_2, double eff);
-RcppExport SEXP gmwm2_ci_eta3_robust(SEXP wv_robustSEXP, SEXP wv_ci_classSEXP, SEXP alpha_ov_2SEXP, SEXP effSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type wv_robust(wv_robustSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type wv_ci_class(wv_ci_classSEXP);
-    Rcpp::traits::input_parameter< double >::type alpha_ov_2(alpha_ov_2SEXP);
-    Rcpp::traits::input_parameter< double >::type eff(effSEXP);
-    rcpp_result_gen = Rcpp::wrap(ci_eta3_robust(wv_robust, wv_ci_class, alpha_ov_2, eff));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ci_wave_variance
-arma::mat ci_wave_variance(const arma::field<arma::vec>& signal_modwt_bw, const arma::vec& wv, std::string type, double alpha_ov_2, bool robust, double eff);
-RcppExport SEXP gmwm2_ci_wave_variance(SEXP signal_modwt_bwSEXP, SEXP wvSEXP, SEXP typeSEXP, SEXP alpha_ov_2SEXP, SEXP robustSEXP, SEXP effSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::field<arma::vec>& >::type signal_modwt_bw(signal_modwt_bwSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type wv(wvSEXP);
-    Rcpp::traits::input_parameter< std::string >::type type(typeSEXP);
-    Rcpp::traits::input_parameter< double >::type alpha_ov_2(alpha_ov_2SEXP);
-    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
-    Rcpp::traits::input_parameter< double >::type eff(effSEXP);
-    rcpp_result_gen = Rcpp::wrap(ci_wave_variance(signal_modwt_bw, wv, type, alpha_ov_2, robust, eff));
-    return rcpp_result_gen;
-END_RCPP
-}
 // wave_variance
 arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robust, double eff);
 RcppExport SEXP gmwm2_wave_variance(SEXP signal_modwt_bwSEXP, SEXP robustSEXP, SEXP effSEXP) {

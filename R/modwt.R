@@ -38,7 +38,7 @@ brickwall = function(signal.decomp){
     stop("The decomposition has already been decomposed.")
   }
   
-  obj = .Call('gmwm_brick_wall', PACKAGE = 'gmwm', signal.decomp, select_filter("haar"), class(signal.decomp)[1])
+  obj = .Call('gmwm_brick_wall', PACKAGE = 'gmwm2', signal.decomp, select_filter("haar"), class(signal.decomp)[1])
   
   mostattributes(obj) = attributes(signal.decomp)
   attr(signal.decomp,"brick.wall") = T
@@ -64,14 +64,14 @@ brickwall = function(signal.decomp){
 #' x = rnorm(100)
 #' a = modwt(x)
 modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
-  out = modwt_cpp(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
+  out = .Call('modwt_cpp', PACKAGE = 'gmwm2', x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
   names(out) = paste0("S",1:nlevels)
   mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt","list"))
   out
 }
 
 modwt_bw = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
-  out = modwt_cpp_bw(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
+  out = .Call('modwt_cpp_bw', PACKAGE = 'gmwm2', x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
   names(out) = paste0("S",1:nlevels)
   mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt_bw","list"))
   out

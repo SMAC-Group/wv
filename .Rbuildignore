@@ -3,3 +3,4 @@
 ^\.travis\.yml$
 ^test_dwt\.R$
 ^test_modwt\.R$
+^download_package\.R$

@@ -18,6 +18,11 @@
 #' @title Discrete Wavelet Transform
 #' @description 
 #' Calculation of the coefficients for the discrete wavelet transformation
+#' @param x        A \code{vector} with dimensions N x 1. 
+#' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
+#' @param filter   A \code{string} indicating the filter name
+#' @param boundary A \code{string} indicating whether the filter is: \code{"periodic"} or \code{"reflection"}.
+#' @param bw       A \code{boolean} indicating whether to remove (TRUE) or keep (FALSE) boundary wavelet coefficients
 #' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.

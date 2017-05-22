@@ -108,6 +108,7 @@ sum_field_vec <- function(x) {
 #' set.seed(999)
 #' x = rnorm(2^8)
 #' dwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' @export
 dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('gmwm2_dwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
 }
@@ -128,6 +129,7 @@ dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
 #' set.seed(999)
 #' x = rnorm(100)
 #' modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' @export
 modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('gmwm2_modwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
 }

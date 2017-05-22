@@ -265,7 +265,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
     y(j) = Wj;
     x = Vj;
   }
-
+  
   return y;
 }
 

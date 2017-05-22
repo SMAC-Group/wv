@@ -5,6 +5,9 @@ if (length(inst_pkg)>0) install.packages(inst_pkg)
 # load all necessary packages 
 pkgs_loaded = lapply(load_pkg, require, character.only = TRUE)
 
+sourceCpp("src/dwt.cpp")
+source("R/dwt.R")
+
 set.seed(1)
 x = rnorm(2^16)
 

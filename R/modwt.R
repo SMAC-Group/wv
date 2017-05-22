@@ -46,8 +46,6 @@ brickwall = function(signal.decomp){
   obj
 }
 
-
-
 #' Maximum Overlap Discrete Wavelet Transform
 #'  
 #' Calculation of the coefficients for the discrete wavelet transformation
@@ -78,7 +76,6 @@ modwt_bw = function(x, nlevels = floor(log2(length(x))), filter = "haar", bounda
   mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt_bw","list"))
   out
 }
-
 
 #' @title Print Maximum Overlap Discrete Wavelet Transform
 #' @description

@@ -3,4 +3,3 @@
 ^\.travis\.yml$
 ^test_dwt\.R$
 ^test_modwt\.R$
-^test\.cpp$

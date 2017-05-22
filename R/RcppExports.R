@@ -166,6 +166,7 @@ qmf <- function(g, inverse = TRUE) {
 #' @keywords internal
 #' @examples
 #' haar_filter()
+#' @export
 haar_filter <- function() {
     .Call('gmwm2_haar_filter', PACKAGE = 'gmwm2')
 }

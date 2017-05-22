@@ -107,34 +107,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// modwt_cpp_bw
-arma::field<arma::vec> modwt_cpp_bw(arma::vec x, std::string filter_name, unsigned int nlevels, std::string boundary, bool brickwall);
-RcppExport SEXP gmwm2_modwt_cpp_bw(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP, SEXP boundarySEXP, SEXP brickwallSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
-    Rcpp::traits::input_parameter< std::string >::type filter_name(filter_nameSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type nlevels(nlevelsSEXP);
-    Rcpp::traits::input_parameter< std::string >::type boundary(boundarySEXP);
-    Rcpp::traits::input_parameter< bool >::type brickwall(brickwallSEXP);
-    rcpp_result_gen = Rcpp::wrap(modwt_cpp_bw(x, filter_name, nlevels, boundary, brickwall));
-    return rcpp_result_gen;
-END_RCPP
-}
-// brick_wall
-arma::field<arma::vec> brick_wall(arma::field<arma::vec> x, arma::field<arma::vec> wave_filter, std::string method);
-RcppExport SEXP gmwm2_brick_wall(SEXP xSEXP, SEXP wave_filterSEXP, SEXP methodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::field<arma::vec> >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::field<arma::vec> >::type wave_filter(wave_filterSEXP);
-    Rcpp::traits::input_parameter< std::string >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(brick_wall(x, wave_filter, method));
-    return rcpp_result_gen;
-END_RCPP
-}
 // qmf
 arma::vec qmf(arma::vec g, bool inverse);
 RcppExport SEXP gmwm2_qmf(SEXP gSEXP, SEXP inverseSEXP) {

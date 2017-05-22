@@ -132,29 +132,6 @@ modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('gmwm2_modwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
 }
 
-modwt_cpp_bw <- function(x, filter_name, nlevels, boundary, brickwall) {
-    .Call('gmwm2_modwt_cpp_bw', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
-}
-
-#' @title Removal of Boundary Wavelet Coefficients
-#' @description Removes the first n wavelet coefficients.
-#' @param x           A \code{field<vec>} that contains the nlevel decomposition using either modwt or dwt.
-#' @param wave_filter A \code{field<vec>} containing filter information. Only "haar" is implemented.
-#' @param method      A \code{string} to describe the mode. Choose between "modwt" and "dwt"
-#' @return A \code{field<vec>} with boundary modwt or dwt taken care of.
-#' @keywords internal
-#' @details
-#' The vectors are truncated by removing the first n wavelet coefficients.
-#' These vectors are then stored into the field that is returned.
-#' Note: As a result, there are no NA's introduced and hence the na.omit is not needed.
-#' @examples
-#' x = rnorm(100)
-#' me = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = FALSE)
-#' brick_wall(me, select_filter("haar"), "modwt")
-brick_wall <- function(x, wave_filter, method) {
-    .Call('gmwm2_brick_wall', PACKAGE = 'gmwm2', x, wave_filter, method)
-}
-
 #' @title Quadrature Mirror Filter
 #' @description Calculate the series quadrature mirror filter (QMF). Requires a series of an even length.
 #' @usage qmf(g, inverse)

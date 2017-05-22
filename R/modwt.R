@@ -14,38 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-#' Brickwall functionality for MO/DWT
-#'  
-#' Removes boundary coefficients
-#' @param signal.decomp  A \code{modwt} or \code{dwt} object that has not yet been brick walled
-#' @return A \code{modwt} or \code{dwt} object that has been brick walled
-#' @author JJB
-#' @examples
-#' set.seed(999)
-#' x = rnorm(100)
-#' o = modwt(x, bw = FALSE)
-#' brickwall(o)
-#' 
-#' x = rnorm(2^8)
-#' j = dwt(x, bw = FALSE)
-#' brickwall(j)
-brickwall = function(signal.decomp){
-  if(!(is(signal.decomp,"modwt") || is(signal.decomp,"dwt"))){
-    stop("`signal.decomp` must be from the either the `modwt()` or `dwt()` function.")
-  }
-  if(attr(signal.decomp,"brick.wall")){
-    stop("The decomposition has already been decomposed.")
-  }
-  
-  obj = .Call('gmwm_brick_wall', PACKAGE = 'gmwm2', signal.decomp, select_filter("haar"), class(signal.decomp)[1])
-  
-  mostattributes(obj) = attributes(signal.decomp)
-  attr(signal.decomp,"brick.wall") = T
-  
-  obj
-}
-
 #' Maximum Overlap Discrete Wavelet Transform
 #'  
 #' Calculation of the coefficients for the discrete wavelet transformation
@@ -70,13 +38,6 @@ modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary=
   out
 }
 
-modwt_bw = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
-  out = .Call('modwt_cpp_bw', PACKAGE = 'gmwm2', x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
-  names(out) = paste0("S",1:nlevels)
-  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt_bw","list"))
-  out
-}
-
 #' @title Print Maximum Overlap Discrete Wavelet Transform
 #' @description
 #' Prints the results of the modwt list
@@ -92,10 +53,6 @@ modwt_bw = function(x, nlevels = floor(log2(length(x))), filter = "haar", bounda
 #' x = rnorm(100)
 #' print(modwt(x))
 print.modwt = function(x, ...){
-  NextMethod("print")
-}
-
-print.modwt_bw = function(x, ...){
   NextMethod("print")
 }
 
@@ -116,10 +73,4 @@ summary.modwt=function(object, ...){
   cat("Results of the MODWT containing ",attr(object,"J")," scales\n")
   cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
   print.modwt(object)
-}
-
-summary.modwt_bw=function(object, ...){
-  cat("Results of the MODWT containing ",attr(object,"J")," scales\n")
-  cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
-  print.modwt_bw(object)
 }

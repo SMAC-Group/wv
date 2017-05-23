@@ -1,11 +1,16 @@
-Package: gmwm2
+Package: wv
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
+Title: Wavelet variance
 Version: 1.0
 Date: 2017-04-28
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does as one or more full sentences.
+Authors@R: c(
+    person("Justin", "Lee", email = "munsheet93@gmail.com", role = c("aut","cre")),
+    person("Stéphane", "Guerrier", role = "aut"),
+    person("Roberto", "Molinari", role = "aut"),
+    person("James", "Balamuta", role = "aut")
+    )
+Maintainer: Justin Lee <munsheet93@gmail.com>
+Description: TO DO
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.10)
 LinkingTo: Rcpp, RcppArmadillo

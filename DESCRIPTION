@@ -12,7 +12,7 @@ Authors@R: c(
     person("Haotian", "Xu", role = "ctb")
     )
 Maintainer: Justin Lee <munsheet93@gmail.com>
-Description: TO DO
+Description: Compute the classical and robust wavelet variance for time series and regular lattices.
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.10)
 LinkingTo: Rcpp, RcppArmadillo

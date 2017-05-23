@@ -10,7 +10,7 @@ source("R/dwt.R")
 
 set.seed(1)
 x = rnorm(2^16)
-
+ 
 # Run benchmark
 out = benchmark(dwt(x), dwt_bw(x))
 # Table Object

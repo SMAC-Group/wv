@@ -4,7 +4,7 @@ inst_pkg = inst_pkg[!(inst_pkg %in% installed.packages()[,'Package'])]
 if (length(inst_pkg)>0) install.packages(inst_pkg)
 # load all necessary packages 
 pkgs_loaded = lapply(load_pkg, require, character.only = TRUE)
-
+ 
 sourceCpp("src/dwt.cpp")
 source("R/dwt.R")
 

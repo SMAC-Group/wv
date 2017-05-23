@@ -43,3 +43,81 @@ modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('gmwm2_modwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
 }
 
+#' Psi Tukey Scoring function
+#' @param x data vector
+#' @param sig2_bw variance of brickwalled wv coefficients
+#' @param crob_bw ?
+#' @return A \code{vec} containing the scores.
+#' @export
+psi_tuk <- function(x, sig2_bw, crob_bw) {
+    .Call('gmwm2_psi_tuk', PACKAGE = 'gmwm2', x, sig2_bw, crob_bw)
+}
+
+#' Derivative of Psi Tukey Scoring function
+#' @inheritParams psi_tuk
+#' @export
+der_psi_tuk <- function(x, sig2_bw, crob_bw) {
+    .Call('gmwm2_der_psi_tuk', PACKAGE = 'gmwm2', x, sig2_bw, crob_bw)
+}
+
+#' Haar filter for a spatial case
+#' @param jscale An \code{int} of the Number of Scales
+#' @export
+hfilter <- function(jscale) {
+    .Call('gmwm2_hfilter', PACKAGE = 'gmwm2', jscale)
+}
+
+#' Create the ISO matrix
+#' @param min_dim An \code{integer} indicating the minimum value.
+#' @param wv      A \code{matrix} containing the wavelet variance.
+#' @export
+#' @details
+#' Takes the average of the lower triangular view
+#' before returning. 
+#' @examples
+#' a = matrix(1:9, nrow = 3, byrow = TRUE)
+#' make_wv_iso(a, 3 - 1)
+make_wv_iso <- function(wv, min_dim) {
+    .Call('gmwm2_make_wv_iso', PACKAGE = 'gmwm2', wv, min_dim)
+}
+
+#' Perform parallel contingous subset
+#' @param x \code{matrix} to use to subset
+#' @param y \code{vector} of ids
+#' @export
+#' @examples
+#' a = matrix(1:100, nrow = 10, byrow = TRUE)
+#' 
+#' idx = c(1, 3, 10)
+#' subset_matrix_parallel(a, idx - 1)
+#' ## same as
+#' # a[c(1, 3, 10), c(1, 3, 10)]
+subset_matrix_parallel <- function(x, y) {
+    .Call('gmwm2_subset_matrix_parallel', PACKAGE = 'gmwm2', x, y)
+}
+
+#' Create an index matrix
+#' @param m,n   An \code{integer} indicating matrix row, column dimension
+#' @param ftype A \code{string} of either \code{"col"} or \code{"row"}.
+#' @export
+#' @details
+#' Creates an index matrix filled by either row or column.
+#' @examples
+#' # Index matrix by column
+#' index_mat(3,4, "col")
+#' # index matrix by row
+#' index_mat(3,4, "row")
+index_mat <- function(m, n, ftype) {
+    .Call('gmwm2_index_mat', PACKAGE = 'gmwm2', m, n, ftype)
+}
+
+#' Extract Lower Triangular Elements
+#' @param X \code{matrix}
+#' @export
+#' @examples
+#' x = matrix(1:16, 4, 4, byrow = TRUE)
+#' lower_tri_elem(x)
+lower_tri_elem <- function(X) {
+    .Call('gmwm2_lower_tri_elem', PACKAGE = 'gmwm2', X)
+}
+

@@ -38,7 +38,7 @@
 //' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 //' @details
 //' Performs a level J decomposition of the time series using the pyramid algorithm
-//' @author JJB
+//' @author JJB, Justin 
 //' @keywords internal
 //' @examples
 //' set.seed(999)
@@ -87,7 +87,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
 
       for(int n = 1; n < L; n++){
         u -= 1;
-        if(u < 0){ // unsure of this check 
+        if(u < 0){
           u = M - 1;
         }
         Wjt += h(n)*x(u);
@@ -119,7 +119,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
 //' Performs a level J decomposition of the time series using the pyramid algorithm.
 //' Use this implementation to supply custom parameters instead of modwt(x),
 //' which serves as a wrapper function.
-//' @author JJB
+//' @author JJB, Justin 
 //' @keywords internal
 //' @examples
 //' set.seed(999)
@@ -169,7 +169,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
   for(unsigned int j = 0; j < J; j++) {
     for(unsigned int t = 2*j+1; t < N; t++) {
       
-      int k = t; // necessary ? 
+      int k = t; 
       
       double Wjt = ht(0)*x(k);
       double Vjt = gt(0)*x(k);

@@ -19,7 +19,7 @@
 #' dwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
 #' @export
 dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
-    .Call('gmwm2_dwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
+    .Call('wv_dwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels, boundary, brickwall)
 }
 
 #' @title Maximum Overlap Discrete Wavelet Transform
@@ -40,7 +40,7 @@ dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
 #' modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
 #' @export
 modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
-    .Call('gmwm2_modwt_cpp', PACKAGE = 'gmwm2', x, filter_name, nlevels, boundary, brickwall)
+    .Call('wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels, boundary, brickwall)
 }
 
 #' Psi Tukey Scoring function
@@ -50,21 +50,101 @@ modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
 #' @return A \code{vec} containing the scores.
 #' @export
 psi_tuk <- function(x, sig2_bw, crob_bw) {
-    .Call('gmwm2_psi_tuk', PACKAGE = 'gmwm2', x, sig2_bw, crob_bw)
+    .Call('wv_psi_tuk', PACKAGE = 'wv', x, sig2_bw, crob_bw)
 }
 
 #' Derivative of Psi Tukey Scoring function
 #' @inheritParams psi_tuk
 #' @export
 der_psi_tuk <- function(x, sig2_bw, crob_bw) {
-    .Call('gmwm2_der_psi_tuk', PACKAGE = 'gmwm2', x, sig2_bw, crob_bw)
+    .Call('wv_der_psi_tuk', PACKAGE = 'wv', x, sig2_bw, crob_bw)
 }
 
 #' Haar filter for a spatial case
 #' @param jscale An \code{int} of the Number of Scales
 #' @export
 hfilter <- function(jscale) {
-    .Call('gmwm2_hfilter', PACKAGE = 'gmwm2', jscale)
+    .Call('wv_hfilter', PACKAGE = 'wv', jscale)
+}
+
+#' Compute the Spatial Wavelet Coefficients
+#' @param X      is a matrix with row, col orientation
+#' @param J1,J2  is the levels of decomposition along the rows, columns
+#' @export
+#' @return A \code{list} of \code{vectors} containing the wavelet coefficients.
+#' @details 
+#' By default this function will return the wavelet coefficient in
+#' addition to the wavelet
+sp_wv_coeffs <- function(X, J1, J2) {
+    .Call('wv_sp_wv_coeffs', PACKAGE = 'wv', X, J1, J2)
+}
+
+#' Spatial Wavelet Variance
+#' 
+#' Computes the Spatial Wavelet Variance
+#' @param wv_coeffs is \code{field<vec>} containing the wavelet coefficients
+#' @param n,m is \code{int} containing the number of observations in rows, cols
+#' @param iso    is whether the matrix is isometric
+#' @inheritParams sp_wv_coeffs
+#' @param robust \code{bool} is an indicator as to whether a classic or robust
+#'               estimation should occur.
+#' @param eff    \code{double} is the level of efficiency
+sp_wvar_cpp <- function(wv_coeffs, n, m, J1, J2, iso = TRUE, robust = TRUE, eff = 0.6) {
+    .Call('wv_sp_wvar_cpp', PACKAGE = 'wv', wv_coeffs, n, m, J1, J2, iso, robust, eff)
+}
+
+#' Compute the Spatial Wavelet Variance
+#' @inheritParams sp_wv_coeffs
+#' @inheritParams sp_wvar_cpp
+#' @return A \code{list} with the following values:
+#' \itemize{
+#' \item{Classical WV}
+#' \item{Robust WV}
+#' \item{Covariance Matrix}
+#' }
+#' @export
+#' @seealso \code{\link{sp_wv_coeffs}}, \code{\link{spgmwm_exp}}
+#' @examples
+#' eps = 0 # no contamination
+#' eps = 0.05 # with contamination
+#' sig.eps = 9
+#' m = n = 10
+#' nlag = seq(1,n,1)
+#' grid = expand.grid(nlag,nlag)
+#' J1 = floor(log2(n)) - 1
+#' J2 = floor(log2(m)) - 1
+#' 
+#' # Parameters
+#' sig2 = 1
+#' phi = 2
+#' theta = c(phi,sig2)
+#' wv.theo = exp_theo(theta,J1,J2)
+#' p = length(theta)
+#' alpha = 0.05
+#' J = J1*(J2+1)/2
+#' 
+#' # Covariance matrix for simulation of process
+#' distM = as.matrix(dist(grid))
+#' Sigma = sig2*exp(-distM/phi)
+#' cholSigma = t(chol(Sigma))
+#' 
+#' # Simulate the matrix
+#' set.seed(234)
+#' sim = cholSigma%*%rnorm(m*n)
+#' 
+#' # If contamination is set, contaminate
+#' if(eps!=0){
+#'     index = sample(1:(m*n),round((m*n)*eps))
+#'     sim[index] = sim[index] + rnorm(length(index),0,sqrt(sig.eps))
+#' }
+#' 
+#' Ymle = sim
+#' 
+#' Ygmwm = matrix(sim,n)
+#' 
+#' wv = spat_wavar(Ygmwm, J1, J2, eff = 0.6)
+spat_wavar <- function(X, J1, J2, iso = TRUE, robust = TRUE, eff = 0.6) {
+    .Call('wv_spat_wavar', PACKAGE = 'wv', X, J1, J2, iso, robust, eff)
 }
 
 #' Create the ISO matrix
@@ -78,7 +158,7 @@ hfilter <- function(jscale) {
 #' a = matrix(1:9, nrow = 3, byrow = TRUE)
 #' make_wv_iso(a, 3 - 1)
 make_wv_iso <- function(wv, min_dim) {
-    .Call('gmwm2_make_wv_iso', PACKAGE = 'gmwm2', wv, min_dim)
+    .Call('wv_make_wv_iso', PACKAGE = 'wv', wv, min_dim)
 }
 
 #' Perform parallel contingous subset
@@ -93,7 +173,7 @@ make_wv_iso <- function(wv, min_dim) {
 #' ## same as
 #' # a[c(1, 3, 10), c(1, 3, 10)]
 subset_matrix_parallel <- function(x, y) {
-    .Call('gmwm2_subset_matrix_parallel', PACKAGE = 'gmwm2', x, y)
+    .Call('wv_subset_matrix_parallel', PACKAGE = 'wv', x, y)
 }
 
 #' Create an index matrix
@@ -108,7 +188,7 @@ subset_matrix_parallel <- function(x, y) {
 #' # index matrix by row
 #' index_mat(3,4, "row")
 index_mat <- function(m, n, ftype) {
-    .Call('gmwm2_index_mat', PACKAGE = 'gmwm2', m, n, ftype)
+    .Call('wv_index_mat', PACKAGE = 'wv', m, n, ftype)
 }
 
 #' Extract Lower Triangular Elements
@@ -118,6 +198,6 @@ index_mat <- function(m, n, ftype) {
 #' x = matrix(1:16, 4, 4, byrow = TRUE)
 #' lower_tri_elem(x)
 lower_tri_elem <- function(X) {
-    .Call('gmwm2_lower_tri_elem', PACKAGE = 'gmwm2', X)
+    .Call('wv_lower_tri_elem', PACKAGE = 'wv', X)
 }
 

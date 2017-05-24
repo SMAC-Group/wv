@@ -1,8 +1,8 @@
 #' gmwm2.
 #'
 #' @importFrom Rcpp evalCpp
-#' @useDynLib gmwm2
+#' @useDynLib wv
 #'
-#' @name gmwm2
+#' @name wv
 #' @docType package
 NULL

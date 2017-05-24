@@ -11,7 +11,7 @@
 #' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level J decomposition of the time series using the pyramid algorithm
-#' @author JJB
+#' @author JJB, Justin 
 #' @keywords internal
 #' @examples
 #' set.seed(999)
@@ -32,7 +32,7 @@ dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
 #' Performs a level J decomposition of the time series using the pyramid algorithm.
 #' Use this implementation to supply custom parameters instead of modwt(x),
 #' which serves as a wrapper function.
-#' @author JJB
+#' @author JJB, Justin 
 #' @keywords internal
 #' @examples
 #' set.seed(999)

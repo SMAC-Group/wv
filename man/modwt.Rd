@@ -38,5 +38,5 @@ x = rnorm(100)
 a = modwt(x)
 }
 \author{
-JJB
+JJB, Justin
 }

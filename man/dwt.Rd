@@ -34,5 +34,5 @@ x = rnorm(2^8)
 dwt(x)
 }
 \author{
-JJB
+JJB, Justin
 }

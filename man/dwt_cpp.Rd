@@ -32,6 +32,6 @@ x = rnorm(2^8)
 dwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
 }
 \author{
-JJB
+JJB, Justin
 }
 \keyword{internal}

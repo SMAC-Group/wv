@@ -1,6 +1,6 @@
-/* Copyright (C) 2014 - 2016  James Balamuta, Stephane Guerrier, Roberto Molinari
+/* Copyright (C) 2017 James Balamuta, Justin Lee, Stephane Guerrier, Roberto Molinari
  *
- * This file is part of GMWM R Methods Package
+ * This file is part of wv R Methods Package
  *
  * The `gmwm` R package is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as

@@ -34,6 +34,6 @@ x = rnorm(100)
 modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
 }
 \author{
-JJB
+JJB, Justin
 }
 \keyword{internal}

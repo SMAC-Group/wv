@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // dwt_cpp
 arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels, std::string boundary, bool brickwall);
-RcppExport SEXP gmwm2_dwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP, SEXP boundarySEXP, SEXP brickwallSEXP) {
+RcppExport SEXP wv_dwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP, SEXP boundarySEXP, SEXP brickwallSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,7 +23,7 @@ END_RCPP
 }
 // modwt_cpp
 arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels, std::string boundary, bool brickwall);
-RcppExport SEXP gmwm2_modwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP, SEXP boundarySEXP, SEXP brickwallSEXP) {
+RcppExport SEXP wv_modwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP, SEXP boundarySEXP, SEXP brickwallSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -38,7 +38,7 @@ END_RCPP
 }
 // psi_tuk
 arma::vec psi_tuk(const arma::vec& x, double sig2_bw, double crob_bw);
-RcppExport SEXP gmwm2_psi_tuk(SEXP xSEXP, SEXP sig2_bwSEXP, SEXP crob_bwSEXP) {
+RcppExport SEXP wv_psi_tuk(SEXP xSEXP, SEXP sig2_bwSEXP, SEXP crob_bwSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -51,7 +51,7 @@ END_RCPP
 }
 // der_psi_tuk
 arma::vec der_psi_tuk(const arma::vec& x, double sig2_bw, double crob_bw);
-RcppExport SEXP gmwm2_der_psi_tuk(SEXP xSEXP, SEXP sig2_bwSEXP, SEXP crob_bwSEXP) {
+RcppExport SEXP wv_der_psi_tuk(SEXP xSEXP, SEXP sig2_bwSEXP, SEXP crob_bwSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -64,7 +64,7 @@ END_RCPP
 }
 // hfilter
 arma::vec hfilter(int jscale);
-RcppExport SEXP gmwm2_hfilter(SEXP jscaleSEXP) {
+RcppExport SEXP wv_hfilter(SEXP jscaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -73,9 +73,56 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// sp_wv_coeffs
+arma::field<arma::vec> sp_wv_coeffs(const arma::mat& X, int J1, int J2);
+RcppExport SEXP wv_sp_wv_coeffs(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type J1(J1SEXP);
+    Rcpp::traits::input_parameter< int >::type J2(J2SEXP);
+    rcpp_result_gen = Rcpp::wrap(sp_wv_coeffs(X, J1, J2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sp_wvar_cpp
+arma::field<arma::mat> sp_wvar_cpp(const arma::field<arma::vec>& wv_coeffs, int n, int m, int J1, int J2, bool iso, bool robust, double eff);
+RcppExport SEXP wv_sp_wvar_cpp(SEXP wv_coeffsSEXP, SEXP nSEXP, SEXP mSEXP, SEXP J1SEXP, SEXP J2SEXP, SEXP isoSEXP, SEXP robustSEXP, SEXP effSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::field<arma::vec>& >::type wv_coeffs(wv_coeffsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type J1(J1SEXP);
+    Rcpp::traits::input_parameter< int >::type J2(J2SEXP);
+    Rcpp::traits::input_parameter< bool >::type iso(isoSEXP);
+    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
+    Rcpp::traits::input_parameter< double >::type eff(effSEXP);
+    rcpp_result_gen = Rcpp::wrap(sp_wvar_cpp(wv_coeffs, n, m, J1, J2, iso, robust, eff));
+    return rcpp_result_gen;
+END_RCPP
+}
+// spat_wavar
+arma::field<arma::mat> spat_wavar(const arma::mat& X, int J1, int J2, bool iso, bool robust, double eff);
+RcppExport SEXP wv_spat_wavar(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP, SEXP isoSEXP, SEXP robustSEXP, SEXP effSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type J1(J1SEXP);
+    Rcpp::traits::input_parameter< int >::type J2(J2SEXP);
+    Rcpp::traits::input_parameter< bool >::type iso(isoSEXP);
+    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
+    Rcpp::traits::input_parameter< double >::type eff(effSEXP);
+    rcpp_result_gen = Rcpp::wrap(spat_wavar(X, J1, J2, iso, robust, eff));
+    return rcpp_result_gen;
+END_RCPP
+}
 // make_wv_iso
 arma::mat make_wv_iso(arma::mat wv, int min_dim);
-RcppExport SEXP gmwm2_make_wv_iso(SEXP wvSEXP, SEXP min_dimSEXP) {
+RcppExport SEXP wv_make_wv_iso(SEXP wvSEXP, SEXP min_dimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -87,7 +134,7 @@ END_RCPP
 }
 // subset_matrix_parallel
 arma::mat subset_matrix_parallel(const arma::mat& x, const arma::uvec y);
-RcppExport SEXP gmwm2_subset_matrix_parallel(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP wv_subset_matrix_parallel(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -99,7 +146,7 @@ END_RCPP
 }
 // index_mat
 arma::umat index_mat(int m, int n, std::string ftype);
-RcppExport SEXP gmwm2_index_mat(SEXP mSEXP, SEXP nSEXP, SEXP ftypeSEXP) {
+RcppExport SEXP wv_index_mat(SEXP mSEXP, SEXP nSEXP, SEXP ftypeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -112,7 +159,7 @@ END_RCPP
 }
 // lower_tri_elem
 arma::vec lower_tri_elem(const arma::mat& X);
-RcppExport SEXP gmwm2_lower_tri_elem(SEXP XSEXP) {
+RcppExport SEXP wv_lower_tri_elem(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

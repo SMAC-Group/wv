@@ -27,9 +27,15 @@
 arma::vec hfilter(int jscale){
     
     // mother wavelet
-    arma::vec g = { 0.5,  0.5 }; // (1/sqrt(2))*c(1,1)/sqrt(2)
+    arma::vec g(2);// (1/sqrt(2))*c(1,1)/sqrt(2)
+    g(0) = 0.5; 
+    g(1) = -0.5; 
+
     // father wavelet
-    arma::vec h = { 0.5, -0.5 }; // c(1/sqrt(2),-1/sqrt(2))/sqrt(2)
+    arma::vec h(2); // c(1/sqrt(2),-1/sqrt(2))/sqrt(2)
+    h(0) = 0.5;
+    h(1) = -0.5;    
+    
     // number of filters
     int L = 2;
     

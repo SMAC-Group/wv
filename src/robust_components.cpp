@@ -124,7 +124,9 @@ arma::vec sig_rob_bw(arma::vec y, double eff = 0.6){
           
   double sig2_hat_rob_bw = as<double>(opt_val[0])*var(y);
   
-  arma::vec out = { sig2_hat_rob_bw , crob_bw};
+  arma::vec out(2);
+  out(0) = sig2_hat_rob_bw;
+  out(1) = crob_bw; 
   
   return out;
 }

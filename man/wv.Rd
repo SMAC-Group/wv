@@ -4,7 +4,7 @@
 \name{wv}
 \alias{wv}
 \alias{wv-package}
-\title{wv.}
+\title{gmwm2.}
 \description{
-wv.
+gmwm2.
 }

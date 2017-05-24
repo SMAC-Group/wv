@@ -43,3 +43,74 @@ modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels, boundary, brickwall)
 }
 
+#' Psi Tukey Scoring function
+#' @param x data vector
+#' @param sig2_bw variance of brickwalled wv coefficients
+#' @param crob_bw ?
+#' @return A \code{vec} containing the scores.
+#' @export
+psi_tuk <- function(x, sig2_bw, crob_bw) {
+    .Call('wv_psi_tuk', PACKAGE = 'wv', x, sig2_bw, crob_bw)
+}
+
+#' Derivative of Psi Tukey Scoring function
+#' @inheritParams psi_tuk
+#' @export
+der_psi_tuk <- function(x, sig2_bw, crob_bw) {
+    .Call('wv_der_psi_tuk', PACKAGE = 'wv', x, sig2_bw, crob_bw)
+}
+
+#' Create the ISO matrix
+#' @param min_dim An \code{integer} indicating the minimum value.
+#' @param wv      A \code{matrix} containing the wavelet variance.
+#' @export
+#' @details
+#' Takes the average of the lower triangular view
+#' before returning. 
+#' @examples
+#' a = matrix(1:9, nrow = 3, byrow = TRUE)
+#' make_wv_iso(a, 3 - 1)
+make_wv_iso <- function(wv, min_dim) {
+    .Call('wv_make_wv_iso', PACKAGE = 'wv', wv, min_dim)
+}
+
+#' Perform parallel contingous subset
+#' @param x \code{matrix} to use to subset
+#' @param y \code{vector} of ids
+#' @export
+#' @examples
+#' a = matrix(1:100, nrow = 10, byrow = TRUE)
+#' 
+#' idx = c(1, 3, 10)
+#' subset_matrix_parallel(a, idx - 1)
+#' ## same as
+#' # a[c(1, 3, 10), c(1, 3, 10)]
+subset_matrix_parallel <- function(x, y) {
+    .Call('wv_subset_matrix_parallel', PACKAGE = 'wv', x, y)
+}
+
+#' Create an index matrix
+#' @param m,n   An \code{integer} indicating matrix row, column dimension
+#' @param ftype A \code{string} of either \code{"col"} or \code{"row"}.
+#' @export
+#' @details
+#' Creates an index matrix filled by either row or column.
+#' @examples
+#' # Index matrix by column
+#' index_mat(3,4, "col")
+#' # index matrix by row
+#' index_mat(3,4, "row")
+index_mat <- function(m, n, ftype) {
+    .Call('wv_index_mat', PACKAGE = 'wv', m, n, ftype)
+}
+
+#' Extract Lower Triangular Elements
+#' @param X \code{matrix}
+#' @export
+#' @examples
+#' x = matrix(1:16, 4, 4, byrow = TRUE)
+#' lower_tri_elem(x)
+lower_tri_elem <- function(X) {
+    .Call('wv_lower_tri_elem', PACKAGE = 'wv', X)
+}
+

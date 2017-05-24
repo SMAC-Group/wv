@@ -73,6 +73,53 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// sp_wv_coeffs
+arma::field<arma::vec> sp_wv_coeffs(const arma::mat& X, int J1, int J2);
+RcppExport SEXP wv_sp_wv_coeffs(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type J1(J1SEXP);
+    Rcpp::traits::input_parameter< int >::type J2(J2SEXP);
+    rcpp_result_gen = Rcpp::wrap(sp_wv_coeffs(X, J1, J2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sp_wvar_cpp
+arma::field<arma::mat> sp_wvar_cpp(const arma::field<arma::vec>& wv_coeffs, int n, int m, int J1, int J2, bool iso, bool robust, double eff);
+RcppExport SEXP wv_sp_wvar_cpp(SEXP wv_coeffsSEXP, SEXP nSEXP, SEXP mSEXP, SEXP J1SEXP, SEXP J2SEXP, SEXP isoSEXP, SEXP robustSEXP, SEXP effSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::field<arma::vec>& >::type wv_coeffs(wv_coeffsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type J1(J1SEXP);
+    Rcpp::traits::input_parameter< int >::type J2(J2SEXP);
+    Rcpp::traits::input_parameter< bool >::type iso(isoSEXP);
+    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
+    Rcpp::traits::input_parameter< double >::type eff(effSEXP);
+    rcpp_result_gen = Rcpp::wrap(sp_wvar_cpp(wv_coeffs, n, m, J1, J2, iso, robust, eff));
+    return rcpp_result_gen;
+END_RCPP
+}
+// spat_wavar
+arma::field<arma::mat> spat_wavar(const arma::mat& X, int J1, int J2, bool iso, bool robust, double eff);
+RcppExport SEXP wv_spat_wavar(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP, SEXP isoSEXP, SEXP robustSEXP, SEXP effSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type J1(J1SEXP);
+    Rcpp::traits::input_parameter< int >::type J2(J2SEXP);
+    Rcpp::traits::input_parameter< bool >::type iso(isoSEXP);
+    Rcpp::traits::input_parameter< bool >::type robust(robustSEXP);
+    Rcpp::traits::input_parameter< double >::type eff(effSEXP);
+    rcpp_result_gen = Rcpp::wrap(spat_wavar(X, J1, J2, iso, robust, eff));
+    return rcpp_result_gen;
+END_RCPP
+}
 // make_wv_iso
 arma::mat make_wv_iso(arma::mat wv, int min_dim);
 RcppExport SEXP wv_make_wv_iso(SEXP wvSEXP, SEXP min_dimSEXP) {

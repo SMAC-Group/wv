@@ -1,4 +1,4 @@
-#' gmwm2.
+#' wv.
 #'
 #' @importFrom Rcpp evalCpp
 #' @useDynLib wv

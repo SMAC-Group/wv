@@ -62,6 +62,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hfilter
+arma::vec hfilter(int jscale);
+RcppExport SEXP wv_hfilter(SEXP jscaleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type jscale(jscaleSEXP);
+    rcpp_result_gen = Rcpp::wrap(hfilter(jscale));
+    return rcpp_result_gen;
+END_RCPP
+}
 // make_wv_iso
 arma::mat make_wv_iso(arma::mat wv, int min_dim);
 RcppExport SEXP wv_make_wv_iso(SEXP wvSEXP, SEXP min_dimSEXP) {

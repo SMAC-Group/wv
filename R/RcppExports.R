@@ -60,6 +60,13 @@ der_psi_tuk <- function(x, sig2_bw, crob_bw) {
     .Call('wv_der_psi_tuk', PACKAGE = 'wv', x, sig2_bw, crob_bw)
 }
 
+#' Haar filter for a spatial case
+#' @param jscale An \code{int} of the Number of Scales
+#' @export
+hfilter <- function(jscale) {
+    .Call('wv_hfilter', PACKAGE = 'wv', jscale)
+}
+
 #' Create the ISO matrix
 #' @param min_dim An \code{integer} indicating the minimum value.
 #' @param wv      A \code{matrix} containing the wavelet variance.

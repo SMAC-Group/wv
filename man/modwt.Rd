@@ -6,8 +6,7 @@
  
 Calculation of the coefficients for the discrete wavelet transformation}
 \usage{
-modwt(x, nlevels = floor(log2(length(x))), filter = "haar",
-  boundary = "periodic", bw = TRUE)
+modwt(x, nlevels = floor(log2(length(x))), filter = "haar")
 }
 \arguments{
 \item{x}{A \code{vector} with dimensions N x 1.}

@@ -30,7 +30,7 @@
 #' x = rnorm(100)
 #' a = modwt(x)
 #' @export
-modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
+modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
   out = modwt_cpp(x = x, filter_name = filter, nlevels)
   names(out) = paste0("S",1:nlevels)
   mostattributes(out) = list(J=nlevels, filter = filter, class=c("modwt","list"))

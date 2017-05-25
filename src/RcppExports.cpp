@@ -150,3 +150,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"wv_dwt_cpp", (DL_FUNC) &wv_dwt_cpp, 3},
+    {"wv_modwt_cpp", (DL_FUNC) &wv_modwt_cpp, 3},
+    {"wv_ci_eta3", (DL_FUNC) &wv_ci_eta3, 3},
+    {"wv_ci_eta3_robust", (DL_FUNC) &wv_ci_eta3_robust, 4},
+    {"wv_ci_wave_variance", (DL_FUNC) &wv_ci_wave_variance, 6},
+    {"wv_wave_variance", (DL_FUNC) &wv_wave_variance, 3},
+    {"wv_wvar_cpp", (DL_FUNC) &wv_wvar_cpp, 5},
+    {"wv_modwt_wvar_cpp", (DL_FUNC) &wv_modwt_wvar_cpp, 8},
+    {"wv_batch_modwt_wvar_cpp", (DL_FUNC) &wv_batch_modwt_wvar_cpp, 8},
+    {"wv_scales_cpp", (DL_FUNC) &wv_scales_cpp, 1},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_wv(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

@@ -6,10 +6,10 @@
 #' @param x           A \code{vector} with dimensions \eqn{N\times 1}{N x 1}.
 #' @param filter_name A \code{string} indicating the filter.
 #' @param nlevels     An \code{integer}, \eqn{J}, indicating the level of the decomposition.
-#' @return y           \code{field<vec>} that contains the wavelet coefficients for each decomposition level
+#' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level J decomposition of the time series using the pyramid algorithm
-#' @author James Balamuta and Justin Lee
+#' @author JJB, Justin 
 #' @keywords internal
 #' @examples
 #' set.seed(999)
@@ -24,13 +24,13 @@ dwt_cpp <- function(x, filter_name, nlevels) {
 #' @description
 #' Calculation of the coefficients for the discrete wavelet transformation
 #' @inheritParams dwt_cpp
-#' @return y           \code{field<vec>} that contains the wavelet coefficients for each decomposition level
+#' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @keywords internal
 #' @details
 #' Performs a level J decomposition of the time series using the pyramid algorithm.
 #' Use this implementation to supply custom parameters instead of modwt(x),
 #' which serves as a wrapper function.
-#' @author James Balamuta and Justin Lee 
+#' @author JJB, Justin 
 #' @keywords internal
 #' @examples
 #' set.seed(999)

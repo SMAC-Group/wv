@@ -32,7 +32,7 @@
 #' @export
 dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
   
-  if(is.vector(x) && length(x) %% nlevels != 0){
+  if(is.vector(x) && length(x) %% 2^nlevels != 0){
     warning("The data has been truncated so that it is divisible by `nlevels` (e.g. 2^*)")
     x = x[1:2^nlevels]
   }else if(is.matrix(x) || is.data.frame(x)){
@@ -48,7 +48,6 @@ dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
   }
   
   out = dwt_cpp(x = x, filter_name = filter, nlevels)  # call to C++ version of dwt
-  names(out) = paste0("S",1:nlevels)
   mostattributes(out) = list(J=nlevels, filter = filter, class=c("dwt","list"))
   out
 }

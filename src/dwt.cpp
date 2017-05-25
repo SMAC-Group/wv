@@ -48,8 +48,13 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned in
   
   unsigned int N = x.n_elem;
 
-  unsigned int J = nlevels;
-
+  unsigned int J;
+  if (nlevels == floor(log2(N))){
+    J = nlevels-1; 
+  }else{
+    J = nlevels; 
+  }
+  
   unsigned int tau = pow(2,J);
 
   if(double(N)/double(tau) != floor(double(N)/double(tau))){
@@ -172,7 +177,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
       Vj[t] = Vjt;
     }
     
-    y(j) = Wj.rows(2*j+1,N-1);
+    y(j) = Wj.rows(pow(2,j),N-1);
     x = Vj;
   }
   

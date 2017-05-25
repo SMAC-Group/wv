@@ -2,13 +2,13 @@
 % Please edit documentation in R/RcppExports.R
 \name{ci_wave_variance}
 \alias{ci_wave_variance}
-\title{Generate a Confidence intervval for a Univariate Time Series}
+\title{Generate a Confidence interval for a Univariate Time Series}
 \usage{
 ci_wave_variance(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.025,
   robust = FALSE, eff = 0.6)
 }
 \arguments{
-\item{signal_modwt_bw}{A \code{field<vec>} that contains the brick walled modwt or dwt decomposition}
+\item{signal_modwt_bw}{A \code{field<vec>} that contains the modwt or dwt decomposition}
 
 \item{wv}{A \code{vec} that contains the wave variance.}
 
@@ -38,7 +38,7 @@ This function can be expanded to allow for other confidence interval calculation
 set.seed(1337)
 x = rnorm(100)
 # Uses the internal MODWT function not associated with an S3 class.
-decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 y = wave_variance(decomp)
 ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 }

@@ -4,8 +4,7 @@
 \alias{dwt}
 \title{Discrete Wavelet Transform}
 \usage{
-dwt(x, nlevels = floor(log2(length(x))), filter = "haar",
-  boundary = "periodic", bw = TRUE)
+dwt(x, nlevels = floor(log2(length(x))), filter = "haar")
 }
 \arguments{
 \item{x}{A \code{vector} with dimensions N x 1.}
@@ -13,10 +12,6 @@ dwt(x, nlevels = floor(log2(length(x))), filter = "haar",
 \item{nlevels}{A \code{integer} indicating the \eqn{J} levels of decomposition.}
 
 \item{filter}{A \code{string} indicating the filter name}
-
-\item{boundary}{A \code{string} indicating whether the filter is: \code{"periodic"} or \code{"reflection"}.}
-
-\item{bw}{A \code{boolean} indicating whether to remove (TRUE) or keep (FALSE) boundary wavelet coefficients}
 }
 \value{
 y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level

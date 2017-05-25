@@ -7,7 +7,7 @@
 wave_variance(signal_modwt_bw, robust = FALSE, eff = 0.6)
 }
 \arguments{
-\item{signal_modwt_bw}{A \code{field<vec>} that contains the brick walled modwt or dwt decomposition}
+\item{signal_modwt_bw}{A \code{field<vec>} that contains the modwt or dwt decomposition}
 
 \item{robust}{A \code{boolean} to determine the type of wave estimation.}
 
@@ -22,7 +22,7 @@ Computes an estimate of the wave variance
 \examples{
 set.seed(1337)
 x = rnorm(100)
-decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 wave_variance(decomp)
 
 wave_variance(decomp, robust = TRUE, eff = 0.6)

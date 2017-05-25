@@ -7,7 +7,7 @@
 ci_eta3(y, dims, alpha_ov_2)
 }
 \arguments{
-\item{y}{A \code{vec} that computes the brickwalled modwt dot product of each wavelet coefficient divided by their length.}
+\item{y}{A \code{vec} that computes the modwt dot product of each wavelet coefficient divided by their length.}
 
 \item{dims}{A \code{String} indicating the confidence interval being calculated.}
 
@@ -27,7 +27,7 @@ Computes the eta3 CI
 \examples{
 x = rnorm(100)
 # Uses the internal MODWT function not associated with an S3 class.
-decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 y = wave_variance(decomp)
 ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 }

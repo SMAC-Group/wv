@@ -6,8 +6,6 @@
 #' @param x           A \code{vector} with dimensions \eqn{N\times 1}{N x 1}.
 #' @param filter_name A \code{string} indicating the filter.
 #' @param nlevels     An \code{integer}, \eqn{J}, indicating the level of the decomposition.
-#' @param boundary    A \code{string} indicating the type of boundary method to use. Either \code{boundary="periodic"} or \code{"reflection"}.
-#' @param brickwall   A \code{bool} indicating whether a brick wall procedure should be applied to the coefficients.
 #' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level J decomposition of the time series using the pyramid algorithm
@@ -16,10 +14,10 @@
 #' @examples
 #' set.seed(999)
 #' x = rnorm(2^8)
-#' dwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' dwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' @export
-dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
-    .Call('wv_dwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels, boundary, brickwall)
+dwt_cpp <- function(x, filter_name, nlevels) {
+    .Call('wv_dwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
 }
 
 #' @title Maximum Overlap Discrete Wavelet Transform
@@ -37,15 +35,15 @@ dwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)
-#' modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' modwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' @export
-modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
-    .Call('wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels, boundary, brickwall)
+modwt_cpp <- function(x, filter_name, nlevels) {
+    .Call('wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
 }
 
 #' @title Generate eta3 confidence interval
-#' @description Computes the eta3 CI
-#' @param y          A \code{vec} that computes the brickwalled modwt dot product of each wavelet coefficient divided by their length.
+#' @description Computes the eta3 CI 
+#' @param y          A \code{vec} that computes the modwt dot product of each wavelet coefficient divided by their length.
 #' @param dims       A \code{String} indicating the confidence interval being calculated.
 #' @param alpha_ov_2 A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level 
 #' @return A \code{matrix} with the structure:
@@ -59,7 +57,7 @@ modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
 #' @examples
 #' x = rnorm(100)
 #' # Uses the internal MODWT function not associated with an S3 class.
-#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' y = wave_variance(decomp)
 #' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 ci_eta3 <- function(y, dims, alpha_ov_2) {
@@ -68,7 +66,7 @@ ci_eta3 <- function(y, dims, alpha_ov_2) {
 
 #' @title Generate eta3 robust confidence interval
 #' @description Computes the eta3 robust CI
-#' @param wv_robust   A \code{vec} that computes the brickwalled modwt dot product of each wavelet coefficient divided by their length.
+#' @param wv_robust   A \code{vec} that computes the modwt dot product of each wavelet coefficient divided by their length.
 #' @param wv_ci_class A \code{mat} that contains the CI mean, CI Lower, and CI Upper
 #' @param alpha_ov_2  A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level
 #' @param eff         A \code{double} that indicates the efficiency.
@@ -85,16 +83,16 @@ ci_eta3 <- function(y, dims, alpha_ov_2) {
 #' @examples
 #' x = rnorm(100)
 #' # Uses the internal MODWT function not associated with an S3 class.
-#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' y = wave_variance(decomp, robust = TRUE,  eff = 0.6)
 #' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025, robust = TRUE, eff = 0.6)
 ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
     .Call('wv_ci_eta3_robust', PACKAGE = 'wv', wv_robust, wv_ci_class, alpha_ov_2, eff)
 }
 
-#' @title Generate a Confidence intervval for a Univariate Time Series
+#' @title Generate a Confidence interval for a Univariate Time Series
 #' @description Computes an estimate of the multiscale variance and a chi-squared confidence interval
-#' @param signal_modwt_bw A \code{field<vec>} that contains the brick walled modwt or dwt decomposition
+#' @param signal_modwt_bw A \code{field<vec>} that contains the modwt or dwt decomposition
 #' @param wv              A \code{vec} that contains the wave variance.
 #' @param type            A \code{String} indicating the confidence interval being calculated.
 #' @param alpha_ov_2      A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level.
@@ -114,7 +112,7 @@ ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
 #' set.seed(1337)
 #' x = rnorm(100)
 #' # Uses the internal MODWT function not associated with an S3 class.
-#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' y = wave_variance(decomp)
 #' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.025, robust = FALSE, eff = 0.6) {
@@ -123,7 +121,7 @@ ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.
 
 #' @title Generate a Wave Variance for a Univariate Time Series
 #' @description Computes an estimate of the wave variance
-#' @param signal_modwt_bw A \code{field<vec>} that contains the brick walled modwt or dwt decomposition
+#' @param signal_modwt_bw A \code{field<vec>} that contains the modwt or dwt decomposition
 #' @param robust          A \code{boolean} to determine the type of wave estimation.
 #' @param eff             A \code{double} that indicates the efficiency.
 #' @return A \code{vec} that contains the wave variance.
@@ -132,7 +130,7 @@ ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.
 #' @examples
 #' set.seed(1337)
 #' x = rnorm(100)
-#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' wave_variance(decomp)
 #' 
 #' wave_variance(decomp, robust = TRUE, eff = 0.6)
@@ -159,7 +157,7 @@ wave_variance <- function(signal_modwt_bw, robust = FALSE, eff = 0.6) {
 #' This function does the heavy lifting with the signal_modwt_bw
 #' @examples
 #' x = rnorm(100)
-#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' wvar_cpp(decomp, robust=FALSE, eff=0.6, alpha = 0.05, ci_type="eta3")
 wvar_cpp <- function(signal_modwt_bw, robust, eff, alpha, ci_type) {
     .Call('wv_wvar_cpp', PACKAGE = 'wv', signal_modwt_bw, robust, eff, alpha, ci_type)

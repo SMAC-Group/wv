@@ -20,8 +20,6 @@
 #' @param x        A \code{vector} with dimensions N x 1. 
 #' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
 #' @param filter   A \code{string} indicating the filter name
-#' @param boundary A \code{string} indicating whether the filter is: \code{"periodic"} or \code{"reflection"}.
-#' @param bw       A \code{boolean} indicating whether to remove (TRUE) or keep (FALSE) boundary wavelet coefficients
 #' @return y       A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
@@ -33,9 +31,9 @@
 #' a = modwt(x)
 #' @export
 modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
-  out = modwt_cpp(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)
+  out = modwt_cpp(x = x, filter_name = filter, nlevels)
   names(out) = paste0("S",1:nlevels)
-  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("modwt","list"))
+  mostattributes(out) = list(J=nlevels, filter = filter, class=c("modwt","list"))
   out
 }
 
@@ -72,6 +70,5 @@ print.modwt = function(x, ...){
 #' summary(modwt(x))
 summary.modwt=function(object, ...){
   cat("Results of the MODWT containing ",attr(object,"J")," scales\n")
-  cat("These values are", if(!attr(object,"brick.wall")){" >NOT<"}," brick walled\n")
   print.modwt(object)
 }

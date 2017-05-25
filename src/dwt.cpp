@@ -33,8 +33,6 @@
 //' @param x           A \code{vector} with dimensions \eqn{N\times 1}{N x 1}.
 //' @param filter_name A \code{string} indicating the filter.
 //' @param nlevels     An \code{integer}, \eqn{J}, indicating the level of the decomposition.
-//' @param boundary    A \code{string} indicating the type of boundary method to use. Either \code{boundary="periodic"} or \code{"reflection"}.
-//' @param brickwall   A \code{bool} indicating whether a brick wall procedure should be applied to the coefficients.
 //' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 //' @details
 //' Performs a level J decomposition of the time series using the pyramid algorithm
@@ -43,11 +41,10 @@
 //' @examples
 //' set.seed(999)
 //' x = rnorm(2^8)
-//' dwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+//' dwt_cpp(x, filter_name = "haar", nlevels = 4)
 //' @export
 // [[Rcpp::export]]
-arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
-                                   unsigned int nlevels, std::string boundary, bool brickwall) {
+arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels) {
   
   unsigned int N = x.n_elem;
 
@@ -124,22 +121,10 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name,
 //' @examples
 //' set.seed(999)
 //' x = rnorm(100)
-//' modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+//' modwt_cpp(x, filter_name = "haar", nlevels = 4)
 //' @export
 // [[Rcpp::export]]
-arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name,
-                                   unsigned int nlevels, std::string boundary, bool brickwall){
-  
-  if(boundary == "periodic"){
-    //
-  }else if(boundary == "reflection"){
-    unsigned int temp_N = x.n_elem;
-    arma::vec rev_vec = reverse_vec(x);
-    x.resize(2*temp_N);
-    x.rows(temp_N, 2*temp_N-1) = rev_vec;
-  }else{
-    Rcpp::stop("The supplied 'boundary' argument is not supported! Choose either periodic or reflection.");
-  }
+arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels){
   
   unsigned int N = x.n_elem;
   

@@ -20,8 +20,6 @@
 #' @param x        A \code{vector} with dimensions N x 1. 
 #' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
 #' @param filter   A \code{string} indicating the filter name
-#' @param boundary A \code{string} indicating whether the filter is: \code{"periodic"} or \code{"reflection"}.
-#' @param bw       A \code{boolean} indicating whether to remove (TRUE) or keep (FALSE) boundary wavelet coefficients
 #' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
@@ -32,7 +30,7 @@
 #' x = rnorm(2^8)
 #' dwt(x)
 #' @export
-dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="periodic", bw = TRUE) {
+dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
   
   if(is.vector(x) && length(x) %% nlevels != 0){
     warning("The data has been truncated so that it is divisible by `nlevels` (e.g. 2^*)")
@@ -49,9 +47,9 @@ dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar", boundary="p
     }
   }
   
-  out = dwt_cpp(x = x, filter_name = filter, nlevels, boundary = boundary, brickwall = bw)  # call to C++ version of dwt
+  out = dwt_cpp(x = x, filter_name = filter, nlevels)  # call to C++ version of dwt
   names(out) = paste0("S",1:nlevels)
-  mostattributes(out) = list(J=nlevels, filter = filter, boundary = boundary, brick.wall = bw, class=c("dwt","list"))
+  mostattributes(out) = list(J=nlevels, filter = filter, class=c("dwt","list"))
   out
 }
 

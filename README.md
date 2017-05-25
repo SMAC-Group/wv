@@ -39,4 +39,4 @@ User Guides
 
 Various guides ship with package or are available on <http://smac-group.com/> to provide insight into how to use the different methods. At the present time, the following vignettes are available:
 
-1.  Process to Haar Wavelet Variance [(Online)](http://smac-group.com/computing/process-to-haar-wavelet-variance-formulae)
+1.  Process to Haar Wavelet Variance [(Online)](https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html)

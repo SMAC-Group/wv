@@ -15,7 +15,7 @@ modwt_cpp(x, filter_name, nlevels, boundary, brickwall)
 
 \item{boundary}{A \code{string} indicating the type of boundary method to use. Either \code{boundary="periodic"} or \code{"reflection"}.}
 
-\item{brickwall}{A \code{bool} indicating whether the a brick wall procedure should be applied to the coefficients.}
+\item{brickwall}{A \code{bool} indicating whether a brick wall procedure should be applied to the coefficients.}
 }
 \value{
 y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level

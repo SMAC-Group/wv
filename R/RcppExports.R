@@ -7,7 +7,7 @@
 #' @param filter_name A \code{string} indicating the filter.
 #' @param nlevels     An \code{integer}, \eqn{J}, indicating the level of the decomposition.
 #' @param boundary    A \code{string} indicating the type of boundary method to use. Either \code{boundary="periodic"} or \code{"reflection"}.
-#' @param brickwall   A \code{bool} indicating whether the a brick wall procedure should be applied to the coefficients.
+#' @param brickwall   A \code{bool} indicating whether a brick wall procedure should be applied to the coefficients.
 #' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level J decomposition of the time series using the pyramid algorithm
@@ -65,86 +65,6 @@ der_psi_tuk <- function(x, sig2_bw, crob_bw) {
 #' @export
 hfilter <- function(jscale) {
     .Call('wv_hfilter', PACKAGE = 'wv', jscale)
-}
-
-#' Compute the Spatial Wavelet Coefficients
-#' @param X      is a matrix with row, col orientation
-#' @param J1,J2  is the levels of decomposition along the rows, columns
-#' @export
-#' @return A \code{list} of \code{vectors} containing the wavelet coefficients.
-#' @details 
-#' By default this function will return the wavelet coefficient in
-#' addition to the wavelet
-sp_wv_coeffs <- function(X, J1, J2) {
-    .Call('wv_sp_wv_coeffs', PACKAGE = 'wv', X, J1, J2)
-}
-
-#' Spatial Wavelet Variance
-#' 
-#' Computes the Spatial Wavelet Variance
-#' @param wv_coeffs is \code{field<vec>} containing the wavelet coefficients
-#' @param n,m is \code{int} containing the number of observations in rows, cols
-#' @param iso    is whether the matrix is isometric
-#' @inheritParams sp_wv_coeffs
-#' @param robust \code{bool} is an indicator as to whether a classic or robust
-#'               estimation should occur.
-#' @param eff    \code{double} is the level of efficiency
-sp_wvar_cpp <- function(wv_coeffs, n, m, J1, J2, iso = TRUE, robust = TRUE, eff = 0.6) {
-    .Call('wv_sp_wvar_cpp', PACKAGE = 'wv', wv_coeffs, n, m, J1, J2, iso, robust, eff)
-}
-
-#' Compute the Spatial Wavelet Variance
-#' @inheritParams sp_wv_coeffs
-#' @inheritParams sp_wvar_cpp
-#' @return A \code{list} with the following values:
-#' \itemize{
-#' \item{Classical WV}
-#' \item{Robust WV}
-#' \item{Covariance Matrix}
-#' }
-#' @export
-#' @seealso \code{\link{sp_wv_coeffs}}, \code{\link{spgmwm_exp}}
-#' @examples
-#' eps = 0 # no contamination
-#' eps = 0.05 # with contamination
-#' sig.eps = 9
-#' m = n = 10
-#' nlag = seq(1,n,1)
-#' grid = expand.grid(nlag,nlag)
-#' J1 = floor(log2(n)) - 1
-#' J2 = floor(log2(m)) - 1
-#' 
-#' # Parameters
-#' sig2 = 1
-#' phi = 2
-#' theta = c(phi,sig2)
-#' wv.theo = exp_theo(theta,J1,J2)
-#' p = length(theta)
-#' alpha = 0.05
-#' J = J1*(J2+1)/2
-#' 
-#' # Covariance matrix for simulation of process
-#' distM = as.matrix(dist(grid))
-#' Sigma = sig2*exp(-distM/phi)
-#' cholSigma = t(chol(Sigma))
-#' 
-#' # Simulate the matrix
-#' set.seed(234)
-#' sim = cholSigma%*%rnorm(m*n)
-#' 
-#' # If contamination is set, contaminate
-#' if(eps!=0){
-#'     index = sample(1:(m*n),round((m*n)*eps))
-#'     sim[index] = sim[index] + rnorm(length(index),0,sqrt(sig.eps))
-#' }
-#' 
-#' Ymle = sim
-#' 
-#' Ygmwm = matrix(sim,n)
-#' 
-#' wv = spat_wavar(Ygmwm, J1, J2, eff = 0.6)
-spat_wavar <- function(X, J1, J2, iso = TRUE, robust = TRUE, eff = 0.6) {
-    .Call('wv_spat_wavar', PACKAGE = 'wv', X, J1, J2, iso, robust, eff)
 }
 
 #' Create the ISO matrix

@@ -104,10 +104,6 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned in
     x = Vj;
   }
   
-  // Replace last element with empty vector like original dwt 
-  // Note: "hack" approach, will need more test cases to see if equivalent 
-  if(pow(2, J) == N) y(J-1) = arma::zeros<arma::vec>(0); 
-  
   return y;
 }
 
@@ -133,7 +129,12 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
   
   unsigned int N = x.n_elem;
   
-  unsigned int J = nlevels;
+  unsigned int J;
+  if (nlevels == floor(log2(N))){
+    J = nlevels-1; 
+  }else{
+    J = nlevels; 
+  }
   
   unsigned int tau = pow(2,J);
   
@@ -156,6 +157,9 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
   arma::vec Wj(N);
   arma::vec Vj(N);
   
+  // changing index throughout the loop 
+  int index = 0; 
+  
   for(unsigned int j = 0; j < J; j++) {
     for(unsigned int t = 2*j+1; t < N; t++) {
       
@@ -176,8 +180,8 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
       Wj[t] = Wjt;
       Vj[t] = Vjt;
     }
-    
-    y(j) = Wj.rows(pow(2,j),N-1);
+    index = 2*index+1;
+    y(j) = Wj.rows(index,N-1);
     x = Vj;
   }
   

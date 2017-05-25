@@ -69,5 +69,5 @@ print.modwt = function(x, ...){
 #' summary(modwt(x))
 summary.modwt=function(object, ...){
   cat("Results of the MODWT containing ",attr(object,"J")," scales\n")
-  print.modwt(object)
+  print.modwt(object[[1]])
 }

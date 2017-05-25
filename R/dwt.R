@@ -85,6 +85,6 @@ print.dwt=function(x, ...){
 #' summary(dwt(x))
 summary.dwt=function(object, ...){
   cat("Results of the DWT containing ",attr(object,"J")," scales\n")
-  a[[1]] cat("First level of decomposition\n")
-  
+  y = as.list(object)
+  y[[1]]
 }

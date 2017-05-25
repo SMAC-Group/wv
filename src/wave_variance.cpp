@@ -221,8 +221,8 @@ arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robu
 }
 
 
-//' @title Computes the (MODWT) wavelet variance and the confidence interval 
-//' @description Calculates the (MODWT) wavelet variance and the CI
+//' @title Computes the (MODWT) wavelet variance
+//' @description Calculates the (MODWT) wavelet variance
 //' @param signal_modwt_bw  A \code{field<vec>} that contains the modwt decomposition after it has been brick walled.
 //' @param robust           A \code{boolean} that triggers the use of the robust estimate.
 //' @param eff              A \code{double} that indicates the efficiency as it relates to an MLE.
@@ -256,8 +256,8 @@ arma::mat wvar_cpp(const arma::field<arma::vec>& signal_modwt_bw,
 
 
 
-//' @title Computes the (MODWT) wavelet variance and confidence interval given a signal input
-//' @description Calculates the (MODWT) wavelet variance and CI given a signal input
+//' @title Computes the (MODWT) wavelet variance
+//' @description Calculates the (MODWT) wavelet variance
 //' @param signal     A \code{vec} that contains the data.
 //' @param robust     A \code{boolean} that triggers the use of the robust estimate.
 //' @param eff        A \code{double} that indicates the efficiency as it relates to an MLE.
@@ -285,9 +285,9 @@ arma::mat modwt_wvar_cpp(const arma::vec& signal, unsigned int nlevels, bool rob
   // signal_modwt
   arma::field<arma::vec> signal_modwt_bw;
   if(decomp == "modwt"){
-    signal_bw = modwt_cpp(signal, strWavelet, nlevels, "periodic", true);
+    signal_modwt_bw = modwt_cpp(signal, strWavelet, nlevels, "periodic", true);
   }else{
-    signal_bw = dwt_cpp(signal, strWavelet, nlevels, "periodic", true);
+    signal_modwt_bw = dwt_cpp(signal, strWavelet, nlevels, "periodic", true);
   }
 
   arma::mat o = wvar_cpp(signal_modwt_bw,robust, eff, alpha, ci_type);
@@ -296,8 +296,8 @@ arma::mat modwt_wvar_cpp(const arma::vec& signal, unsigned int nlevels, bool rob
 }
 
 
-//' @title Computes the MO/DWT wavelet variance and confidence interval for multiple processes 
-//' @description Calculates the MO/DWT wavelet variance and CI for multiple processes 
+//' @title Computes the MO/DWT wavelet variance for multiple processes
+//' @description Calculates the MO/DWT wavelet variance
 //' @param signal     A \code{matrix} that contains the same number of observations per dataset
 //' @param robust     A \code{boolean} that triggers the use of the robust estimate.
 //' @param eff        A \code{double} that indicates the efficiency as it relates to an MLE.

@@ -121,3 +121,186 @@ lower_tri_elem <- function(X) {
     .Call('wv_lower_tri_elem', PACKAGE = 'wv', X)
 }
 
+#' @title Generate eta3 confidence interval
+#' @description Computes the eta3 CI
+#' @param y          A \code{vec} that computes the brickwalled modwt dot product of each wavelet coefficient divided by their length.
+#' @param dims       A \code{String} indicating the confidence interval being calculated.
+#' @param alpha_ov_2 A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level 
+#' @return A \code{matrix} with the structure:
+#' \itemize{
+#'  \item{Column 1}{Wavelet Variance}
+#'  \item{Column 2}{Chi-squared Lower Bounds}
+#'  \item{Column 3}{Chi-squared Upper Bounds}
+#' }
+#' @keywords internal
+#' @examples
+#' x = rnorm(100)
+#' # Uses the internal MODWT function not associated with an S3 class.
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' y = wave_variance(decomp)
+#' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
+ci_eta3 <- function(y, dims, alpha_ov_2) {
+    .Call('wv_ci_eta3', PACKAGE = 'wv', y, dims, alpha_ov_2)
+}
+
+#' @title Generate eta3 robust confidence interval
+#' @description Computes the eta3 robust CI
+#' @param wv_robust   A \code{vec} that computes the brickwalled modwt dot product of each wavelet coefficient divided by their length.
+#' @param wv_ci_class A \code{mat} that contains the CI mean, CI Lower, and CI Upper
+#' @param alpha_ov_2  A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level
+#' @param eff         A \code{double} that indicates the efficiency.
+#' @return A \code{matrix} with the structure:
+#' \itemize{
+#'  \item{Column 1}{Robust Wavelet Variance}
+#'  \item{Column 2}{Chi-squared Lower Bounds}
+#'  \item{Column 3}{Chi-squared Upper Bounds}
+#' }
+#' @details
+#' Within this function we are scaling the classical 
+#' @keywords internal
+#' @examples
+#' x = rnorm(100)
+#' # Uses the internal MODWT function not associated with an S3 class.
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' y = wave_variance(decomp, robust = TRUE,  eff = 0.6)
+#' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025, robust = TRUE, eff = 0.6)
+ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
+    .Call('wv_ci_eta3_robust', PACKAGE = 'wv', wv_robust, wv_ci_class, alpha_ov_2, eff)
+}
+
+#' @title Generate a Confidence intervval for a Univariate Time Series
+#' @description Computes an estimate of the multiscale variance and a chi-squared confidence interval
+#' @param signal_modwt_bw A \code{field<vec>} that contains the brick walled modwt or dwt decomposition
+#' @param wv              A \code{vec} that contains the wave variance.
+#' @param type            A \code{String} indicating the confidence interval being calculated.
+#' @param alpha_ov_2      A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level.
+#' @param robust          A \code{boolean} to determine the type of wave estimation.
+#' @param eff             A \code{double} that indicates the efficiency.
+#' @return A \code{matrix} with the structure:
+#' \itemize{
+#'  \item{Column 1}{Wavelet Variance}
+#'  \item{Column 2}{Chi-squared Lower Bounds}
+#'  \item{Column 3}{Chi-squared Upper Bounds}
+#' }
+#' @keywords internal
+#' @details 
+#' This function can be expanded to allow for other confidence interval calculations.
+#' @examples
+#' set.seed(1337)
+#' x = rnorm(100)
+#' # Uses the internal MODWT function not associated with an S3 class.
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' y = wave_variance(decomp)
+#' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
+ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.025, robust = FALSE, eff = 0.6) {
+    .Call('wv_ci_wave_variance', PACKAGE = 'wv', signal_modwt_bw, wv, type, alpha_ov_2, robust, eff)
+}
+
+#' @title Generate a Wave Variance for a Univariate Time Series
+#' @description Computes an estimate of the wave variance
+#' @param signal_modwt_bw A \code{field<vec>} that contains the brick walled modwt or dwt decomposition
+#' @param robust          A \code{boolean} to determine the type of wave estimation.
+#' @param eff             A \code{double} that indicates the efficiency.
+#' @return A \code{vec} that contains the wave variance.
+#' @keywords internal
+#' @examples
+#' set.seed(1337)
+#' x = rnorm(100)
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' wave_variance(decomp)
+#' 
+#' wave_variance(decomp, robust = TRUE, eff = 0.6)
+wave_variance <- function(signal_modwt_bw, robust = FALSE, eff = 0.6) {
+    .Call('wv_wave_variance', PACKAGE = 'wv', signal_modwt_bw, robust, eff)
+}
+
+#' @title Computes the (MODWT) wavelet variance
+#' @description Calculates the (MODWT) wavelet variance
+#' @param signal_modwt_bw  A \code{field<vec>} that contains the modwt decomposition after it has been brick walled.
+#' @param robust           A \code{boolean} that triggers the use of the robust estimate.
+#' @param eff              A \code{double} that indicates the efficiency as it relates to an MLE.
+#' @param alpha            A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level 
+#' @param ci_type          A \code{String} indicating the confidence interval being calculated. Valid value: "eta3"
+#' @return A \code{mat} with the structure:
+#' \itemize{
+#'   \item{"variance"}{Wavelet Variance}
+#'   \item{"low"}{Lower CI}
+#'   \item{"high"}{Upper CI}
+#' }
+#' @keywords internal
+#' @details 
+#' This function does the heavy lifting with the signal_modwt_bw
+#' @examples
+#' x = rnorm(100)
+#' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4, boundary = "periodic", brickwall = TRUE)
+#' wvar_cpp(decomp, robust=FALSE, eff=0.6, alpha = 0.05, ci_type="eta3")
+wvar_cpp <- function(signal_modwt_bw, robust, eff, alpha, ci_type) {
+    .Call('wv_wvar_cpp', PACKAGE = 'wv', signal_modwt_bw, robust, eff, alpha, ci_type)
+}
+
+#' @title Computes the (MODWT) wavelet variance
+#' @description Calculates the (MODWT) wavelet variance
+#' @param signal     A \code{vec} that contains the data.
+#' @param robust     A \code{boolean} that triggers the use of the robust estimate.
+#' @param eff        A \code{double} that indicates the efficiency as it relates to an MLE.
+#' @param alpha      A \code{double} that indicates the \eqn{\left(1-p\right)\times \alpha}{(1-p)*alpha} confidence level 
+#' @param ci_type    A \code{string} indicating the confidence interval being calculated. Valid value: "eta3"
+#' @param strWavelet A \code{string} indicating the type of wave filter to be applied. Must be "haar"
+#' @param decomp     A \code{string} indicating whether to use "modwt" or "dwt" decomp
+#' @return A \code{mat} with the structure:
+#' \itemize{
+#'   \item{"variance"}{Wavelet Variance}
+#'   \item{"low"}{Lower CI}
+#'   \item{"high"}{Upper CI}
+#' }
+#' @keywords internal
+#' @details 
+#' This function powers the wvar object. It is also extendable...
+#' @examples
+#' x=rnorm(100)
+#' modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, alpha = 0.05,
+#'                ci_type="eta3", strWavelet="haar", decomp="modwt")
+modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp) {
+    .Call('wv_modwt_wvar_cpp', PACKAGE = 'wv', signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp)
+}
+
+#' @title Computes the MO/DWT wavelet variance for multiple processes
+#' @description Calculates the MO/DWT wavelet variance
+#' @param signal     A \code{matrix} that contains the same number of observations per dataset
+#' @param robust     A \code{boolean} that triggers the use of the robust estimate.
+#' @param eff        A \code{double} that indicates the efficiency as it relates to an MLE.
+#' @param alpha      A \code{double} that indicates the \eqn{\left(1-p\right)\times \alpha}{(1-p)*alpha} confidence level 
+#' @param ci_type    A \code{string} indicating the confidence interval being calculated. Valid value: "eta3"
+#' @param strWavelet A \code{string} indicating the type of wave filter to be applied. Must be "haar"
+#' @param decomp     A \code{string} indicating whether to use "modwt" or "dwt" decomp
+#' @return A \code{field<mat>} with the structure:
+#' \itemize{
+#'   \item{"variance"}{Wavelet Variance}
+#'   \item{"low"}{Lower CI}
+#'   \item{"high"}{Upper CI}
+#' }
+#' @keywords internal
+#' @details 
+#' This function processes the decomposition of multiple signals quickly
+#' @examples
+#' x = cbind(rnorm(100),rnorm(100))
+#' batch_modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, 
+#'                      alpha = 0.05, ci_type="eta3", strWavelet="haar", 
+#'                      decomp="modwt")
+batch_modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp) {
+    .Call('wv_batch_modwt_wvar_cpp', PACKAGE = 'wv', signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp)
+}
+
+#' @title Computes the MODWT scales
+#' @description Calculates the MODWT scales
+#' @param nb_level  A \code{integer} that contains the level of decomposition J.
+#' @return A \code{vec} that contains 2^1, ... , 2^J
+#' @keywords internal
+#' @details 
+#' Used in wvar object.
+#' @examples
+#' scales_cpp(5)
+scales_cpp <- function(nb_level) {
+    .Call('wv_scales_cpp', PACKAGE = 'wv', nb_level)
+}
+

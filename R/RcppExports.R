@@ -226,8 +226,8 @@ batch_modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, s
 #' @return A \code{vec} that contains 2^1, ... , 2^J
 #' @keywords internal
 #' @details 
-#' @export
 #' Used in wvar object.
+#' @export
 #' @examples
 #' scales_cpp(5)
 scales_cpp <- function(nb_level) {

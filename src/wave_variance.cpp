@@ -348,8 +348,8 @@ arma::field<arma::mat> batch_modwt_wvar_cpp(const arma::mat& signal, unsigned in
 //' @return A \code{vec} that contains 2^1, ... , 2^J
 //' @keywords internal
 //' @details 
-//' @export
 //' Used in wvar object.
+//' @export
 //' @examples
 //' scales_cpp(5)
 // [[Rcpp::export]]

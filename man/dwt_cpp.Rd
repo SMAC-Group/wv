@@ -14,7 +14,7 @@ dwt_cpp(x, filter_name, nlevels)
 \item{nlevels}{An \code{integer}, \eqn{J}, indicating the level of the decomposition.}
 }
 \value{
-y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
+y           \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 }
 \description{
 Calculation of the coefficients for the discrete wavelet transformation.
@@ -28,6 +28,6 @@ x = rnorm(2^8)
 dwt_cpp(x, filter_name = "haar", nlevels = 4)
 }
 \author{
-JJB, Justin
+James Balamuta and Justin Lee
 }
 \keyword{internal}

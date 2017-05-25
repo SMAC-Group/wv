@@ -15,9 +15,6 @@ A \code{vec} that contains 2^1, ... , 2^J
 \description{
 Calculates the MODWT scales
 }
-\details{
-Used in wvar object.
-}
 \examples{
 scales_cpp(5)
 }

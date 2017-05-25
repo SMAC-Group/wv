@@ -39,6 +39,7 @@
 //'  \item{Column 3}{Chi-squared Upper Bounds}
 //' }
 //' @keywords internal
+//' @export
 //' @examples
 //' x = rnorm(100)
 //' # Uses the internal MODWT function not associated with an S3 class.
@@ -78,6 +79,7 @@ arma::mat ci_eta3(const arma::vec& y, const arma::vec& dims, double alpha_ov_2) 
 //' @details
 //' Within this function we are scaling the classical 
 //' @keywords internal
+//' @export
 //' @examples
 //' x = rnorm(100)
 //' # Uses the internal MODWT function not associated with an S3 class.
@@ -138,6 +140,7 @@ arma::mat ci_eta3_robust(const arma::vec& wv_robust, const arma::mat& wv_ci_clas
 //'  \item{Column 3}{Chi-squared Upper Bounds}
 //' }
 //' @keywords internal
+//' @export
 //' @details 
 //' This function can be expanded to allow for other confidence interval calculations.
 //' @examples
@@ -190,6 +193,7 @@ arma::mat ci_wave_variance(const arma::field<arma::vec>& signal_modwt_bw, const 
 //' @param eff             A \code{double} that indicates the efficiency.
 //' @return A \code{vec} that contains the wave variance.
 //' @keywords internal
+//' @export
 //' @examples
 //' set.seed(1337)
 //' x = rnorm(100)
@@ -235,6 +239,7 @@ arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robu
 //'   \item{"high"}{Upper CI}
 //' }
 //' @keywords internal
+//' @export
 //' @details 
 //' This function does the heavy lifting with the signal_modwt_bw
 //' @examples
@@ -272,6 +277,7 @@ arma::mat wvar_cpp(const arma::field<arma::vec>& signal_modwt_bw,
 //'   \item{"high"}{Upper CI}
 //' }
 //' @keywords internal
+//' @export
 //' @details 
 //' This function powers the wvar object. It is also extendable...
 //' @examples
@@ -312,6 +318,7 @@ arma::mat modwt_wvar_cpp(const arma::vec& signal, unsigned int nlevels, bool rob
 //'   \item{"high"}{Upper CI}
 //' }
 //' @keywords internal
+//' @export
 //' @details 
 //' This function processes the decomposition of multiple signals quickly
 //' @examples
@@ -341,6 +348,7 @@ arma::field<arma::mat> batch_modwt_wvar_cpp(const arma::mat& signal, unsigned in
 //' @return A \code{vec} that contains 2^1, ... , 2^J
 //' @keywords internal
 //' @details 
+//' @export
 //' Used in wvar object.
 //' @examples
 //' scales_cpp(5)

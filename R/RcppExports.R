@@ -43,84 +43,6 @@ modwt_cpp <- function(x, filter_name, nlevels, boundary, brickwall) {
     .Call('wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels, boundary, brickwall)
 }
 
-#' Psi Tukey Scoring function
-#' @param x data vector
-#' @param sig2_bw variance of brickwalled wv coefficients
-#' @param crob_bw ?
-#' @return A \code{vec} containing the scores.
-#' @export
-psi_tuk <- function(x, sig2_bw, crob_bw) {
-    .Call('wv_psi_tuk', PACKAGE = 'wv', x, sig2_bw, crob_bw)
-}
-
-#' Derivative of Psi Tukey Scoring function
-#' @inheritParams psi_tuk
-#' @export
-der_psi_tuk <- function(x, sig2_bw, crob_bw) {
-    .Call('wv_der_psi_tuk', PACKAGE = 'wv', x, sig2_bw, crob_bw)
-}
-
-#' Haar filter for a spatial case
-#' @param jscale An \code{int} of the Number of Scales
-#' @export
-hfilter <- function(jscale) {
-    .Call('wv_hfilter', PACKAGE = 'wv', jscale)
-}
-
-#' Create the ISO matrix
-#' @param min_dim An \code{integer} indicating the minimum value.
-#' @param wv      A \code{matrix} containing the wavelet variance.
-#' @export
-#' @details
-#' Takes the average of the lower triangular view
-#' before returning. 
-#' @examples
-#' a = matrix(1:9, nrow = 3, byrow = TRUE)
-#' make_wv_iso(a, 3 - 1)
-make_wv_iso <- function(wv, min_dim) {
-    .Call('wv_make_wv_iso', PACKAGE = 'wv', wv, min_dim)
-}
-
-#' Perform parallel contingous subset
-#' @param x \code{matrix} to use to subset
-#' @param y \code{vector} of ids
-#' @export
-#' @examples
-#' a = matrix(1:100, nrow = 10, byrow = TRUE)
-#' 
-#' idx = c(1, 3, 10)
-#' subset_matrix_parallel(a, idx - 1)
-#' ## same as
-#' # a[c(1, 3, 10), c(1, 3, 10)]
-subset_matrix_parallel <- function(x, y) {
-    .Call('wv_subset_matrix_parallel', PACKAGE = 'wv', x, y)
-}
-
-#' Create an index matrix
-#' @param m,n   An \code{integer} indicating matrix row, column dimension
-#' @param ftype A \code{string} of either \code{"col"} or \code{"row"}.
-#' @export
-#' @details
-#' Creates an index matrix filled by either row or column.
-#' @examples
-#' # Index matrix by column
-#' index_mat(3,4, "col")
-#' # index matrix by row
-#' index_mat(3,4, "row")
-index_mat <- function(m, n, ftype) {
-    .Call('wv_index_mat', PACKAGE = 'wv', m, n, ftype)
-}
-
-#' Extract Lower Triangular Elements
-#' @param X \code{matrix}
-#' @export
-#' @examples
-#' x = matrix(1:16, 4, 4, byrow = TRUE)
-#' lower_tri_elem(x)
-lower_tri_elem <- function(X) {
-    .Call('wv_lower_tri_elem', PACKAGE = 'wv', X)
-}
-
 #' @title Generate eta3 confidence interval
 #' @description Computes the eta3 CI
 #' @param y          A \code{vec} that computes the brickwalled modwt dot product of each wavelet coefficient divided by their length.
@@ -133,6 +55,7 @@ lower_tri_elem <- function(X) {
 #'  \item{Column 3}{Chi-squared Upper Bounds}
 #' }
 #' @keywords internal
+#' @export
 #' @examples
 #' x = rnorm(100)
 #' # Uses the internal MODWT function not associated with an S3 class.
@@ -158,6 +81,7 @@ ci_eta3 <- function(y, dims, alpha_ov_2) {
 #' @details
 #' Within this function we are scaling the classical 
 #' @keywords internal
+#' @export
 #' @examples
 #' x = rnorm(100)
 #' # Uses the internal MODWT function not associated with an S3 class.
@@ -183,6 +107,7 @@ ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
 #'  \item{Column 3}{Chi-squared Upper Bounds}
 #' }
 #' @keywords internal
+#' @export
 #' @details 
 #' This function can be expanded to allow for other confidence interval calculations.
 #' @examples
@@ -203,6 +128,7 @@ ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.
 #' @param eff             A \code{double} that indicates the efficiency.
 #' @return A \code{vec} that contains the wave variance.
 #' @keywords internal
+#' @export
 #' @examples
 #' set.seed(1337)
 #' x = rnorm(100)
@@ -228,6 +154,7 @@ wave_variance <- function(signal_modwt_bw, robust = FALSE, eff = 0.6) {
 #'   \item{"high"}{Upper CI}
 #' }
 #' @keywords internal
+#' @export
 #' @details 
 #' This function does the heavy lifting with the signal_modwt_bw
 #' @examples
@@ -254,6 +181,7 @@ wvar_cpp <- function(signal_modwt_bw, robust, eff, alpha, ci_type) {
 #'   \item{"high"}{Upper CI}
 #' }
 #' @keywords internal
+#' @export
 #' @details 
 #' This function powers the wvar object. It is also extendable...
 #' @examples
@@ -280,6 +208,7 @@ modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWave
 #'   \item{"high"}{Upper CI}
 #' }
 #' @keywords internal
+#' @export
 #' @details 
 #' This function processes the decomposition of multiple signals quickly
 #' @examples
@@ -297,6 +226,7 @@ batch_modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, s
 #' @return A \code{vec} that contains 2^1, ... , 2^J
 #' @keywords internal
 #' @details 
+#' @export
 #' Used in wvar object.
 #' @examples
 #' scales_cpp(5)

@@ -29,10 +29,6 @@ install.packages(c("RcppArmadillo","ggplot2","reshape2","devtools","knitr","rmar
 
 # Install the package from GitHub without Vignettes/User Guides
 devtools::install_github("SMAC-Group/wv")
-
-# Install the package from GitHub with Vignettes/User Guides
-# Note: This will be a longer install as the vignettes must be built.
-devtools::install_github("SMAC-Group/wv", build_vignettes = TRUE)
 ```
 
 (Maximum Overlap) Discrete Wavelet Transform

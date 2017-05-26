@@ -84,7 +84,11 @@ print.dwt=function(x, ...){
 #' x = rnorm(2^8)
 #' summary(dwt(x))
 summary.dwt=function(object, ...){
-  cat("Results of the DWT containing ",attr(object,"J")," scales\n")
+  cat("Results of the DWT using ", attr(object,"filter")," with ", attr(object, "J"), " levels\n")
   y = as.list(object)
-  y[[1]]
+  j = length(y)
+  for( i in 1:j ) {
+    cat("Level ", i)
+    y[[i]]
+  }
 }

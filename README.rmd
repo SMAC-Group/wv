@@ -24,11 +24,11 @@ This repository holds the Wavelet Variance (wv) R package. This estimation techn
 Below are examples of the capabilities of the `wv` package.
 
 
-# Install Instructions
+## Install Instructions
 
 To install the `gmwm` package, there is currently one option: GitHub (Developmental).
 
-## Recommended R Interface
+### Recommended R Interface
 
 We firmly recommend that any users of this package use the [RStudio IDE](https://www.rstudio.com/products/rstudio/download/) over the default R GUI.
 
@@ -44,25 +44,36 @@ install.packages(c("RcppArmadillo","ggplot2","reshape2","devtools","knitr","rmar
 devtools::install_github("SMAC-Group/wv")
 ```
 
-# (Maximum Overlap) Discrete Wavelet Transform
+## Discrete Wavelet Transformation
 
-For the moment this only works with Haar wavelets
+For the moment this method will only work with Haar wavelets. 
 
 ```{r}
 # Simulate a Gaussian random walk
 n = 10^3
 Xt = cumsum(rnorm(n))
+
 # DWT
-# TODO:
-# - summary
-# - plot
 Xt.dwt = dwt(Xt)
 
+# Summary of Discrete Wavelet Coefficients 
+summary(Xt.dwt)
+
+# Plot of Discrete Wavelet Coefficients
+plot(Xt.dwt)
+```
+
+## Maximum Overlap Discrete Wavelet Transformation
+
+```{r}
 # MODWT
-# TODO:
-# - summary
 Xt.modwt = modwt(Xt)
-#plot(Xt.modwt)
+
+# Summary of Maximum Overlap Discrete Wavelet Coefficients 
+summary(Xt.modwt)
+
+# Plot of Maximum Overlap Discrete Wavelet Coefficients
+plot(Xt.modwt)
 ```
 
 # User Guides

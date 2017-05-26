@@ -51,11 +51,10 @@ devtools::install_github("SMAC-Group/wv", build_vignettes = TRUE)
 
 For the moment this only works with Haar wavelets
 
-```{r, fig.height = 8, fig.width = 3}
+```{r}
 # Simulate a Gaussian random walk
 n = 10^3
 Xt = cumsum(rnorm(n))
-plot(Xt)
 # DWT
 # TODO:
 # - summary
@@ -66,7 +65,7 @@ Xt.dwt = dwt(Xt)
 # TODO:
 # - summary
 Xt.modwt = modwt(Xt)
-plot(Xt.modwt)
+#plot(Xt.modwt)
 ```
 
 # User Guides

@@ -36,7 +36,7 @@
 //' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 //' @details
 //' Performs a level J decomposition of the time series using the pyramid algorithm
-//' @author JJB, Justin 
+//' @author James Balamuta and Justin Lee
 //' @keywords internal
 //' @examples
 //' set.seed(999)
@@ -117,7 +117,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned in
 //' Performs a level J decomposition of the time series using the pyramid algorithm.
 //' Use this implementation to supply custom parameters instead of modwt(x),
 //' which serves as a wrapper function.
-//' @author JJB, Justin 
+//' @author James Balamuta and Justin Lee
 //' @keywords internal
 //' @examples
 //' set.seed(999)

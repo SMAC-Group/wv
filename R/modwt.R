@@ -24,7 +24,7 @@
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
 #' The default \eqn{J} is determined by \eqn{floor\left(log_2 \left(length\left(x\right)\right)\right)}{floor(log2(length(x)))}
-#' @author JJB, Justin 
+#' @author James Balamuta and Justin Lee
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)
@@ -44,7 +44,7 @@ modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
 #' @param x A \code{modwt} object
 #' @param ... further arguments passed to or from other methods.
 #' @return Prints the modwt decomposition
-#' @author JJB
+#' @author James Balamuta
 #' @keywords internal
 #' @examples
 #' set.seed(999)
@@ -62,7 +62,7 @@ print.modwt = function(x, ...){
 #' @param object A \code{modwt} object
 #' @param ... additional arguments affecting the summary produced.
 #' @return Prints the modwt matrix decomposition
-#' @author JJB
+#' @author James Balamuta 
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)

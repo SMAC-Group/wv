@@ -179,7 +179,9 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
     x = Vj;
   }
   
-  
+  if(y(J-1).n_elem <=1){
+    y = y.rows(0, J-2);
+  }
   
   return y;
 }

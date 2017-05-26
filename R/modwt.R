@@ -67,7 +67,13 @@ print.modwt = function(x, ...){
 #' set.seed(999)
 #' x = rnorm(100)
 #' summary(modwt(x))
-summary.modwt=function(object, ...){
-  cat("Results of the MODWT containing ",attr(object,"J")," scales\n")
-  print.modwt(object[[1]])
+summary.modwt=function(object, ...) {
+  cat("Results of MODWT using",attr(object,"filter"),"filter with",attr(object, "J")-1,"levels:\n")
+  y = as.list(object)
+  j = length(y)
+  for( i in 1:j ) {
+    cat("Level",i,"Wavelet Coefficients")
+    y[[i]]
+    cat("\n")
+  }
 }

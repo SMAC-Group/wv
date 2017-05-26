@@ -23,6 +23,6 @@ x = rnorm(100)
 print(modwt(x))
 }
 \author{
-JJB
+James Balamuta
 }
 \keyword{internal}

@@ -32,9 +32,10 @@ ggplot_like_colors <- function(n, alpha = 1) {
 #' plot(Xt.modwt, index = c(1,4,5,6,8,2))
 #' plot(Xt.modwt, index = c(1,4,5,6), couleur = "blue")
 #' plot(Xt.modwt, index = c(1,4,5,6), couleur = rep(c("blue","yellow"),2))
+#' @export
 
-plot.modwt = function(Yt, index = NULL, couleur = NULL){
-  J <- attr(Xt.modwt,"J")
+plot.modwt = function(object, index = NULL, couleur = NULL){
+  J <- attr(object,"J")
 
   if (is.null(index)){
     index <- 1:(min(c(4,J)))
@@ -56,9 +57,9 @@ plot.modwt = function(Yt, index = NULL, couleur = NULL){
   }
   
   par(mfrow = c(nb_plot,1), mar = c(0,3,0,0), oma = c(5,2,1,1))
-  x_range <- length(Yt[[1]])
+  x_range <- length(object[[1]])
   for (i in 1:nb_plot){
-    current_time_series <- Yt[index[i]]
+    current_time_series <- object[[index[i]]]
     
     plot(NA, xlim = c(1,x_range), ylim = range(current_time_series), 
          bty = "n", axes = FALSE)

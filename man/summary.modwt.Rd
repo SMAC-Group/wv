@@ -23,6 +23,6 @@ x = rnorm(100)
 summary(modwt(x))
 }
 \author{
-JJB
+James Balamuta
 }
 \keyword{internal}

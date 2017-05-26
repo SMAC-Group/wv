@@ -23,6 +23,6 @@ x = rnorm(2^8)
 dwt(x)
 }
 \author{
-JJB
+James Balamuta
 }
 \keyword{internal}

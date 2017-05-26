@@ -33,5 +33,5 @@ x = rnorm(100)
 a = modwt(x)
 }
 \author{
-JJB, Justin
+James Balamuta and Justin Lee
 }

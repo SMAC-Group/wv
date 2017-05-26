@@ -4,7 +4,7 @@
 \alias{plot.modwt}
 \title{Plot function for modwt objects.}
 \usage{
-\method{plot}{modwt}(Yt, index = NULL, couleur = NULL)
+\method{plot}{modwt}(object, index = NULL, couleur = NULL)
 }
 \arguments{
 \item{\code{y}}{A \code{modwt} object.}

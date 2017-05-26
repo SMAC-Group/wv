@@ -29,5 +29,5 @@ x = rnorm(2^8)
 dwt(x)
 }
 \author{
-JJB, Justin
+James Balamuta and Justin Lee
 }

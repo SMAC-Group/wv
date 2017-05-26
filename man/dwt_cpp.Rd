@@ -28,6 +28,6 @@ x = rnorm(2^8)
 dwt_cpp(x, filter_name = "haar", nlevels = 4)
 }
 \author{
-JJB, Justin
+James Balamuta and Justin Lee
 }
 \keyword{internal}

@@ -30,6 +30,6 @@ x = rnorm(100)
 modwt_cpp(x, filter_name = "haar", nlevels = 4)
 }
 \author{
-JJB, Justin
+James Balamuta and Justin Lee
 }
 \keyword{internal}

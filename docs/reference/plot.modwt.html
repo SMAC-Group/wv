@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot function for modwt objects. — plot.modwt • wv</title>
+<title>Plot Maximum Overlap Discrete Wavelet Transform � plot.modwt • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -68,34 +68,38 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot function for modwt objects.</h1>
+    <h1>Plot Maximum Overlap Discrete Wavelet Transform</h1>
     </div>
 
     
-    <p>Plot function for modwt objects.</p>
+    <p>Plots results of the modwt list in which additional parameters can be specified</p>
     
 
     <pre class="usage"><span class='co'># S3 method for modwt</span>
-<span class='fu'>plot</span>(<span class='no'>Yt</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>couleur</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>couleur</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th><code>y</code></th>
+      <th>x</th>
       <td><p>A <code>modwt</code> object.</p></td>
     </tr>
     <tr>
-      <th><code>index</code></th>
+      <th>index</th>
       <td><p>A <code>vector</code> containing the indices to scales to be included in 
 the graph. By default <code>index = 1:(min(c(J,4)))</code>, where <code>J</code> denotes the 
 number of scales in <code>y</code>.</p></td>
     </tr>
     <tr>
-      <th><code>couleur</code></th>
+      <th>couleur</th>
       <td><p>A <code>vector</code> of colors of the same size as <code>index</code> used
 for the different scales depicted in the graph. If <code>couleur</code> contains a single 
-value thn the same color will be used for all scales.</p></td>
+value the the same color will be used for all scales.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments affecting the plot produced.</p></td>
     </tr>
     </table>
     
@@ -106,10 +110,10 @@ value thn the same color will be used for all scales.</p></td>
 <span class='no'>Xt</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='no'>n</span>)
 
 <span class='co'># MODWT</span>
-<span class='no'>Xt.modwt</span> <span class='kw'>=</span> <span class='fu'><a href='modwt.html'>modwt</a></span>(<span class='no'>Xt</span>)
+<span class='no'>Yt</span> <span class='kw'>=</span> <span class='fu'><a href='modwt.html'>modwt</a></span>(<span class='no'>Xt</span>)
 
 <span class='co'># Graph examples</span>
-<span class='fu'>plot</span>(<span class='no'>Xt.modwt</span>)</div><img src='plot.modwt-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>Xt.modwt</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>8</span>,<span class='fl'>2</span>))</div><img src='plot.modwt-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>Xt.modwt</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>), <span class='kw'>couleur</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><img src='plot.modwt-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>Xt.modwt</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>), <span class='kw'>couleur</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"blue"</span>,<span class='st'>"yellow"</span>),<span class='fl'>2</span>))</div><img src='plot.modwt-8.png' alt='' width='540' height='400' /></pre>
+<span class='fu'>plot</span>(<span class='no'>Yt</span>)</div><img src='plot.modwt-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>Yt</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>8</span>,<span class='fl'>2</span>))</div><img src='plot.modwt-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>Yt</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>), <span class='kw'>couleur</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><img src='plot.modwt-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>Yt</span>, <span class='kw'>index</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>), <span class='kw'>couleur</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='st'>"blue"</span>,<span class='st'>"yellow"</span>),<span class='fl'>2</span>))</div><img src='plot.modwt-8.png' alt='' width='540' height='400' /></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -121,7 +125,7 @@ value thn the same color will be used for all scales.</p></td>
 
     <h2>Author</h2>
     
-Justin Lee and Stéphane Guerrier
+Justin Lee and Stephane Guerrier
 
   </div>
 </div>

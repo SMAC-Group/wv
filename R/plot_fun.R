@@ -32,6 +32,7 @@ ggplot_like_colors <- function(n, alpha = 1) {
 #' plot(Xt.modwt, index = c(1,4,5,6,8,2))
 #' plot(Xt.modwt, index = c(1,4,5,6), couleur = "blue")
 #' plot(Xt.modwt, index = c(1,4,5,6), couleur = rep(c("blue","yellow"),2))
+
 plot.modwt = function(Yt, index = NULL, couleur = NULL){
   J <- attr(Xt.modwt,"J")
 

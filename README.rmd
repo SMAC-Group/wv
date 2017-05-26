@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
+library(wv)
 ```
 
 [![Linux Build Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
@@ -46,6 +47,27 @@ devtools::install_github("SMAC-Group/wv")
 devtools::install_github("SMAC-Group/wv", build_vignettes = TRUE)
 ```
 
+# (Maximum Overlap) Discrete Wavelet Transform
+
+For the moment this only works with Haar wavelets
+
+```{r, fig.height = 8, fig.width = 3}
+# Simulate a Gaussian random walk
+n = 10^3
+Xt = cumsum(rnorm(n))
+plot(Xt)
+# DWT
+# TODO:
+# - summary
+# - plot
+Xt.dwt = dwt(Xt)
+
+# MODWT
+# TODO:
+# - summary
+Xt.modwt = modwt(Xt)
+plot(Xt.modwt)
+```
 
 # User Guides
 

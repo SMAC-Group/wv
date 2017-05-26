@@ -35,6 +35,36 @@ devtools::install_github("SMAC-Group/wv")
 devtools::install_github("SMAC-Group/wv", build_vignettes = TRUE)
 ```
 
+(Maximum Overlap) Discrete Wavelet Transform
+============================================
+
+For the moment this only works with Haar wavelets
+
+``` r
+# Simulate a Gaussian random walk
+n = 10^3
+Xt = cumsum(rnorm(n))
+plot(Xt)
+```
+
+![](README-unnamed-chunk-3-1.png)
+
+``` r
+# DWT
+# TODO:
+# - summary
+# - plot
+Xt.dwt = dwt(Xt)
+#> Warning in dwt(Xt): The data has been truncated so that it is divisible by
+#> `nlevels` (e.g. 2^*)
+
+# MODWT
+# TODO:
+# - summary
+Xt.modwt = modwt(Xt)
+#plot(Xt.modwt)
+```
+
 User Guides
 ===========
 

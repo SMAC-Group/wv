@@ -78,6 +78,29 @@ devtools::<span class="kw">install_github</span>(<span class="st">"SMAC-Group/wv
 devtools::<span class="kw">install_github</span>(<span class="st">"SMAC-Group/wv"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
 </div>
+<div id="maximum-overlap-discrete-wavelet-transform" class="section level1">
+<h1 class="hasAnchor">
+<a href="#maximum-overlap-discrete-wavelet-transform" class="anchor"></a>(Maximum Overlap) Discrete Wavelet Transform</h1>
+<p>For the moment this only works with Haar wavelets</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simulate a Gaussian random walk</span>
+n =<span class="st"> </span><span class="dv">10</span>^<span class="dv">3</span>
+Xt =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rnorm</span>(n))
+<span class="kw">plot</span>(Xt)</code></pre></div>
+<p><img src="README-unnamed-chunk-3-1.png" width="288"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DWT</span>
+<span class="co"># TODO:</span>
+<span class="co"># - summary</span>
+<span class="co"># - plot</span>
+Xt.dwt =<span class="st"> </span><span class="kw"><a href="reference/dwt.html">dwt</a></span>(Xt)
+<span class="co">#&gt; Warning in dwt(Xt): The data has been truncated so that it is divisible by</span>
+<span class="co">#&gt; `nlevels` (e.g. 2^*)</span>
+
+<span class="co"># MODWT</span>
+<span class="co"># TODO:</span>
+<span class="co"># - summary</span>
+Xt.modwt =<span class="st"> </span><span class="kw"><a href="reference/modwt.html">modwt</a></span>(Xt)
+<span class="co">#plot(Xt.modwt)</span></code></pre></div>
+</div>
 <div id="user-guides" class="section level1">
 <h1 class="hasAnchor">
 <a href="#user-guides" class="anchor"></a>User Guides</h1>

@@ -72,14 +72,14 @@ print.dwt=function(x, ...){
 
 #' @title Summary Discrete Wavelet Transform
 #' @description 
-#' Unlists DWT object and places it in matrix form
+#' Prints DWT object in a concise format
 #' @method summary dwt
 #' @export
 #' @keywords internal
 #' @param object A \code{dwt} object
 #' @param ... additional arguments affecting the summary produced.
 #' @return Prints the dwt matrix decomposition
-#' @author James Balamuta
+#' @author Nathanael Claussen and Justin Lee
 #' @examples
 #' set.seed(999)
 #' x = rnorm(2^8)

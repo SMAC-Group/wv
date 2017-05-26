@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summary Maximum Overlap Discrete Wavelet Transform — summary.modwt â€¢ wv</title>
+<title>Summary of Wavelet Variances — summary.wvar â€¢ wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -68,14 +68,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summary Maximum Overlap Discrete Wavelet Transform</h1>
+    <h1>Summary of Wavelet Variances</h1>
     </div>
 
     
-    <p>Prints MODWT object in a concise format</p>
+    <p>Displays the summary table of wavelet variance in addition to CI values and
+supplied efficiency.</p>
     
 
-    <pre class="usage"><span class='co'># S3 method for modwt</span>
+    <pre class="usage"><span class='co'># S3 method for wvar</span>
 <span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -83,7 +84,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>A <code>modwt</code> object</p></td>
+      <td><p>A <code>wvar</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -93,27 +94,22 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Prints the modwt matrix decomposition</p>
+    <p>Summary table and other properties of the object.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>999</span>)
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
-<span class='fu'>summary</span>(<span class='fu'><a href='modwt.html'>modwt</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; 
-#&gt; Results of MODWT using haar filter with 6 levels:
-#&gt; Displaying only the first 6 coefficients...
-#&gt; Level 1 Wavelet Coefficients
-#&gt;  -0.5154097 1.053872 -0.2625567 -0.2736885 -0.1443587 -0.6563173 ...
-#&gt; Level 2 Wavelet Coefficients
-#&gt;  0.6648886 0.1275349 -0.4771462 -0.6093615 -0.5755298 0.05253529 ...
-#&gt; Level 3 Wavelet Coefficients
-#&gt;  -0.4324668 -0.5193264 -0.6820166 0.05272893 0.4199327 0.7445505 ...
-#&gt; Level 4 Wavelet Coefficients
-#&gt;  0.2871724 0.3948033 0.4591856 0.3995357 0.2700206 0.05856007 ...
-#&gt; Level 5 Wavelet Coefficients
-#&gt;  0.05044408 0.04297379 0.02943181 -0.009765617 0.06226712 0.1188075 ...
-#&gt; Level 6 Wavelet Coefficients
-#&gt;  0.0744104 0.06411294 -0.008083629 -0.009948806 0.05591394 0.05663235 ...</div></pre>
+<span class='no'>out</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>x</span>)
+<span class='fu'>summary</span>( <span class='no'>out</span> )</div><div class='output co'>#&gt; Results of the wavelet variance calculation using the classical method.
+#&gt; The confidence interval was generated using (1-0.05)*100 
+#&gt;       Variance      Low CI   High CI
+#&gt; 2  0.452177820 0.316045047 0.7004281
+#&gt; 4  0.230339706 0.140751059 0.4440086
+#&gt; 8  0.137102522 0.069880858 0.3811887
+#&gt; 16 0.051603837 0.020543745 0.2878292
+#&gt; 32 0.011723825 0.003282007 0.3685303
+#&gt; 64 0.008205545 0.001633306 8.3553640</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -127,7 +123,7 @@
 
     <h2>Author</h2>
     
-Nathanael Claussen and Justin Lee
+JJB
 
   </div>
 </div>

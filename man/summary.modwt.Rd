@@ -15,7 +15,7 @@
 Prints the modwt matrix decomposition
 }
 \description{
-Unlists MODWT object and places it in matrix form
+Prints MODWT object in a concise format
 }
 \examples{
 set.seed(999)
@@ -23,6 +23,6 @@ x = rnorm(100)
 summary(modwt(x))
 }
 \author{
-James Balamuta
+Nathanael Claussen and Justin Lee
 }
 \keyword{internal}

@@ -56,14 +56,13 @@
 </h1></div>
 <p>This repository holds the Wavelet Variance (wv) R package. This estimation technique computes the classical and robust wavelet variance for time series and regular lattices.</p>
 <p>Below are examples of the capabilities of the <code>wv</code> package.</p>
-</div>
-<div id="install-instructions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#install-instructions" class="anchor"></a>Install Instructions</h1>
-<p>To install the <code>gmwm</code> package, there is currently one option: GitHub (Developmental).</p>
-<div id="recommended-r-interface" class="section level2">
+<div id="install-instructions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#recommended-r-interface" class="anchor"></a>Recommended R Interface</h2>
+<a href="#install-instructions" class="anchor"></a>Install Instructions</h2>
+<p>To install the <code>gmwm</code> package, there is currently one option: GitHub (Developmental).</p>
+<div id="recommended-r-interface" class="section level3">
+<h3 class="hasAnchor">
+<a href="#recommended-r-interface" class="anchor"></a>Recommended R Interface</h3>
 <p>We firmly recommend that any users of this package use the <a href="https://www.rstudio.com/products/rstudio/download/">RStudio IDE</a> over the default R GUI.</p>
 <p><strong>All Systems</strong></p>
 <p>With the system dependency taken care of, we continue on by installing the R specific package dependencies and finally the package itself by doing the following in an R session:</p>
@@ -74,26 +73,81 @@
 devtools::<span class="kw">install_github</span>(<span class="st">"SMAC-Group/wv"</span>)</code></pre></div>
 </div>
 </div>
-<div id="maximum-overlap-discrete-wavelet-transform" class="section level1">
-<h1 class="hasAnchor">
-<a href="#maximum-overlap-discrete-wavelet-transform" class="anchor"></a>(Maximum Overlap) Discrete Wavelet Transform</h1>
-<p>For the moment this only works with Haar wavelets</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simulate a Gaussian random walk</span>
+<div id="discrete-wavelet-transformation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#discrete-wavelet-transformation" class="anchor"></a>Discrete Wavelet Transformation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set seed for reproducibility </span>
+<span class="kw">set.seed</span>(<span class="dv">999</span>)
+
+<span class="co"># Simulate a Gaussian random walk</span>
 n =<span class="st"> </span><span class="dv">10</span>^<span class="dv">3</span>
-Xt =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rnorm</span>(n))
-<span class="co"># DWT</span>
-<span class="co"># TODO:</span>
-<span class="co"># - summary</span>
-<span class="co"># - plot</span>
+Xt =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rnorm</span>(n))</code></pre></div>
+<p>For the moment this method will only work with Haar wavelets.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># DWT</span>
 Xt.dwt =<span class="st"> </span><span class="kw"><a href="reference/dwt.html">dwt</a></span>(Xt)
 <span class="co">#&gt; Warning in dwt(Xt): The data has been truncated so that it is divisible by</span>
 <span class="co">#&gt; `nlevels` (e.g. 2^*)</span>
 
-<span class="co"># MODWT</span>
-<span class="co"># TODO:</span>
-<span class="co"># - summary</span>
+<span class="co"># Summary of Discrete Wavelet Coefficients </span>
+<span class="kw">summary</span>(Xt.dwt)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Results of DWT using haar filter with 8 levels:</span>
+<span class="co">#&gt; Displaying only the first 6 coefficients...</span>
+<span class="co">#&gt; Level 1 Wavelet Coefficients</span>
+<span class="co">#&gt;  -0.9281198 0.1909687 -0.4002392 -0.8957566 -0.7926733 0.09473632 ...</span>
+<span class="co">#&gt; Level 2 Wavelet Coefficients</span>
+<span class="co">#&gt;  0.2739394 -2.795066 0.8319477 0.3625764 -0.08550498 0.108777 ...</span>
+<span class="co">#&gt; Level 3 Wavelet Coefficients</span>
+<span class="co">#&gt;  -2.384147 2.388987 -2.733086 -1.928826 -2.133592 -2.809311 ...</span>
+<span class="co">#&gt; Level 4 Wavelet Coefficients</span>
+<span class="co">#&gt;  -6.282995 -5.729953 -7.616116 1.635971 1.2219 4.605007 ...</span>
+<span class="co">#&gt; Level 5 Wavelet Coefficients</span>
+<span class="co">#&gt;  -10.03819 -6.631445 -0.6948675 -19.01644 12.1667 -5.350667 ...</span>
+<span class="co">#&gt; Level 6 Wavelet Coefficients</span>
+<span class="co">#&gt;  -23.08426 -18.32217 18.40802 -8.680854 -4.335243 6.224648 ...</span>
+<span class="co">#&gt; Level 7 Wavelet Coefficients</span>
+<span class="co">#&gt;  -34.68146 -7.485961 -5.448519 -30.51181 ...</span>
+<span class="co">#&gt; Level 8 Wavelet Coefficients</span>
+<span class="co">#&gt;  -50.81154 1.13322 ...</span>
+
+<span class="co"># Plot of Discrete Wavelet Coefficients</span>
+<span class="kw">plot</span>(Xt.dwt)</code></pre></div>
+<p><img src="README-unnamed-chunk-4-1.png" width="672"></p>
+</div>
+<div id="maximum-overlap-discrete-wavelet-transformation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#maximum-overlap-discrete-wavelet-transformation" class="anchor"></a>Maximum Overlap Discrete Wavelet Transformation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># MODWT</span>
 Xt.modwt =<span class="st"> </span><span class="kw"><a href="reference/modwt.html">modwt</a></span>(Xt)
-<span class="co">#plot(Xt.modwt)</span></code></pre></div>
+
+<span class="co"># Summary of Maximum Overlap Discrete Wavelet Coefficients </span>
+<span class="kw">summary</span>(Xt.modwt)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Results of MODWT using haar filter with 9 levels:</span>
+<span class="co">#&gt; Displaying only the first 6 coefficients...</span>
+<span class="co">#&gt; Level 1 Wavelet Coefficients</span>
+<span class="co">#&gt;  -0.6562798 0.397592 0.1350352 -0.1386532 -0.2830119 -0.9393291 ...</span>
+<span class="co">#&gt; Level 2 Wavelet Coefficients</span>
+<span class="co">#&gt;  0.1369697 0.2645046 -0.2126415 -0.822003 -1.397533 -1.344998 ...</span>
+<span class="co">#&gt; Level 3 Wavelet Coefficients</span>
+<span class="co">#&gt;  -0.8429231 -1.362249 -2.044266 -1.991537 -1.571604 -0.827054 ...</span>
+<span class="co">#&gt; Level 4 Wavelet Coefficients</span>
+<span class="co">#&gt;  -1.570749 -1.175945 -0.7167598 -0.3172241 -0.04720348 0.01135659 ...</span>
+<span class="co">#&gt; Level 5 Wavelet Coefficients</span>
+<span class="co">#&gt;  -1.774519 -1.731545 -1.702113 -1.711879 -1.649612 -1.530804 ...</span>
+<span class="co">#&gt; Level 6 Wavelet Coefficients</span>
+<span class="co">#&gt;  -2.885532 -2.821419 -2.829503 -2.839451 -2.783538 -2.726905 ...</span>
+<span class="co">#&gt; Level 7 Wavelet Coefficients</span>
+<span class="co">#&gt;  -3.065437 -3.069304 -3.063743 -3.03344 -2.997907 -2.955661 ...</span>
+<span class="co">#&gt; Level 8 Wavelet Coefficients</span>
+<span class="co">#&gt;  -3.175721 -3.114701 -3.064177 -3.0097 -2.956361 -2.910441 ...</span>
+<span class="co">#&gt; Level 9 Wavelet Coefficients</span>
+<span class="co">#&gt;  -6.967706 -6.925613 -6.884283 -6.838645 -6.79024 -6.735489 ...</span>
+
+<span class="co"># Plot of Maximum Overlap Discrete Wavelet Coefficients</span>
+<span class="kw">plot</span>(Xt.modwt)</code></pre></div>
+<p><img src="README-unnamed-chunk-5-1.png" width="672"></p>
+</div>
 </div>
 <div id="user-guides" class="section level1">
 <h1 class="hasAnchor">

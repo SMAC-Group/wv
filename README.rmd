@@ -46,13 +46,18 @@ devtools::install_github("SMAC-Group/wv")
 
 ## Discrete Wavelet Transformation
 
-For the moment this method will only work with Haar wavelets. 
-
 ```{r}
+# Set seed for reproducibility 
+set.seed(999)
+
 # Simulate a Gaussian random walk
 n = 10^3
 Xt = cumsum(rnorm(n))
+```
 
+For the moment this method will only work with Haar wavelets. 
+
+```{r}
 # DWT
 Xt.dwt = dwt(Xt)
 

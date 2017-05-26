@@ -56,14 +56,14 @@ print.modwt = function(x, ...){
 
 #' @title Summary Maximum Overlap Discrete Wavelet Transform
 #' @description 
-#' Unlists MODWT object and places it in matrix form
+#' Prints MODWT object in a concise format
 #' @method summary modwt
 #' @export
 #' @keywords internal
 #' @param object A \code{modwt} object
 #' @param ... additional arguments affecting the summary produced.
 #' @return Prints the modwt matrix decomposition
-#' @author James Balamuta 
+#' @author Nathanael Claussen and Justin Lee
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)

@@ -15,7 +15,7 @@
 Prints the dwt matrix decomposition
 }
 \description{
-Unlists DWT object and places it in matrix form
+Prints DWT object in a concise format
 }
 \examples{
 set.seed(999)
@@ -23,6 +23,6 @@ x = rnorm(2^8)
 summary(dwt(x))
 }
 \author{
-James Balamuta
+Nathanael Claussen and Justin Lee
 }
 \keyword{internal}

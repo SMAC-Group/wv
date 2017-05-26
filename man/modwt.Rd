@@ -2,9 +2,7 @@
 % Please edit documentation in R/modwt.R
 \name{modwt}
 \alias{modwt}
-\title{Maximum Overlap Discrete Wavelet Transform
- 
-Calculation of the coefficients for the discrete wavelet transformation}
+\title{Maximum Overlap Discrete Wavelet Transform}
 \usage{
 modwt(x, nlevels = floor(log2(length(x))), filter = "haar")
 }
@@ -19,9 +17,7 @@ modwt(x, nlevels = floor(log2(length(x))), filter = "haar")
 y       A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 }
 \description{
-Maximum Overlap Discrete Wavelet Transform
- 
-Calculation of the coefficients for the discrete wavelet transformation
+Calculates the coefficients for the discrete wavelet transformation
 }
 \details{
 Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.

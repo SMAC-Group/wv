@@ -47,9 +47,9 @@ dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
     }
   }
   
-  out = dwt_cpp(x = x, filter_name = filter, nlevels)  # call to C++ version of dwt
-  mostattributes(out) = list(J=nrow(out), filter = filter, class=c("dwt","list"))
-  out
+  ret = dwt_cpp(x = x, filter_name = filter, nlevels)  # call to C++ version of dwt
+  mostattributes(ret) = list(J=nrow(ret), filter = filter, class=c("dwt","list"))
+  ret
 }
 
 #' @title Print Discrete Wavelet Transform

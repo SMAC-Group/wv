@@ -31,9 +31,9 @@
 #' a = modwt(x)
 #' @export
 modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
-  out = modwt_cpp(x = x, filter_name = filter, nlevels)
-  mostattributes(out) = list(J=nrow(out), filter = filter, class=c("modwt","list"))
-  out
+  ret = modwt_cpp(x = x, filter_name = filter, nlevels)
+  mostattributes(ret) = list(J=nrow(ret), filter = filter, class=c("modwt","list"))
+  ret
 }
 
 #' @title Print Maximum Overlap Discrete Wavelet Transform

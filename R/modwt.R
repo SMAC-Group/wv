@@ -71,13 +71,11 @@ print.modwt = function(x, ...){
 summary.modwt=function(object, ...) {
   cat("\n")
   cat("Results of MODWT using",attr(object,"filter"),"filter with",attr(object, "J"),"levels:\n")
-  cat("\n")
+  cat("Displaying only the first 6 coefficients...\n")
   y = as.list(object)
   j = length(y)
   for( i in 1:j ) {
-    cat("Level",i,"Wavelet Coefficients")
-    print(y[[i]])
-    cat("\n")
+    cat("Level",i,"Wavelet Coefficients\n", c(head(y[[i]])), "...\n")
   }
 }
 

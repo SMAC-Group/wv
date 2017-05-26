@@ -4,18 +4,20 @@
 \alias{plot.dwt}
 \title{Plot Discrete Wavelet Transform}
 \usage{
-\method{plot}{dwt}(object, index = NULL, couleur = NULL)
+\method{plot}{dwt}(x, index = NULL, couleur = NULL, ...)
 }
 \arguments{
-\item{\code{y}}{A \code{dwt} object.}
+\item{x}{A \code{dwt} object.}
 
-\item{\code{index}}{A \code{vector} containing the indices to scales to be included in 
+\item{index}{A \code{vector} containing the indices to scales to be included in 
 the graph. By default \code{index = 1:(min(c(J,4)))}, where \code{J} denotes the 
 number of scales in \code{y}.}
 
-\item{\code{couleur}}{A \code{vector} of colors of the same size as \code{index} used
+\item{couleur}{A \code{vector} of colors of the same size as \code{index} used
 for the different scales depicted in the graph. If \code{couleur} contains a single 
-value thn the same color will be used for all scales.}
+value the the same color will be used for all scales.}
+
+\item{...}{additional arguments affecting the plot produced.}
 }
 \description{
 Plots results of the dwt list in which additional parameters can be specified
@@ -35,5 +37,6 @@ plot(Yt, index = c(1,4,5,6), couleur = "blue")
 plot(Yt, index = c(1,4,5,6), couleur = rep(c("blue","yellow"),2))
 }
 \author{
-Justin Lee and Stéphane Guerrier
+Justin Lee and Stephane Guerrier
 }
+\keyword{internal}

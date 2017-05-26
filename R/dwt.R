@@ -28,7 +28,6 @@ ggplot_like_colors <- function(n, alpha = 1) {
 #' @description 
 #' Calculation of the coefficients for the discrete wavelet transformation
 #' @importFrom grDevices hcl
-#' @import graphics 
 #' @export
 #' @param x        A \code{vector} with dimensions N x 1. 
 #' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
@@ -86,6 +85,7 @@ print.dwt=function(x, ...){
 #' @description 
 #' Unlists DWT object and places it in matrix form
 #' @method summary dwt
+#' @import graphics 
 #' @export
 #' @keywords internal
 #' @param object A \code{dwt} object
@@ -112,14 +112,16 @@ summary.dwt=function(object, ...) {
 #' Plots results of the dwt list in which additional parameters can be specified
 #' @method plot dwt
 #' @export
-#' @param \code{y} A \code{dwt} object.
-#' @param \code{index} A \code{vector} containing the indices to scales to be included in 
+#' @param x A \code{dwt} object.
+#' @param index A \code{vector} containing the indices to scales to be included in 
 #' the graph. By default \code{index = 1:(min(c(J,4)))}, where \code{J} denotes the 
 #' number of scales in \code{y}.
-#' @param \code{couleur} A \code{vector} of colors of the same size as \code{index} used
+#' @param couleur A \code{vector} of colors of the same size as \code{index} used
 #' for the different scales depicted in the graph. If \code{couleur} contains a single 
-#' value thn the same color will be used for all scales.
-#' @author Justin Lee and Stéphane Guerrier
+#' value the the same color will be used for all scales.
+#' @param ... additional arguments affecting the plot produced.
+#' @author Justin Lee and Stephane Guerrier
+#' @keywords internal
 #' @examples 
 #' # Simulate a Gaussian white noise
 #' n = 10^3
@@ -133,9 +135,8 @@ summary.dwt=function(object, ...) {
 #' plot(Yt, index = c(1,4,5,6,8,2))
 #' plot(Yt, index = c(1,4,5,6), couleur = "blue")
 #' plot(Yt, index = c(1,4,5,6), couleur = rep(c("blue","yellow"),2))
-
-plot.dwt = function(object, index = NULL, couleur = NULL){
-  J <- attr(object,"J")
+plot.dwt = function(x, index = NULL, couleur = NULL, ...){
+  J <- attr(x,"J")
   
   if (is.null(index)){
     index <- 1:(min(c(4,J)))
@@ -156,9 +157,9 @@ plot.dwt = function(object, index = NULL, couleur = NULL){
   }
   
   par(mfrow = c(nb_plot,1), mar = c(0,3,0,0), oma = c(5,2,1,1))
-  x_range <- length(object[[1]])
+  x_range <- length(x[[1]])
   for (i in seq_len(nb_plot)){
-    current_time_series <- object[[index[i]]]
+    current_time_series <- x[[index[i]]]
     
     plot(NA, xlim = c(1,x_range), ylim = range(current_time_series), 
          bty = "n", axes = FALSE)

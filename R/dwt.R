@@ -87,12 +87,14 @@ print.dwt=function(x, ...){
 #' x = rnorm(2^8)
 #' summary(dwt(x))
 summary.dwt=function(object, ...) {
-  cat("Results of DWT using",attr(object,"filter"),"filter with",attr(object, "J")-1,"levels\n")
+  cat("\n")
+  cat("Results of DWT using",attr(object,"filter"),"filter with",attr(object, "J"),"levels:\n")
+  cat("\n")
   y = as.list(object)
   j = length(y)
   for( i in 1:j ) {
     cat("Level",i,"Wavelet Coefficients")
-    y[[i]]
+    print(y[[i]])
     cat("\n")
   }
 }

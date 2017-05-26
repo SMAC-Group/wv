@@ -112,31 +112,31 @@ summary.modwt=function(object, ...) {
 #' plot(Yt, index = c(1,4,5,6), couleur = "blue")
 #' plot(Yt, index = c(1,4,5,6), couleur = rep(c("blue","yellow"),2))
 plot.modwt = function(x, index = NULL, couleur = NULL, ...){
-  J <- attr(x,"J")
+  J = attr(x,"J")
   
   if (is.null(index)){
-    index <- 1:(min(c(4,J)))
+    index = 1:(min(c(4,J)))
   }else{
     if (max(index) > J || min(index) < 1){
       stop("Incorrect index specified")
     }
   }
   
-  nb_plot <- length(index)
+  nb_plot = length(index)
   
   if (is.null(couleur)){
-    hues <- seq(15, 375, length = nb_plot + 1)
-    couleur <- hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(nb_plot)]
+    hues = seq(15, 375, length = nb_plot + 1)
+    couleur = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(nb_plot)]
   }else{
     if (length(couleur) == 1 || length(couleur) != nb_plot){
-      couleur <- rep(couleur[1],nb_plot)
+      couleur = rep(couleur[1],nb_plot)
     }
   }
   
   par(mfrow = c(nb_plot,1), mar = c(0,3,0,0), oma = c(5,2,1,1))
-  x_range <- length(x[[1]])
+  x_range = length(x[[1]])
   for (i in seq_len(nb_plot)){
-    current_time_series <- x[[index[i]]]
+    current_time_series = x[[index[i]]]
     
     plot(NA, xlim = c(1,x_range), ylim = range(current_time_series), 
          bty = "n", axes = FALSE)

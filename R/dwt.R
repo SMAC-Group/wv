@@ -74,8 +74,6 @@ print.dwt=function(x, ...){
 #' @description 
 #' Unlists DWT object and places it in matrix form
 #' @method summary dwt
-#' @import graphics 
-#' @importFrom grDevices hcl
 #' @export
 #' @keywords internal
 #' @param object A \code{dwt} object
@@ -103,8 +101,6 @@ summary.dwt=function(object, ...) {
 #' @description
 #' Plots results of the dwt list in which additional parameters can be specified
 #' @method plot dwt
-#' @import graphics
-#' @importFrom grDevices hcl
 #' @export
 #' @param x A \code{dwt} object.
 #' @param index A \code{vector} containing the indices to scales to be included in 

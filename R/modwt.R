@@ -85,8 +85,6 @@ summary.modwt=function(object, ...) {
 #' @description
 #' Plots results of the modwt list in which additional parameters can be specified
 #' @method plot modwt
-#' @import graphics 
-#' @importFrom grDevices hcl
 #' @export
 #' @param x A \code{modwt} object.
 #' @param index A \code{vector} containing the indices to scales to be included in 

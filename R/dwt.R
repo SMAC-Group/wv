@@ -14,20 +14,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' Get ggplot2-like colors
-#' @importFrom grDevices hcl
-#' @param n number of colors.
-#' @param alpha transparency.
-#' @return list of colors.
-ggplot_like_colors <- function(n, alpha = 1) {
-  hues = seq(15, 375, length = n + 1)
-  hcl(h = hues, l = 65, c = 100, alpha = alpha)[1:n]
-}
-
 #' @title Discrete Wavelet Transform
 #' @description 
 #' Calculation of the coefficients for the discrete wavelet transformation
-#' @importFrom grDevices hcl
 #' @export
 #' @param x        A \code{vector} with dimensions N x 1. 
 #' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
@@ -86,6 +75,7 @@ print.dwt=function(x, ...){
 #' Unlists DWT object and places it in matrix form
 #' @method summary dwt
 #' @import graphics 
+#' @importFrom grDevices hcl
 #' @export
 #' @keywords internal
 #' @param object A \code{dwt} object
@@ -111,6 +101,8 @@ summary.dwt=function(object, ...) {
 #' @description
 #' Plots results of the dwt list in which additional parameters can be specified
 #' @method plot dwt
+#' @import graphics
+#' @importFrom grDevices hcl
 #' @export
 #' @param x A \code{dwt} object.
 #' @param index A \code{vector} containing the indices to scales to be included in 
@@ -149,7 +141,8 @@ plot.dwt = function(x, index = NULL, couleur = NULL, ...){
   nb_plot <- length(index)
   
   if (is.null(couleur)){
-    couleur <- ggplot_like_colors(nb_plot)
+    hues = seq(15, 375, length = nb_plot + 1)
+    couleur = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(nb_plot)]
   }else{
     if (length(couleur) == 1 || length(couleur) != nb_plot){
       couleur <- rep(couleur[1],nb_plot)

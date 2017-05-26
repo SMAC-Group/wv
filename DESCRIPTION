@@ -16,6 +16,9 @@ Maintainer: Justin Lee <munsheet93@gmail.com>
 Depends: R (>= 3.3)
 Description: Compute the classical and robust wavelet variance for time series and regular lattices.
 License: GPL (>= 2)
-Imports: Rcpp (>= 0.12.10)
+Imports: 
+  Rcpp (>= 0.12.10), 
+  grDevices, 
+  graphics
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.0.1.9000

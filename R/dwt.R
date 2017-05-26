@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #' Get ggplot2-like colors
-#'
+#' @importFrom grDevices hcl
 #' @param n number of colors.
 #' @param alpha transparency.
 #' @return list of colors.
@@ -27,6 +27,9 @@ ggplot_like_colors <- function(n, alpha = 1) {
 #' @title Discrete Wavelet Transform
 #' @description 
 #' Calculation of the coefficients for the discrete wavelet transformation
+#' @importFrom grDevices hcl
+#' @import graphics 
+#' @export
 #' @param x        A \code{vector} with dimensions N x 1. 
 #' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
 #' @param filter   A \code{string} indicating the filter name
@@ -39,7 +42,6 @@ ggplot_like_colors <- function(n, alpha = 1) {
 #' set.seed(999)
 #' x = rnorm(2^8)
 #' dwt(x)
-#' @export
 dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
   
   if(is.vector(x) && length(x) %% 2^nlevels != 0){

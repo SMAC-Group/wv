@@ -44,12 +44,6 @@ For the moment this only works with Haar wavelets
 # Simulate a Gaussian random walk
 n = 10^3
 Xt = cumsum(rnorm(n))
-plot(Xt)
-```
-
-![](README-unnamed-chunk-3-1.png)
-
-``` r
 # DWT
 # TODO:
 # - summary

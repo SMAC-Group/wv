@@ -129,16 +129,10 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
   
   unsigned int N = x.n_elem;
   
-  unsigned int J;
-  if (nlevels == floor(log2(N))){
-    J = nlevels-1; 
-  }else{
-    J = nlevels; 
-  }
+  unsigned int J = nlevels;
   
   unsigned int tau = pow(2,J);
   
-  // may be unnecessary for modwt because levels are different from dwt / possible space for change 
   if(tau > N) Rcpp::stop("The number of levels [ 2^(nlevels) ] exceeds sample size ('x'). Supply a lower number of levels.");
   
   arma::field<arma::vec> filter_info = select_filter(filter_name);
@@ -184,6 +178,8 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
     y(j) = Wj.rows(index,N-1);
     x = Vj;
   }
+  
+  
   
   return y;
 }

@@ -5,3 +5,4 @@
 ^test_modwt\.R$
 ^download_package\.R$
 ^docs$
+^figures$

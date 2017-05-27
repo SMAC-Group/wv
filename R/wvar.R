@@ -47,22 +47,15 @@
 #' x = rnorm(100)
 #' # Default
 #' wvar(x)
+#' 
 #' # Robust
 #' wvar(x, robust = TRUE, eff=0.3)
-#' # 90% confidence interval
+#' 
+#' # Classical
+#' wvar(x, robust = FALSE, eff=0.3)
+#' 
+#' # 90% Confidence Interval 
 #' wvar(x, alpha = 0.10)
-#' 
-#' # IMU Object
-#' \dontrun{
-#' if(!require("imudata")){
-#'    install_imudata()
-#'    library("imudata")
-#' }
-#' 
-#' data(imu6)
-#' test = imu(imu6, gyros = 1:3, accels = 4:6, freq = 100)
-#' df = wvar.imu(test)
-#' }
 #' @export
 wvar = function(x, ...) {
   UseMethod("wvar")

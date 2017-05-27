@@ -159,32 +159,31 @@
 #&gt; 8  0.137102522 0.069880858 0.3811887
 #&gt; 16 0.051603837 0.020543745 0.2878292
 #&gt; 32 0.011723825 0.003282007 0.3685303
-#&gt; 64 0.008205545 0.001633306 8.3553640</div><div class='input'><span class='co'># Robust</span>
+#&gt; 64 0.008205545 0.001633306 8.3553640</div><div class='input'>
+<span class='co'># Robust</span>
 <span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>eff</span><span class='kw'>=</span><span class='fl'>0.3</span>)</div><div class='output co'>#&gt;        Variance       Low CI   High CI
 #&gt; 2  0.5497985611 0.2475972071 1.1008897
 #&gt; 4  0.2399470986 0.0695590832 0.6463224
 #&gt; 8  0.1317999689 0.0138172248 0.5602029
 #&gt; 16 0.0619567778 0.0138172248 0.5797696
 #&gt; 32 0.0074844382 0.0037422191 0.4233586
-#&gt; 64 0.0004697035 0.0002348517 0.8728270</div><div class='input'><span class='co'># 90% confidence interval</span>
+#&gt; 64 0.0004697035 0.0002348517 0.8728270</div><div class='input'>
+<span class='co'># Classical</span>
+<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span><span class='kw'>=</span><span class='fl'>0.3</span>)</div><div class='output co'>#&gt;       Variance      Low CI   High CI
+#&gt; 2  0.452177820 0.316045047 0.7004281
+#&gt; 4  0.230339706 0.140751059 0.4440086
+#&gt; 8  0.137102522 0.069880858 0.3811887
+#&gt; 16 0.051603837 0.020543745 0.2878292
+#&gt; 32 0.011723825 0.003282007 0.3685303
+#&gt; 64 0.008205545 0.001633306 8.3553640</div><div class='input'>
+<span class='co'># 90% Confidence Interval </span>
 <span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.10</span>)</div><div class='output co'>#&gt;       Variance      Low CI   High CI
 #&gt; 2  0.452177820 0.334461347 0.6516656
 #&gt; 4  0.230339706 0.152096918 0.3978812
 #&gt; 8  0.137102522 0.077666345 0.3200430
 #&gt; 16 0.051603837 0.023732362 0.2119612
 #&gt; 32 0.011723825 0.004018555 0.1908247
-#&gt; 64 0.008205545 0.002136049 2.0867886</div><div class='input'>
-<span class='co'># IMU Object</span>
-<span class='fu'>not_run</span>({
-  <span class='kw'>if</span>(!<span class='fu'>require</span>(<span class='st'>"imudata"</span>)){
-     <span class='fu'>install_imudata</span>()
-     <span class='fu'>library</span>(<span class='st'>"imudata"</span>)
-  }
-
-  <span class='fu'>data</span>(<span class='no'>imu6</span>)
-  <span class='no'>test</span> <span class='kw'>=</span> <span class='fu'>imu</span>(<span class='no'>imu6</span>, <span class='kw'>gyros</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>accels</span> <span class='kw'>=</span> <span class='fl'>4</span>:<span class='fl'>6</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>100</span>)
-  <span class='no'>df</span> <span class='kw'>=</span> <span class='fu'>wvar.imu</span>(<span class='no'>test</span>)
-})</div></pre>
+#&gt; 64 0.008205545 0.002136049 2.0867886</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

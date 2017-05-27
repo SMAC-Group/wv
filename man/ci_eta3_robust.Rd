@@ -30,6 +30,7 @@ Computes the eta3 robust CI
 Within this function we are scaling the classical
 }
 \examples{
+set.seed(1337)
 x = rnorm(100)
 # Uses the internal MODWT function not associated with an S3 class.
 decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)

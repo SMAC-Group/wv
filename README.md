@@ -76,7 +76,7 @@ summary(Xt.dwt)
 plot(Xt.dwt)
 ```
 
-![](README-unnamed-chunk-4-1.png)
+![](man/figures/README-unnamed-chunk-4-1.png)
 
 Maximum Overlap Discrete Wavelet Transformation
 -----------------------------------------------
@@ -113,7 +113,7 @@ summary(Xt.modwt)
 plot(Xt.modwt)
 ```
 
-![](README-unnamed-chunk-5-1.png)
+![](man/figures/README-unnamed-chunk-5-1.png)
 
 User Guides
 ===========

@@ -26,7 +26,7 @@ Below are examples of the capabilities of the `wv` package.
 
 ## Install Instructions
 
-To install the `gmwm` package, there is currently one option: GitHub (Developmental).
+To install the `wv` package, there is currently one option: GitHub (Developmental).
 
 ### Recommended R Interface
 

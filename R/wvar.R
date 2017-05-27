@@ -14,9 +14,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' Wavelet Variance
-#' 
-#' Calculates the (MODWT) wavelet variance
+#' @title Wavelet Variance
+#' @description
+#' Calculates the (MO)DWT wavelet variance
 #' @param x         A \code{vector} with dimensions N x 1. 
 #' @param decomp    A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
 #' @param filter    A \code{string} that specifies what wavelet filter to use. 
@@ -59,6 +59,36 @@
 #' @export
 wvar = function(x, ...) {
   UseMethod("wvar")
+}
+
+#' @rdname wvar
+#' @export
+wvar.lts = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, to.unit = NULL, ...){
+  warning('`lts` object is detected. This function can only operate on the combined process.')
+  freq = attr(x, 'freq')
+  unit = attr(x, 'unit')
+  x = x[,ncol(x)]
+  
+  wvar.default(x, decomp, filter, nlevels, alpha, robust, eff, freq = freq, from.unit = unit, to.unit = to.unit)
+}
+
+#' @rdname wvar
+#' @export
+wvar.gts = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, to.unit = NULL, ...){
+  freq = attr(x, 'freq')
+  unit = attr(x, 'unit')
+  x = x[,1]
+  
+  wvar.default(x, decomp, filter, nlevels, alpha, robust, eff, freq = freq, from.unit = unit, to.unit = to.unit)
+}
+
+#' @rdname wvar
+#' @export
+wvar.ts = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, to.unit = NULL, ...){
+  freq = attr(x, 'tsp')[3]
+  unit = NULL
+  
+  wvar.default(x, decomp, filter, nlevels, alpha, robust, eff, freq = freq, from.unit = unit, to.unit = to.unit)
 }
 
 #' @rdname wvar
@@ -127,6 +157,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
 
 #' Create a \code{wvar} object
 #' 
+#' @description
 #' Structures elements into a \code{wvar} object
 #' @param obj    A \code{matrix} with dimensions N x 3, that contains the wavelet variance, low ci, hi ci.
 #' @param decomp A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition
@@ -162,6 +193,7 @@ create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
 
 #' Print Wavelet Variances
 #' 
+#' @description
 #' Displays the summary table of wavelet variance.
 #' @method print wvar
 #' @export
@@ -184,8 +216,8 @@ print.wvar = function(x, ...){
 
 #' Summary of Wavelet Variances
 #' 
-#' Displays the summary table of wavelet variance in addition to CI values and
-#' supplied efficiency.
+#' @description 
+#' Displays the summary table of wavelet variance accounting for CI values and supplied efficiency.
 #' @method summary wvar
 #' @export
 #' @keywords internal
@@ -196,8 +228,8 @@ print.wvar = function(x, ...){
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)
-#' out = wvar(x)
-#' summary( out )
+#' ret = wvar(x)
+#' summary(ret)
 summary.wvar = function(object, ...){
   name = if(object$robust){
     "robust" 
@@ -212,4 +244,38 @@ summary.wvar = function(object, ...){
   cat("The confidence interval was generated using (1-",object$alpha,")*100 \n",sep="")
   
   print(object)
+}
+
+#' Plot Wavelet Variances
+#' 
+#' @description 
+#' Displays plot of wavelet variance accounting for CI values and supplied efficiency.
+#' @method plot wvar
+#' @export
+#' @keywords internal
+#' @param x A \code{wvar} object.
+#' @return plot of the object.
+#' @param ... additional arguments affecting the plot produced.
+#' @author James Balamuta
+#' @examples
+#' set.seed(999)
+#' x = rnorm(1000)
+#' ret = wvar(x)
+#' summary(ret)
+plot.wvar = function(x, ...){
+  xlab <- ""
+  ylab <- ""
+  title <- ""
+  col_wv <- "darkblue"
+  col_ci <- hcl(h = 195, l = 65, c = 100, alpha = 0.25)
+  
+  plot(NA, xlim = range(x$scales), ylim = range(c(x$ci_low, x$ci_high)),
+       xlab = xlab, ylab = ylab, main = title, log = "xy")
+  grid()
+  
+  polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
+          border = NA, col = col_ci)
+
+  lines(x$scales, x$variance, type = "l", col = col, pch = 16)
+  lines(x$scales, x$variance, type = "p", col = col, pch = 16, cex = 1.25)
 }

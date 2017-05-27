@@ -15,14 +15,13 @@
 Summary table and other properties of the object.
 }
 \description{
-Displays the summary table of wavelet variance in addition to CI values and
-supplied efficiency.
+Displays the summary table of wavelet variance accounting for CI values and supplied efficiency.
 }
 \examples{
 set.seed(999)
 x = rnorm(100)
-out = wvar(x)
-summary( out )
+ret = wvar(x)
+summary(ret)
 }
 \author{
 James Balamuta

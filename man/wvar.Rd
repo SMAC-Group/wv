@@ -2,10 +2,22 @@
 % Please edit documentation in R/wvar.R
 \name{wvar}
 \alias{wvar}
+\alias{wvar.lts}
+\alias{wvar.gts}
+\alias{wvar.ts}
 \alias{wvar.default}
 \title{Wavelet Variance}
 \usage{
 wvar(x, ...)
+
+\method{wvar}{lts}(x, decomp = "modwt", filter = "haar", nlevels = NULL,
+  alpha = 0.05, robust = FALSE, eff = 0.6, to.unit = NULL, ...)
+
+\method{wvar}{gts}(x, decomp = "modwt", filter = "haar", nlevels = NULL,
+  alpha = 0.05, robust = FALSE, eff = 0.6, to.unit = NULL, ...)
+
+\method{wvar}{ts}(x, decomp = "modwt", filter = "haar", nlevels = NULL,
+  alpha = 0.05, robust = FALSE, eff = 0.6, to.unit = NULL, ...)
 
 \method{wvar}{default}(x, decomp = "modwt", filter = "haar",
   nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, freq = 1,
@@ -28,11 +40,11 @@ wvar(x, ...)
 
 \item{eff}{A \code{double} that indicates the efficiency as it relates to an MLE.}
 
+\item{to.unit}{A \code{string} indicating the unit which the data is converted to.}
+
 \item{freq}{A \code{numeric} that provides the rate of samples.}
 
 \item{from.unit}{A \code{string} indicating the unit which the data is converted from.}
-
-\item{to.unit}{A \code{string} indicating the unit which the data is converted to.}
 }
 \value{
 A \code{list} with the structure:
@@ -47,7 +59,7 @@ A \code{list} with the structure:
 }
 }
 \description{
-Calculates the (MODWT) wavelet variance
+Calculates the (MO)DWT wavelet variance
 }
 \details{
 If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}

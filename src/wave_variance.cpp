@@ -39,6 +39,7 @@
 //' @keywords internal
 //' @export
 //' @examples
+//' set.seed(1337)
 //' x = rnorm(100)
 //' # Uses the internal MODWT function not associated with an S3 class.
 //' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
@@ -79,6 +80,7 @@ arma::mat ci_eta3(const arma::vec& y, const arma::vec& dims, double alpha_ov_2) 
 //' @keywords internal
 //' @export
 //' @examples
+//' set.seed(1337)
 //' x = rnorm(100)
 //' # Uses the internal MODWT function not associated with an S3 class.
 //' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)

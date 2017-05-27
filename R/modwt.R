@@ -44,7 +44,7 @@ modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
 #' @param x A \code{modwt} object
 #' @param ... further arguments passed to or from other methods.
 #' @return Prints the modwt decomposition
-#' @author James Balamuta
+#' @author James Balamuta and Nathanael Claussen 
 #' @keywords internal
 #' @examples
 #' set.seed(999)

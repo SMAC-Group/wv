@@ -57,7 +57,7 @@ Xt = cumsum(rnorm(n))
 
 For the moment this method will only work with Haar wavelets. 
 
-```{r}
+```{r, fig.align = 'center', fig.cap = "Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."}
 # DWT
 Xt.dwt = dwt(Xt)
 
@@ -70,7 +70,7 @@ plot(Xt.dwt)
 
 ## Maximum Overlap Discrete Wavelet Transformation
 
-```{r}
+```{r, fig.height = 7, fig.align = 'center', fig.cap = "Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."}
 # MODWT
 Xt.modwt = modwt(Xt)
 
@@ -78,7 +78,7 @@ Xt.modwt = modwt(Xt)
 summary(Xt.modwt)
 
 # Plot of Maximum Overlap Discrete Wavelet Coefficients
-plot(Xt.modwt)
+plot(Xt.modwt, index = "all")
 ```
 
 # User Guides

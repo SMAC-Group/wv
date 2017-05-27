@@ -76,7 +76,10 @@ summary(Xt.dwt)
 plot(Xt.dwt)
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)
+<img src="man/figures/README-unnamed-chunk-4-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."  />
+<p class="caption">
+Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise.
+</p>
 
 Maximum Overlap Discrete Wavelet Transformation
 -----------------------------------------------
@@ -110,10 +113,13 @@ summary(Xt.modwt)
 #>  -6.967706 -6.925613 -6.884283 -6.838645 -6.79024 -6.735489 ...
 
 # Plot of Maximum Overlap Discrete Wavelet Coefficients
-plot(Xt.modwt)
+plot(Xt.modwt, index = "all")
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)
+<img src="man/figures/README-unnamed-chunk-5-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."  />
+<p class="caption">
+Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simulated Gaussian white noise.
+</p>
 
 User Guides
 ===========

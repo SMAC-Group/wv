@@ -244,6 +244,7 @@ arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robu
 //' @details 
 //' This function does the heavy lifting with the signal_modwt_bw
 //' @examples
+//' set.seed(1337)
 //' x = rnorm(100)
 //' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 //' wvar_cpp(decomp, robust=FALSE, eff=0.6, alpha = 0.05, ci_type="eta3")
@@ -282,6 +283,7 @@ arma::mat wvar_cpp(const arma::field<arma::vec>& signal_modwt_bw,
 //' @details 
 //' This function powers the wvar object. It is also extendable...
 //' @examples
+//' set.seed(1337)
 //' x=rnorm(100)
 //' modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, alpha = 0.05,
 //'                ci_type="eta3", strWavelet="haar", decomp="modwt")
@@ -323,6 +325,7 @@ arma::mat modwt_wvar_cpp(const arma::vec& signal, unsigned int nlevels, bool rob
 //' @details 
 //' This function processes the decomposition of multiple signals quickly
 //' @examples
+//' set.seed(1337)
 //' x = cbind(rnorm(100),rnorm(100))
 //' batch_modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, 
 //'                      alpha = 0.05, ci_type="eta3", strWavelet="haar", 

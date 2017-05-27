@@ -21,7 +21,7 @@
 #' @param x        A \code{vector} with dimensions N x 1. 
 #' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
 #' @param filter   A \code{string} indicating the filter name
-#' @return y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
+#' @return A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
 #' The default \eqn{J} is determined by \eqn{floor\left(log_2 \left(length\left(x\right)\right)\right)}{floor(log2(length(x)))}
@@ -29,7 +29,11 @@
 #' @examples
 #' set.seed(999)
 #' x = rnorm(2^8)
-#' dwt(x)
+#' ret = dwt(x)
+#' 
+#' summary(ret)
+#' 
+#' plot(ret)
 dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
   
   if(is.vector(x) && length(x) %% 2^nlevels != 0){
@@ -65,7 +69,7 @@ dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
 #' @examples
 #' set.seed(999)
 #' x = rnorm(2^8)
-#' dwt(x)
+#' print(dwt(x))
 print.dwt=function(x, ...){
   NextMethod("print")
 }

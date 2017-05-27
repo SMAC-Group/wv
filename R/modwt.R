@@ -20,16 +20,20 @@
 #' @param x        A \code{vector} with dimensions N x 1. 
 #' @param nlevels  A \code{integer} indicating the \eqn{J} levels of decomposition.
 #' @param filter   A \code{string} indicating the filter name
-#' @return y       A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
+#' @return A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
 #' The default \eqn{J} is determined by \eqn{floor\left(log_2 \left(length\left(x\right)\right)\right)}{floor(log2(length(x)))}
 #' @author James Balamuta and Justin Lee
+#' @export
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)
-#' a = modwt(x)
-#' @export
+#' ret = modwt(x)
+#' 
+#' summary(ret)
+#' 
+#' plot(ret)
 modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
   ret = modwt_cpp(x = x, filter_name = filter, nlevels)
   mostattributes(ret) = list(J=nrow(ret), filter = filter, class=c("modwt","list"))

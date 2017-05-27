@@ -14,7 +14,7 @@ dwt(x, nlevels = floor(log2(length(x))), filter = "haar")
 \item{filter}{A \code{string} indicating the filter name}
 }
 \value{
-y A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
+A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 }
 \description{
 Calculation of the coefficients for the discrete wavelet transformation
@@ -26,7 +26,11 @@ The default \eqn{J} is determined by \eqn{floor\left(log_2 \left(length\left(x\r
 \examples{
 set.seed(999)
 x = rnorm(2^8)
-dwt(x)
+ret = dwt(x)
+
+summary(ret)
+
+plot(ret)
 }
 \author{
 James Balamuta and Justin Lee

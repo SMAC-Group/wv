@@ -12,7 +12,7 @@ wvar(x, ...)
   from.unit = NULL, to.unit = NULL, ...)
 }
 \arguments{
-\item{x}{A \code{vector} with dimensions N x 1, or a \code{lts} object, or a \code{gts} object, or a \code{imu} object.}
+\item{x}{A \code{vector} with dimensions N x 1.}
 
 \item{...}{Further arguments passed to or from other methods.}
 
@@ -68,5 +68,5 @@ wvar(x, robust = FALSE, eff=0.3)
 wvar(x, alpha = 0.10)
 }
 \author{
-JJB
+James Balamuta and Justin Lee
 }

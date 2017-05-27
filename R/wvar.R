@@ -1,4 +1,4 @@
-# Copyright (C) 2014 - 2017  James Balamuta, Stephane Guerrier, Roberto Molinari
+# Copyright (C) 2017 James Balamuta, Justin Lee, Stephane Guerrier, Roberto Molinari
 #
 # This file is part of wv R Methods Package
 #
@@ -17,7 +17,7 @@
 #' Wavelet Variance
 #' 
 #' Calculates the (MODWT) wavelet variance
-#' @param x         A \code{vector} with dimensions N x 1, or a \code{lts} object, or a \code{gts} object, or a \code{imu} object. 
+#' @param x         A \code{vector} with dimensions N x 1. 
 #' @param decomp    A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
 #' @param filter    A \code{string} that specifies what wavelet filter to use. 
 #' @param nlevels   An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).
@@ -40,7 +40,7 @@
 #' }
 #' @details 
 #' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
-#' @author JJB
+#' @author James Balamuta and Justin Lee
 #' @rdname wvar
 #' @examples
 #' set.seed(999)
@@ -93,7 +93,10 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   obj =  .Call('wv_modwt_wvar_cpp', PACKAGE = 'wv',
                signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
                ci_type="eta3", strWavelet=filter, decomp = decomp)
-
+  
+  # nlevels may be changed during modwt
+  nlevels = nrow(obj)
+  
   scales = .Call('wv_scales_cpp', PACKAGE = 'wv', nlevels)/freq
   
   # NO unit conversion
@@ -165,7 +168,7 @@ create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
 #' @keywords internal
 #' @param x A \code{wvar} object.
 #' @param ... further arguments passed to or from other methods.
-#' @author JJB
+#' @author James Balamuta 
 #' @return Summary table
 #' @examples
 #' set.seed(999)
@@ -189,7 +192,7 @@ print.wvar = function(x, ...){
 #' @param object A \code{wvar} object.
 #' @return Summary table and other properties of the object.
 #' @param ... additional arguments affecting the summary produced.
-#' @author JJB
+#' @author James Balamuta
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)

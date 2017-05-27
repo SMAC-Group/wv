@@ -1,4 +1,4 @@
-#' wv.
+#' wv
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom grDevices hcl 

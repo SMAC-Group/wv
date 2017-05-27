@@ -25,6 +25,6 @@ out = wvar(x)
 summary( out )
 }
 \author{
-JJB
+James Balamuta
 }
 \keyword{internal}

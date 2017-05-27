@@ -1,5 +1,3 @@
-#' wv
-#'
 #' @importFrom Rcpp evalCpp
 #' @importFrom grDevices hcl 
 #' @useDynLib wv

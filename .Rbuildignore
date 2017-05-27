@@ -6,3 +6,5 @@
 ^download_package\.R$
 ^docs$
 ^figures$
+^README\.rmd$
+^wv-package$

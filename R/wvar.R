@@ -253,7 +253,7 @@ summary.wvar = function(object, ...){
 #' @method plot wvar
 #' @export
 #' @keywords internal
-#' @param \code{object} A \code{wvar} object.
+#' @param x A \code{wvar} object.
 plot.wvar = function(x, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){

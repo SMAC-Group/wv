@@ -254,7 +254,7 @@ summary.wvar = function(object, ...){
 #' @export
 #' @keywords internal
 #' @param \code{object} A \code{wvar} object.
-plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
+plot.wvar = function(x, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){
   
@@ -285,17 +285,17 @@ plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NUL
   if (is.null(col_wv)){
     col_wv = "darkblue"
   }
-                       
+  
   if (is.null(col_ci)){
     col_ci <- hcl(h = 210, l = 65, c = 100, alpha = 0.2)
   }
-
+  
   # Range
-  x_range = range(object$scales)
+  x_range = range(x$scales)
   x_low = floor(log2(x_range[1]))
   x_high = ceiling(log2(x_range[2]))
   
-  y_range = range(c(object$ci_low, object$ci_high))
+  y_range = range(c(x$ci_low, x$ci_high))
   y_low = floor(log2(y_range[1]))
   y_high = ceiling(log2(y_range[2]))
   
@@ -313,16 +313,16 @@ plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NUL
     x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
   }
   x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
-
+  
   y_ticks <- seq(y_low, y_high, by = 1)
   if (length(y_ticks) > nb_ticks_y){
     y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
   }
   y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
-    
+  
   # Legend position
   if (is.null(legend_position)){
-    if (which.min(abs(c(y_low, y_high) - log2(object$variance[1]))) == 1){
+    if (which.min(abs(c(y_low, y_high) - log2(x$variance[1]))) == 1){
       legend_position = "topleft"
     }else{
       legend_position = "bottomleft"
@@ -336,20 +336,20 @@ plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NUL
   abline(h = 2^y_ticks, lty = 1, col = "grey95")
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
   axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
-  polygon(c(object$scales, rev(object$scales)), c(object$ci_low, rev(object$ci_high)),
+  polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
           border = NA, col = col_ci)
   
-
-  polygon(c(object$scales, rev(object$scales)), c(object$ci_low, rev(object$ci_high)),
+  
+  polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
           border = NA, col = col_ci)
   
-  CI_conf = 1 - object$alpha
+  CI_conf = 1 - x$alpha
   legend(legend_position,
          legend=c(expression(paste("Empirical WV ",hat(nu))), bquote(paste("CI(",hat(nu),", ",.(CI_conf),")"))),
          pch = c(16, 15), lty = c(1, NA), col = c(col_wv, col_ci), cex = 1, pt.cex = c(1.25, 3), bty = "n")
   
-  lines(object$scales, object$variance, type = "l", col = col_wv, pch = 16)
-  lines(object$scales, object$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
+  lines(x$scales, x$variance, type = "l", col = col_wv, pch = 16)
+  lines(x$scales, x$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
   
   par(xpd = NA)
   win_dim = par("usr")

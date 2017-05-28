@@ -253,34 +253,86 @@ summary.wvar = function(object, ...){
 #' @method plot wvar
 #' @export
 #' @keywords internal
-#' @param x A \code{wvar} object.
-#' @param n Number of x-axis ticks. 
-#' @return plot of the object.
-#' @param ... additional arguments affecting the plot produced.
-#' @author James Balamuta
-#' @examples
-#' set.seed(999)
-#' x = rnorm(1000)
-#' ret = wvar(x)
-#' summary(ret)
-plot.wvar = function(x, ...){
-  xlab <- ""
-  ylab <- ""
-  title <- ""
-  col_wv <- "darkblue"
-  col_ci <- "#00BFC440"
+#' @param \code{object} A \code{wvar} object.
+plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
+                     col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
+                     ...){
+  # Labels
+  if (is.null(xlab)){
+    if (is.null(units)){
+      xlab = expression(paste("Scale ", "(", tau, ")", sep =""))
+    }else{
+      xlab = bquote(paste("Scale ", "(", tau, ") [", .(units), "]", sep = ""))
+    }
+  }
+  
+  if (is.null(ylab)){
+    if(is.null(units)){
+      ylab = expression(paste("Wavelet Variance ", "(", hat(nu), ")", sep = ""))
+    }else{
+      ylab = bquote(paste("Wavelet Variance ", "(", hat(nu), ") [", .(units)^2, "]", sep = ""))
+    }
+  }
+  
+  # Title
+  if (is.null(title)){
+    title = "Haar Wavelet Variance Representation"
+  }
+  
+  # Line and CI colors
+  if (is.null(col_wv)){
+    col_wv = "darkblue"
+  }
+                       
+  if (is.null(col_ci)){
+    col_ci <- hcl(h = 210, l = 65, c = 100, alpha = 0.2)
+  }
 
-  labelsX = parse(text=paste(2, "^", seq_along(x$scales), sep = ""))
+  # Range
+  x_range = range(object$scales)
+  x_low = floor(log2(x_range[1]))
+  x_high = ceiling(log2(x_range[2]))
   
-  plot(NA, xlim = range(x$scales), ylim = range(c(x$ci_low, x$ci_high)),
-       xlab = xlab, ylab = ylab, main = title, log = "xy", xaxes = FALSE)
-  grid()
+  y_range = range(c(object$ci_low, object$ci_high))
+  y_low = floor(log2(y_range[1]))
+  y_high = ceiling(log2(y_range[2]))
   
-  polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
+  # Axes
+  if (is.null(nb_ticks_x)){
+    nb_ticks_x = 6
+  }
+  
+  if (is.null(nb_ticks_y)){
+    nb_ticks_y = 5
+  }
+  
+  x_ticks = seq(x_low, x_high, by = 1)
+  if (length(x_ticks) > nb_ticks_x){
+    x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
+  }
+  x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
+
+  y_ticks <- seq(y_low, y_high, by = 1)
+  if (length(y_ticks) > nb_ticks_y){
+    y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
+  }
+  y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+                    
+  # Main plot                     
+  plot(NA, xlim = x_range, ylim = y_range, xlab = xlab, ylab = ylab, 
+       main = title, log = "xy", xaxt = 'n', yaxt = 'n')
+  abline(v = 2^x_ticks, lty = 1, col = "grey95")
+  abline(h = 2^y_ticks, lty = 1, col = "grey95")
+  axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
+  axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
+  polygon(c(object$scales, rev(object$scales)), c(object$ci_low, rev(object$ci_high)),
           border = NA, col = col_ci)
-
-  lines(x$scales, x$variance, type = "l", col = col_wv, pch = 16)
-  lines(x$scales, x$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
-  axis(side = 1, at = x$scales, labels = labelsX)
-  axis(side = 2, at = x$variance, )
+  
+  CI_conf = 1 - object$alpha
+  legend(min(object$scales), min(object$variance),
+         legend=c(expression(paste("Empirical WV ",hat(nu))), bquote(paste("CI(",hat(nu),", ",.(CI_conf),")"))),
+         pch = c(16, 15), lty = c(1, NA), col = c(col_wv, col_ci), cex = 1, pt.cex = c(1.25, 3), bty = "n")
+  
+  lines(object$scales, object$variance, type = "l", col = col_wv, pch = 16)
+  lines(object$scales, object$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
 }

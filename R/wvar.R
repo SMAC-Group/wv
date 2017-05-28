@@ -254,6 +254,7 @@ summary.wvar = function(object, ...){
 #' @export
 #' @keywords internal
 #' @param x A \code{wvar} object.
+#' @param n Number of x-axis ticks. 
 #' @return plot of the object.
 #' @param ... additional arguments affecting the plot produced.
 #' @author James Balamuta
@@ -267,15 +268,18 @@ plot.wvar = function(x, ...){
   ylab <- ""
   title <- ""
   col_wv <- "darkblue"
-  col_ci <- hcl(h = 195, l = 65, c = 100, alpha = 0.25)
+  col_ci <- "#00BFC440"
+
+  labelsX = parse(text=paste(2, "^", seq_along(x$scales), sep = ""))
   
   plot(NA, xlim = range(x$scales), ylim = range(c(x$ci_low, x$ci_high)),
-       xlab = xlab, ylab = ylab, main = title, log = "xy")
+       xlab = xlab, ylab = ylab, main = title, log = "xy", axes = FALSE)
   grid()
   
   polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
           border = NA, col = col_ci)
 
-  lines(x$scales, x$variance, type = "l", col = col, pch = 16)
-  lines(x$scales, x$variance, type = "p", col = col, pch = 16, cex = 1.25)
+  lines(x$scales, x$variance, type = "l", col = col_wv, pch = 16)
+  lines(x$scales, x$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
+  axis(side = 1, at = x$scales, labels = labelsX)
 }

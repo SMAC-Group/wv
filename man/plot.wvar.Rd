@@ -10,6 +10,8 @@
 \item{x}{A \code{wvar} object.}
 
 \item{...}{additional arguments affecting the plot produced.}
+
+\item{n}{Number of x-axis ticks.}
 }
 \value{
 plot of the object.

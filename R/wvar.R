@@ -273,7 +273,7 @@ plot.wvar = function(x, ...){
   labelsX = parse(text=paste(2, "^", seq_along(x$scales), sep = ""))
   
   plot(NA, xlim = range(x$scales), ylim = range(c(x$ci_low, x$ci_high)),
-       xlab = xlab, ylab = ylab, main = title, log = "xy", axes = FALSE)
+       xlab = xlab, ylab = ylab, main = title, log = "xy", xaxes = FALSE)
   grid()
   
   polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
@@ -282,4 +282,5 @@ plot.wvar = function(x, ...){
   lines(x$scales, x$variance, type = "l", col = col_wv, pch = 16)
   lines(x$scales, x$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
   axis(side = 1, at = x$scales, labels = labelsX)
+  axis(side = 2, at = x$variance, )
 }

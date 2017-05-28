@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #' @title Wavelet Variance
+#' 
 #' @description
 #' Calculates the (MO)DWT wavelet variance
 #' @param x         A \code{vector} with dimensions N x 1. 
@@ -155,7 +156,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   create_wvar(obj, decomp, filter, robust, eff, alpha, scales, unit)
 }
 
-#' Create a \code{wvar} object
+#' @title Create a \code{wvar} object
 #' 
 #' @description
 #' Structures elements into a \code{wvar} object
@@ -191,7 +192,7 @@ create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
                        filter = filter), class = "wvar")
 }
 
-#' Print Wavelet Variances
+#' @title Print Wavelet Variances
 #' 
 #' @description
 #' Displays the summary table of wavelet variance.
@@ -214,7 +215,7 @@ print.wvar = function(x, ...){
   print(mat)
 }
 
-#' Summary of Wavelet Variances
+#' @title Summary of Wavelet Variances
 #' 
 #' @description 
 #' Displays the summary table of wavelet variance accounting for CI values and supplied efficiency.
@@ -246,7 +247,7 @@ summary.wvar = function(object, ...){
   print(object)
 }
 
-#' Plot Wavelet Variances
+#' @title Plot Wavelet Variances
 #' 
 #' @description 
 #' Displays plot of wavelet variance accounting for CI values and supplied efficiency.
@@ -254,11 +255,16 @@ summary.wvar = function(object, ...){
 #' @export
 #' @keywords internal
 #' @param x A \code{wvar} object.
-plot.wvar = function(x, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
+#' @param col_wv Color of wavelet variance line. 
+#' @param col_ci Color of Confidence Interval shade. 
+#' @param nb_ticks_x Number of ticks for the x-axis. 
+#' @param nb_ticks_y Number of ticks for the y-axis. 
+#' @param legend_position Position of the Legend. 
+#' @param ... additional arguments affecting the summary produced.
+plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){
   
-  par(oma = c(1,1,0,0), mar = c(4,4,3,1))
   # Labels
   if (is.null(xlab)){
     if (is.null(units)){
@@ -276,9 +282,9 @@ plot.wvar = function(x, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
     }
   }
   
-  # Title
-  if (is.null(title)){
-    title = "Haar Wavelet Variance Representation"
+  # Main Title
+  if (is.null(main)){
+    main = "Haar Wavelet Variance Representation"
   }
   
   # Line and CI colors
@@ -361,6 +367,6 @@ plot.wvar = function(x, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
   lines(rep(x_vec[1], 2), 10^win_dim[3:4], col = 1)
   lines(rep(x_vec[2], 2), 10^win_dim[3:4], col = 1)
   polygon(x_vec, y_vec, col = "grey95")
-  text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] + 0.09/2*(win_dim[4] - win_dim[3])), title)
+  text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] + 0.09/2*(win_dim[4] - win_dim[3])), main)
   par(xpd = FALSE)
 }

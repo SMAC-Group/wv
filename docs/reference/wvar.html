@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Wavelet Variance � wvar • wv</title>
+<title>Wavelet Variance — wvar • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -72,10 +72,22 @@
     </div>
 
     
-    <p>Calculates the (MODWT) wavelet variance</p>
+    <p>Calculates the (MO)DWT wavelet variance</p>
     
 
     <pre class="usage"><span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for lts</span>
+<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>decomp</span> <span class='kw'>=</span> <span class='st'>"modwt"</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>, <span class='kw'>to.unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for gts</span>
+<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>decomp</span> <span class='kw'>=</span> <span class='st'>"modwt"</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>, <span class='kw'>to.unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for ts</span>
+<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>decomp</span> <span class='kw'>=</span> <span class='st'>"modwt"</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>, <span class='kw'>to.unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>decomp</span> <span class='kw'>=</span> <span class='st'>"modwt"</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>,
@@ -118,16 +130,16 @@
       <td><p>A <code>double</code> that indicates the efficiency as it relates to an MLE.</p></td>
     </tr>
     <tr>
+      <th>to.unit</th>
+      <td><p>A <code>string</code> indicating the unit which the data is converted to.</p></td>
+    </tr>
+    <tr>
       <th>freq</th>
       <td><p>A <code>numeric</code> that provides the rate of samples.</p></td>
     </tr>
     <tr>
       <th>from.unit</th>
       <td><p>A <code>string</code> indicating the unit which the data is converted from.</p></td>
-    </tr>
-    <tr>
-      <th>to.unit</th>
-      <td><p>A <code>string</code> indicating the unit which the data is converted to.</p></td>
     </tr>
     </table>
     

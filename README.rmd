@@ -81,6 +81,22 @@ summary(Xt.modwt)
 plot(Xt.modwt, index = "all")
 ```
 
+## Wavelet Variance
+
+```{r, fig.height = 4, fig.width = 8, fig.align = 'center', fig.cap = "Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).", }
+n = 10^4
+# White noise
+WN = rnorm(n)
+
+# Random walk
+RW = cumsum(rnorm(n))
+
+# Plot WV
+par(mfrow = c(1,2))
+plot(wvar(WN), title = "White noise")
+plot(wvar(RW), title = "Random walk")
+```
+
 # User Guides
 
 Various guides ship with package or are available on <http://smac-group.com/> to provide insight into how to use the different methods. At the present time, the following vignettes are available:

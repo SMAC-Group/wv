@@ -121,6 +121,33 @@ plot(Xt.modwt, index = "all")
 Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simulated Gaussian white noise.
 </p>
 
+Wavelet Variance
+----------------
+
+``` r
+n = 10^4
+# White noise
+WN = rnorm(n)
+
+# Random walk
+RW = cumsum(rnorm(n))
+
+# Plot WV
+par(mfrow = c(1,2))
+plot(wvar(WN), title = "White noise")
+plot(wvar(RW), title = "Random walk")
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)."  />
+<p class="caption">
+Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
+</p>
+
+<img src="man/figures/README-unnamed-chunk-6-2.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)."  />
+<p class="caption">
+Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
+</p>
+
 User Guides
 ===========
 

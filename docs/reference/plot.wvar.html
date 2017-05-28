@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Print Wavelet Variances — print.wvar • wv</title>
+<title>Plot Wavelet Variances — plot.wvar • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -68,15 +68,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Print Wavelet Variances</h1>
+    <h1>Plot Wavelet Variances</h1>
     </div>
 
     
-    <p>Displays the summary table of wavelet variance.</p>
+    <p>Displays plot of wavelet variance accounting for CI values and supplied efficiency.</p>
     
 
     <pre class="usage"><span class='co'># S3 method for wvar</span>
-<span class='fu'>print</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -87,26 +87,35 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further arguments passed to or from other methods.</p></td>
+      <td><p>additional arguments affecting the plot produced.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>Number of x-axis ticks.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Summary table</p>
+    <p>plot of the object.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>999</span>)
-<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
-<span class='no'>out</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>x</span>)
-<span class='fu'>print</span>( <span class='no'>out</span> )</div><div class='output co'>#&gt;       Variance      Low CI   High CI
-#&gt; 2  0.452177820 0.316045047 0.7004281
-#&gt; 4  0.230339706 0.140751059 0.4440086
-#&gt; 8  0.137102522 0.069880858 0.3811887
-#&gt; 16 0.051603837 0.020543745 0.2878292
-#&gt; 32 0.011723825 0.003282007 0.3685303
-#&gt; 64 0.008205545 0.001633306 8.3553640</div></pre>
+<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>1000</span>)
+<span class='no'>ret</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>x</span>)
+<span class='fu'>summary</span>(<span class='no'>ret</span>)</div><div class='output co'>#&gt; Results of the wavelet variance calculation using the classical method.
+#&gt; The confidence interval was generated using (1-0.05)*100 
+#&gt;         Variance       Low CI    High CI
+#&gt; 2   0.4601070955 0.4079799792 0.52295962
+#&gt; 4   0.2364695298 0.1998829063 0.28416662
+#&gt; 8   0.1284426656 0.1016415051 0.16750396
+#&gt; 16  0.0734682674 0.0531236981 0.10829168
+#&gt; 32  0.0345879654 0.0221281030 0.06160722
+#&gt; 64  0.0149784004 0.0081226438 0.03634866
+#&gt; 128 0.0053195226 0.0023057112 0.02259668
+#&gt; 256 0.0032293568 0.0010237301 0.04786984
+#&gt; 512 0.0009843122 0.0001959264 1.00228400</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

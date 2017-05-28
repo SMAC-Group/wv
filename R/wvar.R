@@ -257,6 +257,8 @@ summary.wvar = function(object, ...){
 plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){
+  
+  par(oma = c(1,1,0,0), mar = c(4,4,3,1))
   # Labels
   if (is.null(xlab)){
     if (is.null(units)){
@@ -329,11 +331,15 @@ plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NUL
   
   # Main plot                     
   plot(NA, xlim = x_range, ylim = y_range, xlab = xlab, ylab = ylab, 
-       main = title, log = "xy", xaxt = 'n', yaxt = 'n')
+       log = "xy", xaxt = 'n', yaxt = 'n', bty = "n")
   abline(v = 2^x_ticks, lty = 1, col = "grey95")
   abline(h = 2^y_ticks, lty = 1, col = "grey95")
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
   axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
+  polygon(c(object$scales, rev(object$scales)), c(object$ci_low, rev(object$ci_high)),
+          border = NA, col = col_ci)
+  
+
   polygon(c(object$scales, rev(object$scales)), c(object$ci_low, rev(object$ci_high)),
           border = NA, col = col_ci)
   
@@ -344,4 +350,17 @@ plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NUL
   
   lines(object$scales, object$variance, type = "l", col = col_wv, pch = 16)
   lines(object$scales, object$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
+  
+  par(xpd = NA)
+  win_dim = par("usr")
+  x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+  y_vec = 10^c(win_dim[4], win_dim[4],
+               win_dim[4] + 0.09*(win_dim[4] - win_dim[3]), 
+               win_dim[4] + 0.09*(win_dim[4] - win_dim[3]))
+  lines(x_vec[1:2], rep(10^win_dim[3],2), col = 1)
+  lines(rep(x_vec[1], 2), 10^win_dim[3:4], col = 1)
+  lines(rep(x_vec[2], 2), 10^win_dim[3:4], col = 1)
+  polygon(x_vec, y_vec, col = "grey95")
+  text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] + 0.09/2*(win_dim[4] - win_dim[3])), title)
+  par(xpd = FALSE)
 }

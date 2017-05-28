@@ -256,7 +256,7 @@ summary.wvar = function(object, ...){
 #' @param \code{object} A \code{wvar} object.
 plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NULL,
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
-                     ...){
+                     legend_position = NULL, ...){
   # Labels
   if (is.null(xlab)){
     if (is.null(units)){
@@ -317,7 +317,16 @@ plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NUL
     y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
   }
   y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
-                    
+    
+  # Legend position
+  if (is.null(legend_position)){
+    if (which.min(abs(c(y_low, y_high) - log2(object$variance[1]))) == 1){
+      legend_position = "topleft"
+    }else{
+      legend_position = "bottomleft"
+    }
+  }   
+  
   # Main plot                     
   plot(NA, xlim = x_range, ylim = y_range, xlab = xlab, ylab = ylab, 
        main = title, log = "xy", xaxt = 'n', yaxt = 'n')
@@ -329,7 +338,7 @@ plot.wvar = function(object, xlab = NULL, ylab = NULL, title = NULL, units = NUL
           border = NA, col = col_ci)
   
   CI_conf = 1 - object$alpha
-  legend(min(object$scales), min(object$variance),
+  legend(legend_position,
          legend=c(expression(paste("Empirical WV ",hat(nu))), bquote(paste("CI(",hat(nu),", ",.(CI_conf),")"))),
          pch = c(16, 15), lty = c(1, NA), col = c(col_wv, col_ci), cex = 1, pt.cex = c(1.25, 3), bty = "n")
   

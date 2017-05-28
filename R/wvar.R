@@ -264,6 +264,8 @@ summary.wvar = function(object, ...){
 plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){
+  # Control margins (bottom, left, top, right)
+  par(oma = c(1,0,1,0), mar=c(4,5,2,1))
   
   # Labels
   if (is.null(xlab)){

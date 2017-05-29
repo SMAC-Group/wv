@@ -1,8 +1,8 @@
 Package: wv
 Type: Package
 Title: Wavelet variance
-Version: 1.0
-Date: 2017-04-28
+Version: 1.0.0
+Date: 2017-05-28
 Authors@R: c(
     person("Justin", "Lee", email = "munsheet93@gmail.com", role = c("aut","cre")),
     person("Stephane", "Guerrier", role = "aut"),

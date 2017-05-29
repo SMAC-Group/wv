@@ -9,25 +9,25 @@
   nb_ticks_y = NULL, legend_position = NULL, ...)
 }
 \arguments{
-\item{\code{x}}{A \code{wvar} object.}
+\item{{x}}{A \code{wvar} object.}
 
-\item{\code{xlab}}{A title for the x axis.}
+\item{{xlab}}{A title for the x axis.}
 
-\item{\code{ylab}}{A title for the y axis.}
+\item{{ylab}}{A title for the y axis.}
 
-\item{\code{main}}{An overall title for the plot.}
+\item{{main}}{An overall title for the plot.}
 
-\item{\code{col_wv}}{Color of the wavelet variance line.}
+\item{{col_wv}}{Color of the wavelet variance line.}
 
-\item{\code{col_ci}}{Color of the confidence interval shade.}
+\item{{col_ci}}{Color of the confidence interval shade.}
 
-\item{\code{nb_ticks_x}}{Number of ticks for the x-axis.}
+\item{{nb_ticks_x}}{Number of ticks for the x-axis.}
 
-\item{\code{nb_ticks_y}}{Number of ticks for the y-axis.}
+\item{{nb_ticks_y}}{Number of ticks for the y-axis.}
 
-\item{\code{legend_position}}{Position of the legend.}
+\item{{legend_position}}{Position of the legend.}
 
-\item{\code{...}}{Additional arguments affecting the plot.}
+\item{{...}}{Additional arguments affecting the plot.}
 }
 \value{
 Plot of wavelet variance and confidence interval for each scale.
@@ -36,6 +36,6 @@ Plot of wavelet variance and confidence interval for each scale.
 Displays a plot of wavelet variance accounting for CI values and supplied efficiency.
 }
 \author{
-Stephane Gurrier, Nathanael Claussen, and Justin Lee
+Stephane Guerrier, Nathanael Claussen, and Justin Lee
 }
 \keyword{internal}

@@ -250,18 +250,21 @@ summary.wvar = function(object, ...){
 #' @title Plot Wavelet Variances
 #' 
 #' @description 
-#' Displays plot of wavelet variance accounting for CI values and supplied efficiency.
+#' Displays a plot of wavelet variance accounting for CI values and supplied efficiency.
 #' @method plot wvar
 #' @export
 #' @keywords internal
-#' @param x A \code{wvar} object.
-#' @param col_wv Color of wavelet variance line. 
-#' @param col_ci Color of Confidence Interval shade. 
-#' @param nb_ticks_x Number of ticks for the x-axis. 
-#' @param nb_ticks_y Number of ticks for the y-axis. 
-#' @param legend_position Position of the Legend. 
-#' @param ... additional arguments affecting the summary produced.
-#' @return Plot of wavelet variances with its confidence interval.
+#' @param \code{x} A \code{wvar} object.
+#' @param \code{xlab} A title for the x axis.
+#' @param \code{ylab} A title for the y axis.
+#' @param \code{main} An overall title for the plot.
+#' @param \code{col_wv} Color of the wavelet variance line.
+#' @param \code{col_ci} Color of the confidence interval shade.
+#' @param \code{nb_ticks_x} Number of ticks for the x-axis.
+#' @param \code{nb_ticks_y} Number of ticks for the y-axis.
+#' @param \code{legend_position} Position of the legend.
+#' @param \code{...} Additional arguments affecting the plot.
+#' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Gurrier, Nathanael Claussen, and Justin Lee
 plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,

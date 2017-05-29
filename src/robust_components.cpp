@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 - 2016  James Balamuta, Stephane Guerrier, Roberto Molinari
+/* Copyright (C) 2017  James Balamuta, Justin Lee, Stephane Guerrier, Roberto Molinari
  *
  * This file is part of wv R Methods Package
  *
@@ -92,7 +92,7 @@ double objFun_sig_rob_bw(double sig2_bw, arma::vec x, double a_of_c, double crob
 }
 
 // Robust estimator. Inputs are wavelet coefficients (y) and desired level of efficiency. 
-double sig_rob_bw(arma::vec y, double eff = 0.6){
+arma::vec sig_rob_bw(arma::vec y, double eff = 0.6){
   double crob_bw = find_biwc(eff);
 
   arma::vec x = y/arma::stddev(y);  
@@ -123,7 +123,12 @@ double sig_rob_bw(arma::vec y, double eff = 0.6){
                           _["crob_bw"] = crob_bw);
           
   double sig2_hat_rob_bw = as<double>(opt_val[0])*var(y);
-  return sig2_hat_rob_bw;
+  
+  arma::vec out(2); 
+  out(0) = sig2_hat_rob_bw; 
+  out(1) = crob_bw; 
+
+  return out;
 }
 
 /* -------------------------------- End ROBUST FUNCTIONS -------------------------- */

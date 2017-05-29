@@ -1,4 +1,4 @@
-/* Copyright (C) 2017  James Balamuta, Stephane Guerrier, Roberto Molinari
+/* Copyright (C) 2017 James Balamuta, Stephane Guerrier, Roberto Molinari
  *
  * This file is part of wv R Methods Package
  *
@@ -212,7 +212,7 @@ arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robu
     // Robust wavelet variance estimation
     for(unsigned int i=0; i < nb_level; i++){
       arma::vec wav_coef = sort(signal_modwt_bw(i));
-      y(i) = sig_rob_bw(wav_coef, eff);
+      y(i) = sig_rob_bw(wav_coef, eff)(0);
     }
   }else{
     // Classical wavelet variance estimation

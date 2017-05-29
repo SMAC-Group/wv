@@ -18,6 +18,39 @@ To install the `wv` package, there is currently one option: GitHub (Developmenta
 
 We firmly recommend that any users of this package use the [RStudio IDE](https://www.rstudio.com/products/rstudio/download/) over the default R GUI.
 
+### Installing the package through GitHub (Developmental)
+
+For users who are interested in having the latest and greatest developments withing wavelets or GMWM methodology, this option is ideal. Though, there is considerably more work that a user must do to have a stable version of the package. **The setup to obtain the development version is platform dependent.**
+
+Specifically, one **must** have a compiler installed on your system that is compatible with R.
+
+For help on obtaining a compiler consult:
+
+-   [OS X](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/)
+-   [Windows](https://cran.r-project.org/bin/windows/Rtools/)
+
+Depending on your operating system, further requirements exist such as:
+
+**OS X**
+
+Some user report the need to use X11 to suppress shared library errors. To install X11, visit [xquartz.org](http://www.xquartz.org/)
+
+**Linux**
+
+Both curl and libxml are required.
+
+For **Debian** systems, enter the following in terminal:
+
+``` bash
+sudo apt-get install curl libcurl3 libcurl3-dev libxml2 libxml2-dev
+```
+
+For **RHEL** systems, enter the following in terminal:
+
+``` bash
+sudo yum install curl curl-devel libxml2 libxml2-dev
+```
+
 **All Systems**
 
 With the system dependency taken care of, we continue on by installing the R specific package dependencies and finally the package itself by doing the following in an R session:
@@ -76,7 +109,7 @@ summary(Xt.dwt)
 plot(Xt.dwt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."  />
+<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."  />
 <p class="caption">
 Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise.
 </p>
@@ -116,7 +149,7 @@ summary(Xt.modwt)
 plot(Xt.modwt, index = "all")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."  />
+<img src="man/figures/README-unnamed-chunk-7-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."  />
 <p class="caption">
 Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simulated Gaussian white noise.
 </p>
@@ -138,10 +171,10 @@ RW = cumsum(rnorm(n))
 # Plot WV
 par(mfrow = c(1,2), mar = c(4,5,1,1))
 plot(wvar(WN), main = "White noise")
-plot(wvar(RW), main = "Random walk", legend_position = NA)
+plot(wvar(RW), main = "Random walk", legend_position = NULL)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)."  />
+<img src="man/figures/README-unnamed-chunk-8-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)."  />
 <p class="caption">
 Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
 </p>
@@ -153,10 +186,10 @@ RW2 = RW
 RW2[sample(1:n,round(gamma*n))] = rnorm(round(gamma*n),0,5)
 par(mfrow = c(1,2), mar = c(4,5,1,1))
 robust_eda(RW)
-robust_eda(RW2, legend_position = NA)
+robust_eda(RW2, legend_position = NULL)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
 ``` r
 n = 10^5
@@ -173,7 +206,7 @@ wv_Wt = wvar(Wt)
 compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
 User Guides
 ===========

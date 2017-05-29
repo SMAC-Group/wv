@@ -64,6 +64,26 @@
 <h3 class="hasAnchor">
 <a href="#recommended-r-interface" class="anchor"></a>Recommended R Interface</h3>
 <p>We firmly recommend that any users of this package use the <a href="https://www.rstudio.com/products/rstudio/download/">RStudio IDE</a> over the default R GUI.</p>
+</div>
+<div id="installing-the-package-through-github-developmental" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installing-the-package-through-github-developmental" class="anchor"></a>Installing the package through GitHub (Developmental)</h3>
+<p>For users who are interested in having the latest and greatest developments withing wavelets or GMWM methodology, this option is ideal. Though, there is considerably more work that a user must do to have a stable version of the package. <strong>The setup to obtain the development version is platform dependent.</strong></p>
+<p>Specifically, one <strong>must</strong> have a compiler installed on your system that is compatible with R.</p>
+<p>For help on obtaining a compiler consult:</p>
+<ul>
+<li><a href="http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/">OS X</a></li>
+<li><a href="https://cran.r-project.org/bin/windows/Rtools/">Windows</a></li>
+</ul>
+<p>Depending on your operating system, further requirements exist such as:</p>
+<p><strong>OS X</strong></p>
+<p>Some user report the need to use X11 to suppress shared library errors. To install X11, visit <a href="http://www.xquartz.org/">xquartz.org</a></p>
+<p><strong>Linux</strong></p>
+<p>Both curl and libxml are required.</p>
+<p>For <strong>Debian</strong> systems, enter the following in terminal:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> apt-get install curl libcurl3 libcurl3-dev libxml2 libxml2-dev</code></pre></div>
+<p>For <strong>RHEL</strong> systems, enter the following in terminal:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> yum install curl curl-devel libxml2 libxml2-dev</code></pre></div>
 <p><strong>All Systems</strong></p>
 <p>With the system dependency taken care of, we continue on by installing the R specific package dependencies and finally the package itself by doing the following in an R session:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install dependencies</span>
@@ -113,7 +133,7 @@ Xt.dwt =<span class="st"> </span><span class="kw"><a href="reference/dwt.html">d
 <span class="co"># Plot of Discrete Wavelet Coefficients</span>
 <span class="kw">plot</span>(Xt.dwt)</code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-4-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." width="672"><p class="caption">
+<img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." width="672"><p class="caption">
 Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise.
 </p>
 </div>
@@ -151,7 +171,7 @@ Xt.modwt =<span class="st"> </span><span class="kw"><a href="reference/modwt.htm
 <span class="co"># Plot of Maximum Overlap Discrete Wavelet Coefficients</span>
 <span class="kw">plot</span>(Xt.modwt, <span class="dt">index =</span> <span class="st">"all"</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-5-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." width="672"><p class="caption">
+<img src="reference/figures/README-unnamed-chunk-7-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." width="672"><p class="caption">
 Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simulated Gaussian white noise.
 </p>
 </div>
@@ -172,9 +192,9 @@ RW =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rno
 <span class="co"># Plot WV</span>
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(WN), <span class="dt">main =</span> <span class="st">"White noise"</span>)
-<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(RW), <span class="dt">main =</span> <span class="st">"Random walk"</span>, <span class="dt">legend_position =</span> <span class="ot">NA</span>)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(RW), <span class="dt">main =</span> <span class="st">"Random walk"</span>, <span class="dt">legend_position =</span> <span class="ot">NULL</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." width="696"><p class="caption">
+<img src="reference/figures/README-unnamed-chunk-8-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." width="696"><p class="caption">
 Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
 </p>
 </div>
@@ -184,8 +204,8 @@ RW2 =<span class="st"> </span>RW
 RW2[<span class="kw">sample</span>(<span class="dv">1</span>:n,<span class="kw">round</span>(gamma*n))] =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">round</span>(gamma*n),<span class="dv">0</span>,<span class="dv">5</span>)
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW)
-<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW2, <span class="dt">legend_position =</span> <span class="ot">NA</span>)</code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="696" style="display: block; margin: auto;"></p>
+<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW2, <span class="dt">legend_position =</span> <span class="ot">NULL</span>)</code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="696" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">10</span>^<span class="dv">5</span>
 Xt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.10</span>))
 Yt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.35</span>))
@@ -198,7 +218,7 @@ wv_Zt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">w
 wv_Wt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Wt)
 
 <span class="kw">compare_wvar</span>(wv_Xt, wv_Yt, wv_Zt, wv_Wt)</code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="696" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="696" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="user-guides" class="section level1">

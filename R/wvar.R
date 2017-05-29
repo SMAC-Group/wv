@@ -260,12 +260,20 @@ summary.wvar = function(object, ...){
 #' @param {main} An overall title for the plot.
 #' @param {col_wv} Color of the wavelet variance line.
 #' @param {col_ci} Color of the confidence interval shade.
-#' @param {nb_ticks_x} Number of ticks for the x-axis.
-#' @param {nb_ticks_y} Number of ticks for the y-axis.
+#' @param {nb_ticks_x} Maximum number of ticks for the x-axis.
+#' @param {nb_ticks_y} Maximum number of ticks for the y-axis.
 #' @param {legend_position} Position of the legend.
 #' @param {...} Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
+#' @examples 
+#' n = 10^4
+#' Xt = rnorm(n)
+#' wv = wvar(Xt)
+#' plot(wv)
+#' plot(wv, main = "Simulated white noise", xlab = "Scales")
+#' plot(wv, units = "sec", legend_position = "topright")
+#' plot(wv, col_wv = "darkred", col_ci = "pink")
 plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){
@@ -343,19 +351,18 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   # Main plot                     
   plot(NA, xlim = x_range, ylim = y_range, xlab = xlab, ylab = ylab, 
        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", ann = FALSE)
-  
   win_dim = par("usr")
   
   par(new = TRUE)
   plot(NA, xlim = x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
        xlab = xlab, ylab = ylab, log = "xy", xaxt = 'n', yaxt = 'n', bty = "n")
-  
   win_dim = par("usr")
   
+  # Add grid
   abline(v = 2^x_ticks, lty = 1, col = "grey95")
   abline(h = 2^y_ticks, lty = 1, col = "grey95")
   
-
+  # Add title
   x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
   y_vec = 10^c(win_dim[4], win_dim[4],
                win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
@@ -363,16 +370,19 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   polygon(x_vec, y_vec, col = "grey95", border = NA)
   text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), main)
   
+  # Add axes and box
   lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
   y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
   y_labels = y_labels[1:length(y_ticks)]
   box()
-
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
   axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
+  
+  # CI for the WV
   polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
           border = NA, col = col_ci)
   
+  # Add legend
   CI_conf = 1 - x$alpha
   if (legend_position == "topleft"){
     legend_position = 10^c(1.1*win_dim[1], 0.98*(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])))
@@ -392,6 +402,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
     }
   }
   
+  # Add WV
   lines(x$scales, x$variance, type = "l", col = col_wv, pch = 16)
   lines(x$scales, x$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
 }

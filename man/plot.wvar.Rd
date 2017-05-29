@@ -35,6 +35,16 @@ Plot of wavelet variance and confidence interval for each scale.
 \description{
 Displays a plot of wavelet variance accounting for CI values and supplied efficiency.
 }
+\examples{
+n = 10^4
+Xt = rnorm(n)
+wv = wvar(Xt)
+plot(wv)
+plot(wv, main = "Simulated white noise")
+plot(wv, units = "sec", legend_position = "topright")
+plot(wv, nb_ticks_x = 10, xlab = "Scales")
+plot(wv, col_wv = "darkred", col_ci = "pink")
+}
 \author{
 Stephane Guerrier, Nathanael Claussen, and Justin Lee
 }

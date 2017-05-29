@@ -203,8 +203,8 @@ gamma =<span class="st"> </span><span class="fl">0.01</span>
 RW2 =<span class="st"> </span>RW
 RW2[<span class="kw">sample</span>(<span class="dv">1</span>:n,<span class="kw">round</span>(gamma*n))] =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">round</span>(gamma*n),<span class="dv">0</span>,<span class="dv">5</span>)
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>))
-<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW)
-<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW2, <span class="dt">legend_position =</span> <span class="ot">NULL</span>)</code></pre></div>
+<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW, <span class="dt">main =</span> <span class="st">"RW without contamination"</span>)
+<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW2, <span class="dt">legend_position =</span> <span class="ot">NULL</span>, <span class="dt">main =</span> <span class="st">"RW with contamination"</span>)</code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="696" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">10</span>^<span class="dv">5</span>
 Xt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.10</span>))
@@ -217,7 +217,7 @@ wv_Yt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">w
 wv_Zt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Zt)
 wv_Wt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Wt)
 
-<span class="kw">compare_wvar</span>(wv_Xt, wv_Yt, wv_Zt, wv_Wt)</code></pre></div>
+<span class="kw"><a href="reference/compare_wvar.html">compare_wvar</a></span>(wv_Xt, wv_Yt, wv_Zt, wv_Wt)</code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="696" style="display: block; margin: auto;"></p>
 </div>
 </div>

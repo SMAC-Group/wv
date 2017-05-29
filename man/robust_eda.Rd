@@ -9,27 +9,27 @@ robust_eda(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL,
   nb_ticks_y = NULL, legend_position = NULL, ...)
 }
 \arguments{
+\item{x}{A time series object.}
+
 \item{eff}{The efficiency of the robust estimator}
 
-\item{{x}}{A time series object.}
+\item{xlab}{A title for the x axis.}
 
-\item{{xlab}}{A title for the x axis.}
+\item{ylab}{A title for the y axis.}
 
-\item{{ylab}}{A title for the y axis.}
+\item{main}{An overall title for the plot.}
 
-\item{{main}}{An overall title for the plot.}
+\item{col_wv}{Color of the wavelet variance line.}
 
-\item{{col_wv}}{Color of the wavelet variance line.}
+\item{col_ci}{Color of the confidence interval shade.}
 
-\item{{col_ci}}{Color of the confidence interval shade.}
+\item{nb_ticks_x}{Maximum number of ticks for the x-axis.}
 
-\item{{nb_ticks_x}}{Maximum number of ticks for the x-axis.}
+\item{nb_ticks_y}{Maximum number of ticks for the y-axis.}
 
-\item{{nb_ticks_y}}{Maximum number of ticks for the y-axis.}
+\item{legend_position}{Position of the legend (use legend_position = NA to remove legend).}
 
-\item{{legend_position}}{Position of the legend (use legend_position = NA to remove legend).}
-
-\item{{...}}{Additional arguments affecting the plot.}
+\item{...}{Additional arguments affecting the plot.}
 }
 \value{
 Plot of wavelet variance and confidence interval for each scale.

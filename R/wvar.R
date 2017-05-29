@@ -424,17 +424,17 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 #' 
 #' @description 
 #' Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
-#' @param {x} A time series object.
+#' @param x A time series object.
 #' @param eff The efficiency of the robust estimator
-#' @param {xlab} A title for the x axis.
-#' @param {ylab} A title for the y axis.
-#' @param {main} An overall title for the plot.
-#' @param {col_wv} Color of the wavelet variance line.
-#' @param {col_ci} Color of the confidence interval shade.
-#' @param {nb_ticks_x} Maximum number of ticks for the x-axis.
-#' @param {nb_ticks_y} Maximum number of ticks for the y-axis.
-#' @param {legend_position} Position of the legend (use legend_position = NA to remove legend).
-#' @param {...} Additional arguments affecting the plot.
+#' @param xlab A title for the x axis.
+#' @param ylab A title for the y axis.
+#' @param main An overall title for the plot.
+#' @param col_wv Color of the wavelet variance line.
+#' @param col_ci Color of the confidence interval shade.
+#' @param nb_ticks_x Maximum number of ticks for the x-axis.
+#' @param nb_ticks_y Maximum number of ticks for the y-axis.
+#' @param legend_position Position of the legend (use legend_position = NA to remove legend).
+#' @param ... Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
 #' @examples 
@@ -594,6 +594,14 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   
 }
 
+
+#' @title Comparison between multiple Wavelet Variances
+#' 
+#' @description 
+#' Displays plots of multiple wavelet variances for a different time series accounting for CI values.
+#' @param ... One or more time series objects.
+#' @param nb_ticks_x Maximum number of ticks for the x-axis.
+#' @param nb_ticks_y Maximum number of ticks for the y-axis.
 #' @export
 compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
   
@@ -614,7 +622,7 @@ compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
     
   }else if (obj_len == 1){
     # -> plot.wvar
-    plot(...)
+    plot.wvar(..., nb_ticks_X = nb_ticks_x, nb_ticks_y = nb_ticks_y)
   }else{
     # Find x and y limits
     x_range = y_range = rep(NULL, 2)

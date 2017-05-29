@@ -1,6 +1,6 @@
 /* Copyright (C) 2014 - 2015  James Balamuta
  *
- * This file is part of GMWM R Methods Package
+ * This file is part of wv R Methods Package
  *
  * The file uses methods in the r-to-armadillo project and is free software: you can redistribute it and/or modify it
  * under the terms of the MIT License.
@@ -48,7 +48,7 @@ arma::mat sort_mat(arma::mat x, unsigned int col){
 //' @details Consider a vector x=[[1,2],[3,4]].
 //' By setting \code{start=1} and \code{end=0}, the function would output x=[[2,1],[4,1]].
 //' Start and end must be valid C++ matrix locations. (e.g. matrix cols start at 0 and not 1)
-//' @author JJB
+//' @author James Balamuta
 //' @examples
 //' x = matrix(c(1,2,3,4), nrow = 2,byrow = TRUE)
 //' rev_col_subset(x, 1, 0)
@@ -69,7 +69,7 @@ arma::mat rev_col_subset(arma::mat x, unsigned int start, unsigned int end){
 //' @return x A \code{matrix} with matrix rows displayed in reversed order
 //' @details Consider a vector x=[[1,2],[3,4]], the function would output x=[[3,4],[1,2]].
 //' Start and end must be valid C++ matrix locations. (e.g. matrix rows start at 0 and not 1)
-//' @author JJB
+//' @author James Balamuta
 //' @examples
 //' x = matrix(c(1,2,3,4), nrow=2,byrow=TRUE)
 //' rev_row_subset(x, 1, 0)
@@ -88,7 +88,7 @@ arma::mat rev_row_subset(arma::mat x, unsigned int start, unsigned int end){
 //' @param x A \code{column vector} of length N
 //' @return x A \code{column vector} with its contents reversed.
 //' @details Consider a vector x=[1,2,3,4,5], the function would output x=[5,4,3,2,1].
-//' @author JJB
+//' @author James Balamuta
 //' @examples
 //' x = 1:5
 //' reverse_vec(x)
@@ -102,7 +102,7 @@ arma::vec reverse_vec(arma::vec x) {
 //' @description Unlists vectors in a field and places them into a matrix
 //' @param x A \code{field<vec>}.
 //' @return A \code{mat} containing the field elements within a column.
-//' @author JJB
+//' @author James Balamuta
 //' @examples
 //' x=rnorm(100)
 //' @keywords internal
@@ -125,7 +125,7 @@ arma::mat field_to_matrix(arma::field<arma::vec> x){
 //' @description Sums vectors in a field into a single variable.
 //' @param x A \code{field<vec>}.
 //' @return An \code{mat} containing the field elements within a column.
-//' @author JJB
+//' @author James Balamuta
 //' @examples
 //' x=rnorm(100)
 //' @keywords internal

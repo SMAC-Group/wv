@@ -4,7 +4,7 @@
 \alias{modwt}
 \title{Maximum Overlap Discrete Wavelet Transform}
 \usage{
-modwt(x, nlevels = floor(log2(length(x))), filter = "haar")
+modwt(x, nlevels = floor(log2(length(x) - 1)), filter = "haar")
 }
 \arguments{
 \item{x}{A \code{vector} with dimensions N x 1.}

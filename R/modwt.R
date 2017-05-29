@@ -34,9 +34,9 @@
 #' summary(ret)
 #' 
 #' plot(ret)
-modwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
+modwt = function(x, nlevels = floor(log2(length(x)-1)), filter = "haar") {
   ret = modwt_cpp(x = x, filter_name = filter, nlevels)
-  mostattributes(ret) = list(J=nrow(ret), filter = filter, class=c("modwt","list"))
+  mostattributes(ret) = list(J=nlevels, filter = filter, class=c("modwt","list"))
   ret
 }
 

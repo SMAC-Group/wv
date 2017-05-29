@@ -29,7 +29,7 @@
 #' Stephane Guerrier \email{stephane@@illinois.edu},
 #' Roberto Molinari \email{roberto.molinari@@unige.ch},
 #' James Balamuta \email{balamut2@@illinois.edu},
-#' Nathanael Claussen, 
+#' Nathanael Claussen \email{nclauss2@illinois.edu}, 
 #' Adlai Stevenson, 
 #' Haotian Xu
 #' 

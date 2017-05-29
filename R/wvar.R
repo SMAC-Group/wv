@@ -196,12 +196,12 @@ create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
 #' 
 #' @description
 #' Displays the summary table of wavelet variance.
+#' @author James Balamuta 
 #' @method print wvar
 #' @export
 #' @keywords internal
 #' @param x A \code{wvar} object.
 #' @param ... further arguments passed to or from other methods.
-#' @author James Balamuta 
 #' @return Summary table
 #' @examples
 #' set.seed(999)
@@ -261,6 +261,8 @@ summary.wvar = function(object, ...){
 #' @param nb_ticks_y Number of ticks for the y-axis. 
 #' @param legend_position Position of the Legend. 
 #' @param ... additional arguments affecting the summary produced.
+#' @return Plot of wavelet variances with its confidence interval.
+#' @author Stephane Gurrier, Nathanael Claussen, and Justin Lee
 plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){

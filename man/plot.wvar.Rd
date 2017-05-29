@@ -23,7 +23,13 @@
 
 \item{...}{additional arguments affecting the summary produced.}
 }
+\value{
+Plot of wavelet variances with its confidence interval.
+}
 \description{
 Displays plot of wavelet variance accounting for CI values and supplied efficiency.
+}
+\author{
+Stephane Gurrier, Nathanael Claussen, and Justin Lee
 }
 \keyword{internal}

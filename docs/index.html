@@ -159,24 +159,22 @@ Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simul
 <div id="wavelet-variance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wavelet-variance" class="anchor"></a>Wavelet Variance</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">10</span>^<span class="dv">4</span>
-<span class="co"># White noise</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set seed for reproducibility </span>
+<span class="kw">set.seed</span>(<span class="dv">999</span>)
+
+n =<span class="st"> </span><span class="dv">10</span>^<span class="dv">4</span>
+<span class="co"># Simulate White noise</span>
 WN =<span class="st"> </span><span class="kw">rnorm</span>(n)
 
-<span class="co"># Random walk</span>
+<span class="co"># Simulate Random walk</span>
 RW =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rnorm</span>(n))
 
 <span class="co"># Plot WV</span>
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
-<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(WN), <span class="dt">title =</span> <span class="st">"White noise"</span>)
-<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(RW), <span class="dt">title =</span> <span class="st">"Random walk"</span>)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(WN), <span class="dt">main =</span> <span class="st">"White noise"</span>)
+<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(RW), <span class="dt">main =</span> <span class="st">"Random walk"</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." width="768"><p class="caption">
-Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
-</p>
-</div>
-<div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-6-2.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." width="768"><p class="caption">
 Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
 </p>
 </div>

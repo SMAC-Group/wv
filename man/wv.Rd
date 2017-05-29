@@ -4,25 +4,8 @@
 \name{wv}
 \alias{wv}
 \alias{wv-package}
-\title{Simulated Time Series (wv) Package}
+\title{wv}
 \description{
-Simulated Time Series (wv) Package
+wv
 }
-\details{
-\tabular{ll}{
-Package: \tab wv\cr
-Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2017-05-28\cr
-License: \tab GPL\cr
-}
-}
-\author{
-Justin Lee \email{munsheet93@gmail.com},
-Stephane Guerrier \email{stephane@illinois.edu},
-Roberto Molinari \email{roberto.molinari@unige.ch},
-James Balamuta \email{balamut2@illinois.edu},
-Nathanael Claussen, 
-Adlai Stevenson, 
-Haotian Xu
-}
+\keyword{internal}

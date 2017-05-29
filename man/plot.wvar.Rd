@@ -4,28 +4,26 @@
 \alias{plot.wvar}
 \title{Plot Wavelet Variances}
 \usage{
-\method{plot}{wvar}(x, ...)
+\method{plot}{wvar}(x, units = NULL, xlab = NULL, ylab = NULL,
+  main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL,
+  nb_ticks_y = NULL, legend_position = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{wvar} object.}
 
-\item{...}{additional arguments affecting the plot produced.}
+\item{col_wv}{Color of wavelet variance line.}
 
-\item{n}{Number of x-axis ticks.}
-}
-\value{
-plot of the object.
+\item{col_ci}{Color of Confidence Interval shade.}
+
+\item{nb_ticks_x}{Number of ticks for the x-axis.}
+
+\item{nb_ticks_y}{Number of ticks for the y-axis.}
+
+\item{legend_position}{Position of the Legend.}
+
+\item{...}{additional arguments affecting the summary produced.}
 }
 \description{
 Displays plot of wavelet variance accounting for CI values and supplied efficiency.
-}
-\examples{
-set.seed(999)
-x = rnorm(1000)
-ret = wvar(x)
-summary(ret)
-}
-\author{
-James Balamuta
 }
 \keyword{internal}

@@ -424,7 +424,6 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 #' 
 #' @description 
 #' Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
-#' @keywords internal
 #' @param {x} A time series object.
 #' @param eff The efficiency of the robust estimator
 #' @param {xlab} A title for the x axis.
@@ -595,10 +594,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   
 }
 
-
-
-
-
+#' @export
 compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
   
   obj_list = list(...)

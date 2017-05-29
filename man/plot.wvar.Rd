@@ -25,7 +25,7 @@
 
 \item{{nb_ticks_y}}{Maximum number of ticks for the y-axis.}
 
-\item{{legend_position}}{Position of the legend.}
+\item{{legend_position}}{Position of the legend (use legend_position = NA to remove legend).}
 
 \item{{...}}{Additional arguments affecting the plot.}
 }

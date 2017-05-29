@@ -27,7 +27,7 @@ robust_eda(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL,
 
 \item{{nb_ticks_y}}{Maximum number of ticks for the y-axis.}
 
-\item{{legend_position}}{Position of the legend.}
+\item{{legend_position}}{Position of the legend (use legend_position = NA to remove legend).}
 
 \item{{...}}{Additional arguments affecting the plot.}
 }
@@ -49,4 +49,3 @@ plot(wv, col_wv = "darkred", col_ci = "pink")
 \author{
 Stephane Guerrier, Nathanael Claussen, and Justin Lee
 }
-\keyword{internal}

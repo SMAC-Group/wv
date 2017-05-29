@@ -140,8 +140,8 @@ gamma = 0.01
 RW2 = RW
 RW2[sample(1:n,round(gamma*n))] = rnorm(round(gamma*n),0,5)
 par(mfrow = c(1,2), mar = c(4,5,1,1))
-robust_eda(RW)
-robust_eda(RW2, legend_position = NULL)
+robust_eda(RW, main = "RW without contamination")
+robust_eda(RW2, legend_position = NULL, main = "RW with contamination")
 ```
 
 ```{r, fig.height = 5, fig.width = 7.25, fig.align = 'center'}

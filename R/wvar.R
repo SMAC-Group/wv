@@ -254,23 +254,21 @@ summary.wvar = function(object, ...){
 #' @method plot wvar
 #' @export
 #' @keywords internal
-#' @param \code{x} A \code{wvar} object.
-#' @param \code{xlab} A title for the x axis.
-#' @param \code{ylab} A title for the y axis.
-#' @param \code{main} An overall title for the plot.
-#' @param \code{col_wv} Color of the wavelet variance line.
-#' @param \code{col_ci} Color of the confidence interval shade.
-#' @param \code{nb_ticks_x} Number of ticks for the x-axis.
-#' @param \code{nb_ticks_y} Number of ticks for the y-axis.
-#' @param \code{legend_position} Position of the legend.
-#' @param \code{...} Additional arguments affecting the plot.
+#' @param {x} A \code{wvar} object.
+#' @param {xlab} A title for the x axis.
+#' @param {ylab} A title for the y axis.
+#' @param {main} An overall title for the plot.
+#' @param {col_wv} Color of the wavelet variance line.
+#' @param {col_ci} Color of the confidence interval shade.
+#' @param {nb_ticks_x} Number of ticks for the x-axis.
+#' @param {nb_ticks_y} Number of ticks for the y-axis.
+#' @param {legend_position} Position of the legend.
+#' @param {...} Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
-#' @author Stephane Gurrier, Nathanael Claussen, and Justin Lee
+#' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
 plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                      legend_position = NULL, ...){
-  # Control margins (bottom, left, top, right)
-  par(oma = c(1,0,1,0), mar=c(4,5,2,1))
   
   # Labels
   if (is.null(xlab)){
@@ -300,7 +298,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   }
   
   if (is.null(col_ci)){
-    col_ci <- hcl(h = 210, l = 65, c = 100, alpha = 0.2)
+    col_ci = hcl(h = 210, l = 65, c = 100, alpha = 0.2)
   }
   
   # Range
@@ -344,36 +342,56 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   
   # Main plot                     
   plot(NA, xlim = x_range, ylim = y_range, xlab = xlab, ylab = ylab, 
-       log = "xy", xaxt = 'n', yaxt = 'n', bty = "n")
+       log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", ann = FALSE)
+  
+  win_dim = par("usr")
+  
+  par(new = TRUE)
+  plot(NA, xlim = x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
+       xlab = xlab, ylab = ylab, log = "xy", xaxt = 'n', yaxt = 'n', bty = "n")
+  
+  win_dim = par("usr")
+  
   abline(v = 2^x_ticks, lty = 1, col = "grey95")
   abline(h = 2^y_ticks, lty = 1, col = "grey95")
+  
+
+  x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+  y_vec = 10^c(win_dim[4], win_dim[4],
+               win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+               win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+  polygon(x_vec, y_vec, col = "grey95", border = NA)
+  text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), main)
+  
+  lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
+  y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+  y_labels = y_labels[1:length(y_ticks)]
+  box()
+
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
   axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
   polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
           border = NA, col = col_ci)
   
-  
-  polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
-          border = NA, col = col_ci)
-  
   CI_conf = 1 - x$alpha
-  legend(legend_position,
-         legend=c(expression(paste("Empirical WV ",hat(nu))), bquote(paste("CI(",hat(nu),", ",.(CI_conf),")"))),
-         pch = c(16, 15), lty = c(1, NA), col = c(col_wv, col_ci), cex = 1, pt.cex = c(1.25, 3), bty = "n")
+  if (legend_position == "topleft"){
+    legend_position = 10^c(1.1*win_dim[1], 0.98*(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])))
+    legend(x = legend_position[1], y = legend_position[2],
+           legend = c(expression(paste("Empirical WV ",hat(nu))), bquote(paste("CI(",hat(nu),", ",.(CI_conf),")"))),
+           pch = c(16, 15), lty = c(1, NA), col = c(col_wv, col_ci), cex = 1, pt.cex = c(1.25, 3), bty = "n")
+  }else{
+    if (legend_position == "topright"){
+      legend_position = 10^c(0.7*win_dim[2], 0.98*(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])))
+      legend(x = legend_position[1], y = legend_position[2],
+             legend = c(expression(paste("Empirical WV ",hat(nu))), bquote(paste("CI(",hat(nu),", ",.(CI_conf),")"))),
+             pch = c(16, 15), lty = c(1, NA), col = c(col_wv, col_ci), cex = 1, pt.cex = c(1.25, 3), bty = "n")
+    }else{
+      legend(legend_position,
+             legend = c(expression(paste("Empirical WV ",hat(nu))), bquote(paste("CI(",hat(nu),", ",.(CI_conf),")"))),
+             pch = c(16, 15), lty = c(1, NA), col = c(col_wv, col_ci), cex = 1, pt.cex = c(1.25, 3), bty = "n")
+    }
+  }
   
   lines(x$scales, x$variance, type = "l", col = col_wv, pch = 16)
   lines(x$scales, x$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
-  
-  par(xpd = NA)
-  win_dim = par("usr")
-  x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
-  y_vec = 10^c(win_dim[4], win_dim[4],
-               win_dim[4] + 0.09*(win_dim[4] - win_dim[3]), 
-               win_dim[4] + 0.09*(win_dim[4] - win_dim[3]))
-  lines(x_vec[1:2], rep(10^win_dim[3],2), col = 1)
-  lines(rep(x_vec[1], 2), 10^win_dim[3:4], col = 1)
-  lines(rep(x_vec[2], 2), 10^win_dim[3:4], col = 1)
-  polygon(x_vec, y_vec, col = "grey95")
-  text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] + 0.09/2*(win_dim[4] - win_dim[3])), main)
-  par(xpd = FALSE)
 }

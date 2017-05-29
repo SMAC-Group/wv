@@ -1,5 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+    ## Version: 1.0.0 built on 2017-05-28
+
+    ## To see the user guides use: browseVignettes("wv").
+
 [![Linux Build Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
 
 `wv` R Package <img src="man/figures/logo.png" align="right" />
@@ -136,7 +140,7 @@ WN = rnorm(n)
 RW = cumsum(rnorm(n))
 
 # Plot WV
-par(mfrow = c(1,2))
+par(mfrow = c(1,2), mar = c(4,5,1,1))
 plot(wvar(WN), main = "White noise")
 plot(wvar(RW), main = "Random walk")
 ```

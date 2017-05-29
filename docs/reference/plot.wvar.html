@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Wavelet Variances � plot.wvar • wv</title>
+<title>Plot Wavelet Variances — plot.wvar • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -72,7 +72,7 @@
     </div>
 
     
-    <p>Displays plot of wavelet variance accounting for CI values and supplied efficiency.</p>
+    <p>Displays a plot of wavelet variance accounting for CI values and supplied efficiency.</p>
     
 
     <pre class="usage"><span class='co'># S3 method for wvar</span>
@@ -84,38 +84,50 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th><code>x</code></th>
       <td><p>A <code>wvar</code> object.</p></td>
     </tr>
     <tr>
-      <th>col_wv</th>
-      <td><p>Color of wavelet variance line.</p></td>
+      <th><code>xlab</code></th>
+      <td><p>A title for the x axis.</p></td>
     </tr>
     <tr>
-      <th>col_ci</th>
-      <td><p>Color of Confidence Interval shade.</p></td>
+      <th><code>ylab</code></th>
+      <td><p>A title for the y axis.</p></td>
     </tr>
     <tr>
-      <th>nb_ticks_x</th>
+      <th><code>main</code></th>
+      <td><p>An overall title for the plot.</p></td>
+    </tr>
+    <tr>
+      <th><code>col_wv</code></th>
+      <td><p>Color of the wavelet variance line.</p></td>
+    </tr>
+    <tr>
+      <th><code>col_ci</code></th>
+      <td><p>Color of the confidence interval shade.</p></td>
+    </tr>
+    <tr>
+      <th><code>nb_ticks_x</code></th>
       <td><p>Number of ticks for the x-axis.</p></td>
     </tr>
     <tr>
-      <th>nb_ticks_y</th>
+      <th><code>nb_ticks_y</code></th>
       <td><p>Number of ticks for the y-axis.</p></td>
     </tr>
     <tr>
-      <th>legend_position</th>
-      <td><p>Position of the Legend.</p></td>
+      <th><code>legend_position</code></th>
+      <td><p>Position of the legend.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>additional arguments affecting the summary produced.</p></td>
+      <th><code>...</code></th>
+      <td><p>Additional arguments affecting the plot.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Plot of wavelet variances with its confidence interval.</p>
+    <p>Plot of wavelet variance and confidence interval for each scale.</p>
     
 
   </div>

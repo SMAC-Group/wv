@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Wavelet Variances — plot.wvar • wv</title>
+<title>Comparison between classical and robust Wavelet Variances — robust_eda • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -68,15 +68,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot Wavelet Variances</h1>
+    <h1>Comparison between classical and robust Wavelet Variances</h1>
     </div>
 
     
-    <p>Displays a plot of wavelet variance accounting for CI values and supplied efficiency.</p>
+    <p>Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.</p>
     
 
-    <pre class="usage"><span class='co'># S3 method for wvar</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>robust_eda</span>(<span class='no'>x</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
@@ -84,8 +83,12 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>eff</th>
+      <td><p>The efficiency of the robust estimator</p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>A <code>wvar</code> object.</p></td>
+      <td><p>A time series object.</p></td>
     </tr>
     <tr>
       <th>xlab</th>
@@ -134,7 +137,7 @@
     <pre class="examples"><div class='input'><span class='no'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>^<span class='fl'>4</span>
 <span class='no'>Xt</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='no'>n</span>)
 <span class='no'>wv</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Xt</span>)
-<span class='fu'>plot</span>(<span class='no'>wv</span>)</div><img src='plot.wvar-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Simulated white noise"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Scales"</span>)</div><img src='plot.wvar-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"sec"</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='st'>"topright"</span>)</div><img src='plot.wvar-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='st'>"darkred"</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)</div><img src='plot.wvar-8.png' alt='' width='540' height='400' /></pre>
+<span class='fu'>plot</span>(<span class='no'>wv</span>)</div><img src='robust_eda-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Simulated white noise"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Scales"</span>)</div><img src='robust_eda-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"sec"</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='st'>"topright"</span>)</div><img src='robust_eda-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='st'>"darkred"</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)</div><img src='robust_eda-8.png' alt='' width='540' height='400' /></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

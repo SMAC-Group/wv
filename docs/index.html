@@ -49,8 +49,6 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<pre><code>## Version: 1.0.0 built on 2017-05-28</code></pre>
-<pre><code>## To see the user guides use: browseVignettes("wv").</code></pre>
 
 <div id="wv-r-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
@@ -174,12 +172,20 @@ RW =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rno
 <span class="co"># Plot WV</span>
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>))
 <span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(WN), <span class="dt">main =</span> <span class="st">"White noise"</span>)
-<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(RW), <span class="dt">main =</span> <span class="st">"Random walk"</span>)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(RW), <span class="dt">main =</span> <span class="st">"Random walk"</span>, <span class="dt">legend_position =</span> <span class="ot">NA</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." width="696"><p class="caption">
 Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
 </p>
 </div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add contamination</span>
+gamma =<span class="st"> </span><span class="fl">0.01</span>
+RW2 =<span class="st"> </span>RW
+RW2[<span class="kw">sample</span>(<span class="dv">1</span>:n,<span class="kw">round</span>(gamma*n))] =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">round</span>(gamma*n),<span class="dv">0</span>,<span class="dv">5</span>)
+<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>))
+<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW)
+<span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW2, <span class="dt">legend_position =</span> <span class="ot">NA</span>)</code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="696" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="user-guides" class="section level1">

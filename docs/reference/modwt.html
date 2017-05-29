@@ -75,7 +75,7 @@
     <p>Calculates the coefficients for the discrete wavelet transformation</p>
     
 
-    <pre class="usage"><span class='fu'>modwt</span>(<span class='no'>x</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='fu'>floor</span>(<span class='fu'>log2</span>(<span class='fu'>length</span>(<span class='no'>x</span>))), <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>)</pre>
+    <pre class="usage"><span class='fu'>modwt</span>(<span class='no'>x</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='fu'>floor</span>(<span class='fu'>log2</span>(<span class='fu'>length</span>(<span class='no'>x</span>) - <span class='fl'>1</span>)), <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">

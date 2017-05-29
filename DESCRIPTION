@@ -8,7 +8,7 @@ Authors@R: c(
     person("Stephane", "Guerrier", role = "aut"),
     person("Roberto", "Molinari", role = "aut"),
     person("James", "Balamuta", role = "aut"),
-    person("Nathanael", "Claussen", role = "ctb"),
+    person("Nathanael", "Claussen", email = "nclauss2@illinois.edu", role = "ctb"),
     person("Adlai", "Stevenson", role = "ctb"),
     person("Haotian", "Xu", role = "ctb")
     )

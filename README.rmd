@@ -110,6 +110,22 @@ robust_eda(RW)
 robust_eda(RW2, legend_position = NA)
 ```
 
+```{r, fig.height = 5, fig.width = 7.25, fig.align = 'center'}
+n = 10^5
+Xt = arima.sim(n = n, list(ar = 0.10))
+Yt = arima.sim(n = n, list(ar = 0.35))
+Zt = arima.sim(n = n, list(ar = 0.70))
+Wt = arima.sim(n = n, list(ar = 0.95))
+
+wv_Xt = wvar(Xt)
+wv_Yt = wvar(Yt)
+wv_Zt = wvar(Zt)
+wv_Wt = wvar(Wt)
+
+compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
+```
+
+
 
 # User Guides
 

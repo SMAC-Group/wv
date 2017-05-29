@@ -158,6 +158,23 @@ robust_eda(RW2, legend_position = NA)
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
+``` r
+n = 10^5
+Xt = arima.sim(n = n, list(ar = 0.10))
+Yt = arima.sim(n = n, list(ar = 0.35))
+Zt = arima.sim(n = n, list(ar = 0.70))
+Wt = arima.sim(n = n, list(ar = 0.95))
+
+wv_Xt = wvar(Xt)
+wv_Yt = wvar(Yt)
+wv_Zt = wvar(Zt)
+wv_Wt = wvar(Wt)
+
+compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
+
 User Guides
 ===========
 

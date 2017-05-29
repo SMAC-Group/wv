@@ -186,6 +186,19 @@ RW2[<span class="kw">sample</span>(<span class="dv">1</span>:n,<span class="kw">
 <span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW)
 <span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW2, <span class="dt">legend_position =</span> <span class="ot">NA</span>)</code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="696" style="display: block; margin: auto;"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n =<span class="st"> </span><span class="dv">10</span>^<span class="dv">5</span>
+Xt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.10</span>))
+Yt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.35</span>))
+Zt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.70</span>))
+Wt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.95</span>))
+
+wv_Xt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Xt)
+wv_Yt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Yt)
+wv_Zt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Zt)
+wv_Wt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Wt)
+
+<span class="kw">compare_wvar</span>(wv_Xt, wv_Yt, wv_Zt, wv_Wt)</code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="696" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="user-guides" class="section level1">

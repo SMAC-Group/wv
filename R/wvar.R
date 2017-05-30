@@ -255,6 +255,7 @@ summary.wvar = function(object, ...){
 #' @export
 #' @keywords internal
 #' @param {x} A \code{wvar} object.
+#' @param {units} Denotes the units of time plotted on the x axis.
 #' @param {xlab} A title for the x axis.
 #' @param {ylab} A title for the y axis.
 #' @param {main} An overall title for the plot.

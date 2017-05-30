@@ -267,6 +267,7 @@ summary.wvar = function(object, ...){
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
 #' @examples 
+#' set.seed(999)
 #' n = 10^4
 #' Xt = rnorm(n)
 #' wv = wvar(Xt)
@@ -438,6 +439,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
 #' @examples 
+#' set.seed(999)
 #' n = 10^4
 #' Xt = rnorm(n)
 #' wv = wvar(Xt)
@@ -602,7 +604,22 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' @param ... One or more time series objects.
 #' @param nb_ticks_x Maximum number of ticks for the x-axis.
 #' @param nb_ticks_y Maximum number of ticks for the y-axis.
+#' @author Stephane Guerrier and Justin Lee
 #' @export
+#' @examples
+#' set.seed(999)
+#' n = 10^4
+#' Xt = arima.sim(n = n, list(ar = 0.10))
+#' Yt = arima.sim(n = n, list(ar = 0.35))
+#' Zt = arima.sim(n = n, list(ar = 0.70))
+#' Wt = arima.sim(n = n, list(ar = 0.95))
+#' 
+#' wv_Xt = wvar(Xt)
+#' wv_Yt = wvar(Yt)
+#' wv_Zt = wvar(Zt)
+#' wv_Wt = wvar(Wt)
+#' 
+#' compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
   
   obj_list = list(...)
@@ -680,12 +697,12 @@ compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
         
         # Corner left piece
         if (j == 1){
-          axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
+          axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.1, cex.axis = 1/log(obj_len)+0.1)  
         }
         
         # Corner bottom
         if (i == obj_len){
-          axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
+          axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.1, cex.axis = 1/log(obj_len)+0.1)
         }
         # Diag graph
         if (i == j){
@@ -717,7 +734,7 @@ compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
           ci_high  = obj_list[[j]]$ci_high
           variance = obj_list[[j]]$variance
           
-          if (i < j){
+          if (i < j){ # don't show confidence intervals 
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                     border = NA, col = col_ci[j])
           }

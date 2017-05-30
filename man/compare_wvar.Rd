@@ -2,7 +2,7 @@
 % Please edit documentation in R/wvar.R
 \name{compare_wvar}
 \alias{compare_wvar}
-\title{Comparison between classical and robust Wavelet Variances}
+\title{Comparison between multiple Wavelet Variances}
 \usage{
 compare_wvar(..., nb_ticks_x = NULL, nb_ticks_y = NULL)
 }
@@ -14,5 +14,23 @@ compare_wvar(..., nb_ticks_x = NULL, nb_ticks_y = NULL)
 \item{nb_ticks_y}{Maximum number of ticks for the y-axis.}
 }
 \description{
-Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
+Displays plots of multiple wavelet variances for a different time series accounting for CI values.
+}
+\examples{
+set.seed(999)
+n = 10^4
+Xt = arima.sim(n = n, list(ar = 0.10))
+Yt = arima.sim(n = n, list(ar = 0.35))
+Zt = arima.sim(n = n, list(ar = 0.70))
+Wt = arima.sim(n = n, list(ar = 0.95))
+
+wv_Xt = wvar(Xt)
+wv_Yt = wvar(Yt)
+wv_Zt = wvar(Zt)
+wv_Wt = wvar(Wt)
+
+compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
+}
+\author{
+Stephane Guerrier and Justin Lee
 }

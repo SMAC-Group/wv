@@ -38,6 +38,7 @@ Plot of wavelet variance and confidence interval for each scale.
 Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
 }
 \examples{
+set.seed(999)
 n = 10^4
 Xt = rnorm(n)
 wv = wvar(Xt)

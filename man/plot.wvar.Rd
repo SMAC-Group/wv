@@ -36,6 +36,7 @@ Plot of wavelet variance and confidence interval for each scale.
 Displays a plot of wavelet variance accounting for CI values and supplied efficiency.
 }
 \examples{
+set.seed(999)
 n = 10^4
 Xt = rnorm(n)
 wv = wvar(Xt)

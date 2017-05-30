@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Comparison between classical and robust Wavelet Variances — robust_eda â€¢ wv</title>
+<title>Comparison between multiple Wavelet Variances — compare_wvar â€¢ wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -68,47 +68,21 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Comparison between classical and robust Wavelet Variances</h1>
+    <h1>Comparison between multiple Wavelet Variances</h1>
     </div>
 
     
-    <p>Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.</p>
+    <p>Displays plots of multiple wavelet variances for a different time series accounting for CI values.</p>
     
 
-    <pre class="usage"><span class='fu'>robust_eda</span>(<span class='no'>x</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>compare_wvar</span>(<span class='no'>...</span>, <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A time series object.</p></td>
-    </tr>
-    <tr>
-      <th>eff</th>
-      <td><p>The efficiency of the robust estimator</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>A title for the x axis.</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>A title for the y axis.</p></td>
-    </tr>
-    <tr>
-      <th>main</th>
-      <td><p>An overall title for the plot.</p></td>
-    </tr>
-    <tr>
-      <th>col_wv</th>
-      <td><p>Color of the wavelet variance line.</p></td>
-    </tr>
-    <tr>
-      <th>col_ci</th>
-      <td><p>Color of the confidence interval shade.</p></td>
+      <th>...</th>
+      <td><p>One or more time series objects.</p></td>
     </tr>
     <tr>
       <th>nb_ticks_x</th>
@@ -118,41 +92,35 @@
       <th>nb_ticks_y</th>
       <td><p>Maximum number of ticks for the y-axis.</p></td>
     </tr>
-    <tr>
-      <th>legend_position</th>
-      <td><p>Position of the legend (use legend_position = NA to remove legend).</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments affecting the plot.</p></td>
-    </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Plot of wavelet variance and confidence interval for each scale.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>999</span>)
 <span class='no'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>^<span class='fl'>4</span>
-<span class='no'>Xt</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='no'>n</span>)
-<span class='no'>wv</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Xt</span>)
-<span class='fu'>plot</span>(<span class='no'>wv</span>)</div><img src='robust_eda-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Simulated white noise"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Scales"</span>)</div><img src='robust_eda-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"sec"</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='st'>"topright"</span>)</div><img src='robust_eda-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='st'>"darkred"</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)</div><img src='robust_eda-8.png' alt='' width='540' height='400' /></pre>
+<span class='no'>Xt</span> <span class='kw'>=</span> <span class='fu'>arima.sim</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>n</span>, <span class='fu'>list</span>(<span class='kw'>ar</span> <span class='kw'>=</span> <span class='fl'>0.10</span>))
+<span class='no'>Yt</span> <span class='kw'>=</span> <span class='fu'>arima.sim</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>n</span>, <span class='fu'>list</span>(<span class='kw'>ar</span> <span class='kw'>=</span> <span class='fl'>0.35</span>))
+<span class='no'>Zt</span> <span class='kw'>=</span> <span class='fu'>arima.sim</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>n</span>, <span class='fu'>list</span>(<span class='kw'>ar</span> <span class='kw'>=</span> <span class='fl'>0.70</span>))
+<span class='no'>Wt</span> <span class='kw'>=</span> <span class='fu'>arima.sim</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>n</span>, <span class='fu'>list</span>(<span class='kw'>ar</span> <span class='kw'>=</span> <span class='fl'>0.95</span>))
+
+<span class='no'>wv_Xt</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Xt</span>)
+<span class='no'>wv_Yt</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Yt</span>)
+<span class='no'>wv_Zt</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Zt</span>)
+<span class='no'>wv_Wt</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Wt</span>)
+
+<span class='fu'>compare_wvar</span>(<span class='no'>wv_Xt</span>, <span class='no'>wv_Yt</span>, <span class='no'>wv_Zt</span>, <span class='no'>wv_Wt</span>)</div><img src='compare_wvar-2.png' alt='' width='540' height='400' /></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
     
-Stephane Guerrier, Nathanael Claussen, and Justin Lee
+Stephane Guerrier and Justin Lee
 
   </div>
 </div>

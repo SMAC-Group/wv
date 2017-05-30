@@ -72,7 +72,7 @@ With the system dependency taken care of, we continue on by installing the R spe
 
 ```{r, eval = F}
 # Install dependencies
-install.packages(c("RcppArmadillo","ggplot2","reshape2","devtools","knitr","rmarkdown"))
+install.packages(c("RcppArmadillo","reshape2","devtools","knitr","rmarkdown"))
 
 # Install the package from GitHub without Vignettes/User Guides
 devtools::install_github("SMAC-Group/wv")

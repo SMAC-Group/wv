@@ -161,11 +161,11 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
 #' @description
 #' Structures elements into a \code{wvar} object
 #' @param obj    A \code{matrix} with dimensions N x 3, that contains the wavelet variance, low ci, hi ci.
-#' @param decomp A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition
-#' @param filter A \code{string} that specifies the type of wavelet filter used in the decomposition
+#' @param decomp A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
+#' @param filter A \code{string} that specifies the type of wavelet filter used in the decomposition.
 #' @param robust A \code{boolean} that triggers the use of the robust estimate.
 #' @param eff    A \code{double} that indicates the efficiency as it relates to an MLE.
-#' @param alpha  A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level 
+#' @param alpha  A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level.
 #' @param scales A \code{vec} that contains the amount of decomposition done at each level.
 #' @param unit   A \code{string} that contains the unit expression of the frequency.
 #' @return A \code{list} with the structure:
@@ -254,17 +254,17 @@ summary.wvar = function(object, ...){
 #' @method plot wvar
 #' @export
 #' @keywords internal
-#' @param {x} A \code{wvar} object.
-#' @param {units} Denotes the units of time plotted on the x axis.
-#' @param {xlab} A title for the x axis.
-#' @param {ylab} A title for the y axis.
-#' @param {main} An overall title for the plot.
-#' @param {col_wv} Color of the wavelet variance line.
-#' @param {col_ci} Color of the confidence interval shade.
-#' @param {nb_ticks_x} Maximum number of ticks for the x-axis.
-#' @param {nb_ticks_y} Maximum number of ticks for the y-axis.
-#' @param {legend_position} Position of the legend (use legend_position = NA to remove legend).
-#' @param {...} Additional arguments affecting the plot.
+#' @param x                A \code{wvar} object.
+#' @param units            A \code{string} that specifies the units of time plotted on the x axis.
+#' @param xlab             A \code{string} that gives a title for the x axis.
+#' @param ylab             A \code{string} that gives a title for the y axis.
+#' @param main             A \code{string} that gives an overall title for the plot.
+#' @param col_wv           A \code{string} that specifies the color of the wavelet variance line.
+#' @param col_ci           A \code{string} that specifies the color of the confidence interval polygon.
+#' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
+#' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
+#' @param ... Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
 #' @examples 
@@ -427,15 +427,16 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 #' @description 
 #' Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
 #' @param x A time series object.
-#' @param eff The efficiency of the robust estimator
-#' @param xlab A title for the x axis.
-#' @param ylab A title for the y axis.
-#' @param main An overall title for the plot.
-#' @param col_wv Color of the wavelet variance line.
-#' @param col_ci Color of the confidence interval shade.
-#' @param nb_ticks_x Maximum number of ticks for the x-axis.
-#' @param nb_ticks_y Maximum number of ticks for the y-axis.
-#' @param legend_position Position of the legend (use legend_position = NA to remove legend).
+#' @param eff             An \code{integer} that specifies the efficiency of the robust estimator.
+#' @param units           A \code{string} that specifies the units of time plotted on the x axis.
+#' @param xlab            A \code{string} that gives a title for the x axis.
+#' @param ylab            A \code{string} that gives a title for the y axis.
+#' @param main            A \code{string} that gives an overall title for the plot.
+#' @param col_wv          A \code{string} that specifies the color of the wavelet variance line.
+#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
+#' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
+#' @param legend_position A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
 #' @param ... Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
@@ -601,10 +602,10 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' @title Comparison between multiple Wavelet Variances
 #' 
 #' @description 
-#' Displays plots of multiple wavelet variances for a different time series accounting for CI values.
+#' Displays plots of multiple wavelet variances of different time series accounting for CI values.
 #' @param ... One or more time series objects.
-#' @param nb_ticks_x Maximum number of ticks for the x-axis.
-#' @param nb_ticks_y Maximum number of ticks for the y-axis.
+#' @param nb_ticks_x An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @author Stephane Guerrier and Justin Lee
 #' @export
 #' @examples

@@ -11,23 +11,25 @@ robust_eda(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL,
 \arguments{
 \item{x}{A time series object.}
 
-\item{eff}{The efficiency of the robust estimator}
+\item{eff}{An \code{integer} that specifies the efficiency of the robust estimator.}
 
-\item{xlab}{A title for the x axis.}
+\item{units}{A \code{string} that specifies the units of time plotted on the x axis.}
 
-\item{ylab}{A title for the y axis.}
+\item{xlab}{A \code{string} that gives a title for the x axis.}
 
-\item{main}{An overall title for the plot.}
+\item{ylab}{A \code{string} that gives a title for the y axis.}
 
-\item{col_wv}{Color of the wavelet variance line.}
+\item{main}{A \code{string} that gives an overall title for the plot.}
 
-\item{col_ci}{Color of the confidence interval shade.}
+\item{col_wv}{A \code{string} that specifies the color of the wavelet variance line.}
 
-\item{nb_ticks_x}{Maximum number of ticks for the x-axis.}
+\item{col_ci}{A \code{string} that specifies the color of the confidence interval shade.}
 
-\item{nb_ticks_y}{Maximum number of ticks for the y-axis.}
+\item{nb_ticks_x}{An \code{integer} that specifies the maximum number of ticks for the x-axis.}
 
-\item{legend_position}{Position of the legend (use legend_position = NA to remove legend).}
+\item{nb_ticks_y}{An \code{integer} that specifies the maximum number of ticks for the y-axis.}
+
+\item{legend_position}{A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).}
 
 \item{...}{Additional arguments affecting the plot.}
 }

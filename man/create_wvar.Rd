@@ -9,15 +9,15 @@ create_wvar(obj, decomp, filter, robust, eff, alpha, scales, unit)
 \arguments{
 \item{obj}{A \code{matrix} with dimensions N x 3, that contains the wavelet variance, low ci, hi ci.}
 
-\item{decomp}{A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition}
+\item{decomp}{A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.}
 
-\item{filter}{A \code{string} that specifies the type of wavelet filter used in the decomposition}
+\item{filter}{A \code{string} that specifies the type of wavelet filter used in the decomposition.}
 
 \item{robust}{A \code{boolean} that triggers the use of the robust estimate.}
 
 \item{eff}{A \code{double} that indicates the efficiency as it relates to an MLE.}
 
-\item{alpha}{A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level}
+\item{alpha}{A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level.}
 
 \item{scales}{A \code{vec} that contains the amount of decomposition done at each level.}
 

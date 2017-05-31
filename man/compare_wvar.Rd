@@ -9,12 +9,12 @@ compare_wvar(..., nb_ticks_x = NULL, nb_ticks_y = NULL)
 \arguments{
 \item{...}{One or more time series objects.}
 
-\item{nb_ticks_x}{Maximum number of ticks for the x-axis.}
+\item{nb_ticks_x}{An \code{integer} that specifies the maximum number of ticks for the x-axis.}
 
-\item{nb_ticks_y}{Maximum number of ticks for the y-axis.}
+\item{nb_ticks_y}{An \code{integer} that specifies the maximum number of ticks for the y-axis.}
 }
 \description{
-Displays plots of multiple wavelet variances for a different time series accounting for CI values.
+Displays plots of multiple wavelet variances of different time series accounting for CI values.
 }
 \examples{
 set.seed(999)

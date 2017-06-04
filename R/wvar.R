@@ -264,9 +264,9 @@ summary.wvar = function(object, ...){
 #' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv            
-#' @param point_pch
-#' @param point_cex
+#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
+#' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
 #' @param ... Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
@@ -877,7 +877,39 @@ compare_wvar_no_split = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
 
 
 
-
+#' @title Comparison Between Multiple Wavelet Variances
+#' @description 
+#' Displays plots of multiple wavelet variances of different time series accounting for CI values.
+#' 
+#' @param ... One or more time series objects.
+#' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
+#' @param units           A \code{string} that specifies the units of time plotted on the x axes.
+#' @param xlab            A \code{string} that gives a title for the x axes.
+#' @param ylab            A \code{string} that gives a title for the y axes.
+#' @param main            A \code{string} that gives an overall title for the plot.
+#' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
+#' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
+#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
+#' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
+#' 
+#' @author Stephane Guerrier and Justin Lee
+#' @export
+#' @examples
+#' set.seed(999)
+#' n = 10^4
+#' Xt = arima.sim(n = n, list(ar = 0.10))
+#' Yt = arima.sim(n = n, list(ar = 0.35))
+#' Zt = arima.sim(n = n, list(ar = 0.70))
+#' Wt = arima.sim(n = n, list(ar = 0.95))
+#' 
+#' wv_Xt = wvar(Xt)
+#' wv_Yt = wvar(Yt)
+#' wv_Zt = wvar(Zt)
+#' wv_Wt = wvar(Wt)
+#' 
+#' compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 compare_wvar = function(... , split = "FALSE", units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                         col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                         legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
@@ -987,13 +1019,13 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = NULL, ylab =
     y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
     
     # Legend position
-    if (is.null(legend_position)){
-      if (which.min(abs(c(y_low, y_high) - log2(x$variance[1]))) == 1){
-        legend_position = "topleft"
-      }else{
-        legend_position = "bottomleft"
-      }
-    }
+  #  if (is.null(legend_position)){
+  #    if (which.min(abs(c(y_low, y_high) - log2(x$variance[1]))) == 1){
+  #      legend_position = "topleft"
+  #    }else{
+  #      legend_position = "bottomleft"
+  #    }
+  #  }
     
     if (is.null(point_pch)){
       inter = rep(15:17, obj_len)
@@ -1028,9 +1060,10 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = NULL, ylab =
     
     if (split == FALSE){
       # CALL compare_wvar_no_split
+      compare_wvar_no_split(graph_details)
     }else{
       # CALL compare_wvar_split
+      compare_wvar_split(graph_details)
     }
   }
 }
-

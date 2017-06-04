@@ -264,6 +264,9 @@ summary.wvar = function(object, ...){
 #' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
+#' @param ci_wv            
+#' @param point_pch
+#' @param point_cex
 #' @param ... Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
@@ -278,7 +281,8 @@ summary.wvar = function(object, ...){
 #' plot(wv, col_wv = "darkred", col_ci = "pink")
 plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
                      col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
-                     legend_position = NULL, ...){
+                     legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
+                     point_pch = NULL, ...){
   
   # Labels
   if (is.null(xlab)){
@@ -381,8 +385,10 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
   
   # CI for the WV
-  polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
-          border = NA, col = col_ci)
+  if (ci_wv == TRUE || is.null(ci_wv)){
+    polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
+            border = NA, col = col_ci)
+  }
   
   # Add legend
   CI_conf = 1 - x$alpha
@@ -418,7 +424,15 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   
   # Add WV
   lines(x$scales, x$variance, type = "l", col = col_wv, pch = 16)
-  lines(x$scales, x$variance, type = "p", col = col_wv, pch = 16, cex = 1.25)
+  
+  if (is.null(point_pch)){
+    point_pch = 16
+  }
+  
+  if (is.null(point_cex)){
+    point_cex = 1.25
+  }
+  lines(x$scales, x$variance, type = "p", col = col_wv, pch = point_pch, cex = point_cex)
 }
 
 

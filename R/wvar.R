@@ -636,7 +636,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' wv_Wt = wvar(Wt)
 #' 
 #' compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
-compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
+compare_wvar_split = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
   
   obj_list = list(...)
   obj_name = as.character(substitute(...()))
@@ -758,13 +758,279 @@ compare_wvar = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
         }
       }
     }
-      
+    
     mtext("Wavelet Variance", side = 2, line = 3, cex = 0.8, outer = T)
     mtext("Scales", side = 1, line = 3, cex = 0.8, outer = T)
-      
+    
+  }
+}
+
+#'
+#'@export
+#'
+compare_wvar_no_split = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
+  
+  obj_list = list(...)
+  obj_name = as.character(substitute(...()))
+  obj_len  = length(obj_list)
+  
+  # Check if passed objects are of the class wvar
+  is_wvar = sapply(obj_list, FUN = is, class2 = 'wvar')
+  
+  if(!all(is_wvar == T)){
+    stop("Supplied objects must be 'wvar' objects.")
+  }
+  
+  # Check length
+  if (obj_len == 0){
+    stop('No object given!')
+    
+  }else if (obj_len == 1){
+    # -> plot.wvar
+    plot.wvar(..., nb_ticks_X = nb_ticks_x, nb_ticks_y = nb_ticks_y)
+  }else{
+    # Find x and y limits
+    x_range = y_range = rep(NULL, 2)
+    for (i in 1:obj_len){
+      x_range = range(c(x_range, obj_list[[i]]$scales))
+      y_range = range(c(y_range, obj_list[[i]]$ci_low, obj_list[[i]]$ci_high))
     }
+    x_low = floor(log2(x_range[1]))
+    x_high = ceiling(log2(x_range[2]))
+    y_low = floor(log2(y_range[1]))
+    y_high = ceiling(log2(y_range[2]))
+    
+    # Construct ticks
+    # Axes
+    if (is.null(nb_ticks_x)){
+      nb_ticks_x = 6
+    }
+    
+    if (is.null(nb_ticks_y)){
+      nb_ticks_y = 5
+    }
+    
+    x_ticks = seq(x_low, x_high, by = 1)
+    if (length(x_ticks) > nb_ticks_x){
+      x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
+    }
+    x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
+    
+    y_ticks = seq(y_low, y_high, by = 1)
+    if (length(y_ticks) > nb_ticks_y){
+      y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
+    }
+    y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+    
+    # Define colors
+    hues = seq(15, 375, length = obj_len + 1)
+    col_wv = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(obj_len)]
+    col_ci = hcl(h = hues, l = 65, c = 100, alpha = 0.15)[seq_len(obj_len)]
+    
+    # Main plot                     
+    plot(NA, xlim = x_range, ylim = y_range, log = "xy", xaxt = 'n', 
+             yaxt = 'n', bty = "n", ann = FALSE)
+    win_dim = par("usr")
+    
+    # Main plot                   
+    par(new = TRUE)
+    plot(NA, xlim = x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
+        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n")
+    win_dim = par("usr")
+    
+    # Add grid
+    abline(v = 2^x_ticks, lty = 1, col = "grey95")
+    abline(h = 2^y_ticks, lty = 1, col = "grey95")
+    
+    # Add title
+    x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+    y_vec = 10^c(win_dim[4], win_dim[4],
+                 win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+                 win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+    polygon(x_vec, y_vec, col = "grey95", border = NA)
+    text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), "WV")
+    
+    # Add axes and box
+    lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
+    y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+    y_labels = y_labels[1:length(y_ticks)]
+    box()
+    axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
+    axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
+        
+   for (i in 1:obj_len){
+     scales   = obj_list[[i]]$scales
+     ci_low   = obj_list[[i]]$ci_low
+     ci_high  = obj_list[[i]]$ci_high
+     variance = obj_list[[i]]$variance
+     
+     polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
+             border = NA, col = col_ci[i])
+     lines(scales, variance, type = "l", col = col_wv[i], pch = 16)
+    }
+  }
 }
 
 
 
+
+
+
+
+
+compare_wvar = function(... , split = "FALSE", units = NULL, xlab = NULL, ylab = NULL, main = NULL, 
+                        col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
+                        legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
+                        point_pch = NULL, names = NULL){
+  
+  obj_list = list(...)
+  obj_name = as.character(substitute(...()))
+  obj_len  = length(obj_list)
+  obj_len
+  
+  # Check if passed objects are of the class wvar
+  is_wvar = sapply(obj_list, FUN = is, class2 = 'wvar')
+  
+  if(!all(is_wvar == T)){
+    stop("Supplied objects must be 'wvar' objects.")
+  }
+  
+  # Check length
+  if (obj_len == 0){
+    stop('No object given!')
+  }else if (obj_len == 1){
+    # -> plot.wvar
+    plot.wvar(..., nb_ticks_X = nb_ticks_x, nb_ticks_y = nb_ticks_y)
+  }else{
+  
+    # Labels
+    if (is.null(xlab)){
+      if (is.null(units)){
+        xlab = expression(paste("Scale ", tau, sep =""))
+      }else{
+        xlab = bquote(paste("Scale ", tau, " [", .(units), "]", sep = " "))
+      }
+    }
+    
+    if (is.null(ylab)){
+      if(is.null(units)){
+        ylab = expression(paste("Wavelet Variance ", nu^2, sep = ""))
+      }else{
+        ylab = bquote(paste("Wavelet Variance ", nu^2, " [", .(units)^2, "]", sep = " "))
+      }
+    }
+    
+    if (is.null(ci_wv)){
+      ci_wv = rep(TRUE, obj_len)
+    }else{
+      if (length(ci_wv) != obj_len){
+        ci_wv = rep(TRUE, obj_len)
+      }
+    }
+    # Main Title
+    if (split == "FALSE"){
+      if (is.null(main)){
+        main = "Haar Wavelet Variance Representation"
+      }
+    }
+    
+    hues = seq(15, 375, length = obj_len + 1)
+    # Line and CI colors
+    if (is.null(col_wv)){
+      col_wv = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(obj_len)]
+    }else{
+      if (length(col_wv) != obj_len){
+        col_wv = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(obj_len)]
+      }
+    }
+    
+    if (is.null(col_ci)){
+      col_ci = hcl(h = hues, l = 65, c = 100, alpha = 0.15)[seq_len(obj_len)]
+    }else{
+      if (length(col_ci) != obj_len){
+        col_ci = hcl(h = hues, l = 65, c = 100, alpha = 0.15)[seq_len(obj_len)]
+      }
+    }
+    
+    # Range
+    # Find x and y limits
+    x_range = y_range = rep(NULL, 2)
+    for (i in 1:obj_len){
+      x_range = range(c(x_range, obj_list[[i]]$scales))
+      y_range = range(c(y_range, obj_list[[i]]$ci_low, obj_list[[i]]$ci_high))
+    }
+    
+    x_low = floor(log2(x_range[1]))
+    x_high = ceiling(log2(x_range[2]))
+    y_low = floor(log2(y_range[1]))
+    y_high = ceiling(log2(y_range[2]))
+    
+    # Axes
+    if (is.null(nb_ticks_x)){
+      nb_ticks_x = 6
+    }
+    
+    if (is.null(nb_ticks_y)){
+      nb_ticks_y = 5
+    }
+    
+    x_ticks = seq(x_low, x_high, by = 1)
+    if (length(x_ticks) > nb_ticks_x){
+      x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
+    }
+    x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
+    
+    y_ticks <- seq(y_low, y_high, by = 1)
+    if (length(y_ticks) > nb_ticks_y){
+      y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
+    }
+    y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+    
+    # Legend position
+    if (is.null(legend_position)){
+      if (which.min(abs(c(y_low, y_high) - log2(x$variance[1]))) == 1){
+        legend_position = "topleft"
+      }else{
+        legend_position = "bottomleft"
+      }
+    }
+    
+    if (is.null(point_pch)){
+      inter = rep(15:17, obj_len)
+      point_pch = inter[1:obj_len]
+    }else{
+      if (length(point_pch) != obj_len){
+        inter = rep(15:17, obj_len)
+        point_pch = inter[1:obj_len]
+      }
+    }
+    
+    if (is.null(point_cex)){
+      point_cex = rep(1.25, obj_len)
+    }else{
+      if (length(point_pch) != obj_len){
+        point_cex = rep(1.25, obj_len)
+      }
+    }
+    
+    if (is.null(names)){
+        names = obj_name
+    }else{
+      if (length(names) != obj_len){
+        names = obj_name
+      }
+    }
+    
+    graph_details = list(wv = obj_list, names = names, xlab = xlab, ylab = ylab, col_wv = col_wv, 
+                         col_ci = col_ci, main = main, legend_position = legend_position,
+                         ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch)
+    
+    
+    if (split == FALSE){
+      # CALL compare_wvar_no_split
+    }else{
+      # CALL compare_wvar_split
+    }
+  }
+}
 

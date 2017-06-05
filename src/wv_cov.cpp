@@ -16,34 +16,25 @@
  *  
  */
 
-#include <RcppArmadillo.h>
 #include "wv_cov.h"
 #include "dwt.h"
 
 // [[Rcpp::export]]
-arma::mat compute_cov_cpp(arma::vec x, arma::vec y, std::string decomp = "modwt", std::string filter = "haar", unsigned int nlevels = nlevels){
-  
-  arma::field<arma::vec> coef1; 
-  arma::field<arma::vec> coef2; 
-  
-  if(decomp == "dwt"){ //check decomposition 
-    coef1 = dwt_cpp(x, filter, nlevels);
-    coef2 = dwt_cpp(y, filter, nlevels);
-  }else{
-    coef1 = modwt_cpp(x, filter, nlevels);
-    coef2 = modwt_cpp(y, filter, nlevels);
-  }
-  
+arma::mat compute_cov_cpp(arma::field<arma::vec> coef1, arma::field<arma::vec> coef2, arma::vec variance, arma::vec lower, arma::vec upper){
+
   unsigned int J = coef1.n_elem; 
   
-  arma::mat V(J, 3); //1st column, covariance
+  arma::mat V(J, 4); //1st column, covariance
                      //2nd & 3rd column, confidence interval 
+  
+  V.col(1) = variance; 
   
   for(unsigned int i = 0; i < J; i++){
     V(i, 0) = mean(coef1(i) % coef2(i));
-    V(i, 1) = V(i, 0) + // not sure how CI is calculated 
-    V(i, 2) = 
+    V(i, 2) = V(i, 0) + lower(i); // not sure how CI is calculated 
+    V(i, 3) = V(i, 0) + upper(i);
   }
   
-  
+  return V; 
 }
+

@@ -16,7 +16,6 @@
  *  
  */
 
-#include <RcppArmadillo.h>
 #include "dwt.h"
 
 // We use QMF, Haar, Select filter, etc.

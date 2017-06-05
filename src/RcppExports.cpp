@@ -150,6 +150,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// compute_cov_cpp
+arma::mat compute_cov_cpp(arma::field<arma::vec> coef1, arma::field<arma::vec> coef2, arma::vec variance, arma::vec lower, arma::vec upper);
+RcppExport SEXP wv_compute_cov_cpp(SEXP coef1SEXP, SEXP coef2SEXP, SEXP varianceSEXP, SEXP lowerSEXP, SEXP upperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::field<arma::vec> >::type coef1(coef1SEXP);
+    Rcpp::traits::input_parameter< arma::field<arma::vec> >::type coef2(coef2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type variance(varianceSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type lower(lowerSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type upper(upperSEXP);
+    rcpp_result_gen = Rcpp::wrap(compute_cov_cpp(coef1, coef2, variance, lower, upper));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"wv_dwt_cpp", (DL_FUNC) &wv_dwt_cpp, 3},
@@ -162,6 +177,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"wv_modwt_wvar_cpp", (DL_FUNC) &wv_modwt_wvar_cpp, 8},
     {"wv_batch_modwt_wvar_cpp", (DL_FUNC) &wv_batch_modwt_wvar_cpp, 8},
     {"wv_scales_cpp", (DL_FUNC) &wv_scales_cpp, 1},
+    {"wv_compute_cov_cpp", (DL_FUNC) &wv_compute_cov_cpp, 5},
     {NULL, NULL, 0}
 };
 

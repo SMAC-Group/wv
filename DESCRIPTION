@@ -19,6 +19,8 @@ License: GPL (>= 2)
 Imports: 
   Rcpp (>= 0.12.10), 
   grDevices, 
-  graphics
+  graphics, 
+  coda, 
+  stats
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.0.1.9000

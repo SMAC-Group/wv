@@ -2,16 +2,37 @@
 % Please edit documentation in R/wvar.R
 \name{compare_wvar}
 \alias{compare_wvar}
-\title{Comparison between multiple Wavelet Variances}
+\title{Comparison Between Multiple Wavelet Variances}
 \usage{
-compare_wvar(..., nb_ticks_x = NULL, nb_ticks_y = NULL)
+compare_wvar(..., split = "FALSE", units = NULL, xlab = "Scales",
+  ylab = "Wavelet Variance", main = NULL, col_wv = NULL, col_ci = NULL,
+  nb_ticks_x = NULL, nb_ticks_y = NULL, legend_position = NULL,
+  ci_wv = NULL, point_cex = NULL, point_pch = NULL, names = NULL)
 }
 \arguments{
 \item{...}{One or more time series objects.}
 
+\item{split}{A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.}
+
+\item{units}{A \code{string} that specifies the units of time plotted on the x axes.}
+
+\item{xlab}{A \code{string} that gives a title for the x axes.}
+
+\item{ylab}{A \code{string} that gives a title for the y axes.}
+
+\item{main}{A \code{string} that gives an overall title for the plot.}
+
 \item{nb_ticks_x}{An \code{integer} that specifies the maximum number of ticks for the x-axis.}
 
 \item{nb_ticks_y}{An \code{integer} that specifies the maximum number of ticks for the y-axis.}
+
+\item{legend_position}{A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).}
+
+\item{ci_wv}{A \code{double} that specifies the confidence interval to be used in the WV calculation.}
+
+\item{point_cex}{A \code{double} that specifies the size of each symbol to be plotted.}
+
+\item{point_pch}{A \code{double} that specifies the symbol type to be plotted.}
 }
 \description{
 Displays plots of multiple wavelet variances of different time series accounting for CI values.

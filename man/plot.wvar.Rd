@@ -6,7 +6,8 @@
 \usage{
 \method{plot}{wvar}(x, units = NULL, xlab = NULL, ylab = NULL,
   main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL,
-  nb_ticks_y = NULL, legend_position = NULL, ...)
+  nb_ticks_y = NULL, legend_position = NULL, ci_wv = NULL,
+  point_cex = NULL, point_pch = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{wvar} object.}
@@ -28,6 +29,12 @@
 \item{nb_ticks_y}{An \code{integer} that specifies the maximum number of ticks for the y-axis.}
 
 \item{legend_position}{A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).}
+
+\item{ci_wv}{A \code{double} that specifies the confidence interval to be used in the WV calculation.}
+
+\item{point_cex}{A \code{double} that specifies the size of each symbol to be plotted.}
+
+\item{point_pch}{A \code{double} that specifies the symbol type to be plotted.}
 
 \item{...}{Additional arguments affecting the plot.}
 }

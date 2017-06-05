@@ -237,3 +237,7 @@ scales_cpp <- function(nb_level) {
     .Call('wv_scales_cpp', PACKAGE = 'wv', nb_level)
 }
 
+compute_cov_cpp <- function(coef1, coef2, variance, lower, upper) {
+    .Call('wv_compute_cov_cpp', PACKAGE = 'wv', coef1, coef2, variance, lower, upper)
+}
+

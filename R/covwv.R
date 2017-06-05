@@ -22,7 +22,10 @@
 #' @param decomp    A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
 #' @param filter    A \code{string} that specifies what wavelet filter to use.
 #' @param nlevels   An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).
-#' @return
+#' @return Returns Cross-covariance and the variance of each wccv and its 95% CI.
+#' @importFrom coda spectrum0
+#' @importFrom stats qnorm
+#' @export
 #' @details 
 #' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
 #' @author Justin Lee
@@ -37,11 +40,29 @@ crosswvar = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
     stop("`x` and `y` must be of same length.")
   }
   
-  if(decomp == "modwt" && is.null(nlevels)){
-    nlevels = floor(log2(length(x))-1)
-  }else if(decomp == "dwt" && is.null(nlevels)){
-    nlevels = floor(log2(length(x)))
+  if(decomp == "modwt"){
+    if(is.null(nlevels)){
+      nlevels = floor(log2(length(x))-1)
+    }
+    coef1 = modwt(x = x, nlevels = nlevels)
+    coef2 = modwt(x = y, nlevels = nlevels)
+  }else if(decomp == "dwt"){
+    if(is.null(nlevels)){
+      nlevels = floor(log2(length(x)))
+    }
+    coef1 = dwt(x = x, nlevels = nlevels)
+    coef2 = dwt(x = y, nlevels = nlevels)
   }
   
-  obj =  .Call('wv_compute_cov_cpp', PACKAGE = 'wv', x = x, y = y, decomp = decomp, filter = filter, nlevels = nlevels)  
+  # Slightly inefficient!
+  # Better method, like implement spectrum0 in Rcpp 
+  product = mapply("*", coef1, coef2, SIMPLIFY = FALSE) 
+  const = 1/sapply(product, length)
+  variance = const * unlist(sapply(product, spectrum0, max.freq = 0, order = 2, max.length = 130))
+  lower = sqrt(unname(variance)) * qnorm(0.025)
+  upper = sqrt(unname(variance)) * qnorm(0.975)
+  
+  obj =  .Call('wv_compute_cov_cpp', PACKAGE = 'wv', coef1 = coef1, coef2 = coef2, variance = variance, lower = lower, upper = upper) 
+  
+  return(obj)
 }

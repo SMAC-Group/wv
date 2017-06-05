@@ -27,10 +27,14 @@
 #' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
 #' @author Justin Lee
 crosswvar = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
-  if(is.null(x)){
-    stop("`x` must contain a value")
-  }else if((is.data.frame(x) || is.matrix(x))){
+  if(is.null(x) || is.null(y)){
+    stop("`x` or `y` must contain a value.")
+  }else if((is.data.frame(x) || is.matrix(x)) || is.data.frame(y) || is.matrix(y)){
     if(ncol(x) > 1) stop("There must be only one column of data supplied.")
+  }
+  
+  if(length(x)!=length(y)){
+    stop("`x` and `y` must be of same length.")
   }
   
   if(decomp == "modwt" && is.null(nlevels)){

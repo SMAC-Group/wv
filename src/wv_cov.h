@@ -19,6 +19,6 @@
 #ifndef WV_COV
 #define WV_COV
 
-arma::mat compute_cov_cpp(arma::vec x, arma::vec y, std::string filter = "haar", unsigned int nlevels = nlevels);
+arma::mat compute_cov_cpp(arma::vec x, arma::vec y, std::string decomp = "modwt", std::string filter = "haar", unsigned int nlevels = nlevels);
 
 #endif

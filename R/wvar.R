@@ -920,12 +920,6 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = "Scales", yl
   obj_list = list(...)
   obj_name = as.character(substitute(...()))
   obj_len  = length(obj_list)
-  obj_len
-  
-  #Passed into compare_wvar_split or compare_wvar_no_split
-  graph_details = list(obj_name, names = names, xlab = xlab, ylab = ylab, col_wv = col_wv, 
-                       col_ci = col_ci, main = main, legend_position = legend_position,
-                       ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch)
   
   # Check if passed objects are of the class wvar
   is_wvar = sapply(obj_list, FUN = is, class2 = 'wvar')
@@ -1060,25 +1054,18 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = "Scales", yl
       }
     }
     
+    #Passed into compare_wvar_split or compare_wvar_no_split
+    graph_details = list(obj_name, names = names, xlab = xlab, ylab = ylab, col_wv = col_wv, 
+                         col_ci = col_ci, main = main, legend_position = legend_position,
+                         ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch)
+    
     if (split == FALSE){
       # CALL compare_wvar_no_split
-      compare_wvar_no_split(graph_details)
+      compare_wvar_no_split(paste(graph_details))
     }else{
       # CALL compare_wvar_split
-      compare_wvar_split(graph_details)
+      compare_wvar_split(paste(graph_details))
     }
+    
   }
 }
-
-n = 10^5
-Xt = arima.sim(n = n, list(ar = 0.10))
-Yt = arima.sim(n = n, list(ar = 0.35))
-Zt = arima.sim(n = n, list(ar = 0.70))
-Wt = arima.sim(n = n, list(ar = 0.95))
-
-wv_Xt = wvar(Xt)
-wv_Yt = wvar(Yt)
-wv_Zt = wvar(Zt)
-wv_Wt = wvar(Wt)
-
-compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)

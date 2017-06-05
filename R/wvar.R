@@ -101,7 +101,9 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
     if(ncol(x) > 1) stop("There must be only one column of data supplied.")
   }
   
-  if(is.null(nlevels)){
+  if(decomp == "modwt" && is.null(nlevels)){
+    nlevels = floor(log2(length(x))-1)
+  }else if(decomp == "dwt" && is.null(nlevels)){
     nlevels = floor(log2(length(x)))
   }
 

@@ -16,13 +16,11 @@
  *  
  */
 
-#ifndef DWT
-#define DWT
-
 #include <RcppArmadillo.h>
+#include "wv_cov.h"
+#include "dwt.h"
 
-arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name = "haar", unsigned int nlevels = 4);
-
-arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name = "haar", unsigned int nlevels = 4);
-
-#endif
+// [[Rcpp::export]]
+arma::mat compute_cov_cpp(arma::vec x, arma::vec y, std::string filter = "haar", unsigned int nlevels = nlevels){
+  
+}

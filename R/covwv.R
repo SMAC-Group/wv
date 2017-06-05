@@ -39,7 +39,5 @@ crosswvar = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
     nlevels = floor(log2(length(x)))
   }
   
-  obj =  .Call('wv_compute_cov_cpp', PACKAGE = 'wv',
-               signal1 = x, signal2 = y, decomp = decomp, 
-               filter = filter, nlevels = nlevels)  
+  obj =  .Call('wv_compute_cov_cpp', PACKAGE = 'wv', x = x, y = y, decomp = decomp, filter = filter, nlevels = nlevels)  
 }

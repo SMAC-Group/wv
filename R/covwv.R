@@ -17,12 +17,12 @@
 #' @title Cross-covariance 
 #' @description
 #' Calculates the Cross-covariance between two wavelet transfomations (dwt or modwt)
-#' @param x   A \code{vector} with dimensions N x 1.
-#' @param y   A \code{vector} with dimensions N x 1.
+#' @param x         A \code{vector} with dimensions N x 1.
+#' @param y         A \code{vector} with dimensions N x 1.
 #' @param decomp    A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
 #' @param filter    A \code{string} that specifies what wavelet filter to use.
 #' @param nlevels   An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).
-#' @return Returns Cross-covariance and the variance of each wccv and its 95% CI.
+#' @return Returns cross-covariance, variance of each wavelet cross-covariance and its 95% CI.
 #' @importFrom coda spectrum0
 #' @importFrom stats qnorm
 #' @export

@@ -1057,7 +1057,8 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = "Scales", yl
     #Passed into compare_wvar_split or compare_wvar_no_split
     graph_details = list(obj_name, names = names, xlab = xlab, ylab = ylab, col_wv = col_wv, 
                          col_ci = col_ci, main = main, legend_position = legend_position,
-                         ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch)
+                         ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch,
+                         nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
     
     if (split == FALSE){
       # CALL compare_wvar_no_split

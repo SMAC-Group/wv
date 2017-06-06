@@ -763,7 +763,7 @@ compare_wvar_no_split = function(graph_details){
 #' 
 #' @param ... One or more time series objects.
 #' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
-#' @param units           A \code{string} that specifies the units of time plotted on the x axes.
+#' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.
 #' @param xlab            A \code{string} that gives a title for the x axes.
 #' @param ylab            A \code{string} that gives a title for the y axes.
 #' @param main            A \code{string} that gives an overall title for the plot.
@@ -819,18 +819,14 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
       if (is.null(units)){
         xlab = expression(paste("Scale (", tau, ")", sep =""))
       }else{
-        xlab = bquote(paste("Scale ", tau, " [", .(units), "]", sep = " "))
+        xlab = bquote(paste("Scale ", "(", .(units), ")", sep = " "))
       }
     }else{
       xlab = xlab
     }
     
     if (is.null(ylab)){
-      if(is.null(units)){
-        ylab = expression(paste("Wavelet Variance (", nu^2, ")", sep = ""))
-      }else{
         ylab = bquote(paste("Wavelet Variance ", nu^2, " [", .(units)^2, "]", sep = " "))
-      }
     }else{
       ylab = ylab
     }

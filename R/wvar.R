@@ -615,30 +615,11 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 }
 
 
-#' @title Comparison between multiple Wavelet Variances
-#' 
-#' @description 
-#' Displays plots of multiple wavelet variances of different time series accounting for CI values.
-#' @param ... One or more time series objects.
-#' @param nb_ticks_x An \code{integer} that specifies the maximum number of ticks for the x-axis.
-#' @param nb_ticks_y An \code{integer} that specifies the maximum number of ticks for the y-axis.
-#' @author Stephane Guerrier and Justin Lee
-#' @export
-#' @examples
-#' set.seed(999)
-#' n = 10^4
-#' Xt = arima.sim(n = n, list(ar = 0.10))
-#' Yt = arima.sim(n = n, list(ar = 0.35))
-#' Zt = arima.sim(n = n, list(ar = 0.70))
-#' Wt = arima.sim(n = n, list(ar = 0.95))
-#' 
-#' wv_Xt = wvar(Xt)
-#' wv_Yt = wvar(Yt)
-#' wv_Zt = wvar(Zt)
-#' wv_Wt = wvar(Wt)
-#' 
-#' compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
-compare_wvar_split = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
+#'
+#'@export
+#'
+compare_wvar_split = function(..., xlab, ylab, col_wv, col_ci, main, legend_position, 
+                              ci_wv, point_cex, point_pch, nb_ticks_x, nb_ticks_y){
   
   obj_list = list(...)
   obj_name = as.character(substitute(...()))
@@ -767,10 +748,9 @@ compare_wvar_split = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
   }
 }
 
-#'
-#'@export
-#'
-compare_wvar_no_split = function(..., nb_ticks_x = NULL, nb_ticks_y = NULL){
+
+compare_wvar_no_split = function(..., xlab, ylab, col_wv, col_ci, main, legend_position, 
+                                 ci_wv, point_cex, point_pch, nb_ticks_x, nb_ticks_y){
   
   obj_list = list(...)
   obj_name = as.character(substitute(...()))
@@ -1055,17 +1035,17 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = "Scales", yl
     }
     
     #Passed into compare_wvar_split or compare_wvar_no_split
-    graph_details = list(obj_name, names = names, xlab = xlab, ylab = ylab, col_wv = col_wv, 
+    graph_details = list(names = names, xlab = xlab, ylab = ylab, col_wv = col_wv, 
                          col_ci = col_ci, main = main, legend_position = legend_position,
                          ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch,
                          nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
     
     if (split == FALSE){
       # CALL compare_wvar_no_split
-      compare_wvar_no_split(paste(graph_details))
+      compare_wvar_no_split(graph_details)
     }else{
       # CALL compare_wvar_split
-      compare_wvar_split(paste(graph_details))
+      compare_wvar_split(graph_details)
     }
     
   }

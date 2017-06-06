@@ -755,7 +755,8 @@ compare_wvar_no_split = function(graph_details){
              yaxt = 'n', bty = "n", ann = FALSE)
     win_dim = par("usr")
     
-    # Main plot                   
+    # Main plot
+    
     par(new = TRUE)
     plot(NA, xlim = graph_details$x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
         log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", xlab = graph_details$xlab, ylab = graph_details$ylab)
@@ -777,10 +778,11 @@ compare_wvar_no_split = function(graph_details){
     # Add axes and box
     lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
     y_ticks = graph_details$y_ticks[(2^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
-    y_labels = graph_details$y_labels[1:length(graph_details$y_ticks)]
+    y_labels = sapply(y_ticks, function(i) as.expression(bquote(2^ .(i))))
+    
     box()
     axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, padj = 0.3)
-    axis(2, at = 2^graph_details$y_ticks, labels = graph_details$y_labels, padj = -0.2)  
+    axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)
     
     for (i in 1:graph_details$obj_len){
       scales   = graph_details$obj_list[[i]]$scales
@@ -869,21 +871,24 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
     plot.wvar(..., nb_ticks_X = nb_ticks_x, nb_ticks_y = nb_ticks_y)
   }else{
   
-    # Labels
     if (is.null(xlab)){
       if (is.null(units)){
-        xlab = expression(paste("Scale ", tau, sep =""))
+        xlab = expression(paste("Scale (", tau, ")", sep =""))
       }else{
         xlab = bquote(paste("Scale ", tau, " [", .(units), "]", sep = " "))
       }
+    }else{
+      xlab = xlab
     }
     
     if (is.null(ylab)){
       if(is.null(units)){
-        ylab = expression(paste("Wavelet Variance ", nu^2, sep = ""))
+        ylab = expression(paste("Wavelet Variance (", nu^2, ")", sep = ""))
       }else{
         ylab = bquote(paste("Wavelet Variance ", nu^2, " [", .(units)^2, "]", sep = " "))
       }
+    }else{
+      ylab = ylab
     }
     
     if (is.null(ci_wv)){

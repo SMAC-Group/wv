@@ -112,18 +112,17 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
 
 #' @title Plot Cross Covariance 
 #' @description
-#' Plots results of the wccv list in which additional parameters can be specified
-#' @method plot wccv
+#' Plots results of the a wccv_pair list in which additional parameters can be specified
 #' @author Haotian Xu, Stephane Guerrier, and Justin Lee
-#' @keywords internal
 #' @export
-plot.wccv = function(x, theo.wccv = NULL){
-  log.positive = sapply(x$crosscovariance, function(x){ifelse(x < 0, NA, log(x))})
-  log.negative = sapply(x$crosscovariance, function(x){ifelse(x > 0, NA, log(-x))})
-  log.low.positive = sapply(x$ci_low, function(x){ifelse(x < 0, NA, log(x))})
-  log.low.negative = sapply(x$ci_low, function(x){ifelse(x > 0, NA, log(-x))})
-  log.high.positive = sapply(x$ci_high, function(x){ifelse(x < 0, NA, log(x))})
-  log.high.negative = sapply(x$ci_high, function(x){ifelse(x > 0, NA, log(-x))})
+plot.wccv_pair = function(x, theo.wccv = NULL){
+  x = x[[1]] # simplify 
+  log.positive = sapply(x[,1], function(x){ifelse(x < 0, NA, log(x))})
+  log.negative = sapply(x[,1], function(x){ifelse(x > 0, NA, log(-x))})
+  log.low.positive = sapply(x[,3], function(x){ifelse(x < 0, NA, log(x))})
+  log.low.negative = sapply(x[,3], function(x){ifelse(x > 0, NA, log(-x))})
+  log.high.positive = sapply(x[,4], function(x){ifelse(x < 0, NA, log(x))})
+  log.high.negative = sapply(x[,4], function(x){ifelse(x > 0, NA, log(-x))})
   
   y.positive.min = floor(min(log.positive, na.rm = T)) - 1
   y.positive.max = ceiling(max(log.positive, na.rm = T)) + 1

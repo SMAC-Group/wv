@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title Pair Cross Covariance 
+#' @title Cross Covariance of TS Pair 
 #' @description
 #' Calculates the Cross-covariance between two wavelet transfomations (dwt or modwt)
 #' @param x         A \code{vector} with dimensions N x 1.
@@ -22,12 +22,12 @@
 #' @param decomp    A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
 #' @param filter    A \code{string} that specifies what wavelet filter to use.
 #' @param nlevels   An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).
-#' @return Returns cross-covariance, variance of each wavelet cross-covariance and its 95% CI.
+#' @return Returns a \code{list} of a \code{matrix} containing cross-covariance, variance of each wavelet cross-covariance and its 95% CI.
 #' @importFrom coda spectrum0
 #' @importFrom stats qnorm
-#' @export
 #' @details 
 #' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
+#' @export
 #' @author Justin Lee
 crosswvar_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
   if(is.null(x) || is.null(y)){
@@ -71,6 +71,16 @@ crosswvar_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NUL
   return(ret)
 }
 
+#' @title Cross Covariance of Matrix 
+#' @description
+#' Calculates the Cross-covariance between multiple wavelet transfomations (dwt or modwt)
+#' @param x         A \code{vector} with dimensions N x M.
+#' @param decomp    A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
+#' @param filter    A \code{string} that specifies what wavelet filter to use.
+#' @param nlevels   An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).
+#' @return Returns a \code{matrix} of \code{lists} of all the possible pair cross-covariance, variance of each wavelet cross-covariance and its 95% CI.
+#' @details 
+#' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
 #' @export
 #' @author Justin Lee
 crosswvar = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){

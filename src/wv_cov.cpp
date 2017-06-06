@@ -31,7 +31,7 @@ arma::mat compute_cov_cpp(arma::field<arma::vec> coef1, arma::field<arma::vec> c
   
   for(unsigned int i = 0; i < J; i++){
     V(i, 0) = mean(coef1(i) % coef2(i));
-    V(i, 2) = V(i, 0) + lower(i); // not sure how CI is calculated 
+    V(i, 2) = V(i, 0) + lower(i); 
     V(i, 3) = V(i, 0) + upper(i);
   }
   

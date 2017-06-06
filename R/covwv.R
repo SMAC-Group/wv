@@ -29,7 +29,7 @@
 #' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
 #' @export
 #' @author Justin Lee
-crosswvar_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
+wccv_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
   if(is.null(x) || is.null(y)){
     stop("`x` or `y` must contain a value.")
   }else if((is.data.frame(x) || is.matrix(x)) || is.data.frame(y) || is.matrix(y)){
@@ -83,7 +83,7 @@ crosswvar_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NUL
 #' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
 #' @export
 #' @author Justin Lee
-crosswvar = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
+wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
   if(is.null(x)) stop("`x` must contain a value.")
   
   if(decomp == "modwt"){
@@ -101,9 +101,66 @@ crosswvar = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
   for(i in seq_len(ncol(x))){
     j = i
     for(j in i:ncol(x)){
-      mat[i,j] = crosswvar_pair(x[,i], x[,j], decomp = decomp, filter = filter, nlevels = nlevels)
+      mat[i,j] = wccv_pair(x[,i], x[,j], decomp = decomp, filter = filter, nlevels = nlevels)
     }
   }
   
+  mostattributes(mat) = list(filter = filter, class=c("wccv","matrix","list"))
+  
   return(mat)
+}
+
+#' @title Plot Cross Covariance 
+#' @description
+#' Plots results of the wccv list in which additional parameters can be specified
+#' @method plot wccv
+#' @author Haotian Xu, Stephane Guerrier, and Justin Lee
+#' @keywords internal
+#' @export
+plot.wccv = function(wccv.obj, theo.wccv = NULL){
+  log.positive = sapply(wccv.obj$crosscovariance, function(x){ifelse(x < 0, NA, log(x))})
+  log.negative = sapply(wccv.obj$crosscovariance, function(x){ifelse(x > 0, NA, log(-x))})
+  log.low.positive = sapply(wccv.obj$ci_low, function(x){ifelse(x < 0, NA, log(x))})
+  log.low.negative = sapply(wccv.obj$ci_low, function(x){ifelse(x > 0, NA, log(-x))})
+  log.high.positive = sapply(wccv.obj$ci_high, function(x){ifelse(x < 0, NA, log(x))})
+  log.high.negative = sapply(wccv.obj$ci_high, function(x){ifelse(x > 0, NA, log(-x))})
+  
+  y.positive.min = floor(min(log.positive, na.rm = T)) - 1
+  y.positive.max = ceiling(max(log.positive, na.rm = T)) + 1
+  
+  y.negative.min = floor(min(-log.negative, na.rm = T)) - 1
+  y.negative.max = ceiling(max(-log.negative, na.rm = T)) + 1
+  
+  y.min = min(y.positive.min, -y.negative.max)
+  y.max = max(y.positive.max, -y.negative.min)
+  
+  layout(matrix(1:2, ncol = 1), widths = 1, heights = c(2,2), respect = FALSE)
+  par(mar = c(0, 3.1, 4.1, 2.1))
+  plot(x = a$scales, y = log.positive, log = "x", type = 'p', xaxt = 'n', ylim = c(y.min, y.max), yaxt="n",
+       main = 'Sample Wavelet Cross-Covariance', ylab = "")
+  ticks <- seq(y.min+2, y.max, by=5)
+  labels.positive <- sapply(ticks, function(i) as.expression(bquote(10^ .(i))))
+  axis(2, at=ticks, labels=labels.positive)
+  lines(x = a$scales, y = log.low.positive)
+  lines(x = a$scales, y = log.high.positive)
+  
+  if (is.null(theo.wccv) == F){
+    log.theo.positive = sapply(theo.wccv, function(x){ifelse(x < 0, NA, log(x))})
+    log.theo.negative = sapply(theo.wccv, function(x){ifelse(x > 0, NA, log(-x))})
+    lines(x = a$scales, y = log.theo.positive, lty = 3)
+  }
+  
+  par(mar = c(4.1, 3.1, 0, 2.1))
+  plot(x = a$scales, y = -log.negative, log = "x", type = 'p', xaxt = 'n', ylim = c(-y.max, -y.min), yaxt="n", ylab = "", xlab = "Scales")
+  ticks.rev <- -ticks
+  labels.negative <- sapply(ticks.rev, function(i) as.expression(bquote(-10^ .(-i))))
+  ticks.x <- seq(0, floor(log10(N))+1, by=1)
+  labels.x <- sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
+  axis(1, at=10^ticks.x, labels=labels.x)
+  axis(2, at=ticks.rev, labels=labels.negative)
+  lines(x = a$scales, y = -log.low.negative)
+  lines(x = a$scales, y = -log.high.negative)
+  if (is.null(theo.wccv) == F){
+    lines(x = a$scales, y = -log.theo.negative, lty = 3)
+  }
 }

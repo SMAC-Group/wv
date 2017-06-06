@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title Cross-covariance 
+#' @title Pair Cross Covariance 
 #' @description
 #' Calculates the Cross-covariance between two wavelet transfomations (dwt or modwt)
 #' @param x         A \code{vector} with dimensions N x 1.
@@ -29,7 +29,7 @@
 #' @details 
 #' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
 #' @author Justin Lee
-crosswvar = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
+crosswvar_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
   if(is.null(x) || is.null(y)){
     stop("`x` or `y` must contain a value.")
   }else if((is.data.frame(x) || is.matrix(x)) || is.data.frame(y) || is.matrix(y)){
@@ -44,18 +44,19 @@ crosswvar = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
     if(is.null(nlevels)){
       nlevels = floor(log2(length(x))-1)
     }
-    coef1 = modwt(x = x, nlevels = nlevels)
-    coef2 = modwt(x = y, nlevels = nlevels)
+    f = modwt
   }else if(decomp == "dwt"){
     if(is.null(nlevels)){
       nlevels = floor(log2(length(x)))
     }
-    coef1 = dwt(x = x, nlevels = nlevels)
-    coef2 = dwt(x = y, nlevels = nlevels)
+    f = dwt
   }
   
+  coef1 = f(x = x, nlevels = nlevels, filter = filter)
+  coef2 = f(x = y, nlevels = nlevels, filter = filter)
+  
   # Slightly inefficient!
-  # Better method, like implement spectrum0 in Rcpp 
+  # Better method may be to implement spectrum0 in Rcpp 
   product = mapply("*", coef1, coef2, SIMPLIFY = FALSE) 
   const = 1/sapply(product, length)
   variance = const * unlist(sapply(product, spectrum0, max.freq = 0, order = 2, max.length = 130))
@@ -64,5 +65,35 @@ crosswvar = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
   
   obj =  .Call('wv_compute_cov_cpp', PACKAGE = 'wv', coef1 = coef1, coef2 = coef2, variance = variance, lower = lower, upper = upper) 
   
-  return(obj)
+  # colnames(ret) = c("Cross-Covariance", "Variance", "Lower Bound", "Upper Bound")
+  # ret = list(obj)
+  
+  return(list(obj))
+}
+
+#' @export
+#' @author Justin Lee
+crosswvar = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
+  if(is.null(x)) stop("`x` must contain a value.")
+  
+  if(decomp == "modwt"){
+    if(is.null(nlevels)){
+      nlevels = floor(log2(nrow(x))-1)
+    }
+  }else if(decomp == "dwt"){
+    if(is.null(nlevels)){
+      nlevels = floor(log2(nrow(x)))
+    }
+  }
+  
+  mat = matrix(list(), ncol(x), ncol(x))
+  
+  for(i in seq_len(ncol(x))){
+    j = i
+    for(j in i:ncol(x)){
+      mat[i,j] = crosswvar_pair(x[,i], x[,j], decomp = decomp, filter = filter, nlevels = nlevels)
+    }
+  }
+  
+  return(mat)
 }

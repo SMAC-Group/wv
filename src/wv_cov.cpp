@@ -37,4 +37,6 @@ arma::mat compute_cov_cpp(arma::field<arma::vec> coef1, arma::field<arma::vec> c
   
   return V; 
 }
-
+// 
+// // [[Rcpp::export]]
+// arma::field<arma::mat> all_cov_cpp(arma::mat x, arma::)

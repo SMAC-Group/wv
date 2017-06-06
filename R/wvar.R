@@ -826,7 +826,7 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
     }
     
     if (is.null(ylab)){
-        ylab = bquote(paste("Wavelet Variance ", nu^2, " [", .(units)^2, "]", sep = " "))
+        ylab = bquote(paste("Wavelet Variance ", nu^2, sep = " "))
     }else{
       ylab = ylab
     }

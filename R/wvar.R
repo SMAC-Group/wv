@@ -618,135 +618,79 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #'
 #'@export
 #'
-compare_wvar_split = function(..., xlab, ylab, col_wv, col_ci, main, legend_position, 
-                              ci_wv, point_cex, point_pch, nb_ticks_x, nb_ticks_y){
-  
-  obj_list = list(...)
-  obj_name = as.character(substitute(...()))
-  obj_len  = length(obj_list)
-  
-  # Check if passed objects are of the class wvar
-  is_wvar = sapply(obj_list, FUN = is, class2 = 'wvar')
-  
-  if(!all(is_wvar == T)){
-    stop("Supplied objects must be 'wvar' objects.")
-  }
-  
-  # Check length
-  if (obj_len == 0){
-    stop('No object given!')
+compare_wvar_split = function(graph_details){
     
-  }else if (obj_len == 1){
-    # -> plot.wvar
-    plot.wvar(..., nb_ticks_X = nb_ticks_x, nb_ticks_y = nb_ticks_y)
-  }else{
-    # Find x and y limits
-    x_range = y_range = rep(NULL, 2)
-    for (i in 1:obj_len){
-      x_range = range(c(x_range, obj_list[[i]]$scales))
-      y_range = range(c(y_range, obj_list[[i]]$ci_low, obj_list[[i]]$ci_high))
-    }
-    x_low = floor(log2(x_range[1]))
-    x_high = ceiling(log2(x_range[2]))
-    y_low = floor(log2(y_range[1]))
-    y_high = ceiling(log2(y_range[2]))
+    par(mfrow = c(graph_details$obj_len, graph_details$obj_len), 
+        mar = c(0,0,0,0), oma = c(4,4,1,1))
     
-    # Construct ticks
-    # Axes
-    if (is.null(nb_ticks_x)){
-      nb_ticks_x = 6
-    }
-    
-    if (is.null(nb_ticks_y)){
-      nb_ticks_y = 5
-    }
-    
-    x_ticks = seq(x_low, x_high, by = 1)
-    if (length(x_ticks) > nb_ticks_x){
-      x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
-    }
-    x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
-    
-    y_ticks = seq(y_low, y_high, by = 1)
-    if (length(y_ticks) > nb_ticks_y){
-      y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
-    }
-    y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
-    
-    # Define colors
-    hues = seq(15, 375, length = obj_len + 1)
-    col_wv = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(obj_len)]
-    col_ci = hcl(h = hues, l = 65, c = 100, alpha = 0.15)[seq_len(obj_len)]
-    
-    par(mfrow = c(obj_len, obj_len), mar = c(0,0,0,0), oma = c(4,4,1,1))
-    
-    for (i in 1:obj_len){
-      for (j in 1:obj_len){
+    for (i in 1:graph_details$obj_len){
+      for (j in 1:graph_details$obj_len){
         # Main plot                     
-        plot(NA, xlim = x_range, ylim = y_range, log = "xy", xaxt = 'n', 
+        plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
              yaxt = 'n', bty = "n", ann = FALSE)
         win_dim = par("usr")
         
         # Add grid
-        abline(v = 2^x_ticks, lty = 1, col = "grey95")
-        abline(h = 2^y_ticks, lty = 1, col = "grey95")
+        abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
+        abline(h = 2^graph_details$y_ticks, lty = 1, col = "grey95")
         
         # Add axes and box
         box(col = "grey")
         
         # Corner left piece
         if (j == 1){
-          axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.1, cex.axis = 1/log(obj_len)+0.1)  
+          axis(2, at = 2^graph_details$y_ticks, labels = graph_details$y_labels, 
+               padj = -0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)  
         }
         
         # Corner bottom
-        if (i == obj_len){
-          axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.1, cex.axis = 1/log(obj_len)+0.1)
+        if (i == graph_details$obj_len){
+          axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, 
+               padj = 0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
         }
         # Diag graph
         if (i == j){
-          scales   = obj_list[[i]]$scales
-          ci_low   = obj_list[[i]]$ci_low
-          ci_high  = obj_list[[i]]$ci_high
-          variance = obj_list[[i]]$variance
+          scales   = graph_details$obj_list[[i]]$scales
+          ci_low   = graph_details$obj_list[[i]]$ci_low
+          ci_high  = graph_details$obj_list[[i]]$ci_high
+          variance = graph_details$obj_list[[i]]$variance
           
           polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
-                  border = NA, col = col_ci[i])
-          lines(scales, variance, type = "l", col = col_wv[i], pch = 16)
+                  border = NA, col = graph_details$col_ci[i])
+          lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
         }
         
         if (i != j){
-          scales   = obj_list[[i]]$scales
-          ci_low   = obj_list[[i]]$ci_low
-          ci_high  = obj_list[[i]]$ci_high
-          variance = obj_list[[i]]$variance
+          scales   = graph_details$obj_list[[i]]$scales
+          ci_low   = graph_details$obj_list[[i]]$ci_low
+          ci_high  = graph_details$obj_list[[i]]$ci_high
+          variance = graph_details$obj_list[[i]]$variance
           
           if (i < j){
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
-                    border = NA, col = col_ci[i])
+                    border = NA, col = graph_details$col_ci[i])
           }
           
-          lines(scales, variance, type = "l", col = col_wv[i], pch = 16)
+          lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
           
-          scales   = obj_list[[j]]$scales
-          ci_low   = obj_list[[j]]$ci_low
-          ci_high  = obj_list[[j]]$ci_high
-          variance = obj_list[[j]]$variance
+          scales   = graph_details$obj_list[[j]]$scales
+          ci_low   = graph_details$obj_list[[j]]$ci_low
+          ci_high  = graph_details$obj_list[[j]]$ci_high
+          variance = graph_details$obj_list[[j]]$variance
           
           if (i < j){ # don't show confidence intervals 
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
-                    border = NA, col = col_ci[j])
+                    border = NA, col = graph_details$col_ci[j])
           }
-          lines(scales, variance, type = "l", col = col_wv[j], pch = 16)
+          lines(scales, variance, type = "l", col = graph_details$col_wv[j], pch = 16)
         }
       }
     }
     
-    mtext(xlab, side = 2, line = 3, cex = 0.8, outer = T)
-    mtext(ylab, side = 1, line = 3, cex = 0.8, outer = T)
+    mtext(graph_details$xlab, side = 2, line = 3, cex = 0.8, outer = T)
+    mtext(graph_details$ylab, side = 1, line = 3, cex = 0.8, outer = T)
     
   }
-}
 
 
 compare_wvar_no_split = function(graph_details){

@@ -749,80 +749,21 @@ compare_wvar_split = function(..., xlab, ylab, col_wv, col_ci, main, legend_posi
 }
 
 
-compare_wvar_no_split = function(..., xlab, ylab, col_wv, col_ci, main, legend_position, 
-                                 ci_wv, point_cex, point_pch, nb_ticks_x, nb_ticks_y){
-  
-  obj_list = list(...)
-  obj_name = as.character(substitute(...()))
-  obj_len  = length(obj_list)
-  
-  # Check if passed objects are of the class wvar
-  is_wvar = sapply(obj_list, FUN = is, class2 = 'wvar')
-  
-  if(!all(is_wvar == T)){
-    stop("Supplied objects must be 'wvar' objects.")
-  }
-  
-  # Check length
-  if (obj_len == 0){
-    stop('No object given!')
-    
-  }else if (obj_len == 1){
-    # -> plot.wvar
-    plot.wvar(..., nb_ticks_X = nb_ticks_x, nb_ticks_y = nb_ticks_y)
-  }else{
-    # Find x and y limits
-    x_range = y_range = rep(NULL, 2)
-    for (i in 1:obj_len){
-      x_range = range(c(x_range, obj_list[[i]]$scales))
-      y_range = range(c(y_range, obj_list[[i]]$ci_low, obj_list[[i]]$ci_high))
-    }
-    x_low = floor(log2(x_range[1]))
-    x_high = ceiling(log2(x_range[2]))
-    y_low = floor(log2(y_range[1]))
-    y_high = ceiling(log2(y_range[2]))
-    
-    # Construct ticks
-    # Axes
-    if (is.null(nb_ticks_x)){
-      nb_ticks_x = 6
-    }
-    
-    if (is.null(nb_ticks_y)){
-      nb_ticks_y = 5
-    }
-    
-    x_ticks = seq(x_low, x_high, by = 1)
-    if (length(x_ticks) > nb_ticks_x){
-      x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
-    }
-    x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
-    
-    y_ticks = seq(y_low, y_high, by = 1)
-    if (length(y_ticks) > nb_ticks_y){
-      y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
-    }
-    y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
-    
-    # Define colors
-    hues = seq(15, 375, length = obj_len + 1)
-    col_wv = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(obj_len)]
-    col_ci = hcl(h = hues, l = 65, c = 100, alpha = 0.15)[seq_len(obj_len)]
-    
+compare_wvar_no_split = function(graph_details){
     # Main plot                     
-    plot(NA, xlim = x_range, ylim = y_range, log = "xy", xaxt = 'n', 
+    plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
              yaxt = 'n', bty = "n", ann = FALSE)
     win_dim = par("usr")
     
     # Main plot                   
     par(new = TRUE)
-    plot(NA, xlim = x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
-        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n")
+    plot(NA, xlim = graph_details$x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
+        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", xlab = graph_details$xlab, ylab = graph_details$ylab)
     win_dim = par("usr")
     
     # Add grid
-    abline(v = 2^x_ticks, lty = 1, col = "grey95")
-    abline(h = 2^y_ticks, lty = 1, col = "grey95")
+    abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
+    abline(h = 2^graph_details$y_ticks, lty = 1, col = "grey95")
     
     # Add title
     x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
@@ -830,27 +771,38 @@ compare_wvar_no_split = function(..., xlab, ylab, col_wv, col_ci, main, legend_p
                  win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
                  win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
     polygon(x_vec, y_vec, col = "grey95", border = NA)
-    text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), "WV")
+    text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+         graph_details$main)
     
     # Add axes and box
     lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
-    y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
-    y_labels = y_labels[1:length(y_ticks)]
+    y_ticks = graph_details$y_ticks[(2^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+    y_labels = graph_details$y_labels[1:length(graph_details$y_ticks)]
     box()
-    axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
-    axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
-        
-   for (i in 1:obj_len){
-     scales   = obj_list[[i]]$scales
-     ci_low   = obj_list[[i]]$ci_low
-     ci_high  = obj_list[[i]]$ci_high
-     variance = obj_list[[i]]$variance
-     
-     polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
-             border = NA, col = col_ci[i])
-     lines(scales, variance, type = "l", col = col_wv[i], pch = 16)
+    axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, padj = 0.3)
+    axis(2, at = 2^graph_details$y_ticks, labels = graph_details$y_labels, padj = -0.2)  
+    
+    for (i in 1:graph_details$obj_len){
+      scales   = graph_details$obj_list[[i]]$scales
+      ci_low   = graph_details$obj_list[[i]]$ci_low
+      ci_high  = graph_details$obj_list[[i]]$ci_high
+      variance = graph_details$obj_list[[i]]$variance
+      
+      if (graph_details$ci_wv[i]){
+        polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
+                border = NA, col = graph_details$col_ci[i])
+      }
+      
+      lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
+      lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
+            pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
     }
-  }
+    
+    if (graph_details$add_legend){
+      legend(graph_details$legend_position, graph_details$names, bty = "n",
+             lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
+             col = graph_details$col_wv)
+    }
 }
 
 
@@ -892,7 +844,8 @@ compare_wvar_no_split = function(..., xlab, ylab, col_wv, col_ci, main, legend_p
 #' wv_Wt = wvar(Wt)
 #' 
 #' compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
-compare_wvar = function(... , split = "FALSE", units = NULL, xlab = "Scales", ylab = "Wavelet Variance", main = NULL, 
+compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL, xlab = NULL, 
+                        ylab = NULL, main = NULL, 
                         col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
                         legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
                         point_pch = NULL, names = NULL){
@@ -1000,29 +953,36 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = "Scales", yl
     y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
     
     # Legend position
-  #  if (is.null(legend_position)){
-  #    if (which.min(abs(c(y_low, y_high) - log2(x$variance[1]))) == 1){
-  #      legend_position = "topleft"
-  #    }else{
-  #      legend_position = "bottomleft"
-  #    }
-  #  }
+    if (is.null(legend_position)){
+      inter = rep(NA, obj_len)
+      for (i in 1:obj_len){
+        inter[i] = obj_list[[i]]$variance[1]
+      }
+      mean_wv_1 = mean(inter)
+      if (which.min(abs(c(y_low, y_high) - log2(mean_wv_1))) == 1){
+        legend_position = "topleft"
+      }else{
+        legend_position = "bottomleft"
+      }
+    }
     
     if (is.null(point_pch)){
-      inter = rep(15:17, obj_len)
+      inter = rep(15:18, obj_len)
       point_pch = inter[1:obj_len]
     }else{
       if (length(point_pch) != obj_len){
-        inter = rep(15:17, obj_len)
+        inter = rep(15:18, obj_len)
         point_pch = inter[1:obj_len]
       }
     }
     
     if (is.null(point_cex)){
-      point_cex = rep(1.25, obj_len)
+      inter = rep(c(1.25,1.25,1.25,1.6), obj_len)
+      point_cex = inter[1:obj_len]
     }else{
       if (length(point_pch) != obj_len){
-        point_cex = rep(1.25, obj_len)
+        inter = rep(c(1.25,1.25,1.25,1.6), obj_len)
+        point_cex = inter[1:obj_len]
       }
     }
     
@@ -1035,10 +995,12 @@ compare_wvar = function(... , split = "FALSE", units = NULL, xlab = "Scales", yl
     }
     
     #Passed into compare_wvar_split or compare_wvar_no_split
-    graph_details = list(names = names, xlab = xlab, ylab = ylab, col_wv = col_wv, 
+    graph_details = list(obj_list = obj_list, obj_len = obj_len, names = names, xlab = xlab, 
+                         ylab = ylab, col_wv = col_wv, add_legend = add_legend,
                          col_ci = col_ci, main = main, legend_position = legend_position,
                          ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch,
-                         nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
+                         x_range = x_range, y_range = y_range, x_ticks = x_ticks, 
+                         y_ticks = y_ticks, nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
     
     if (split == FALSE){
       # CALL compare_wvar_no_split

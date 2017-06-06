@@ -708,7 +708,7 @@ compare_wvar_no_split = function(graph_details){
     
     # Add grid
     abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
-    abline(h = 2^graph_details$y_ticks, lty = 1, col = "grey95")
+    abline(h = 10^graph_details$y_ticks, lty = 1, col = "grey95")
     
     # Add title
     x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
@@ -721,12 +721,12 @@ compare_wvar_no_split = function(graph_details){
     
     # Add axes and box
     lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
-    y_ticks = graph_details$y_ticks[(2^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
-    y_labels = sapply(y_ticks, function(i) as.expression(bquote(2^ .(i))))
+    y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+    y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
     
     box()
     axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, padj = 0.3)
-    axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)
+    axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)
     
     for (i in 1:graph_details$obj_len){
       scales   = graph_details$obj_list[[i]]$scales
@@ -817,7 +817,7 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
   
     if (is.null(xlab)){
       if (is.null(units)){
-        xlab = expression(paste("Scale (", tau, ")", sep =""))
+        xlab = expression(paste("Scale ", tau, sep =""))
       }else{
         xlab = bquote(paste("Scale ", "(", .(units), ")", sep = " "))
       }

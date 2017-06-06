@@ -65,10 +65,10 @@ crosswvar_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NUL
   
   obj =  .Call('wv_compute_cov_cpp', PACKAGE = 'wv', coef1 = coef1, coef2 = coef2, variance = variance, lower = lower, upper = upper) 
   
-  # colnames(ret) = c("Cross-Covariance", "Variance", "Lower Bound", "Upper Bound")
-  # ret = list(obj)
+  colnames(obj) = c("Cross-Covariance", "Variance", "Lower Bound", "Upper Bound")
+  ret = list(obj)
   
-  return(list(obj))
+  return(ret)
 }
 
 #' @export

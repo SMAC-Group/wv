@@ -105,7 +105,7 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
     }
   }
   
-  mostattributes(mat) = list(filter = filter, class=c("wccv","matrix","list"))
+  # mostattributes(mat) = list(filter = filter, class=c("wccv","matrix","list"))
   
   return(mat)
 }
@@ -117,13 +117,13 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
 #' @author Haotian Xu, Stephane Guerrier, and Justin Lee
 #' @keywords internal
 #' @export
-plot.wccv = function(wccv.obj, theo.wccv = NULL){
-  log.positive = sapply(wccv.obj$crosscovariance, function(x){ifelse(x < 0, NA, log(x))})
-  log.negative = sapply(wccv.obj$crosscovariance, function(x){ifelse(x > 0, NA, log(-x))})
-  log.low.positive = sapply(wccv.obj$ci_low, function(x){ifelse(x < 0, NA, log(x))})
-  log.low.negative = sapply(wccv.obj$ci_low, function(x){ifelse(x > 0, NA, log(-x))})
-  log.high.positive = sapply(wccv.obj$ci_high, function(x){ifelse(x < 0, NA, log(x))})
-  log.high.negative = sapply(wccv.obj$ci_high, function(x){ifelse(x > 0, NA, log(-x))})
+plot.wccv = function(x, theo.wccv = NULL){
+  log.positive = sapply(x$crosscovariance, function(x){ifelse(x < 0, NA, log(x))})
+  log.negative = sapply(x$crosscovariance, function(x){ifelse(x > 0, NA, log(-x))})
+  log.low.positive = sapply(x$ci_low, function(x){ifelse(x < 0, NA, log(x))})
+  log.low.negative = sapply(x$ci_low, function(x){ifelse(x > 0, NA, log(-x))})
+  log.high.positive = sapply(x$ci_high, function(x){ifelse(x < 0, NA, log(x))})
+  log.high.negative = sapply(x$ci_high, function(x){ifelse(x > 0, NA, log(-x))})
   
   y.positive.min = floor(min(log.positive, na.rm = T)) - 1
   y.positive.max = ceiling(max(log.positive, na.rm = T)) + 1

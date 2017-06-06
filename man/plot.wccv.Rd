@@ -4,7 +4,7 @@
 \alias{plot.wccv}
 \title{Plot Cross Covariance}
 \usage{
-\method{plot}{wccv}(wccv.obj, theo.wccv = NULL)
+\method{plot}{wccv}(x, theo.wccv = NULL)
 }
 \description{
 Plots results of the wccv list in which additional parameters can be specified

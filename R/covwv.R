@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#' @title Cross Covariance of TS Pair 
+#' @title Cross Covariance of a TS Pair 
 #' @description
 #' Calculates the Cross-covariance between two wavelet transfomations (dwt or modwt)
 #' @param x         A \code{vector} with dimensions N x 1.

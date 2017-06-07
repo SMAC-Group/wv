@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Wave Variance for a Univariate Time Series — wave_variance â€¢ wv</title>
+<title>Cross Covariance of Matrix — wccv â€¢ wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,51 +73,45 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Wave Variance for a Univariate Time Series</h1>
+    <h1>Cross Covariance of Matrix</h1>
     </div>
 
     
-    <p>Computes an estimate of the wave variance</p>
+    <p>Calculates the Cross-covariance between multiple wavelet transfomations (dwt or modwt)</p>
     
 
-    <pre class="usage"><span class='fu'>wave_variance</span>(<span class='no'>signal_modwt_bw</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</pre>
+    <pre class="usage"><span class='fu'>wccv</span>(<span class='no'>x</span>, <span class='kw'>decomp</span> <span class='kw'>=</span> <span class='st'>"modwt"</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>signal_modwt_bw</th>
-      <td><p>A <code>field&lt;vec&gt;</code> that contains the modwt or dwt decomposition</p></td>
+      <th>x</th>
+      <td><p>A <code>vector</code> with dimensions N x M.</p></td>
     </tr>
     <tr>
-      <th>robust</th>
-      <td><p>A <code>boolean</code> to determine the type of wave estimation.</p></td>
+      <th>decomp</th>
+      <td><p>A <code>string</code> that indicates whether to use the "dwt" or "modwt" decomposition.</p></td>
     </tr>
     <tr>
-      <th>eff</th>
-      <td><p>A <code>double</code> that indicates the efficiency.</p></td>
+      <th>filter</th>
+      <td><p>A <code>string</code> that specifies what wavelet filter to use.</p></td>
+    </tr>
+    <tr>
+      <th>nlevels</th>
+      <td><p>An <code>integer</code> that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>vec</code> that contains the wave variance.</p>
+    <p>Returns a <code>matrix</code> of <code>lists</code> of all the possible pair cross-covariance, variance of each wavelet cross-covariance and its 95<!-- % CI. --></p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If <code>nlevels</code> is not specified, it is set to \(\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor\)</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>1337</span>)
-<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
-<span class='no'>decomp</span> <span class='kw'>=</span> <span class='fu'><a href='modwt_cpp.html'>modwt_cpp</a></span>(<span class='no'>x</span>, <span class='kw'>filter_name</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-<span class='fu'>wave_variance</span>(<span class='no'>decomp</span>)</div><div class='output co'>#&gt;            [,1]
-#&gt; [1,] 0.64088561
-#&gt; [2,] 0.24456060
-#&gt; [3,] 0.14316837
-#&gt; [4,] 0.06702458</div><div class='input'>
-<span class='fu'>wave_variance</span>(<span class='no'>decomp</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</div><div class='output co'>#&gt;            [,1]
-#&gt; [1,] 0.63467568
-#&gt; [2,] 0.27755711
-#&gt; [3,] 0.14357964
-#&gt; [4,] 0.07735672</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -125,9 +119,13 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    
+Justin Lee
 
   </div>
 </div>

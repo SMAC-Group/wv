@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Wave Variance for a Univariate Time Series — wave_variance â€¢ wv</title>
+<title>Non-stationary Non-overlapping Allan Variance — NOAV â€¢ wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,51 +73,57 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Wave Variance for a Univariate Time Series</h1>
+    <h1>Non-stationary Non-overlapping Allan Variance</h1>
     </div>
 
     
-    <p>Computes an estimate of the wave variance</p>
+    <p>Calculation of the theoritical Non-overlapping Allan Variance for constant-mean non-stationary time series data</p>
     
 
-    <pre class="usage"><span class='fu'>wave_variance</span>(<span class='no'>signal_modwt_bw</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</pre>
+    <pre class="usage"><span class='fu'>NOAV</span>(<span class='no'>n</span>, <span class='no'>covmat</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>signal_modwt_bw</th>
-      <td><p>A <code>field&lt;vec&gt;</code> that contains the modwt or dwt decomposition</p></td>
+      <th>n</th>
+      <td><p>A <code>integer</code> indicating the length of each vector of consecutive observations considered for the average.</p></td>
     </tr>
     <tr>
-      <th>robust</th>
-      <td><p>A <code>boolean</code> to determine the type of wave estimation.</p></td>
-    </tr>
-    <tr>
-      <th>eff</th>
-      <td><p>A <code>double</code> that indicates the efficiency.</p></td>
+      <th>covmat</th>
+      <td><p>A <code>matrix</code> indicating the T-by-T covariance matrix of the time series with length T.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>vec</code> that contains the wave variance.</p>
+    <p>A <code>field&lt;numeric&gt;</code> that is the theoritical Non-overlapping Allan Variance for constant-mean non-stationary time series data</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Calculate Non-overlapping Allan Variance based on the defination on "Xu, Haotian, et al. "A Study of the Allan Variance for Constant-Mean Non-Stationary Processes." arXiv preprint arXiv:1702.07795 (2017)".
+n is an integer larger than 1 and smaller than \(floor\left(log_2 \left(dim\left(covmat\right)[1]\right)\right)-1\)</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>1337</span>)
-<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
-<span class='no'>decomp</span> <span class='kw'>=</span> <span class='fu'><a href='modwt_cpp.html'>modwt_cpp</a></span>(<span class='no'>x</span>, <span class='kw'>filter_name</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-<span class='fu'>wave_variance</span>(<span class='no'>decomp</span>)</div><div class='output co'>#&gt;            [,1]
-#&gt; [1,] 0.64088561
-#&gt; [2,] 0.24456060
-#&gt; [3,] 0.14316837
-#&gt; [4,] 0.06702458</div><div class='input'>
-<span class='fu'>wave_variance</span>(<span class='no'>decomp</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</div><div class='output co'>#&gt;            [,1]
-#&gt; [1,] 0.63467568
-#&gt; [2,] 0.27755711
-#&gt; [3,] 0.14357964
-#&gt; [4,] 0.07735672</div></pre>
+    <pre class="examples"><div class='input'>set.seed(999)
+AR1 phi=0.3
+x = gen.gts(AR1(phi = 0.3, sigma2 = 1), N = 1000, freq = 1)
+avar(x, type = "to")
+
+a = matrix(rep(0, 1000^2), nrow = 1000)
+for (i in 1:1000){
+  a[,i] = seq(from = 1 - i, length.out = 1000)
+}
+a.diag = diag(a)
+a[upper.tri(a,diag=T)] = 0
+a = a + t(a) + diag(a.diag)
+covmat = 0.3^a
+sapply(1:8, function(y){NOAV(2^y, covmat)})
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:2:5: unexpected symbol</span>
+#&gt; <span class='error'>1: set.seed(999)</span>
+#&gt; <span class='error'>2: AR1 phi</span>
+#&gt; <span class='error'>       ^</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -125,9 +131,15 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+Haotian Xu
 
   </div>
 </div>

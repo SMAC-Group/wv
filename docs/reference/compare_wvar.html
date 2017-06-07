@@ -6,13 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Comparison between multiple Wavelet Variances — compare_wvar â€¢ wv</title>
+<title>Comparison Between Multiple Wavelet Variances — compare_wvar â€¢ wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -56,7 +56,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/SMAC-Group/simts">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -68,14 +73,17 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Comparison between multiple Wavelet Variances</h1>
+    <h1>Comparison Between Multiple Wavelet Variances</h1>
     </div>
 
     
-    <p>Displays plots of multiple wavelet variances for a different time series accounting for CI values.</p>
+    <p>Displays plots of multiple wavelet variances of different time series accounting for CI values.</p>
     
 
-    <pre class="usage"><span class='fu'>compare_wvar</span>(<span class='no'>...</span>, <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>compare_wvar</span>(<span class='no'>...</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='st'>"FALSE"</span>, <span class='kw'>add_legend</span> <span class='kw'>=</span> <span class='st'>"TRUE"</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ci_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>point_cex</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>point_pch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -85,12 +93,48 @@
       <td><p>One or more time series objects.</p></td>
     </tr>
     <tr>
+      <th>split</th>
+      <td><p>A <code>boolean</code> that, if TRUE, arranges the plots into a matrix-like format.</p></td>
+    </tr>
+    <tr>
+      <th>units</th>
+      <td><p>A <code>string</code> that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.</p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>A <code>string</code> that gives a title for the x axes.</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p>A <code>string</code> that gives a title for the y axes.</p></td>
+    </tr>
+    <tr>
+      <th>main</th>
+      <td><p>A <code>string</code> that gives an overall title for the plot.</p></td>
+    </tr>
+    <tr>
       <th>nb_ticks_x</th>
-      <td><p>Maximum number of ticks for the x-axis.</p></td>
+      <td><p>An <code>integer</code> that specifies the maximum number of ticks for the x-axis.</p></td>
     </tr>
     <tr>
       <th>nb_ticks_y</th>
-      <td><p>Maximum number of ticks for the y-axis.</p></td>
+      <td><p>An <code>integer</code> that specifies the maximum number of ticks for the y-axis.</p></td>
+    </tr>
+    <tr>
+      <th>legend_position</th>
+      <td><p>A <code>string</code> that specifies the position of the legend (use <code>legend_position = NA</code> to remove legend).</p></td>
+    </tr>
+    <tr>
+      <th>ci_wv</th>
+      <td><p>A <code>double</code> that specifies the confidence interval to be used in the WV calculation.</p></td>
+    </tr>
+    <tr>
+      <th>point_cex</th>
+      <td><p>A <code>double</code> that specifies the size of each symbol to be plotted.</p></td>
+    </tr>
+    <tr>
+      <th>point_pch</th>
+      <td><p>A <code>double</code> that specifies the symbol type to be plotted.</p></td>
     </tr>
     </table>
     

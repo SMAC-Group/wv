@@ -1,0 +1,11 @@
+template:
+  params:
+    bootswatch: flatly
+
+navbar:
+  left:
+  - text: Reference
+    href: reference/index.html
+  right: 
+  - icon: fa-github
+    href: https://github.com/SMAC-Group/simts

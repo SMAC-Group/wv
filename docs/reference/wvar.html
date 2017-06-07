@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -56,7 +56,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/SMAC-Group/simts">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -165,37 +170,33 @@
     <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>999</span>)
 <span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
 <span class='co'># Default</span>
-<span class='fu'>wvar</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;       Variance      Low CI   High CI
-#&gt; 2  0.452177820 0.316045047 0.7004281
-#&gt; 4  0.230339706 0.140751059 0.4440086
-#&gt; 8  0.137102522 0.069880858 0.3811887
-#&gt; 16 0.051603837 0.020543745 0.2878292
-#&gt; 32 0.011723825 0.003282007 0.3685303
-#&gt; 64 0.008205545 0.001633306 8.3553640</div><div class='input'>
+<span class='fu'>wvar</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;      Variance      Low CI   High CI
+#&gt; 2  0.45217782 0.316045047 0.7004281
+#&gt; 4  0.23033971 0.140751059 0.4440086
+#&gt; 8  0.13710252 0.069880858 0.3811887
+#&gt; 16 0.05160384 0.020543745 0.2878292
+#&gt; 32 0.01172383 0.003282007 0.3685303</div><div class='input'>
 <span class='co'># Robust</span>
-<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>eff</span><span class='kw'>=</span><span class='fl'>0.3</span>)</div><div class='output co'>#&gt;        Variance       Low CI   High CI
-#&gt; 2  0.5497985611 0.2475972071 1.1008897
-#&gt; 4  0.2399470986 0.0695590832 0.6463224
-#&gt; 8  0.1317999689 0.0138172248 0.5602029
-#&gt; 16 0.0619567778 0.0138172248 0.5797696
-#&gt; 32 0.0074844382 0.0037422191 0.4233586
-#&gt; 64 0.0004697035 0.0002348517 0.8728270</div><div class='input'>
+<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>eff</span><span class='kw'>=</span><span class='fl'>0.3</span>)</div><div class='output co'>#&gt;       Variance      Low CI   High CI
+#&gt; 2  0.549798561 0.247597207 1.1008897
+#&gt; 4  0.239947099 0.069559083 0.6463224
+#&gt; 8  0.131799969 0.013817225 0.5602029
+#&gt; 16 0.061956778 0.013817225 0.5797696
+#&gt; 32 0.007484438 0.003742219 0.4233586</div><div class='input'>
 <span class='co'># Classical</span>
-<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span><span class='kw'>=</span><span class='fl'>0.3</span>)</div><div class='output co'>#&gt;       Variance      Low CI   High CI
-#&gt; 2  0.452177820 0.316045047 0.7004281
-#&gt; 4  0.230339706 0.140751059 0.4440086
-#&gt; 8  0.137102522 0.069880858 0.3811887
-#&gt; 16 0.051603837 0.020543745 0.2878292
-#&gt; 32 0.011723825 0.003282007 0.3685303
-#&gt; 64 0.008205545 0.001633306 8.3553640</div><div class='input'>
+<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>eff</span><span class='kw'>=</span><span class='fl'>0.3</span>)</div><div class='output co'>#&gt;      Variance      Low CI   High CI
+#&gt; 2  0.45217782 0.316045047 0.7004281
+#&gt; 4  0.23033971 0.140751059 0.4440086
+#&gt; 8  0.13710252 0.069880858 0.3811887
+#&gt; 16 0.05160384 0.020543745 0.2878292
+#&gt; 32 0.01172383 0.003282007 0.3685303</div><div class='input'>
 <span class='co'># 90% Confidence Interval </span>
-<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.10</span>)</div><div class='output co'>#&gt;       Variance      Low CI   High CI
-#&gt; 2  0.452177820 0.334461347 0.6516656
-#&gt; 4  0.230339706 0.152096918 0.3978812
-#&gt; 8  0.137102522 0.077666345 0.3200430
-#&gt; 16 0.051603837 0.023732362 0.2119612
-#&gt; 32 0.011723825 0.004018555 0.1908247
-#&gt; 64 0.008205545 0.002136049 2.0867886</div></pre>
+<span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.10</span>)</div><div class='output co'>#&gt;      Variance      Low CI   High CI
+#&gt; 2  0.45217782 0.334461347 0.6516656
+#&gt; 4  0.23033971 0.152096918 0.3978812
+#&gt; 8  0.13710252 0.077666345 0.3200430
+#&gt; 16 0.05160384 0.023732362 0.2119612
+#&gt; 32 0.01172383 0.004018555 0.1908247</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

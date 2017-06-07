@@ -115,81 +115,66 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
 #' @title Plot Cross Covariance Pair
 #' @description
 #' Plots results of the a wccv_pair list in which additional parameters can be specified
-#' @author Haotian Xu, Stephane Guerrier, and Justin Lee
+#' @author Justin Lee, Haotian Xu, and Stephane Guerrier
 #' @export
-plot.wccv_pair = function(x, theo.wccv = NULL, ...){
+plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col_ci = NULL, ...){
   J = attr(x,"J")
   N = attr(x, "N")
   scales = scales_cpp(J)
   
   x = x[[1]] # simplify 
+
+  # Include all CI values 
+  combCI = c(x[,3], x[,4])
+  abscombCI = abs(combCI)
   
-  # log transformation 
-  y = ifelse(x > 0, log(x), log(-x)) # or log10?
+  # Line and CI colors
+  if(is.null(col_wv)){
+    col_wccv = "darkblue"
+  }
   
-  # translate then log 
-  # log.positive = sapply(x[,1], function(x){ifelse(x < 0, NA, log(x))})
-  # log.negative = sapply(x[,1], function(x){ifelse(x > 0, NA, log(-x))})
-  # log.low.positive = sapply(x[,3], function(x){ifelse(x < 0, NA, log(x))})
-  # log.low.negative = sapply(x[,3], function(x){ifelse(x > 0, NA, log(-x))})
-  # log.high.positive = sapply(x[,4], function(x){ifelse(x < 0, NA, log(x))})
-  # log.high.negative = sapply(x[,4], function(x){ifelse(x > 0, NA, log(-x))})
-  # 
-  # y.positive.min = floor(min(log.positive, na.rm = T)) - 1
-  # y.positive.max = ceiling(max(log.positive, na.rm = T)) + 1
-  # 
-  # y.negative.min = floor(min(-log.negative, na.rm = T)) - 1
-  # y.negative.max = ceiling(max(-log.negative, na.rm = T)) + 1
-  #
-  # y.min = min(y.positive.min, -y.negative.max)
-  # y.max = max(y.positive.max, -y.negative.min)
+  if(is.null(col_ci)){
+    col_ci = hcl(h = 210, l = 65, c = 100, alpha = 0.2)
+  }
   
-  y.min = min(x[,3])
-  y.max = max(x[,4])
+  if(is.null(main)){
+    main = "Sample Wavelet Cross-Covariance"
+  }
   
-  plot(NA, log = "x", xlim = c(min(scales), max(scales)), ylim = c(min(x[,3]), max(x[,4])))
+  plot(NA, log = "x", xlim = c(min(scales), max(scales)), ylim = c(min(x[,3]), max(x[,4])), xaxt = "n", yaxt = "n",
+       main = main, ylab = "")
   polygon(c(scales, rev(scales)), c(x[,3], rev(x[,4])),
-          border = NA, col = "red")
-  lines(x = scales, y = x[,1], type = "p")
-  
-  
-  
-  # par(mar = c(0, 3.1, 4.1, 2.1))
-  plot(x = scales, y = new[,1], log = "x", type = 'p', xaxt = 'n', yaxt="n", ylim = c(min(new[,1]), max(new[,1])),
-       main = 'Sample Wavelet Cross-Covariance', ylab = "")
+          border = NA, col = col_ci)
+  lines(x = scales, y = x[,1], type = "l", col = col_wccv, pch = 16, cex = 1.25)
+  lines(x = scales, y = x[,1], type = "p", col = col_wccv, pch = 16)
   
   # set ticks and labels 
-  ticks = seq(y.min, y.max, length = 5)
-  tick.min = floor(log(abs(y.min)))
-  upper.ticks = seq(0, tick.min, length = 3)
-  lower.ticks = rev(upper.ticks)[-3]
+  ticks = seq(min(combCI), max(combCI), length = 5)
+  tick.min = floor(min(log2(abscombCI))) # why not 10? 
+  tick.max = floor(max(log2(abscombCI)))
+  upper.ticks = seq(tick.min, tick.max, length = 2)
+  lower.ticks = rev(upper.ticks)
   upper.labels = sapply(upper.ticks, function(i) as.expression(bquote(10^ .(i))))
   lower.labels = sapply(lower.ticks, function(i) as.expression(bquote(-10^ .(i))))
-  labels = c(lower.labels, upper.labels)
-  
+  labels = c(lower.labels, 0, upper.labels)
   axis(2, at=ticks, labels=labels)
-  
-  
-  lines(x = scales, y = y[,3])
-  lines(x = scales, y = y[,4])
-  
+
+  ticks.x <- seq(1, 15)
+  labels.x <- sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
+  axis(1, at=2^ticks.x, labels=labels.x) # why 2 instead of 10?
+    
+  # not sure what this is for 
   if (is.null(theo.wccv) == F){
     log.theo.positive = sapply(theo.wccv, function(x){ifelse(x < 0, NA, log(x))})
     log.theo.negative = sapply(theo.wccv, function(x){ifelse(x > 0, NA, log(-x))})
     lines(x = scales, y = log.theo.positive, lty = 3)
   }
   
-  par(mar = c(4.1, 3.1, 0, 2.1))
-  plot(x = scales, y = -log.negative, log = "x", type = 'p', xaxt = 'n', ylim = c(-y.max, -y.min), yaxt="n", ylab = "", xlab = "Scales")
-  ticks.rev <- -ticks
-  labels.negative <- sapply(ticks.rev, function(i) as.expression(bquote(-10^ .(-i))))
-  ticks.x <- seq(0, floor(log10(N))+1, by=1)
-  labels.x <- sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
-  axis(1, at=10^ticks.x, labels=labels.x)
-  axis(2, at=ticks.rev, labels=labels.negative)
-  lines(x = scales, y = -log.low.negative)
-  lines(x = scales, y = -log.high.negative)
+
+  # not sure what this is for 
   if (is.null(theo.wccv) == F){
     lines(x = scales, y = -log.theo.negative, lty = 3)
   }
+  
+  
 }

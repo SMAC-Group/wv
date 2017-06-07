@@ -2,9 +2,9 @@
 % Please edit documentation in R/covwv.R
 \name{plot.wccv_pair}
 \alias{plot.wccv_pair}
-\title{Plot Cross Covariance}
+\title{Plot Cross Covariance Pair}
 \usage{
-\method{plot}{wccv_pair}(x, theo.wccv = NULL)
+\method{plot}{wccv_pair}(x, theo.wccv = NULL, ...)
 }
 \description{
 Plots results of the a wccv_pair list in which additional parameters can be specified

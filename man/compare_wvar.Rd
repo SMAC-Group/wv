@@ -14,7 +14,7 @@ compare_wvar(..., split = "FALSE", add_legend = "TRUE", units = NULL,
 
 \item{split}{A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.}
 
-\item{units}{A \code{string} that specifies the units of time plotted on the x axes.}
+\item{units}{A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.}
 
 \item{xlab}{A \code{string} that gives a title for the x axes.}
 

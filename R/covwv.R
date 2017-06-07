@@ -68,6 +68,8 @@ wccv_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
   colnames(obj) = c("Cross-Covariance", "Variance", "Lower Bound", "Upper Bound")
   ret = list(obj)
   
+  mostattributes(ret) = list(filter = filter, J = nlevels, class=c("wccv_pair","list","matrix"))
+  
   return(ret)
 }
 
@@ -110,12 +112,15 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
   return(mat)
 }
 
-#' @title Plot Cross Covariance 
+#' @title Plot Cross Covariance Pair
 #' @description
 #' Plots results of the a wccv_pair list in which additional parameters can be specified
 #' @author Haotian Xu, Stephane Guerrier, and Justin Lee
 #' @export
-plot.wccv_pair = function(x, theo.wccv = NULL){
+plot.wccv_pair = function(x, theo.wccv = NULL, ...){
+  J = attr(x,"J")
+  scales = scales_cpp(J)
+  
   x = x[[1]] # simplify 
   log.positive = sapply(x[,1], function(x){ifelse(x < 0, NA, log(x))})
   log.negative = sapply(x[,1], function(x){ifelse(x > 0, NA, log(-x))})
@@ -135,31 +140,31 @@ plot.wccv_pair = function(x, theo.wccv = NULL){
   
   layout(matrix(1:2, ncol = 1), widths = 1, heights = c(2,2), respect = FALSE)
   par(mar = c(0, 3.1, 4.1, 2.1))
-  plot(x = a$scales, y = log.positive, log = "x", type = 'p', xaxt = 'n', ylim = c(y.min, y.max), yaxt="n",
+  plot(x = scales, y = log.positive, log = "x", type = 'p', xaxt = 'n', ylim = c(y.min, y.max), yaxt="n",
        main = 'Sample Wavelet Cross-Covariance', ylab = "")
   ticks <- seq(y.min+2, y.max, by=5)
   labels.positive <- sapply(ticks, function(i) as.expression(bquote(10^ .(i))))
   axis(2, at=ticks, labels=labels.positive)
-  lines(x = a$scales, y = log.low.positive)
-  lines(x = a$scales, y = log.high.positive)
+  lines(x = scales, y = log.low.positive)
+  lines(x = scales, y = log.high.positive)
   
   if (is.null(theo.wccv) == F){
     log.theo.positive = sapply(theo.wccv, function(x){ifelse(x < 0, NA, log(x))})
     log.theo.negative = sapply(theo.wccv, function(x){ifelse(x > 0, NA, log(-x))})
-    lines(x = a$scales, y = log.theo.positive, lty = 3)
+    lines(x = scales, y = log.theo.positive, lty = 3)
   }
   
   par(mar = c(4.1, 3.1, 0, 2.1))
-  plot(x = a$scales, y = -log.negative, log = "x", type = 'p', xaxt = 'n', ylim = c(-y.max, -y.min), yaxt="n", ylab = "", xlab = "Scales")
+  plot(x = scales, y = -log.negative, log = "x", type = 'p', xaxt = 'n', ylim = c(-y.max, -y.min), yaxt="n", ylab = "", xlab = "Scales")
   ticks.rev <- -ticks
   labels.negative <- sapply(ticks.rev, function(i) as.expression(bquote(-10^ .(-i))))
-  ticks.x <- seq(0, floor(log10(N))+1, by=1)
+  ticks.x <- seq(0, floor(log10(nrow(x)))+1, by=1)
   labels.x <- sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
   axis(1, at=10^ticks.x, labels=labels.x)
   axis(2, at=ticks.rev, labels=labels.negative)
-  lines(x = a$scales, y = -log.low.negative)
-  lines(x = a$scales, y = -log.high.negative)
+  lines(x = scales, y = -log.low.negative)
+  lines(x = scales, y = -log.high.negative)
   if (is.null(theo.wccv) == F){
-    lines(x = a$scales, y = -log.theo.negative, lty = 3)
+    lines(x = scales, y = -log.theo.negative, lty = 3)
   }
 }

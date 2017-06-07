@@ -621,10 +621,12 @@ compare_wvar_split = function(graph_details){
     
     for (i in 1:graph_details$obj_len){
       for (j in 1:graph_details$obj_len){
+
         # Main plot                     
         plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
              yaxt = 'n', bty = "n", ann = FALSE)
         win_dim = par("usr")
+
         
         # Add grid
         abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
@@ -658,6 +660,16 @@ compare_wvar_split = function(graph_details){
           polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                   border = NA, col = graph_details$col_ci[i])
           lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
+          
+          win_dim = par("usr")
+          x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+          y_vec = 10^c(win_dim[4], win_dim[4],
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
+          text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+               graph_details$main)
+          box()
         }
         
         if (i != j){
@@ -665,6 +677,16 @@ compare_wvar_split = function(graph_details){
           ci_low   = graph_details$obj_list[[i]]$ci_low
           ci_high  = graph_details$obj_list[[i]]$ci_high
           variance = graph_details$obj_list[[i]]$variance
+          
+          win_dim = par("usr")
+          x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+          y_vec = 10^c(win_dim[4], win_dim[4],
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
+          text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+               graph_details$main)
+          box()
           
           if (i < j){
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
@@ -686,6 +708,7 @@ compare_wvar_split = function(graph_details){
         }
       }
     }
+
     mtext(graph_details$ylab, side = 2, line = 3, cex = 0.8, outer = T)
     mtext(graph_details$xlab, side = 1, line = 3, cex = 0.8, outer = T)
     

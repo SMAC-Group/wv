@@ -621,26 +621,32 @@ compare_wvar_split = function(graph_details){
     
     for (i in 1:graph_details$obj_len){
       for (j in 1:graph_details$obj_len){
+
         # Main plot                     
         plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
              yaxt = 'n', bty = "n", ann = FALSE)
         win_dim = par("usr")
+
         
         # Add grid
         abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
-        abline(h = 2^graph_details$y_ticks, lty = 1, col = "grey95")
+        abline(h = 10^graph_details$y_ticks, lty = 1, col = "grey95")
         
         # Add axes and box
         box(col = "grey")
-        
+  
         # Corner left piece
         if (j == 1){
-          axis(2, at = 2^graph_details$y_ticks, labels = graph_details$y_labels, 
-               padj = -0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)  
+          y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+          y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+          axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)
+        #  axis(2, at = 10^graph_details$y_ticks, labels = graph_details$y_labels,
+        #       padj = -0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
         }
         
         # Corner bottom
         if (i == graph_details$obj_len){
+          
           axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, 
                padj = 0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
         }
@@ -654,6 +660,29 @@ compare_wvar_split = function(graph_details){
           polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                   border = NA, col = graph_details$col_ci[i])
           lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
+          lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
+                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
+          
+          win_dim = par("usr")
+          x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+          y_vec = 10^c(win_dim[4], win_dim[4],
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
+          if (is.null(graph_details$main)){
+            graph_details$main = "Haar Filter"
+          }
+          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
+          text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+               graph_details$main)
+          box()
+          
+          if (graph_details$add_legend){
+            legend(graph_details$legend_position, graph_details$names, bty = "n",
+                   lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
+                   col = graph_details$col_wv, cex=0.75)
+          }
+          
         }
         
         if (i != j){
@@ -662,12 +691,34 @@ compare_wvar_split = function(graph_details){
           ci_high  = graph_details$obj_list[[i]]$ci_high
           variance = graph_details$obj_list[[i]]$variance
           
+          win_dim = par("usr")
+          x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+          y_vec = 10^c(win_dim[4], win_dim[4],
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
+          if (is.null(graph_details$main)){
+            graph_details$main = "Haar Filter"
+          }
+          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
+          text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+               graph_details$main)
+          box()
+          
+          if (graph_details$add_legend){
+            legend(graph_details$legend_position, graph_details$names, bty = "n",
+                   lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
+                   col = graph_details$col_wv, cex=0.75)
+          }
+          
           if (i < j){
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                     border = NA, col = graph_details$col_ci[i])
           }
           
           lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
+          lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
+                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
           
           scales   = graph_details$obj_list[[j]]$scales
           ci_low   = graph_details$obj_list[[j]]$ci_low
@@ -679,12 +730,15 @@ compare_wvar_split = function(graph_details){
                     border = NA, col = graph_details$col_ci[j])
           }
           lines(scales, variance, type = "l", col = graph_details$col_wv[j], pch = 16)
+          lines(scales, variance, type = "p", col = graph_details$col_wv[j], 
+                pch = graph_details$point_pch[j], cex = graph_details$point_cex[j])
+          
         }
       }
     }
-    
-    mtext(graph_details$xlab, side = 2, line = 3, cex = 0.8, outer = T)
-    mtext(graph_details$ylab, side = 1, line = 3, cex = 0.8, outer = T)
+
+    mtext(graph_details$ylab, side = 2, line = 2.80, cex = 0.8, outer = T)
+    mtext(graph_details$xlab, side = 1, line = 2.75, cex = 0.8, outer = T)
     
   }
 
@@ -745,6 +799,7 @@ compare_wvar_no_split = function(graph_details){
              lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
              col = graph_details$col_wv)
     }
+    
 }
 
 

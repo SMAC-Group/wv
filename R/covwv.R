@@ -128,6 +128,24 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col
   combCI = c(x[,3], x[,4])
   abscombCI = abs(combCI)
   
+  # Labels
+  if (is.null(xlab)){
+    if (is.null(units)){
+      xlab = expression(paste("Scale ", tau, sep =""))
+    }else{
+      xlab = bquote(paste("Scale ", "", tau, " [", .(units), "]", sep = ""))
+    }
+  }
+  
+  if (is.null(ylab)){
+    if(is.null(units)){
+      ylab = expression(paste("Wavelet Cross Covariance ", "", (nu^2), "", sep = ""))
+    }else{
+      ylab = bquote(paste("Wavelet Cross Covariance ", "", (nu^2), " [", .(units)^2, "]", sep = ""))
+    }
+  }
+  
+  
   # Line and CI colors
   if(is.null(col_wv)){
     col_wccv = "darkblue"
@@ -142,7 +160,7 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col
   }
   
   plot(NA, log = "x", xlim = c(min(scales), max(scales)), ylim = c(min(x[,3]), max(x[,4])), xaxt = "n", yaxt = "n",
-       main = main, ylab = "")
+       main = main, xlab = xlab, ylab = ylab)
   polygon(c(scales, rev(scales)), c(x[,3], rev(x[,4])),
           border = NA, col = col_ci)
   lines(x = scales, y = x[,1], type = "l", col = col_wccv, pch = 16, cex = 1.25)
@@ -170,7 +188,6 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col
     lines(x = scales, y = log.theo.positive, lty = 3)
   }
   
-
   # not sure what this is for 
   if (is.null(theo.wccv) == F){
     lines(x = scales, y = -log.theo.negative, lty = 3)

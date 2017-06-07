@@ -3,6 +3,8 @@
 language: R
 sudo: false
 cache: packages
+warnings_are_errors: false
 notifications:
-  slack:
-    on_success: always
+  email:
+    on_success: never
+    on_failure: never

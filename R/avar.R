@@ -48,7 +48,7 @@
 #' 
 #' where \eqn{ {{\bar y}_t}\left( \tau  \right) = \frac{1}{\tau }\sum\limits_{i = 0}^{\tau  - 1} {{{\bar y}_{t - i}}} }{See PDF Manual}.
 #' 
-#' @author JJB
+#' @author James Balamuta
 #' @references Long-Memory Processes, the Allan Variance and Wavelets, D. B. Percival and P. Guttorp
 #' @examples
 #' # Set seed for reproducibility
@@ -88,7 +88,7 @@ avar = function(x, type = "mo") {
 #' @export
 #' @param x   A \code{avar} object.
 #' @param ... Arguments to be passed to methods
-#' @author JJB
+#' @author James Balamuta
 #' @return console output
 #' @examples
 #' # Set seed for reproducibility
@@ -118,7 +118,7 @@ print.avar = function(x, ...) {
 #' @export
 #' @param object A \code{avar} object.
 #' @param ...    Additional arguments affecting the summary produced.
-#' @author JJB
+#' @author James Balamuta
 #' @return Summary table
 #' @examples
 #' # Set seed for reproducibility

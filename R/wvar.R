@@ -496,15 +496,11 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   
   # Line and CI colors
   if (is.null(col_wv)){
-    col_wv = rep(NA, 2)
-    col_wv[1] = "darkblue"
-    col_wv[2] = "darkorange2"
+    col_wv = c("darkblue", "darkorange2")
   }
   
   if (is.null(col_ci)){
-    col_ci = rep(NA, 2)
-    col_ci[1] = hcl(h = 210, l = 65, c = 100, alpha = 0.2)
-    col_ci[2] = hcl(h = 60, l = 65, c = 100, alpha = 0.2)
+    col_ci = c(hcl(h = 210, l = 65, c = 100, alpha = 0.2), hcl(h = 60, l = 65, c = 100, alpha = 0.2))
   }
   
   # Range

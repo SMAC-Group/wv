@@ -116,10 +116,11 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
 #' @description
 #' Plots results of the a wccv_pair list in which additional parameters can be specified
 #' @author Justin Lee, Haotian Xu, and Stephane Guerrier
-#' @method plot wvar
+#' @method plot wccv_pair
 #' @keywords internal
 #' @export
-plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col_ci = NULL, ...){
+plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = NULL, 
+                          units = NULL, col_wccv = NULL, col_ci = NULL, ...){
   J = attr(x,"J")
   N = attr(x, "N")
   scales = scales_cpp(J)
@@ -147,9 +148,8 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col
     }
   }
   
-  
   # Line and CI colors
-  if(is.null(col_wv)){
+  if(is.null(col_wccv)){
     col_wccv = "darkblue"
   }
   
@@ -161,26 +161,35 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col
     main = "Sample Wavelet Cross-Covariance"
   }
   
-  plot(NA, log = "x", xlim = c(min(scales), max(scales)), ylim = c(min(x[,3]), max(x[,4])), xaxt = "n", yaxt = "n",
-       main = main, xlab = xlab, ylab = ylab)
-  polygon(c(scales, rev(scales)), c(x[,3], rev(x[,4])),
-          border = NA, col = col_ci)
-  lines(x = scales, y = x[,1], type = "l", col = col_wccv, pch = 16, cex = 1.25)
-  lines(x = scales, y = x[,1], type = "p", col = col_wccv, pch = 16)
-  
   # set ticks and labels 
-  ticks = seq(min(combCI), max(combCI), length = 5)
-  tick.min = floor(min(log2(abscombCI))) # why not 10? 
-  tick.max = floor(max(log2(abscombCI)))
-  upper.ticks = seq(tick.min, tick.max, length = 2)
+  tick.min = floor(min(log10(abscombCI))) # why not 2? 
+  tick.max = ceiling(max(log10(abscombCI)))
+  upper.ticks = c(tick.min, tick.max)
   lower.ticks = rev(upper.ticks)
   upper.labels = sapply(upper.ticks, function(i) as.expression(bquote(10^ .(i))))
   lower.labels = sapply(lower.ticks, function(i) as.expression(bquote(-10^ .(i))))
+  ticks.y = c(-10^lower.ticks, 0, 10^upper.ticks)
   labels = c(lower.labels, 0, upper.labels)
-  axis(2, at=ticks, labels=labels)
+  
+  ticks.x = seq(1, 15)
+  labels.x = sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
+  
+  plot(NA, log = "x", xlim = c(min(scales), max(scales)), ylim = c(min(ticks.y), max(ticks.y)), xaxt = "n", yaxt = "n",
+       main = main, xlab = xlab, ylab = ylab)
+  
+  # Add grid
+  abline(v = 2^ticks.x, lty = 1, col = "grey95")
+  abline(h = ticks.y, lty = 1, col = "grey95")
+  
+  # Add CI 
+  polygon(c(scales, rev(scales)), c(x[,3], rev(x[,4])),
+          border = NA, col = col_ci)
+  
+  # Add wccv
+  lines(x = scales, y = x[,1], type = "l", col = col_wccv, pch = 16, cex = 1.25)
+  lines(x = scales, y = x[,1], type = "p", col = col_wccv, pch = 16)
 
-  ticks.x <- seq(1, 15)
-  labels.x <- sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
+  axis(2, at=ticks.y, labels=labels)
   axis(1, at=2^ticks.x, labels=labels.x) # why 2 instead of 10?
     
   # not sure what this is for 

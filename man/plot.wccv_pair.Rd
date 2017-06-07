@@ -4,8 +4,8 @@
 \alias{plot.wccv_pair}
 \title{Plot Cross Covariance Pair}
 \usage{
-\method{plot}{wvar}(x, theo.wccv = NULL, main = NULL, col_wccv = NULL,
-  col_ci = NULL, ...)
+\method{plot}{wccv_pair}(x, theo.wccv = NULL, main = NULL, xlab = NULL,
+  ylab = NULL, units = NULL, col_wccv = NULL, col_ci = NULL, ...)
 }
 \description{
 Plots results of the a wccv_pair list in which additional parameters can be specified

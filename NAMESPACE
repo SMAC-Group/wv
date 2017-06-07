@@ -2,6 +2,7 @@
 
 S3method(plot,dwt)
 S3method(plot,modwt)
+S3method(plot,wccv_pair)
 S3method(plot,wvar)
 S3method(print,dwt)
 S3method(print,modwt)

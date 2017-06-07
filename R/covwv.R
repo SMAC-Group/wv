@@ -68,7 +68,7 @@ wccv_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
   colnames(obj) = c("Cross-Covariance", "Variance", "Lower Bound", "Upper Bound")
   ret = list(obj)
   
-  mostattributes(ret) = list(filter = filter, J = nlevels, class=c("wccv_pair","list","matrix"))
+  mostattributes(ret) = list(filter = filter, J = nlevels, N = length(x), class=c("wccv_pair","list","matrix"))
   
   return(ret)
 }
@@ -119,34 +119,41 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
 #' @export
 plot.wccv_pair = function(x, theo.wccv = NULL, ...){
   J = attr(x,"J")
+  N = attr(x, "N")
   scales = scales_cpp(J)
   
-  x = x[[1]] # simplify 
-  log.positive = sapply(x[,1], function(x){ifelse(x < 0, NA, log(x))})
-  log.negative = sapply(x[,1], function(x){ifelse(x > 0, NA, log(-x))})
-  log.low.positive = sapply(x[,3], function(x){ifelse(x < 0, NA, log(x))})
-  log.low.negative = sapply(x[,3], function(x){ifelse(x > 0, NA, log(-x))})
-  log.high.positive = sapply(x[,4], function(x){ifelse(x < 0, NA, log(x))})
-  log.high.negative = sapply(x[,4], function(x){ifelse(x > 0, NA, log(-x))})
+  x = x[[1]] # translate by 2*minimum  
   
-  y.positive.min = floor(min(log.positive, na.rm = T)) - 1
-  y.positive.max = ceiling(max(log.positive, na.rm = T)) + 1
+  # then log scale 
+  y = log(x)
   
-  y.negative.min = floor(min(-log.negative, na.rm = T)) - 1
-  y.negative.max = ceiling(max(-log.negative, na.rm = T)) + 1
+  # log.positive = sapply(x[,1], function(x){ifelse(x > 0, NA, log(x))})
+  # log.negative = sapply(x[,1], function(x){ifelse(x > 0, NA, log(-x))})
+  # log.low.positive = sapply(x[,3], function(x){ifelse(x < 0, NA, log(x))})
+  # log.low.negative = sapply(x[,3], function(x){ifelse(x > 0, NA, log(-x))})
+  # log.high.positive = sapply(x[,4], function(x){ifelse(x < 0, NA, log(x))})
+  # log.high.negative = sapply(x[,4], function(x){ifelse(x > 0, NA, log(-x))})
+  # 
+  # y.positive.min = floor(min(log.positive, na.rm = T)) - 1
+  # y.positive.max = ceiling(max(log.positive, na.rm = T)) + 1
+  # 
+  # y.negative.min = floor(min(-log.negative, na.rm = T)) - 1
+  # y.negative.max = ceiling(max(-log.negative, na.rm = T)) + 1
+  #
+  # y.min = min(y.positive.min, -y.negative.max)
+  # y.max = max(y.positive.max, -y.negative.min)
   
-  y.min = min(y.positive.min, -y.negative.max)
-  y.max = max(y.positive.max, -y.negative.min)
+  y.min = floor(min(y[,3])) - 1
+  y.max = ceiling(max(y[,4])) + 1
   
-  layout(matrix(1:2, ncol = 1), widths = 1, heights = c(2,2), respect = FALSE)
-  par(mar = c(0, 3.1, 4.1, 2.1))
-  plot(x = scales, y = log.positive, log = "x", type = 'p', xaxt = 'n', ylim = c(y.min, y.max), yaxt="n",
+  # par(mar = c(0, 3.1, 4.1, 2.1))
+  plot(x = scales, y = y[,1], log = "x", type = 'p', xaxt = 'n', ylim = c(y.min, y.max), yaxt="n",
        main = 'Sample Wavelet Cross-Covariance', ylab = "")
   ticks <- seq(y.min+2, y.max, by=5)
-  labels.positive <- sapply(ticks, function(i) as.expression(bquote(10^ .(i))))
-  axis(2, at=ticks, labels=labels.positive)
-  lines(x = scales, y = log.low.positive)
-  lines(x = scales, y = log.high.positive)
+  labels <- sapply(ticks, function(i) as.expression(bquote(10^ .(i))))
+  axis(2, at=ticks, labels=labels)
+  lines(x = scales, y = y[,3])
+  lines(x = scales, y = y[,4])
   
   if (is.null(theo.wccv) == F){
     log.theo.positive = sapply(theo.wccv, function(x){ifelse(x < 0, NA, log(x))})
@@ -158,7 +165,7 @@ plot.wccv_pair = function(x, theo.wccv = NULL, ...){
   plot(x = scales, y = -log.negative, log = "x", type = 'p', xaxt = 'n', ylim = c(-y.max, -y.min), yaxt="n", ylab = "", xlab = "Scales")
   ticks.rev <- -ticks
   labels.negative <- sapply(ticks.rev, function(i) as.expression(bquote(-10^ .(-i))))
-  ticks.x <- seq(0, floor(log10(nrow(x)))+1, by=1)
+  ticks.x <- seq(0, floor(log10(N))+1, by=1)
   labels.x <- sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
   axis(1, at=10^ticks.x, labels=labels.x)
   axis(2, at=ticks.rev, labels=labels.negative)

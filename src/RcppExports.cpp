@@ -6,6 +6,28 @@
 
 using namespace Rcpp;
 
+// avar_to_cpp
+arma::mat avar_to_cpp(arma::vec x);
+RcppExport SEXP wv_avar_to_cpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(avar_to_cpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// avar_mo_cpp
+arma::mat avar_mo_cpp(arma::vec x);
+RcppExport SEXP wv_avar_mo_cpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(avar_mo_cpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dwt_cpp
 arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels);
 RcppExport SEXP wv_dwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP) {
@@ -167,6 +189,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"wv_avar_to_cpp", (DL_FUNC) &wv_avar_to_cpp, 1},
+    {"wv_avar_mo_cpp", (DL_FUNC) &wv_avar_mo_cpp, 1},
     {"wv_dwt_cpp", (DL_FUNC) &wv_dwt_cpp, 3},
     {"wv_modwt_cpp", (DL_FUNC) &wv_modwt_cpp, 3},
     {"wv_ci_eta3", (DL_FUNC) &wv_ci_eta3, 3},

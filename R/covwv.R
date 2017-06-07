@@ -122,12 +122,13 @@ plot.wccv_pair = function(x, theo.wccv = NULL, ...){
   N = attr(x, "N")
   scales = scales_cpp(J)
   
-  x = x[[1]] # translate by 2*minimum  
+  x = x[[1]] # simplify 
   
-  # then log scale 
-  y = log(x)
+  # log transformation 
+  y = ifelse(x > 0, log(x), log(-x)) # or log10?
   
-  # log.positive = sapply(x[,1], function(x){ifelse(x > 0, NA, log(x))})
+  # translate then log 
+  # log.positive = sapply(x[,1], function(x){ifelse(x < 0, NA, log(x))})
   # log.negative = sapply(x[,1], function(x){ifelse(x > 0, NA, log(-x))})
   # log.low.positive = sapply(x[,3], function(x){ifelse(x < 0, NA, log(x))})
   # log.low.negative = sapply(x[,3], function(x){ifelse(x > 0, NA, log(-x))})
@@ -143,15 +144,32 @@ plot.wccv_pair = function(x, theo.wccv = NULL, ...){
   # y.min = min(y.positive.min, -y.negative.max)
   # y.max = max(y.positive.max, -y.negative.min)
   
-  y.min = floor(min(y[,3])) - 1
-  y.max = ceiling(max(y[,4])) + 1
+  y.min = min(x[,3])
+  y.max = max(x[,4])
+  
+  plot(NA, log = "x", xlim = c(min(scales), max(scales)), ylim = c(min(x[,3]), max(x[,4])))
+  polygon(c(scales, rev(scales)), c(x[,3], rev(x[,4])),
+          border = NA, col = "red")
+  lines(x = scales, y = x[,1], type = "p")
+  
+  
   
   # par(mar = c(0, 3.1, 4.1, 2.1))
-  plot(x = scales, y = y[,1], log = "x", type = 'p', xaxt = 'n', ylim = c(y.min, y.max), yaxt="n",
+  plot(x = scales, y = new[,1], log = "x", type = 'p', xaxt = 'n', yaxt="n", ylim = c(min(new[,1]), max(new[,1])),
        main = 'Sample Wavelet Cross-Covariance', ylab = "")
-  ticks <- seq(y.min+2, y.max, by=5)
-  labels <- sapply(ticks, function(i) as.expression(bquote(10^ .(i))))
+  
+  # set ticks and labels 
+  ticks = seq(y.min, y.max, length = 5)
+  tick.min = floor(log(abs(y.min)))
+  upper.ticks = seq(0, tick.min, length = 3)
+  lower.ticks = rev(upper.ticks)[-3]
+  upper.labels = sapply(upper.ticks, function(i) as.expression(bquote(10^ .(i))))
+  lower.labels = sapply(lower.ticks, function(i) as.expression(bquote(-10^ .(i))))
+  labels = c(lower.labels, upper.labels)
+  
   axis(2, at=ticks, labels=labels)
+  
+  
   lines(x = scales, y = y[,3])
   lines(x = scales, y = y[,4])
   

@@ -628,19 +628,23 @@ compare_wvar_split = function(graph_details){
         
         # Add grid
         abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
-        abline(h = 2^graph_details$y_ticks, lty = 1, col = "grey95")
+        abline(h = 10^graph_details$y_ticks, lty = 1, col = "grey95")
         
         # Add axes and box
         box(col = "grey")
-        
+  
         # Corner left piece
         if (j == 1){
-          axis(2, at = 2^graph_details$y_ticks, labels = graph_details$y_labels, 
-               padj = -0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)  
+          y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+          y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+          axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)
+        #  axis(2, at = 10^graph_details$y_ticks, labels = graph_details$y_labels, 
+        #       padj = -0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
         }
         
         # Corner bottom
         if (i == graph_details$obj_len){
+          
           axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, 
                padj = 0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
         }
@@ -682,9 +686,8 @@ compare_wvar_split = function(graph_details){
         }
       }
     }
-    
-    mtext(graph_details$xlab, side = 2, line = 3, cex = 0.8, outer = T)
-    mtext(graph_details$ylab, side = 1, line = 3, cex = 0.8, outer = T)
+    mtext(graph_details$ylab, side = 2, line = 3, cex = 0.8, outer = T)
+    mtext(graph_details$xlab, side = 1, line = 3, cex = 0.8, outer = T)
     
   }
 

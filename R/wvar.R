@@ -611,9 +611,8 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 }
 
 
-#'
-#'@export
-#'
+
+#' @export
 compare_wvar_split = function(graph_details){
     
     par(mfrow = c(graph_details$obj_len, graph_details$obj_len), 
@@ -742,7 +741,7 @@ compare_wvar_split = function(graph_details){
     
   }
 
-
+#' @export
 compare_wvar_no_split = function(graph_details){
     # Main plot                     
     plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 

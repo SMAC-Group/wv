@@ -162,9 +162,8 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
   }
   
   # set ticks and labels 
-  
   tick.max = ceiling(max(log10(abscombCI)))
-  tick.min = tick.max-1 # why not 2? 
+  tick.min = tick.max-0.5 # why not 2? 
   upper.ticks = c(tick.min, tick.max)
   lower.ticks = rev(upper.ticks)
   upper.labels = sapply(upper.ticks, function(i) as.expression(bquote(10^ .(i))))

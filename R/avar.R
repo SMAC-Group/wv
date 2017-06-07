@@ -47,7 +47,7 @@
 #' The tau-overlap estimator is given by:
 #' 
 #' where \eqn{ {{\bar y}_t}\left( \tau  \right) = \frac{1}{\tau }\sum\limits_{i = 0}^{\tau  - 1} {{{\bar y}_{t - i}}} }{See PDF Manual}.
-#' 
+#' @export
 #' @author James Balamuta
 #' @references Long-Memory Processes, the Allan Variance and Wavelets, D. B. Percival and P. Guttorp
 #' @examples
@@ -90,6 +90,7 @@ avar = function(x, type = "mo") {
 #' @param ... Arguments to be passed to methods
 #' @author James Balamuta
 #' @return console output
+#' @keywords internal
 #' @examples
 #' # Set seed for reproducibility
 #' set.seed(999)
@@ -120,6 +121,7 @@ print.avar = function(x, ...) {
 #' @param ...    Additional arguments affecting the summary produced.
 #' @author James Balamuta
 #' @return Summary table
+#' @keywords internal
 #' @examples
 #' # Set seed for reproducibility
 #' set.seed(999)

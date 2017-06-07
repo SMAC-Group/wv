@@ -33,3 +33,4 @@ summary( out )
 \author{
 James Balamuta
 }
+\keyword{internal}

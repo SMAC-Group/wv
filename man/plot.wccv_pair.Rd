@@ -4,11 +4,13 @@
 \alias{plot.wccv_pair}
 \title{Plot Cross Covariance Pair}
 \usage{
-\method{plot}{wccv_pair}(x, theo.wccv = NULL, ...)
+\method{plot}{wvar}(x, theo.wccv = NULL, main = NULL, col_wccv = NULL,
+  col_ci = NULL, ...)
 }
 \description{
 Plots results of the a wccv_pair list in which additional parameters can be specified
 }
 \author{
-Haotian Xu, Stephane Guerrier, and Justin Lee
+Justin Lee, Haotian Xu, and Stephane Guerrier
 }
+\keyword{internal}

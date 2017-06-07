@@ -116,6 +116,8 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
 #' @description
 #' Plots results of the a wccv_pair list in which additional parameters can be specified
 #' @author Justin Lee, Haotian Xu, and Stephane Guerrier
+#' @method plot wvar
+#' @keywords internal
 #' @export
 plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, col_wccv = NULL, col_ci = NULL, ...){
   J = attr(x,"J")

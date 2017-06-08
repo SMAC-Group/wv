@@ -119,8 +119,16 @@ wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
 #' @method plot wccv_pair
 #' @keywords internal
 #' @export
+#' @examples 
+#' n = 10^5
+#' Xt = cumsum(rnorm(n, 0, 0.01))
+#' Wt = Xt + rnorm(n)
+#' Yt = Xt + rnorm(n)
+#' wcov = wccv_pair(Wt, Yt)
+#' plot(wcov)
 plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = NULL, 
-                          units = NULL, col_wccv = NULL, col_ci = NULL, ...){
+                          units = NULL, col_wccv = NULL, col_ci = NULL, 
+                          nb_ticks_x = NULL, nb_ticks_y = NULL, ...){
   J = attr(x,"J")
   N = attr(x, "N")
   scales = scales_cpp(J)
@@ -161,36 +169,100 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
     main = "Sample Wavelet Cross-Covariance"
   }
   
+  
+  # Axes
+  if (is.null(nb_ticks_x)){
+    nb_ticks_x = 4
+  }
+  
+  if (is.null(nb_ticks_y)){
+    nb_ticks_y = 7
+  }
+  
   # set ticks and labels 
-  tick.max = ceiling(max(log10(abscombCI)))
-  tick.min = tick.max-0.5 # why not 2? 
-  upper.ticks = c(tick.min, tick.max)
-  lower.ticks = rev(upper.ticks)
-  upper.labels = sapply(upper.ticks, function(i) as.expression(bquote(10^ .(i))))
-  lower.labels = sapply(lower.ticks, function(i) as.expression(bquote(-10^ .(i))))
-  ticks.y = c(-10^lower.ticks, 0, 10^upper.ticks)
-  labels = c(lower.labels, 0, upper.labels)
+  tick_y_max  = ceiling(max(log10(abscombCI)))
+  tick_y_min  = floor(min(log10(abscombCI)))
+  tick_y_step =  2*(tick_y_max - tick_y_min)/(nb_ticks_y - 1)
   
-  ticks.x = seq(1, 15)
-  labels.x = sapply(ticks.x, function(i) as.expression(bquote(10^ .(i))))
+  if (tick_y_step < 0.75){
+    tick_y_step = 0.5
+  }else{
+    tick_y_step = round(tick_y_step)
+  }
   
-  plot(NA, log = "x", xlim = c(min(scales), max(scales)), ylim = c(min(ticks.y), max(ticks.y)), xaxt = "n", yaxt = "n",
-       main = main, xlab = xlab, ylab = ylab)
+  y_at_lower = y_at_upper = y_at = seq(tick_y_min, tick_y_max, by = tick_y_step)
+  
+  upper_labels = sapply(y_at_upper, function(i) as.expression(bquote(10^ .(i))))
+  lower_labels = sapply(y_at_lower, function(i) as.expression(bquote(-10^ .(i))))
+  
+  m = length(y_at_lower)
+  ticks_y = c(-(m:1), 0, 1:m)
+  labels = c(rev(lower_labels), 0, upper_labels)
+  
+  
+  x_high = ceiling(log10(scales[J]))
+  x_low = floor(log10(scales[1]))
+  x_ticks = seq(x_low, x_high, by = 1)
+  if (length(x_ticks) > nb_ticks_x){
+    x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
+  }
+  x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
+  x_at = 10^x_ticks
+  x_actual_length = sum((x_at < x_high)*(x_at > x_low))
+  
+  if (x_actual_length < 4){
+    x_low = floor(log2(scales[1]))
+    x_high = ceiling(log2(scales[J]))
+    x_ticks = seq(x_low, x_high, by = 1)
+    if (length(x_ticks) > 8){
+      x_ticks = seq(x_low, x_high, by = 2)
+    }
+    x_labels = sapply(x_ticks, function(i) as.expression(bquote(2^ .(i))))
+    x_at = 2^x_ticks
+  }
+  
+  plot(NA, log = "x", xlim = c(scales[1], scales[J]), 
+       ylim = c(min(ticks_y), max(1.09*ticks_y)), xaxt = "n", yaxt = "n",
+       main = main, xlab = xlab, ylab = ylab, ann = FALSE, bty = "n")
+  
+  # Main plot                     
+  win_dim = par("usr")
+  
+  par(new = TRUE)
+  plot(NA, log = "x", xlim = c(scales[1], scales[J]), 
+       ylim = c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])), xaxt = "n", yaxt = "n",
+       main = main, xlab = xlab, ylab = ylab, ann = FALSE, bty = "n")
+  win_dim = par("usr")
+
+  
   
   # Add grid
-  abline(v = 2^ticks.x, lty = 1, col = "grey95")
-  abline(h = ticks.y, lty = 1, col = "grey95")
+  abline(v = x_at, lty = 1, col = "grey95")
+  abline(h = ticks_y, lty = 1, col = "grey95")
+  
+  # Add title
+  x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+  y_vec = c(win_dim[4], win_dim[4],
+               win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+               win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+  polygon(x_vec, y_vec, col = "grey95", border = NA)
+  text(x = 10^mean(c(win_dim[1], win_dim[2])), y = (win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), main)
+  lines(x_vec[1:2], rep((win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
+  
+  box()
+  axis(2, at = ticks_y, labels = labels)
+  axis(1, at = x_at, labels = x_labels) 
   
   # Add CI 
-  polygon(c(scales, rev(scales)), c(x[,3], rev(x[,4])),
+  y_low_ci  = wccv_get_y(x[,3], m)
+  y_high_ci = wccv_get_y(x[,4], m)
+  polygon(c(scales, rev(scales)), c(y_low_ci, rev(y_high_ci)),
           border = NA, col = col_ci)
   
   # Add wccv
-  lines(x = scales, y = x[,1], type = "l", col = col_wccv, pch = 16, cex = 1.25)
-  lines(x = scales, y = x[,1], type = "p", col = col_wccv, pch = 16)
-
-  axis(2, at=ticks.y, labels=labels)
-  axis(1, at=2^ticks.x, labels=labels.x) # why 2 instead of 10?
+  y_wccv = wccv_get_y(x[,1], m)
+  lines(x = scales, y = y_wccv, type = "l", col = col_wccv, pch = 16, cex = 1.25)
+  lines(x = scales, y = y_wccv, type = "p", col = col_wccv, pch = 16)
     
   # not sure what this is for 
   if (is.null(theo.wccv) == F){
@@ -205,4 +277,18 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
   }
   
   
+}
+
+#' @export
+wccv_get_y = function(x, m){
+  n = length(x)
+  
+  for (i in 1:n){
+    if (x[i] > 0){
+      x[i] = m - abs(log10(x[i])) + 1
+    }else{
+      x[i] = -(m - abs(log10(abs(x[i]))) + 1)
+    }
+  }
+  x
 }

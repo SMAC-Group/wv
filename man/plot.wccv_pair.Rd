@@ -5,10 +5,19 @@
 \title{Plot Cross Covariance Pair}
 \usage{
 \method{plot}{wccv_pair}(x, theo.wccv = NULL, main = NULL, xlab = NULL,
-  ylab = NULL, units = NULL, col_wccv = NULL, col_ci = NULL, ...)
+  ylab = NULL, units = NULL, col_wccv = NULL, col_ci = NULL,
+  nb_ticks_x = NULL, nb_ticks_y = NULL, ...)
 }
 \description{
 Plots results of the a wccv_pair list in which additional parameters can be specified
+}
+\examples{
+n = 10^5
+Xt = cumsum(rnorm(n, 0, 0.01))
+Wt = Xt + rnorm(n)
+Yt = Xt + rnorm(n)
+wcov = wccv_pair(Wt, Yt)
+plot(wcov)
 }
 \author{
 Justin Lee, Haotian Xu, and Stephane Guerrier

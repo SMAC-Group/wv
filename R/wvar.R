@@ -442,7 +442,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 #' 
 #' @description 
 #' Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
-#' @param x A time series object.
+#' @param x A time series objects.
 #' @param eff             An \code{integer} that specifies the efficiency of the robust estimator.
 #' @param units           A \code{string} that specifies the units of time plotted on the x axis.
 #' @param xlab            A \code{string} that gives a title for the x axis.
@@ -612,7 +612,28 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 
 
 
+#' @title Multi-Plot Comparison Between Multiple Wavelet Variances
+#' @description 
+#' This is a helper function for the \code{compare_var()} function. 
+#' This method accepts the same set of arguments as \code{compare_wvar} and returns a comparision 
+#' of multiple wavelet variances of different time series accounting for CI values as a set of different plots.
+#' 
+#' @param ... Several time series objects.
+#' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
+#' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.
+#' @param xlab            A \code{string} that gives a title for the x axes.
+#' @param ylab            A \code{string} that gives a title for the y axes.
+#' @param main            A \code{string} that gives an overall title for the plot.
+#' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
+#' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
+#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
+#' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
+#' 
+#' @author Stephane Guerrier, Justin Lee, and Nathanael Claussen
 #' @export
+#'
 compare_wvar_split = function(graph_details){
     
     par(mfrow = c(graph_details$obj_len, graph_details$obj_len), 
@@ -738,7 +759,30 @@ compare_wvar_split = function(graph_details){
     
   }
 
+
+
+#' @title Combined Plot Comparison Between Multiple Wavelet Variances
+#' @description 
+#' This is a helper function for the \code{compare_var()} function. 
+#' This method accepts the same set of arguments as \code{compare_wvar} and returns a single plot
+#' that compares multiple wavelet variances of different time series accounting for CI values.
+#' 
+#' @param ... Several time series objects.
+#' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
+#' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.
+#' @param xlab            A \code{string} that gives a title for the x axes.
+#' @param ylab            A \code{string} that gives a title for the y axes.
+#' @param main            A \code{string} that gives an overall title for the plot.
+#' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
+#' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
+#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
+#' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
+#' 
+#' @author Stephane Guerrier, Justin Lee, and Nathanael Claussen
 #' @export
+#'
 compare_wvar_no_split = function(graph_details){
     # Main plot                     
     plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 

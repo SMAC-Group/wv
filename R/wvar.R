@@ -321,8 +321,8 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   x_high = ceiling(log2(x_range[2]))
   
   y_range = range(c(x$ci_low, x$ci_high))
-  y_low = floor(log2(y_range[1]))
-  y_high = ceiling(log2(y_range[2]))
+  y_low = floor(log10(y_range[1]))
+  y_high = ceiling(log10(y_range[2]))
   
   # Axes
   if (is.null(nb_ticks_x)){
@@ -366,7 +366,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   
   # Add grid
   abline(v = 2^x_ticks, lty = 1, col = "grey95")
-  abline(h = 2^y_ticks, lty = 1, col = "grey95")
+  abline(h = 10^y_ticks, lty = 1, col = "grey95")
   
   # Add title
   x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
@@ -382,7 +382,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   y_labels = y_labels[1:length(y_ticks)]
   box()
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
-  axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
+  axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)  
   
   # CI for the WV
   if (ci_wv == TRUE || is.null(ci_wv)){
@@ -505,8 +505,8 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   x_high = ceiling(log2(x_range[2]))
   
   y_range = range(c(wv_cl$ci_low, wv_cl$ci_high, wv_rob$ci_low, wv_rob$ci_high))
-  y_low = floor(log2(y_range[1]))
-  y_high = ceiling(log2(y_range[2]))
+  y_low = floor(log10(y_range[1]))
+  y_high = ceiling(log10(y_range[2]))
   
   # Axes
   if (is.null(nb_ticks_x)){
@@ -550,7 +550,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   
   # Add grid
   abline(v = 2^x_ticks, lty = 1, col = "grey95")
-  abline(h = 2^y_ticks, lty = 1, col = "grey95")
+  abline(h = 10^y_ticks, lty = 1, col = "grey95")
   
   # Add title
   x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
@@ -566,7 +566,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   y_labels = y_labels[1:length(y_ticks)]
   box()
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
-  axis(2, at = 2^y_ticks, labels = y_labels, padj = -0.2)  
+  axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)  
   
   # CI for the WV
   polygon(c(wv_cl$scales, rev(wv_cl$scales)), c(wv_cl$ci_low, rev(wv_cl$ci_high)),

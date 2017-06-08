@@ -254,13 +254,13 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
   axis(1, at = x_at, labels = x_labels) 
   
   # Add CI 
-  y_low_ci  = wccv_get_y(x[,3], m)
-  y_high_ci = wccv_get_y(x[,4], m)
+  y_low_ci  = wccv_get_y(x[,3], m, tick_y_min, tick_y_step)
+  y_high_ci = wccv_get_y(x[,4], m, tick_y_min, tick_y_step)
   polygon(c(scales, rev(scales)), c(y_low_ci, rev(y_high_ci)),
           border = NA, col = col_ci)
   
   # Add wccv
-  y_wccv = wccv_get_y(x[,1], m)
+  y_wccv = wccv_get_y(x[,1], m, tick_y_min, tick_y_step)
   lines(x = scales, y = y_wccv, type = "l", col = col_wccv, pch = 16, cex = 1.25)
   lines(x = scales, y = y_wccv, type = "p", col = col_wccv, pch = 16)
     
@@ -280,7 +280,7 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
 }
 
 #' @export
-wccv_get_y = function(x, m){
+wccv_get_y = function(x, m, tick_y_min, tick_y_step){
   n = length(x)
   
   for (i in 1:n){

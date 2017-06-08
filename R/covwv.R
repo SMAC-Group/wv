@@ -285,9 +285,9 @@ wccv_get_y = function(x, m){
   
   for (i in 1:n){
     if (x[i] > 0){
-      x[i] = m - abs(log10(x[i])) + 1
+      x[i] = (log10(x[i]) - tick_y_min)/tick_y_step + 1
     }else{
-      x[i] = -(m - abs(log10(abs(x[i]))) + 1)
+      x[i] = -(log10(abs(x[i])) - tick_y_min)/tick_y_step - 1
     }
   }
   x

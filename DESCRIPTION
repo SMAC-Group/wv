@@ -5,11 +5,10 @@ Version: 1.0.0
 Date: 2017-05-28
 Authors@R: c(
     person("Justin", "Lee", email = "munsheet93@gmail.com", role = c("aut","cre")),
+    person("James", "Balamuta", role = "aut"),
     person("Stephane", "Guerrier", role = "aut"),
     person("Roberto", "Molinari", role = "aut"),
-    person("James", "Balamuta", role = "aut"),
     person("Nathanael", "Claussen", email = "nclauss2@illinois.edu", role = "ctb"),
-    person("Adlai", "Stevenson", role = "ctb"),
     person("Haotian", "Xu", role = "ctb")
     )
 Maintainer: Justin Lee <munsheet93@gmail.com>

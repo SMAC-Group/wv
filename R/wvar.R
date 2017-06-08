@@ -616,8 +616,8 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 compare_wvar_split = function(graph_details){
     
     par(mfrow = c(graph_details$obj_len, graph_details$obj_len), 
-        mar = c(0,0,0,0), oma = c(4,4,1,1))
-    
+        mar = c(0.45,0.45,0,0), oma = c(4,4,1,1))
+  
     for (i in 1:graph_details$obj_len){
       for (j in 1:graph_details$obj_len){
 
@@ -625,28 +625,25 @@ compare_wvar_split = function(graph_details){
         plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
              yaxt = 'n', bty = "n", ann = FALSE)
         win_dim = par("usr")
-
-        
+        kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+    
         # Add grid
-        abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
-        abline(h = 10^graph_details$y_ticks, lty = 1, col = "grey95")
+        abline(v = graph_details$x_at, lty = 1, col = "grey95")
+        abline(h = graph_details$y_at, lty = 1, col = "grey95")
         
         # Add axes and box
         box(col = "grey")
   
         # Corner left piece
         if (j == 1){
-          y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
-          y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
-          axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)
-        #  axis(2, at = 10^graph_details$y_ticks, labels = graph_details$y_labels,
-        #       padj = -0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
+          axis(2, at = graph_details$y_at[kill_y_tick], 
+               labels = graph_details$y_labels[kill_y_tick], padj = -0.2)
         }
         
         # Corner bottom
         if (i == graph_details$obj_len){
           
-          axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, 
+          axis(1, at = graph_details$x_at, labels = graph_details$x_labels, 
                padj = 0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
         }
         # Diag graph
@@ -668,18 +665,21 @@ compare_wvar_split = function(graph_details){
                        win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
                        win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
           polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
-          if (is.null(graph_details$main)){
-            graph_details$main = "Haar Filter"
+          if (is.null(graph_details$main[i,j])){
+            main = paste("WV:", graph_details$names[i])
           }
           lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
-          text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
-               graph_details$main)
+          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
+               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+               main)
           box()
           
           if (graph_details$add_legend){
-            legend(graph_details$legend_position, graph_details$names, bty = "n",
-                   lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
-                   col = graph_details$col_wv, cex=0.75)
+            if (i == j){
+              legend(graph_details$legend_position, graph_details$names, bty = "n",
+                     lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
+                     col = graph_details$col_wv, cex=0.75)
+            }
           }
           
         }
@@ -695,20 +695,12 @@ compare_wvar_split = function(graph_details){
           y_vec = 10^c(win_dim[4], win_dim[4],
                        win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
                        win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
-          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
-          if (is.null(graph_details$main)){
-            graph_details$main = "Haar Filter"
-          }
-          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
-          text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
-               graph_details$main)
-          box()
           
-          if (graph_details$add_legend){
-            legend(graph_details$legend_position, graph_details$names, bty = "n",
-                   lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
-                   col = graph_details$col_wv, cex=0.75)
+          if (is.null(graph_details$main[i,j])){
+            main = paste("WV:", graph_details$names[i], 
+                         "vs", graph_details$names[j])
           }
+          box()
           
           if (i < j){
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
@@ -732,6 +724,11 @@ compare_wvar_split = function(graph_details){
           lines(scales, variance, type = "p", col = graph_details$col_wv[j], 
                 pch = graph_details$point_pch[j], cex = graph_details$point_cex[j])
           
+          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
+          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
+          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
+               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+               main)
         }
       }
     }
@@ -752,12 +749,13 @@ compare_wvar_no_split = function(graph_details){
     
     par(new = TRUE)
     plot(NA, xlim = graph_details$x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
-        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", xlab = graph_details$xlab, ylab = graph_details$ylab)
+        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", 
+        xlab = graph_details$xlab, ylab = graph_details$ylab)
     win_dim = par("usr")
     
     # Add grid
-    abline(v = 2^graph_details$x_ticks, lty = 1, col = "grey95")
-    abline(h = 10^graph_details$y_ticks, lty = 1, col = "grey95")
+    abline(v = graph_details$x_at, lty = 1, col = "grey95")
+    abline(h = graph_details$y_at, lty = 1, col = "grey95")
     
     # Add title
     x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
@@ -771,11 +769,12 @@ compare_wvar_no_split = function(graph_details){
     # Add axes and box
     lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
     y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
-    y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+    kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
     
     box()
-    axis(1, at = 2^graph_details$x_ticks, labels = graph_details$x_labels, padj = 0.3)
-    axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)
+    axis(1, at = graph_details$x_at, labels = graph_details$x_labels, padj = 0.3)
+    axis(2, at = graph_details$y_at[kill_y_tick], 
+         labels = graph_details$y_labels[kill_y_tick], padj = -0.2)
     
     for (i in 1:graph_details$obj_len){
       scales   = graph_details$obj_list[[i]]$scales
@@ -893,6 +892,10 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
       if (is.null(main)){
         main = "Haar Wavelet Variance Representation"
       }
+    }else{
+      if (!is.null(main) && (dim(main)[1] != obj_len || dim(main)[2] != obj_len)){
+        main = NULL
+      }
     }
     
     hues = seq(15, 375, length = obj_len + 1)
@@ -921,10 +924,10 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
       y_range = range(c(y_range, obj_list[[i]]$ci_low, obj_list[[i]]$ci_high))
     }
     
-    x_low = floor(log2(x_range[1]))
-    x_high = ceiling(log2(x_range[2]))
-    y_low = floor(log2(y_range[1]))
-    y_high = ceiling(log2(y_range[2]))
+    x_low = floor(log10(x_range[1]))
+    x_high = ceiling(log10(x_range[2]))
+    y_low = floor(log10(y_range[1]))
+    y_high = ceiling(log10(y_range[2]))
     
     # Axes
     if (is.null(nb_ticks_x)){
@@ -940,12 +943,26 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
       x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
     }
     x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
-    
+    x_at = 10^x_ticks
+    x_actual_length = sum((x_at < x_range[2])*(x_at > x_range[1]))
+
+    if (x_actual_length < (3 + as.numeric(split == FALSE))){
+      x_low = floor(log2(x_range[1]))
+      x_high = ceiling(log2(x_range[2]))
+      x_ticks = seq(x_low, x_high, by = 1)
+      if (length(x_ticks) > 8){
+        x_ticks = seq(x_low, x_high, by = 2)
+      }
+      x_labels = sapply(x_ticks, function(i) as.expression(bquote(2^ .(i))))
+      x_at = 2^x_ticks
+    }
     y_ticks <- seq(y_low, y_high, by = 1)
+
     if (length(y_ticks) > nb_ticks_y){
       y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
     }
-    y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+    y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+    y_at = 10^y_ticks 
     
     # Legend position
     if (is.null(legend_position)){
@@ -995,6 +1012,7 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
                          col_ci = col_ci, main = main, legend_position = legend_position,
                          ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch,
                          x_range = x_range, y_range = y_range, x_ticks = x_ticks, 
+                         x_labels = x_labels, y_labels = y_labels, x_at = x_at, y_at = y_at,
                          y_ticks = y_ticks, nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
     
     if (split == FALSE){
@@ -1004,6 +1022,5 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
       # CALL compare_wvar_split
       compare_wvar_split(graph_details)
     }
-    
   }
 }

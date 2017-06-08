@@ -296,11 +296,9 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   }
   
   if (is.null(ylab)){
-    if(is.null(units)){
-      ylab = expression(paste("Wavelet Variance ", nu^2, sep = ""))
-    }else{
-      ylab = bquote(paste("Wavelet Variance ", nu^2, " [", .(units)^2, "]", sep = " "))
-    }
+    ylab = expression(paste("Wavelet Variance ", nu^2, sep = ""))
+  }else{
+    ylab = ylab
   }
   
   # Main Title
@@ -339,7 +337,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   if (length(x_ticks) > nb_ticks_x){
     x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
   }
-  x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
+  x_labels = sapply(x_ticks, function(i) as.expression(bquote(2^ .(i))))
   
   y_ticks <- seq(y_low, y_high, by = 1)
   if (length(y_ticks) > nb_ticks_y){

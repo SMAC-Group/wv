@@ -477,16 +477,14 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
     if (is.null(units)){
       xlab = expression(paste("Scale ", tau, sep =""))
     }else{
-      xlab = bquote(paste("Scale ", "", tau, " [", .(units), "]", sep = ""))
+      xlab = bquote(paste("Scale ", "", tau , " [", .(units), "]", sep = ""))
     }
   }
   
   if (is.null(ylab)){
-    if(is.null(units)){
-      ylab = expression(paste("Wavelet Variance ", "", (nu^2), "", sep = ""))
-    }else{
-      ylab = bquote(paste("Wavelet Variance ", "", (nu^2), " [", .(units)^2, "]", sep = ""))
-    }
+    ylab = expression(paste("Wavelet Variance ", nu^2, sep = ""))
+  }else{
+    ylab = ylab
   }
   
   # Main Title

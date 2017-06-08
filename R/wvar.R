@@ -343,7 +343,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   if (length(y_ticks) > nb_ticks_y){
     y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
   }
-  y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
+  y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))        #HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   # Legend position
   if (is.null(legend_position)){
@@ -521,7 +521,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   if (length(x_ticks) > nb_ticks_x){
     x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
   }
-  x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
+  x_labels = sapply(x_ticks, function(i) as.expression(bquote(2^ .(i))))
   
   y_ticks <- seq(y_low, y_high, by = 1)
   if (length(y_ticks) > nb_ticks_y){

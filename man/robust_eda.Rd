@@ -9,7 +9,7 @@ robust_eda(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL,
   nb_ticks_y = NULL, legend_position = NULL, ...)
 }
 \arguments{
-\item{x}{A time series object.}
+\item{x}{A time series objects.}
 
 \item{eff}{An \code{integer} that specifies the efficiency of the robust estimator.}
 

@@ -18,34 +18,35 @@
 #' 
 #' @description
 #' Calculates the (MO)DWT wavelet variance
-#' @param x         A \code{vector} with dimensions N x 1. 
-#' @param decomp    A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
-#' @param filter    A \code{string} that specifies what wavelet filter to use. 
+#' @param x         A \code{vector} with dimensions N x 1.
+#' @param decomp    A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.
+#' @param filter    A \code{string} that specifies which wavelet filter to use.
 #' @param nlevels   An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).
 #' @param robust    A \code{boolean} that triggers the use of the robust estimate.
 #' @param eff       A \code{double} that indicates the efficiency as it relates to an MLE.
-#' @param alpha     A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level 
+#' @param alpha     A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.
 #' @param freq      A \code{numeric} that provides the rate of samples.
-#' @param from.unit A \code{string} indicating the unit which the data is converted from.
-#' @param to.unit   A \code{string} indicating the unit which the data is converted to.
-#' @param ... Further arguments passed to or from other methods.
+#' @param from.unit A \code{string} indicating the unit from which the data is converted.
+#' @param to.unit   A \code{string} indicating the unit to which the data is converted.
+#' @param ...       Further arguments passed to or from other methods.
 #' @return A \code{list} with the structure:
 #' \describe{
 #'   \item{"variance"}{Wavelet Variance}
 #'   \item{"ci_low"}{Lower CI}
 #'   \item{"ci_high"}{Upper CI}
 #'   \item{"robust"}{Robust active}
-#'   \item{"eff"}{Efficiency level for Robust}
+#'   \item{"eff"}{Efficiency level for Robust calculation}
 #'   \item{"alpha"}{p value used for CI}
 #'   \item{"unit"}{String representation of the unit}
 #' }
 #' @details 
-#' If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
+#' The default value of \code{nlevels} will be set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}, unless otherwise specified.
 #' @author James Balamuta and Justin Lee
 #' @rdname wvar
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)
+#' 
 #' # Default
 #' wvar(x)
 #' 
@@ -123,7 +124,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
     }
   }
   
-  obj =  .Call('wv_modwt_wvar_cpp', PACKAGE = 'wv',
+  obj = .Call('wv_modwt_wvar_cpp', PACKAGE = 'wv',
                signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
                ci_type="eta3", strWavelet=filter, decomp = decomp)
   
@@ -162,21 +163,21 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
 #' 
 #' @description
 #' Structures elements into a \code{wvar} object
-#' @param obj    A \code{matrix} with dimensions N x 3, that contains the wavelet variance, low ci, hi ci.
-#' @param decomp A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.
+#' @param obj    A \code{matrix} with dimensions N x 3 that contains Wavelet Variance, Lower CI, and Upper CI.
+#' @param decomp A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.
 #' @param filter A \code{string} that specifies the type of wavelet filter used in the decomposition.
 #' @param robust A \code{boolean} that triggers the use of the robust estimate.
 #' @param eff    A \code{double} that indicates the efficiency as it relates to an MLE.
-#' @param alpha  A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level.
-#' @param scales A \code{vec} that contains the amount of decomposition done at each level.
-#' @param unit   A \code{string} that contains the unit expression of the frequency.
+#' @param alpha  A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.
+#' @param scales A \code{vec} that contains the amount of decomposition performed at each level.
+#' @param unit   A \code{string} that indicates the unit expression of the frequency.
 #' @return A \code{list} with the structure:
 #' \describe{
 #'   \item{"variance"}{Wavelet Variance}
 #'   \item{"ci_low"}{Lower CI}
 #'   \item{"ci_high"}{Upper CI}
 #'   \item{"robust"}{Robust active}
-#'   \item{"eff"}{Efficiency level for Robust}
+#'   \item{"eff"}{Efficiency level for Robust calculation}
 #'   \item{"alpha"}{p value used for CI}
 #'   \item{"unit"}{String representation of the unit}
 #' }
@@ -202,9 +203,9 @@ create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
 #' @method print wvar
 #' @export
 #' @keywords internal
-#' @param x A \code{wvar} object.
-#' @param ... further arguments passed to or from other methods.
-#' @return Summary table
+#' @param x     A \code{wvar} object.
+#' @param ...   Further arguments passed to or from other methods.
+#' @return      Summary table
 #' @examples
 #' set.seed(999)
 #' x = rnorm(100)
@@ -224,9 +225,9 @@ print.wvar = function(x, ...){
 #' @method summary wvar
 #' @export
 #' @keywords internal
-#' @param object A \code{wvar} object.
-#' @return Summary table and other properties of the object.
-#' @param ... additional arguments affecting the summary produced.
+#' @param object  A \code{wvar} object.
+#' @param ...     Additional arguments affecting the summary produced.
+#' @return        Summary table and other properties of the object.
 #' @author James Balamuta
 #' @examples
 #' set.seed(999)
@@ -263,13 +264,13 @@ summary.wvar = function(object, ...){
 #' @param main             A \code{string} that gives an overall title for the plot.
 #' @param col_wv           A \code{string} that specifies the color of the wavelet variance line.
 #' @param col_ci           A \code{string} that specifies the color of the confidence interval polygon.
+#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
 #' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
 #' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
-#' @param ... Additional arguments affecting the plot.
+#' @param ...              Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
 #' @examples 
@@ -343,7 +344,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   if (length(y_ticks) > nb_ticks_y){
     y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
   }
-  y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))        #HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
   
   # Legend position
   if (is.null(legend_position)){
@@ -451,7 +452,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 #' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ... Additional arguments affecting the plot.
+#' @param ...             Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
 #' @examples 
@@ -459,6 +460,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 #' n = 10^4
 #' Xt = rnorm(n)
 #' wv = wvar(Xt)
+#' 
 #' plot(wv)
 #' plot(wv, main = "Simulated white noise", xlab = "Scales")
 #' plot(wv, units = "sec", legend_position = "topright")
@@ -614,14 +616,14 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' This method accepts the same set of arguments as \code{compare_wvar} and returns a comparision 
 #' of multiple wavelet variances of different time series accounting for CI values as a set of different plots.
 #' 
-#' @param ... Several time series objects.
-#' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
-#' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.
-#' @param xlab            A \code{string} that gives a title for the x axes.
-#' @param ylab            A \code{string} that gives a title for the y axes.
-#' @param main            A \code{string} that gives an overall title for the plot.
-#' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
-#' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
+#' @param ...              Several time series objects.
+#' @param split            A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
+#' @param units            A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.
+#' @param xlab             A \code{string} that gives a title for the x axes.
+#' @param ylab             A \code{string} that gives a title for the y axes.
+#' @param main             A \code{string} that gives an overall title for the plot.
+#' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
 #' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
 #' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
@@ -763,14 +765,14 @@ compare_wvar_split = function(graph_details){
 #' This method accepts the same set of arguments as \code{compare_wvar} and returns a single plot
 #' that compares multiple wavelet variances of different time series accounting for CI values.
 #' 
-#' @param ... Several time series objects.
-#' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
-#' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.
-#' @param xlab            A \code{string} that gives a title for the x axes.
-#' @param ylab            A \code{string} that gives a title for the y axes.
-#' @param main            A \code{string} that gives an overall title for the plot.
-#' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
-#' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
+#' @param ...              Several time series objects.
+#' @param split            A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
+#' @param units            A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.
+#' @param xlab             A \code{string} that gives a title for the x axes.
+#' @param ylab             A \code{string} that gives a title for the y axes.
+#' @param main             A \code{string} that gives an overall title for the plot.
+#' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
+#' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
 #' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
 #' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
@@ -842,26 +844,22 @@ compare_wvar_no_split = function(graph_details){
 
 
 
-
-
-
-
 #' @title Comparison Between Multiple Wavelet Variances
 #' @description 
 #' Displays plots of multiple wavelet variances of different time series accounting for CI values.
 #' 
-#' @param ... One or more time series objects.
+#' @param ...             One or more time series objects.
 #' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
-#' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.
+#' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.
 #' @param xlab            A \code{string} that gives a title for the x axes.
 #' @param ylab            A \code{string} that gives a title for the y axes.
 #' @param main            A \code{string} that gives an overall title for the plot.
 #' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
-#' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
-#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
-#' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
+#' @param legend_position A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
+#' @param ci_wv           A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
+#' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
 #' 
 #' @author Stephane Guerrier and Justin Lee
 #' @export
@@ -1046,7 +1044,7 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
       }
     }
     
-    #Passed into compare_wvar_split or compare_wvar_no_split
+    # Arguments passed into compare_wvar_split or compare_wvar_no_split
     graph_details = list(obj_list = obj_list, obj_len = obj_len, names = names, xlab = xlab, 
                          ylab = ylab, col_wv = col_wv, add_legend = add_legend,
                          col_ci = col_ci, main = main, legend_position = legend_position,
@@ -1056,10 +1054,10 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
                          y_ticks = y_ticks, nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
     
     if (split == FALSE){
-      # CALL compare_wvar_no_split
+      # -> compare_wvar_no_split
       compare_wvar_no_split(graph_details)
     }else{
-      # CALL compare_wvar_split
+      # -> compare_wvar_split
       compare_wvar_split(graph_details)
     }
   }

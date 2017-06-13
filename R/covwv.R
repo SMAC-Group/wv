@@ -239,6 +239,7 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
   # Add grid
   abline(v = x_at, lty = 1, col = "grey95")
   abline(h = ticks_y, lty = 1, col = "grey95")
+  abline(h = 0)
   
   # Add title
   x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])

@@ -48,7 +48,7 @@
 #' 
 #' where \eqn{ {{\bar y}_t}\left( \tau  \right) = \frac{1}{\tau }\sum\limits_{i = 0}^{\tau  - 1} {{{\bar y}_{t - i}}} }{See PDF Manual}.
 #' @export
-#' @author James Balamuta, Stephane Gurrier
+#' @author James Balamuta
 #' @references Long-Memory Processes, the Allan Variance and Wavelets, D. B. Percival and P. Guttorp
 #' @examples
 #' # Set seed for reproducibility

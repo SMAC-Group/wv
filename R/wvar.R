@@ -264,7 +264,7 @@ summary.wvar = function(object, ...){
 #' @param main             A \code{string} that gives an overall title for the plot.
 #' @param col_wv           A \code{string} that specifies the color of the wavelet variance line.
 #' @param col_ci           A \code{string} that specifies the color of the confidence interval polygon.
-#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param ci_wv            A \code{boolean} that determines whether a confidence interval polygon will be drawn.
 #' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
@@ -625,7 +625,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param ci_wv            A \code{boolean} that determines whether confidence interval polygons will be drawn.
 #' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
 #' 
@@ -774,7 +774,7 @@ compare_wvar_split = function(graph_details){
 #' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv            A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param ci_wv            A \code{boolean} that determines whether confidence interval polygons will be drawn.
 #' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
 #' 
@@ -857,7 +857,7 @@ compare_wvar_no_split = function(graph_details){
 #' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv           A \code{double} that specifies the confidence interval to be used in the WV calculation.
+#' @param ci_wv           A \code{boolean} that determines whether confidence interval polygons will be drawn.
 #' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
 #' 
@@ -878,9 +878,8 @@ compare_wvar_no_split = function(graph_details){
 #' 
 #' compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL, xlab = NULL, 
-                        ylab = NULL, main = NULL, 
-                        col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
-                        legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
+                        ylab = NULL, main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, 
+                        nb_ticks_y = NULL, legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
                         point_pch = NULL, names = NULL){
   
   obj_list = list(...)
@@ -889,17 +888,16 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
   
   # Check if passed objects are of the class wvar
   is_wvar = sapply(obj_list, FUN = is, class2 = 'wvar')
-  
   if(!all(is_wvar == T)){
     stop("Supplied objects must be 'wvar' objects.")
   }
   
-  # Check length
+  # Check length of time series argument
   if (obj_len == 0){
     stop('No object given!')
   }else if (obj_len == 1){
     # -> plot.wvar
-    plot.wvar(..., nb_ticks_X = nb_ticks_x, nb_ticks_y = nb_ticks_y)
+    plot.wvar(..., nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
   }else{
   
     if (is.null(xlab)){
@@ -925,6 +923,7 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
         ci_wv = rep(TRUE, obj_len)
       }
     }
+    
     # Main Title
     if (split == "FALSE"){
       if (is.null(main)){

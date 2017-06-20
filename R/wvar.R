@@ -626,6 +626,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
 #' @param ci_wv            A \code{boolean} that determines whether confidence interval polygons will be drawn.
+#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
 #' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
 #' 
@@ -677,7 +678,7 @@ compare_wvar_split = function(graph_details){
         }
           lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
           lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
-                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
+                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i]/1.25)
           
           win_dim = par("usr")
           x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
@@ -698,7 +699,7 @@ compare_wvar_split = function(graph_details){
             if (i == j){
               legend(graph_details$legend_position, graph_details$names, bty = "n",
                      lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
-                     col = graph_details$col_wv, cex=0.75)
+                     col = graph_details$col_wv, cex=0.7)
             }
           }
           
@@ -729,7 +730,7 @@ compare_wvar_split = function(graph_details){
           
           lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
           lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
-                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
+                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i]/1.25)
           
           scales   = graph_details$obj_list[[j]]$scales
           ci_low   = graph_details$obj_list[[j]]$ci_low
@@ -742,7 +743,7 @@ compare_wvar_split = function(graph_details){
           }
           lines(scales, variance, type = "l", col = graph_details$col_wv[j], pch = 16)
           lines(scales, variance, type = "p", col = graph_details$col_wv[j], 
-                pch = graph_details$point_pch[j], cex = graph_details$point_cex[j])
+                pch = graph_details$point_pch[j], cex = graph_details$point_cex[j]/1.25)
           
           polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
           lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
@@ -776,6 +777,7 @@ compare_wvar_split = function(graph_details){
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
 #' @param ci_wv            A \code{boolean} that determines whether confidence interval polygons will be drawn.
+#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
 #' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
 #' 
@@ -859,6 +861,7 @@ compare_wvar_no_split = function(graph_details){
 #' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
 #' @param ci_wv           A \code{boolean} that determines whether confidence interval polygons will be drawn.
+#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
 #' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
 #' 
@@ -937,18 +940,18 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
     hues = seq(15, 375, length = obj_len + 1)
     # Line and CI colors
     if (is.null(col_wv)){
-      col_wv = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(obj_len)]
+      col_wv = hcl(h = hues, l = 65, c = 200, alpha = 1)[seq_len(obj_len)]
     }else{
       if (length(col_wv) != obj_len){
-        col_wv = hcl(h = hues, l = 65, c = 100, alpha = 1)[seq_len(obj_len)]
+        col_wv = hcl(h = hues, l = 65, c = 200, alpha = 1)[seq_len(obj_len)]
       }
     }
     
     if (is.null(col_ci)){
-      col_ci = hcl(h = hues, l = 65, c = 100, alpha = 0.15)[seq_len(obj_len)]
+      col_ci = hcl(h = hues, l = 80, c = 100, alpha = 0.2)[seq_len(obj_len)]
     }else{
       if (length(col_ci) != obj_len){
-        col_ci = hcl(h = hues, l = 65, c = 100, alpha = 0.15)[seq_len(obj_len)]
+        col_ci = hcl(h = hues, l = 80, c = 100, alpha = 0.2)[seq_len(obj_len)]
       }
     }
     

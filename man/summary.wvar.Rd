@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{A \code{wvar} object.}
 
-\item{...}{additional arguments affecting the summary produced.}
+\item{...}{Additional arguments affecting the summary produced.}
 }
 \value{
 Summary table and other properties of the object.

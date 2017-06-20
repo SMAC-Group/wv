@@ -44,6 +44,7 @@ set.seed(999)
 n = 10^4
 Xt = rnorm(n)
 wv = wvar(Xt)
+
 plot(wv)
 plot(wv, main = "Simulated white noise", xlab = "Scales")
 plot(wv, units = "sec", legend_position = "topright")

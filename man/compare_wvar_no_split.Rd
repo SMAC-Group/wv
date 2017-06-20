@@ -11,7 +11,7 @@ compare_wvar_no_split(graph_details)
 
 \item{split}{A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.}
 
-\item{units}{A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.}
+\item{units}{A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.}
 
 \item{xlab}{A \code{string} that gives a title for the x axes.}
 

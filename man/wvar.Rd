@@ -28,23 +28,23 @@ wvar(x, ...)
 
 \item{...}{Further arguments passed to or from other methods.}
 
-\item{decomp}{A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.}
+\item{decomp}{A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.}
 
-\item{filter}{A \code{string} that specifies what wavelet filter to use.}
+\item{filter}{A \code{string} that specifies which wavelet filter to use.}
 
 \item{nlevels}{An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).}
 
-\item{alpha}{A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level}
+\item{alpha}{A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.}
 
 \item{robust}{A \code{boolean} that triggers the use of the robust estimate.}
 
 \item{eff}{A \code{double} that indicates the efficiency as it relates to an MLE.}
 
-\item{to.unit}{A \code{string} indicating the unit which the data is converted to.}
+\item{to.unit}{A \code{string} indicating the unit to which the data is converted.}
 
 \item{freq}{A \code{numeric} that provides the rate of samples.}
 
-\item{from.unit}{A \code{string} indicating the unit which the data is converted from.}
+\item{from.unit}{A \code{string} indicating the unit from which the data is converted.}
 }
 \value{
 A \code{list} with the structure:
@@ -53,7 +53,7 @@ A \code{list} with the structure:
   \item{"ci_low"}{Lower CI}
   \item{"ci_high"}{Upper CI}
   \item{"robust"}{Robust active}
-  \item{"eff"}{Efficiency level for Robust}
+  \item{"eff"}{Efficiency level for Robust calculation}
   \item{"alpha"}{p value used for CI}
   \item{"unit"}{String representation of the unit}
 }
@@ -62,11 +62,12 @@ A \code{list} with the structure:
 Calculates the (MO)DWT wavelet variance
 }
 \details{
-If \code{nlevels} is not specified, it is set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}
+The default value of \code{nlevels} will be set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}, unless otherwise specified.
 }
 \examples{
 set.seed(999)
 x = rnorm(100)
+
 # Default
 wvar(x)
 

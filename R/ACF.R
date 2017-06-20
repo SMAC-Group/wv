@@ -31,17 +31,13 @@
 #' observations and \eqn{m} is the number of series being compared. If 
 #' \code{lagmax} supplied is greater than the number of observations, then one
 #' less than the total will be taken.
+#' @export
 #' @examples 
 #' # Get Autocorrelation
 #' m = ACF(datasets::AirPassengers)
 #' 
 #' # Get Autocovariance and do not remove trend from signal
 #' m = ACF(datasets::AirPassengers, cor = FALSE, demean = FALSE)
-
-
-
-
-
 ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
   
   # Change the data to matrix form
@@ -61,7 +57,12 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
   # Adjust the name for data 
   dimnames(acfe)  = list(seq_len(nrow(acfe))-1, "ACF", varName)
   
-  acfe = structure(acfe, n = nrow(x2), class = c("ACF","array"))
+  if (is.null(attr(nile, "data_name"))){
+    acfe = structure(acfe, n = nrow(x2), class = c("ACF", "array"))
+  }else{
+    acfe = structure(acfe, n = nrow(x2), main = attr(nile, "data_name"), class = c("ACF", "array"))
+  }
+  
   acfe
   
 }
@@ -92,10 +93,14 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' 
 #' # Plot without 95% CI
 #' plot(m, show.ci = FALSE)
-
-
-plot.ACF = function(x, show.ci = TRUE, ci = 0.95, ...){
+plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
+  # TO ADD AS INPUTS
+  xlab = "Lags"
+  ylab = "ACF"
+  col_ci = rgb(0, 0.6, 1, 0.2)
+  alpha = 0.05
   
+
   # Quiet the warnings...
   Lag = xmin = xmax = ymin = ymax = NULL 
   
@@ -107,37 +112,73 @@ plot.ACF = function(x, show.ci = TRUE, ci = 0.95, ...){
   # Remove character cast
   x2$Lag = as.numeric(x2$Lag)
   
-  
   # Range
   x_range = range(x2$Lag)
-  y_range = range(0:1)
   
-  # Axie labels
-  xlab = "Lags"
-  ylab = "ACF"
+  if (show.ci == TRUE){
+    n = attr(object,"n")
+    mult = qnorm(1-alpha/2)
+    y_range = range(c(x2$ACF, 1/sqrt(n)*mult*c(-1,1)))
+  }else{
+    y_range = range(0:1)
+  }
+  
+  if (is.null(main)){
+    if (is.null(attr(object,"main"))){
+      main = paste0("ACF of ",as.character((x2$`Signal Y`)[1]))
+    }else{
+      main = attr(object,"main")
+    }
+  }
+  
+
   x_ticks = seq(x_range[1], x_range[2], by = 1)
   y_ticks = seq(y_range[1], y_range[2], by = 0.05)
-  
+  par(mar = c(5.1, 5.1, 1, 2.1))
   
   # Main plot
-  plot(NA, xlim = x_range, ylim = y_range, main = paste0("The ACF plot of ",as.character((x2$`Signal Y`)[1])), xlab = xlab, ylab = ylab)
+  plot(NA, xlim = c(1, max(x2$Lag)), ylim = y_range, 
+       xlab = xlab, ylab = ylab, xaxt = 'n', 
+       yaxt = 'n', bty = "n", ann = FALSE)
+  win_dim = par("usr")
   
+  par(new = TRUE)
+  plot(NA, xlim = c(0, max(x2$Lag)), ylim = c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
+       xlab = xlab, ylab = ylab, xaxt = 'n', yaxt = 'n', bty = "n")
+  win_dim = par("usr")
   
-  # Add Grid
-  abline(v = x_ticks, lty = 1, col = "grey95")
-  abline(h = y_ticks, lty = 1, col = "grey95")
+  # Add grid
+  grid(NULL, NULL, lty = 1, col = "grey95")
   
+  # Add title
+  x_vec = c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+  y_vec = c(win_dim[4], win_dim[4],
+            win_dim[4] - 0.09*(win_dim[4] - win_dim[3]),
+            win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+  polygon(x_vec, y_vec, col = "grey95", border = NA)
+  text(x = mean(c(win_dim[1], win_dim[2])),
+       y = (win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+       main)
   
+  # Add axes and box
+  lines(x_vec[1:2], rep((win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
+  box()
+  axis(1, padj = 0.3)
+  y_axis = axis(2, labels = FALSE, tick = FALSE)
+  y_axis = y_axis[y_axis < (win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+  axis(2, padj = -0.2, at = y_axis)
+
+  abline(h = 0, lty = 1, lwd = 2)
   # Plot CI 
   if(show.ci){
     
-    clim0 = qnorm( (1 + ci)/2 ) / sqrt(attr(object,'n'))
-    
-    rect(xleft = -2, ybottom = -clim0, xright = 2*x_range[2], ytop = clim0, col = rgb(0, 1, 1, 0.3), lwd = 0)
+    clim0 = 1/sqrt(n)*mult
+    rect(xleft = -2, ybottom = -clim0, xright = 2*x_range[2], 
+         ytop = clim0, col = col_ci, lwd = 0)
     
   }
   
-  abline(h = 0, lty = 1, lwd = 2)
+  
   
   
   # Plot ACF

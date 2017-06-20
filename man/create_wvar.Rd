@@ -7,9 +7,9 @@
 create_wvar(obj, decomp, filter, robust, eff, alpha, scales, unit)
 }
 \arguments{
-\item{obj}{A \code{matrix} with dimensions N x 3, that contains the wavelet variance, low ci, hi ci.}
+\item{obj}{A \code{matrix} with dimensions N x 3 that contains Wavelet Variance, Lower CI, and Upper CI.}
 
-\item{decomp}{A \code{string} that indicates whether to use the "dwt" or "modwt" decomposition.}
+\item{decomp}{A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.}
 
 \item{filter}{A \code{string} that specifies the type of wavelet filter used in the decomposition.}
 
@@ -17,11 +17,11 @@ create_wvar(obj, decomp, filter, robust, eff, alpha, scales, unit)
 
 \item{eff}{A \code{double} that indicates the efficiency as it relates to an MLE.}
 
-\item{alpha}{A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level.}
+\item{alpha}{A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.}
 
-\item{scales}{A \code{vec} that contains the amount of decomposition done at each level.}
+\item{scales}{A \code{vec} that contains the amount of decomposition performed at each level.}
 
-\item{unit}{A \code{string} that contains the unit expression of the frequency.}
+\item{unit}{A \code{string} that indicates the unit expression of the frequency.}
 }
 \value{
 A \code{list} with the structure:
@@ -30,7 +30,7 @@ A \code{list} with the structure:
   \item{"ci_low"}{Lower CI}
   \item{"ci_high"}{Upper CI}
   \item{"robust"}{Robust active}
-  \item{"eff"}{Efficiency level for Robust}
+  \item{"eff"}{Efficiency level for Robust calculation}
   \item{"alpha"}{p value used for CI}
   \item{"unit"}{String representation of the unit}
 }

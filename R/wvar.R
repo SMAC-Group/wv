@@ -634,7 +634,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #'
 compare_wvar_split = function(graph_details){
     
-    par(mfrow = c(graph_details$obj_len, graph_details$obj_len), 
+    par(mfrow = c(graph_details$obj_len, graph_details$obj_len),
         mar = c(0.45,0.45,0,0), oma = c(4,4,1,1))
   
     for (i in 1:graph_details$obj_len){
@@ -919,9 +919,7 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
     if (is.null(ci_wv)){
       ci_wv = rep(TRUE, obj_len)
     }else{
-      if (length(ci_wv) != obj_len){
-        ci_wv = rep(TRUE, obj_len)
-      }
+        ci_wv = rep(ci_wv, obj_len)
     }
     
     # Main Title

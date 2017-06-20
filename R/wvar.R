@@ -671,9 +671,10 @@ compare_wvar_split = function(graph_details){
           ci_low   = graph_details$obj_list[[i]]$ci_low
           ci_high  = graph_details$obj_list[[i]]$ci_high
           variance = graph_details$obj_list[[i]]$variance
-          
+        if(graph_details$ci_wv[i] == TRUE){  
           polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                   border = NA, col = graph_details$col_ci[i])
+        }
           lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
           lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
                 pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
@@ -721,7 +722,7 @@ compare_wvar_split = function(graph_details){
           }
           box()
           
-          if (i < j){
+          if (i < j && graph_details$ci_wv[i] == TRUE){
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                     border = NA, col = graph_details$col_ci[i])
           }
@@ -735,7 +736,7 @@ compare_wvar_split = function(graph_details){
           ci_high  = graph_details$obj_list[[j]]$ci_high
           variance = graph_details$obj_list[[j]]$variance
           
-          if (i < j){ # don't show confidence intervals 
+          if (i < j && graph_details$ci_wv[i] == TRUE){ # don't show confidence intervals 
             polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                     border = NA, col = graph_details$col_ci[j])
           }

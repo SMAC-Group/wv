@@ -57,10 +57,10 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
   # Adjust the name for data 
   dimnames(acfe)  = list(seq_len(nrow(acfe))-1, "ACF", varName)
   
-  if (is.null(attr(nile, "data_name"))){
+  if (is.null(attr(x, "data_name"))){
     acfe = structure(acfe, n = nrow(x2), class = c("ACF", "array"))
   }else{
-    acfe = structure(acfe, n = nrow(x2), main = attr(nile, "data_name"), class = c("ACF", "array"))
+    acfe = structure(acfe, n = nrow(x2), main = attr(x, "data_name"), class = c("ACF", "array"))
   }
   
   acfe
@@ -93,6 +93,7 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' 
 #' # Plot without 95% CI
 #' plot(m, show.ci = FALSE)
+
 plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   # TO ADD AS INPUTS
   xlab = "Lags"
@@ -100,7 +101,7 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   col_ci = rgb(0, 0.6, 1, 0.2)
   alpha = 0.05
   
-
+  
   # Quiet the warnings...
   Lag = xmin = xmax = ymin = ymax = NULL 
   
@@ -124,14 +125,16 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   }
   
   if (is.null(main)){
-    if (is.null(attr(object,"main"))){
+    if (is.null(attr(object,"data_name"))){
       main = paste0("ACF of ",as.character((x2$`Signal Y`)[1]))
     }else{
-      main = attr(object,"main")
+      main = paste0("ACF of ", attr(object,"data_name"))
     }
   }
+  else {
+    main = main
+  }
   
-
   x_ticks = seq(x_range[1], x_range[2], by = 1)
   y_ticks = seq(y_range[1], y_range[2], by = 0.05)
   par(mar = c(5.1, 5.1, 1, 2.1))
@@ -150,7 +153,9 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   # Add grid
   grid(NULL, NULL, lty = 1, col = "grey95")
   
+  
   # Add title
+  
   x_vec = c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
   y_vec = c(win_dim[4], win_dim[4],
             win_dim[4] - 0.09*(win_dim[4] - win_dim[3]),
@@ -167,7 +172,7 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   y_axis = axis(2, labels = FALSE, tick = FALSE)
   y_axis = y_axis[y_axis < (win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
   axis(2, padj = -0.2, at = y_axis)
-
+  
   abline(h = 0, lty = 1, lwd = 2)
   # Plot CI 
   if(show.ci){
@@ -186,11 +191,6 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   
   
 }
-
-
-
-
-
 
 
 

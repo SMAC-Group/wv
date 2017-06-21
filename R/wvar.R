@@ -645,7 +645,7 @@ compare_wvar_split = function(graph_details){
         plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
              yaxt = 'n', bty = "n", ann = FALSE)
         win_dim = par("usr")
-        kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+        kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])) #What does this do
     
         # Add grid
         abline(v = graph_details$x_at, lty = 1, col = "grey95")
@@ -653,7 +653,8 @@ compare_wvar_split = function(graph_details){
         
         # Add axes and box
         box(col = "grey")
-  
+        
+# see if kill y_tick is neccessary and what it does
         # Corner left piece
         if (j == 1){
           axis(2, at = graph_details$y_at[kill_y_tick], 
@@ -664,7 +665,7 @@ compare_wvar_split = function(graph_details){
         if (i == graph_details$obj_len){
           
           axis(1, at = graph_details$x_at, labels = graph_details$x_labels, 
-               padj = 0.1, cex.axis = 1/log(graph_details$obj_len)+0.1)
+               padj = 0.1, cex.axis = 1/log(graph_details$obj_len))           # figure out how to size these things for smaller plots
         }
         # Diag graph
         if (i == j){
@@ -689,10 +690,10 @@ compare_wvar_split = function(graph_details){
           if (is.null(graph_details$main[i,j])){
             main = paste("WV:", graph_details$names[i])
           }
-          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
-          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
-               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
-               main)
+#          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
+#          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
+#               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+#               main)
           box()
           
           if (graph_details$add_legend){
@@ -745,11 +746,21 @@ compare_wvar_split = function(graph_details){
           lines(scales, variance, type = "p", col = graph_details$col_wv[j], 
                 pch = graph_details$point_pch[j], cex = graph_details$point_cex[j]/1.25)
           
-          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
-          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
-          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
-               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
-               main)
+#*************************************************************************************************
+# todo: remove and replace with  "wv_Xt"  "wv_Yt"  "wv_Zt"  "wv_Wt"  on TOP of each column
+
+#          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
+#          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
+#          text(x = 10^mean(c(win_dim[1], win_dim[2])),
+#               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])),
+#               main)
+# and
+# wv_Xt
+# wv_Yt
+# wv_Zt
+# wv_Wt
+# to the RIGHT of each row
+#*************************************************************************************************
         }
       }
     }

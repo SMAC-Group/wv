@@ -124,6 +124,13 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
     y_range = range(0:1)
   }
   
+  
+  x_ticks = seq(x_range[1], x_range[2], by = 1)
+  y_ticks = seq(y_range[1], y_range[2], by = 0.05)
+  par(mar = c(5.1, 5.1, 1, 2.1))
+  
+  
+  # Title 
   if (is.null(main)){
     if (is.null(attr(object,"data_name"))){
       main = paste0("ACF of ",as.character((x2$`Signal Y`)[1]))
@@ -135,9 +142,6 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
     main = main
   }
   
-  x_ticks = seq(x_range[1], x_range[2], by = 1)
-  y_ticks = seq(y_range[1], y_range[2], by = 0.05)
-  par(mar = c(5.1, 5.1, 1, 2.1))
   
   # Main plot
   plot(NA, xlim = c(1, max(x2$Lag)), ylim = y_range, 

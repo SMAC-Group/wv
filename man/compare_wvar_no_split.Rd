@@ -25,7 +25,9 @@ compare_wvar_no_split(graph_details)
 
 \item{legend_position}{A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).}
 
-\item{ci_wv}{A \code{double} that specifies the confidence interval to be used in the WV calculation.}
+\item{ci_wv}{A \code{boolean} that determines whether confidence interval polygons will be drawn.}
+
+\item{col_ci}{A \code{string} that specifies the color of the confidence interval shade.}
 
 \item{point_pch}{A \code{double} that specifies the symbol type to be plotted.}
 

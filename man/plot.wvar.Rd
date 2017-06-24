@@ -30,7 +30,7 @@
 
 \item{legend_position}{A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).}
 
-\item{ci_wv}{A \code{double} that specifies the confidence interval to be used in the WV calculation.}
+\item{ci_wv}{A \code{boolean} that determines whether a confidence interval polygon will be drawn.}
 
 \item{point_cex}{A \code{double} that specifies the size of each symbol to be plotted.}
 

@@ -22,13 +22,15 @@ compare_wvar(..., split = "FALSE", add_legend = "TRUE", units = NULL,
 
 \item{main}{A \code{string} that gives an overall title for the plot.}
 
+\item{col_ci}{A \code{string} that specifies the color of the confidence interval shade.}
+
 \item{nb_ticks_x}{An \code{integer} that specifies the maximum number of ticks for the x-axis.}
 
 \item{nb_ticks_y}{An \code{integer} that specifies the maximum number of ticks for the y-axis.}
 
 \item{legend_position}{A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).}
 
-\item{ci_wv}{A \code{double} that specifies the confidence interval to be used in the WV calculation.}
+\item{ci_wv}{A \code{boolean} that determines whether confidence interval polygons will be drawn.}
 
 \item{point_cex}{A \code{double} that specifies the size of each symbol to be plotted.}
 

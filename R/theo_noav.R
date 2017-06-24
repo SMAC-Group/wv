@@ -26,8 +26,8 @@
 #' n is an integer larger than 1 and smaller than \eqn{floor\left(log_2 \left(dim\left(covmat\right)[1]\right)\right)-1}{floor(log2(dim(T)[1]))-1}
 #' @author Haotian Xu
 #' @examples
+#' \dontrun{
 #' set.seed(999)
-#' AR1 phi=0.3
 #' x = gen.gts(AR1(phi = 0.3, sigma2 = 1), N = 1000, freq = 1)
 #' avar(x, type = "to")
 #' 
@@ -40,6 +40,7 @@
 #' a = a + t(a) + diag(a.diag)
 #' covmat = 0.3^a
 #' sapply(1:8, function(y){NOAV(2^y, covmat)})
+#' }
 NOAV = function(n, covmat){
   # k: index of blocks
   # n: length of each block

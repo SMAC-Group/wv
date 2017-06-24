@@ -51,6 +51,7 @@
 #' @author James Balamuta
 #' @references Long-Memory Processes, the Allan Variance and Wavelets, D. B. Percival and P. Guttorp
 #' @examples
+#' \dontrun{
 #' # Set seed for reproducibility
 #' set.seed(999)
 #' 
@@ -63,6 +64,7 @@
 #' 
 #' # Tau overlap
 #' av_mat_tau = avar(ts, type = "to")
+#' }
 avar = function(x, type = "mo") {
   x = as.vector(x)
   
@@ -92,6 +94,7 @@ avar = function(x, type = "mo") {
 #' @return console output
 #' @keywords internal
 #' @examples
+#' \dontrun{
 #' # Set seed for reproducibility
 #' set.seed(999)
 #' 
@@ -103,6 +106,7 @@ avar = function(x, type = "mo") {
 #' 
 #' # Print results
 #' print( out )
+#' }
 print.avar = function(x, ...) {
   cat("\n Clusters: \n")
   print(x$clusters, digits=5)
@@ -123,6 +127,7 @@ print.avar = function(x, ...) {
 #' @return Summary table
 #' @keywords internal
 #' @examples
+#' \dontrun
 #' # Set seed for reproducibility
 #' set.seed(999)
 #' 
@@ -134,6 +139,7 @@ print.avar = function(x, ...) {
 #' 
 #' # Summary
 #' summary( out )
+#' }
 summary.avar = function(object, ...) {
   out_matrix = matrix(0, nrow = length(object$clusters), ncol = 6)
   colnames(out_matrix) = c("Time", "AVAR", "ADEV", "Lower CI", "Upper CI", "Error")

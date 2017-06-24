@@ -280,7 +280,7 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
   
 }
 
-#' @export
+#' Helper function for plot.wccv_pair
 wccv_get_y = function(x, m, tick_y_min, tick_y_step){
   n = length(x)
   

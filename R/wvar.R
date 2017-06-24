@@ -877,6 +877,7 @@ compare_wvar_no_split = function(graph_details){
 #' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
 #' 
 #' @author Stephane Guerrier and Justin Lee
+#' @import methods is
 #' @export
 #' @examples
 #' set.seed(999)
@@ -892,7 +893,7 @@ compare_wvar_no_split = function(graph_details){
 #' wv_Wt = wvar(Wt)
 #' 
 #' compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
-compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL, xlab = NULL, 
+compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xlab = NULL, 
                         ylab = NULL, main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, 
                         nb_ticks_y = NULL, legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
                         point_pch = NULL, names = NULL){
@@ -938,7 +939,7 @@ compare_wvar = function(... , split = "FALSE", add_legend = "TRUE", units = NULL
     }
     
     # Main Title
-    if (split == "FALSE"){
+    if (split == FALSE){
       if (is.null(main)){
         main = "Haar Wavelet Variance Representation"
       }

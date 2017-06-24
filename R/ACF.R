@@ -31,6 +31,7 @@
 #' observations and \eqn{m} is the number of series being compared. If 
 #' \code{lagmax} supplied is greater than the number of observations, then one
 #' less than the total will be taken.
+#' @importFrom stats acf is.ts
 #' @export
 #' @examples 
 #' # Get Autocorrelation
@@ -48,7 +49,6 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
   #Get the acf value of the data
   acfe = acf(x, lagmax = lagmax , cor = cor, demean = demean, plot = FALSE)
   acfe = acfe$acf
-  
   
   # Get the data name 
   varName = deparse(substitute(RW))
@@ -80,6 +80,8 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' @param ...       Additional parameters
 #' @return An \code{array} of dimensions \eqn{N \times S \times S}{N x S x S}.
 #' @rdname plot.ACF
+#' @keywords internal
+#' @import grDevices rgb
 #' @export
 #' @examples 
 #' # Calculate the Autocorrelation
@@ -93,7 +95,6 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' 
 #' # Plot without 95% CI
 #' plot(m, show.ci = FALSE)
-
 plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   # TO ADD AS INPUTS
   xlab = "Lags"

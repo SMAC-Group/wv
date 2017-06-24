@@ -78,6 +78,7 @@ print.dwt=function(x, ...){
 #' @description 
 #' Prints DWT object in a concise format
 #' @method summary dwt
+#' @importFrom utils head
 #' @export
 #' @keywords internal
 #' @param object A \code{dwt} object

@@ -62,6 +62,7 @@ print.modwt = function(x, ...){
 #' @description 
 #' Prints MODWT object in a concise format
 #' @method summary modwt
+#' @importFrom utils head
 #' @export
 #' @keywords internal
 #' @param object A \code{modwt} object

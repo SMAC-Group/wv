@@ -1,6 +1,3 @@
-
-
-
 ## General function to compute WV for spatial models (isotropic and anisotropic)
 spat.wavar = function(X,J1,J2,eff=0.6,compute.v = FALSE, iso = TRUE){
   

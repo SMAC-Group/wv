@@ -902,7 +902,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
   obj_name = as.character(substitute(...()))
   obj_len  = length(obj_list)
   
-  # Check if passed objects are of the class wvar
+  # Check if passed objects are of class wvar
   is_wvar = sapply(obj_list, FUN = is, class2 = 'wvar')
   if(!all(is_wvar == T)){
     stop("Supplied objects must be 'wvar' objects.")
@@ -950,7 +950,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     }
     
     hues = seq(15, 375, length = obj_len + 1)
-    # Line and CI colors
+    # Line Colors
     if (is.null(col_wv)){
       col_wv = hcl(h = hues, l = 65, c = 200, alpha = 1)[seq_len(obj_len)]
     }else{
@@ -958,7 +958,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
         col_wv = hcl(h = hues, l = 65, c = 200, alpha = 1)[seq_len(obj_len)]
       }
     }
-    
+    # CI Colors
     if (is.null(col_ci)){
       col_ci = hcl(h = hues, l = 80, c = 100, alpha = 0.2)[seq_len(obj_len)]
     }else{
@@ -967,8 +967,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
       }
     }
     
-    # Range
-    # Find x and y limits
+    # X and Y Limits
     x_range = y_range = rep(NULL, 2)
     for (i in 1:obj_len){
       x_range = range(c(x_range, obj_list[[i]]$scales))
@@ -980,11 +979,10 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     y_low = floor(log10(y_range[1]))
     y_high = ceiling(log10(y_range[2]))
     
-    # Axes
+    # Axes Labels and Ticks
     if (is.null(nb_ticks_x)){
       nb_ticks_x = 6
     }
-    
     if (is.null(nb_ticks_y)){
       nb_ticks_y = 5
     }
@@ -993,10 +991,10 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     if (length(x_ticks) > nb_ticks_x){
       x_ticks = x_low + ceiling((x_high - x_low)/(nb_ticks_x + 1))*(0:nb_ticks_x)
     }
+    
     x_labels = sapply(x_ticks, function(i) as.expression(bquote(10^ .(i))))
     x_at = 10^x_ticks
     x_actual_length = sum((x_at < x_range[2])*(x_at > x_range[1]))
-
     if (x_actual_length < (3 + as.numeric(split == FALSE))){
       x_low = floor(log2(x_range[1]))
       x_high = ceiling(log2(x_range[2]))
@@ -1007,8 +1005,8 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
       x_labels = sapply(x_ticks, function(i) as.expression(bquote(2^ .(i))))
       x_at = 2^x_ticks
     }
+    
     y_ticks <- seq(y_low, y_high, by = 1)
-
     if (length(y_ticks) > nb_ticks_y){
       y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
     }
@@ -1029,6 +1027,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
       }
     }
     
+    # Type of Points
     if (is.null(point_pch)){
       inter = rep(15:18, obj_len)
       point_pch = inter[1:obj_len]
@@ -1039,6 +1038,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
       }
     }
     
+    #Size of Points
     if (is.null(point_cex)){
       inter = rep(c(1.25,1.25,1.25,1.6), obj_len)
       point_cex = inter[1:obj_len]
@@ -1049,6 +1049,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
       }
     }
     
+    # Names of WVAR Objects
     if (is.null(names)){
         names = obj_name
     }else{

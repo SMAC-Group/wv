@@ -643,9 +643,9 @@ compare_wvar_split = function(graph_details){
 
         # Main plot                     
         plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
-             yaxt = 'n', bty = "n", ann = FALSE)
+             yaxt = 'n', bty = "n", ann = FALSE, main = graph_details$names[i])
         win_dim = par("usr")
-        kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])) #What does this do
+        kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
     
         # Add grid
         abline(v = graph_details$x_at, lty = 1, col = "grey95")
@@ -654,7 +654,6 @@ compare_wvar_split = function(graph_details){
         # Add axes and box
         box(col = "grey")
         
-# see if kill y_tick is neccessary and what it does
         # Corner left piece
         if (j == 1){
           axis(2, at = graph_details$y_at[kill_y_tick], 
@@ -686,7 +685,6 @@ compare_wvar_split = function(graph_details){
           y_vec = 10^c(win_dim[4], win_dim[4],
                        win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
                        win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
-          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
           if (is.null(graph_details$main[i,j])){
             main = paste("WV:", graph_details$names[i])
           }

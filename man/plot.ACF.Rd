@@ -38,4 +38,3 @@ plot(m, show.ci = FALSE)
 \author{
 Yunxiang Zhang
 }
-\keyword{internal}

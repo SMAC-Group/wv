@@ -867,7 +867,6 @@ compare_wvar_no_split = function(graph_details){
 #' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
 #' 
 #' @author Stephane Guerrier and Justin Lee
-#' @import methods is
 #' @export
 #' @examples
 #' set.seed(999)

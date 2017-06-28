@@ -1,4 +1,3 @@
-
 ## Function to compute filter for Spatial decomposition
 sp_hfilter = function(jscale){
   
@@ -77,6 +76,7 @@ sp_modwt = function(X, J1, J2, compute.v = FALSE){
       pp2 = m - mm2 + 1
       xh = xhh = matrix(NA,n,n)
       
+      # perhaps not n but m 
       for(spt in 1:n){
         for(tpt in 1:pp1) {
           

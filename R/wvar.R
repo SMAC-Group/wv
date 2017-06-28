@@ -644,10 +644,10 @@ compare_wvar_split = function(graph_details){
 
         # Main plot                     
         plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
-             yaxt = 'n', bty = "n", ann = FALSE, main = graph_details$names[i])
+             yaxt = 'n', bty = "n", ann = FALSE)
         win_dim = par("usr")
         kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
-    
+      
         # Add grid
         abline(v = graph_details$x_at, lty = 1, col = "grey95")
         abline(h = graph_details$y_at, lty = 1, col = "grey95")
@@ -741,16 +741,20 @@ compare_wvar_split = function(graph_details){
           lines(scales, variance, type = "l", col = graph_details$col_wv[j], pch = 16)
           lines(scales, variance, type = "p", col = graph_details$col_wv[j], 
                 pch = graph_details$point_pch[j], cex = graph_details$point_cex[j]/1.25)
-          
-#*************************************************************************************************
-# todo: Add wvar object names above columns and to the right of rows.
-
-# Remove and replace this code for graph labels:
-
-#          text(x = 10^mean(c(win_dim[1], win_dim[2])),
-#               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])),
-#               main)
-#*************************************************************************************************
+        }
+        
+        # Add Details
+        # @todo: expand win_dim and position $names
+        if(j==1){
+          text(x = 10^mean(c(win_dim[1], win_dim[2])),
+               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])),
+               graph_details$names[i])
+        }
+        
+        if(i==1){
+          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
+               y = 10^(win_dim[4]),
+               graph_details$names[j])
         }
       }
     }

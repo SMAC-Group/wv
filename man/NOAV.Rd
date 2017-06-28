@@ -22,8 +22,8 @@ Calculate Non-overlapping Allan Variance based on the defination on "Xu, Haotian
 n is an integer larger than 1 and smaller than \eqn{floor\left(log_2 \left(dim\left(covmat\right)[1]\right)\right)-1}{floor(log2(dim(T)[1]))-1}
 }
 \examples{
+\dontrun{
 set.seed(999)
-AR1 phi=0.3
 x = gen.gts(AR1(phi = 0.3, sigma2 = 1), N = 1000, freq = 1)
 avar(x, type = "to")
 
@@ -36,6 +36,7 @@ a[upper.tri(a,diag=T)] = 0
 a = a + t(a) + diag(a.diag)
 covmat = 0.3^a
 sapply(1:8, function(y){NOAV(2^y, covmat)})
+}
 }
 \author{
 Haotian Xu

@@ -18,6 +18,7 @@ console output
 Displays the allan variance information
 }
 \examples{
+\dontrun{
 # Set seed for reproducibility
 set.seed(999)
 
@@ -29,6 +30,7 @@ out = avar(x)
 
 # Print results
 print( out )
+}
 }
 \author{
 James Balamuta

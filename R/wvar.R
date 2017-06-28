@@ -108,11 +108,11 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
     nlevels = floor(log2(length(x)))
   }
 
-  # check freq
+  # Check Freq
   if(!is(freq,"numeric") || length(freq) != 1){ stop("'freq' must be one numeric number.") }
   if(freq <= 0) { stop("'freq' must be larger than 0.") }
   
-  # check unit
+  # Check Unit
   all.units = c('ns', 'ms', 'sec', 'second', 'min', 'minute', 'hour', 'day', 'mon', 'month', 'year')
   if( (!is.null(from.unit) && !from.unit %in% all.units) || (!is.null(to.unit) && !to.unit %in% all.units) ){
       stop('The supported units are "ns", "ms", "sec", "min", "hour", "day", "month", "year". ')
@@ -133,18 +133,18 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   
   scales = .Call('wv_scales_cpp', PACKAGE = 'wv', nlevels)/freq
   
-  # NO unit conversion
+  # NO Unit Conversion
   if( is.null(from.unit) && is.null(to.unit)==F ){
     warning("'from.unit' is NULL. Unit conversion was not done.")
   }
   
-  # unit conversion
+  # Unit Conversion
   if (!is.null(from.unit)){
     if (!is.null(to.unit)){
       convert.obj = unitConversion(scales, from.unit = from.unit, to.unit = to.unit)
       
       if (convert.obj$converted) {
-        # YES unit conversion
+        # YES Unit Conversion
         scales = convert.obj$x
         message(paste0('Unit of object is converted from ', from.unit, ' to ', to.unit), appendLF = T)
       }
@@ -346,7 +346,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   }
   y_labels <- sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
   
-  # Legend position
+  # Legend Position
   if (is.null(legend_position)){
     if (which.min(abs(c(y_low, y_high) - log2(x$variance[1]))) == 1){
       legend_position = "topleft"
@@ -355,7 +355,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
     }
   }   
   
-  # Main plot                     
+  # Main Plot                     
   plot(NA, xlim = x_range, ylim = y_range, xlab = xlab, ylab = ylab, 
        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", ann = FALSE)
   win_dim = par("usr")
@@ -365,11 +365,11 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
        xlab = xlab, ylab = ylab, log = "xy", xaxt = 'n', yaxt = 'n', bty = "n")
   win_dim = par("usr")
   
-  # Add grid
+  # Add Grid
   abline(v = 2^x_ticks, lty = 1, col = "grey95")
   abline(h = 10^y_ticks, lty = 1, col = "grey95")
   
-  # Add title
+  # Add Title
   x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
   y_vec = 10^c(win_dim[4], win_dim[4],
                win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
@@ -377,7 +377,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   polygon(x_vec, y_vec, col = "grey95", border = NA)
   text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), main)
   
-  # Add axes and box
+  # Add Axes and Box
   lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
   y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
   y_labels = y_labels[1:length(y_ticks)]
@@ -385,7 +385,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
   axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)  
   
-  # CI for the WV
+  # CI for WV
   if (ci_wv == TRUE || is.null(ci_wv)){
     polygon(c(x$scales, rev(x$scales)), c(x$ci_low, rev(x$ci_high)),
             border = NA, col = col_ci)
@@ -562,7 +562,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   polygon(x_vec, y_vec, col = "grey95", border = NA)
   text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), main)
   
-  # Add axes and box
+  # Add Axes and Box
   lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
   y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
   y_labels = y_labels[1:length(y_ticks)]
@@ -570,13 +570,14 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)
   axis(2, at = 10^y_ticks, labels = y_labels, padj = -0.2)  
   
-  # CI for the WV
+  # CI for WV
   polygon(c(wv_cl$scales, rev(wv_cl$scales)), c(wv_cl$ci_low, rev(wv_cl$ci_high)),
           border = NA, col = col_ci[1])
   
   polygon(c(wv_rob$scales, rev(wv_rob$scales)), c(wv_rob$ci_low, rev(wv_rob$ci_high)),
           border = NA, col = col_ci[2])
   
+  # Legend Position
   if (!is.na(legend_position)){
     if (legend_position == "topleft"){
       legend_position = 10^c(1.1*win_dim[1], 0.98*(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])))
@@ -688,10 +689,7 @@ compare_wvar_split = function(graph_details){
           if (is.null(graph_details$main[i,j])){
             main = paste("WV:", graph_details$names[i])
           }
-#          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
-#          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
-#               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
-#               main)
+          
           box()
           
           if (graph_details$add_legend){
@@ -745,19 +743,13 @@ compare_wvar_split = function(graph_details){
                 pch = graph_details$point_pch[j], cex = graph_details$point_cex[j]/1.25)
           
 #*************************************************************************************************
-# todo: remove and replace with  "wv_Xt"  "wv_Yt"  "wv_Zt"  "wv_Wt"  on TOP of each column
+# todo: Add wvar object names above columns and to the right of rows.
 
-#          polygon(c(1.5, 5556, 5556, 1.5), c(10, 10, 3.3, 3.3), col = "grey95", border = NA)
-#          lines(x_vec[1:2], rep(10^(win_dim[4] - 0.095*(win_dim[4] - win_dim[3])),2), col = 1)
+# Remove and replace this code for graph labels:
+
 #          text(x = 10^mean(c(win_dim[1], win_dim[2])),
 #               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])),
 #               main)
-# and
-# wv_Xt
-# wv_Yt
-# wv_Zt
-# wv_Wt
-# to the RIGHT of each row
 #*************************************************************************************************
         }
       }
@@ -799,7 +791,7 @@ compare_wvar_no_split = function(graph_details){
              yaxt = 'n', bty = "n", ann = FALSE)
     win_dim = par("usr")
     
-    # Main plot
+    # Main Plot
     
     par(new = TRUE)
     plot(NA, xlim = graph_details$x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
@@ -807,11 +799,11 @@ compare_wvar_no_split = function(graph_details){
         xlab = graph_details$xlab, ylab = graph_details$ylab)
     win_dim = par("usr")
     
-    # Add grid
+    # Add Grid
     abline(v = graph_details$x_at, lty = 1, col = "grey95")
     abline(h = graph_details$y_at, lty = 1, col = "grey95")
     
-    # Add title
+    # Add Title
     x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
     y_vec = 10^c(win_dim[4], win_dim[4],
                  win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
@@ -820,7 +812,7 @@ compare_wvar_no_split = function(graph_details){
     text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
          graph_details$main)
     
-    # Add axes and box
+    # Add Axes and Box
     lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
     y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
     kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))

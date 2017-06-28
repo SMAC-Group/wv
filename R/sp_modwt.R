@@ -1,5 +1,54 @@
+
+## Function to compute filter for Spatial decomposition
+sp_hfilter = function(jscale){
+  
+  g = (1/sqrt(2))*c(1,1)/sqrt(2)
+  h = c(1/sqrt(2),-1/sqrt(2))/sqrt(2)
+  L = 2
+  
+  if(jscale==1) hup=h
+  
+  if(jscale >1){
+    zero=c(rep(0,(2^(jscale-1)-1)))
+    hup=h[1]
+    for(i in 1:(L-1)) hup=c(hup,zero,h[(i+1)])
+    
+    for( j in 0:(jscale-2)){
+      if(j==0) gup=g
+      
+      zero=c(rep(0,(2^j-1)))
+      temp=g[1]
+      for(i in 1:(L-1)) temp=c(temp,zero,g[(i+1)]) 
+      
+      if(j >0){
+        sala=rep(0,(length(gup)+length(temp)-1))
+        for(k in 1:length(sala)){
+          dummy=0
+          for( u in 1:length(gup)){
+            if((k-u+1)>0 && (k-u+1)<=length(temp)) dummy=dummy + gup[u]*temp[(k-u+1)]
+          }
+          sala[k]=dummy
+        }
+        gup=sala
+      } 
+    }
+    
+    sala=rep(0,(length(hup)+length(gup)-1))
+    for(k in 1:length(sala)){
+      dummy=0
+      for( u in 1:length(hup)){
+        if((k-u+1)> 0 && (k-u+1)<=length(gup)) dummy=dummy+hup[u]*gup[(k-u+1)]
+      }
+      sala[k]=dummy
+    }
+    hup=sala      
+  }
+  
+  hup
+}
+
 ## General function to compute wavelet coefficients for spatial cases 
-spat.wavar = function(X, J1, J2, compute.v = FALSE){
+sp_modwt = function(X, J1, J2, compute.v = FALSE){
   
   n = dim(X)[1]
   m = dim(X)[2]
@@ -20,8 +69,8 @@ spat.wavar = function(X, J1, J2, compute.v = FALSE){
   for(j1 in 1:J1){
     for(j2 in 1:J2){
       
-      hfil1 = hfilter(j1)
-      hfil2 = hfilter(j2)
+      hfil1 = sp_hfilter(j1)
+      hfil2 = sp_hfilter(j2)
       mm1 = 2^j1
       mm2 = 2^j2
       pp1 = n - mm1 + 1

@@ -65,9 +65,10 @@ sp_modwt = function(X, J1 = log2(dim(X)[1]-1), J2 = log2(dim(X)[2]-1)){
       mm2 = 2^j2
       pp1 = n - mm1 + 1
       pp2 = m - mm2 + 1
+      
+      # n by m?
       xh = xhh = matrix(NA,n,n)
       
-      # perhaps not n but m 
       for(spt in 1:n){
         for(tpt in 1:pp1) {
           

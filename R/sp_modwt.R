@@ -47,20 +47,11 @@ sp_hfilter = function(jscale){
 }
 
 ## General function to compute wavelet coefficients for spatial cases 
-sp_modwt = function(X, J1 = log2(dim(X)[1]-1), J2 = log2(dim(X)[2]-1), compute.v = FALSE){
+sp_modwt = function(X, J1 = log2(dim(X)[1]-1), J2 = log2(dim(X)[2]-1)){
   
   n = dim(X)[1]
   m = dim(X)[2]
-  wv = matrix(NA,J1,J2)
-  wv.rob = matrix(NA,J1,J2)
-  wv.mp = matrix(NA,J1,J2)
-  sig.ci = matrix(NA,J1,J2)
-  mn = matrix(NA,J1,J2)
-  CI = matrix(NA,min(J1,J2),3)
-  CI.rob = matrix(NA,min(J1,J2),3)
   nb.level = J1*J2
-  
-  if(compute.v==TRUE) wv.coeffs = vector("list",nb.level)
   
   i = 0
   k = 0
@@ -99,17 +90,6 @@ sp_modwt = function(X, J1 = log2(dim(X)[1]-1), J2 = log2(dim(X)[2]-1), compute.v
       
       wv.coeff = c(xhh)
       wv.coeff = wv.coeff[!is.na(wv.coeff)]
-      
-      if(compute.v==TRUE) wv.coeffs[[i]] = wv.coeff
-      
-      # Standard
-      wv[j1,j2] = sum(wv.coeff^2,na.rm=T)/(pp1*pp2)
-      
-      # Robust
-      wv.mp[j1,j2] = percival(wv.coeff)
-      wv.rob[j1,j2] = sig.rob.bw(eff,wv.coeff)
-      
     }
-    
   }
 }

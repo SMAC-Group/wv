@@ -113,6 +113,25 @@ modwt_cpp <- function(x, filter_name, nlevels) {
     .Call('wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
 }
 
+#' Compute the Spatial Wavelet Coefficients
+#' @param X      is a matrix with row, col orientation
+#' @param J1,J2  is the levels of decomposition along the rows, columns
+#' @export
+#' @return A \code{list} of \code{vectors} containing the wavelet coefficients.
+#' @details 
+#' By default this function will return the wavelet coefficient in
+#' addition to the wavelet
+sp_modwt <- function(X, J1, J2) {
+    .Call('wv_sp_modwt', PACKAGE = 'wv', X, J1, J2)
+}
+
+#' Haar filter for a spatial case
+#' @param jscale An \code{int} of the Number of Scales
+#' @export
+sp_hfilter <- function(jscale) {
+    .Call('wv_sp_hfilter', PACKAGE = 'wv', jscale)
+}
+
 #' @title Generate eta3 confidence interval
 #' @description Computes the eta3 CI 
 #' @param y          A \code{vec} that computes the modwt dot product of each wavelet coefficient divided by their length.

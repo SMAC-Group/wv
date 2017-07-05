@@ -19,12 +19,11 @@
 #include <RcppArmadillo.h>
 #include "spatial_filter.h"
 
-
 //' Haar filter for a spatial case
 //' @param jscale An \code{int} of the Number of Scales
 //' @export
 // [[Rcpp::export]]
-arma::vec hfilter(int jscale){
+arma::vec sp_hfilter(int jscale){
     
     // mother wavelet
     arma::vec g = { 0.5,  0.5 }; // (1/sqrt(2))*c(1,1)/sqrt(2)

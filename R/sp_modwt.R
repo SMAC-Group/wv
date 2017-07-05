@@ -47,7 +47,7 @@ sp_hfilter = function(jscale){
 }
 
 ## General function to compute wavelet coefficients for spatial cases 
-sp_modwt = function(X, J1 = log2(dim(X)[1]-1), J2 = log2(dim(X)[2]-1)){
+sp_modwt = function(X, J1 = floor(log2(dim(X)[1]-1)), J2 = floor(log2(dim(X)[2]-1))){
   
   n = dim(X)[1]
   m = dim(X)[2]
@@ -66,8 +66,12 @@ sp_modwt = function(X, J1 = log2(dim(X)[1]-1), J2 = log2(dim(X)[2]-1)){
       pp1 = n - mm1 + 1
       pp2 = m - mm2 + 1
       
-      # n by m?
-      xh = xhh = matrix(NA,n,n)
+      if(n >= m){
+        xh = xhh = matrix(NA,n,n)
+      }else{
+        xh = xhh = matrix(NA,m,m)
+      }
+      
       
       for(spt in 1:n){
         for(tpt in 1:pp1) {

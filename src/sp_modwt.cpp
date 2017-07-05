@@ -1,0 +1,114 @@
+/* Copyright (C) 2017  James Balamuta, Justin Lee, Stephane Guerrier, Roberto Molinari
+ *
+ * This file is part of `wv` R Package
+ *
+ * The `wv` R package is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * The `wv` R package is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ */
+
+#include <RcppArmadillo.h>
+#include "spatial_filter.h"
+
+//' Compute the Spatial Wavelet Coefficients
+//' @param X      is a matrix with row, col orientation
+//' @param J1,J2  is the levels of decomposition along the rows, columns
+//' @export
+//' @return A \code{list} of \code{vectors} containing the wavelet coefficients.
+//' @details 
+//' By default this function will return the wavelet coefficient in
+//' addition to the wavelet
+// [[Rcpp::export]]
+arma::field<arma::vec> sp_modwt(const arma::mat& X, 
+                                    int J1, int J2) {
+  // number of rows
+  int n = X.n_rows;
+  // number of columns
+  int m = X.n_cols;
+  
+  // Levels
+  int nb_level = J1*J2;
+  
+  arma::field<arma::vec> wv_coeffs(nb_level);
+  
+  int i = 0;
+  
+  // Create a cache for sp_hfilter coefficients
+  int largestJ = std::max(J1, J2);
+  
+  arma::field<arma::vec> hfilters_cache(largestJ);
+  
+  for(int j = 1; j <= largestJ; ++j){
+    hfilters_cache(j-1) = sp_hfilter(j);
+  }
+  
+  // Compute the different WVs
+  for(int j1 = 1; j1 <= J1; ++j1){
+    
+    arma::vec hfil1 = hfilters_cache(j1-1);
+    
+    for(int j2 = 1; j2 <= J2; ++j2){
+      
+      arma::vec hfil2 = hfilters_cache(j2-1);
+      
+      int mm1 = std::pow(2.0, double(j1) );
+      int mm2 = std::pow(2.0, double(j2) );
+      int pp1 = n - mm1 + 1;
+      int pp2 = m - mm2 + 1;
+      
+      if(n >= m){
+        arma::mat xh(n, n), xhh(n, n);
+      }else{
+        arma::mat xh(m, m), xhh(m, m);
+      }
+      
+      // The authors behind this function make a large assumption
+      // that the matrix contains NA values that can be removed
+      // if an element is not filled. Highly inefficient. 
+      xh.fill(arma::datum::nan); xhh.fill(arma::datum::nan);
+      
+      for(int spt = 0; spt < n; ++spt) {
+        for(int tpt = 0; tpt < pp1; ++tpt) {
+          
+          arma::vec xts = X.submat( tpt, spt, tpt + mm1 - 1, spt );
+          // first_row, first_col, last_row, last_col
+          
+          // WV coefficients in one direction
+          xh( (tpt+ mm1/2), spt ) = sum(xts % hfil1) ; 
+          // WARNING: INTEGER DIVISION WAS USED HERE!
+        }
+      }
+      
+      for(int tpt = 0; tpt < pp1; ++tpt) {
+        for(int spt = 0; spt < pp2; ++spt) {
+          
+          arma::rowvec xts = xh.submat(tpt + mm1 / 2, spt, tpt + mm1 / 2, spt + mm2 - 1 );
+          // first_row, first_col, last_row, last_col
+          
+          // XHH are the wavelet coefficients at that level
+          xhh( tpt + mm1/2, spt + mm2/2) = arma::as_scalar(xts * hfil2); // already summed.
+          // WARNING: INTEGER DIVISION WAS USED HERE!
+        }
+      }
+      
+      arma::vec wv_coeff = xhh.elem( find_finite(xhh) ); //vectorise(xhh);
+      
+      wv_coeffs(i) = wv_coeff;
+      
+      // Update the level
+      i = i + 1;
+    }
+    
+  }
+  
+  return wv_coeffs;
+}

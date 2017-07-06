@@ -121,8 +121,8 @@ modwt_cpp <- function(x, filter_name, nlevels) {
 #' @details 
 #' By default this function will return the wavelet coefficient in
 #' addition to the wavelet
-sp_modwt <- function(X, J1, J2) {
-    .Call('wv_sp_modwt', PACKAGE = 'wv', X, J1, J2)
+sp_modwt_cpp <- function(X, J1, J2) {
+    .Call('wv_sp_modwt_cpp', PACKAGE = 'wv', X, J1, J2)
 }
 
 #' Haar filter for a spatial case

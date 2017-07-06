@@ -53,16 +53,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// sp_modwt
-arma::field<arma::vec> sp_modwt(const arma::mat& X, int J1, int J2);
-RcppExport SEXP wv_sp_modwt(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP) {
+// sp_modwt_cpp
+arma::field<arma::vec> sp_modwt_cpp(const arma::mat& X, int J1, int J2);
+RcppExport SEXP wv_sp_modwt_cpp(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
     Rcpp::traits::input_parameter< int >::type J1(J1SEXP);
     Rcpp::traits::input_parameter< int >::type J2(J2SEXP);
-    rcpp_result_gen = Rcpp::wrap(sp_modwt(X, J1, J2));
+    rcpp_result_gen = Rcpp::wrap(sp_modwt_cpp(X, J1, J2));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -211,12 +211,14 @@ BEGIN_RCPP
 END_RCPP
 }
 
+RcppExport SEXP wv_sp_modwt(SEXP, SEXP, SEXP);
+
 static const R_CallMethodDef CallEntries[] = {
     {"wv_avar_to_cpp", (DL_FUNC) &wv_avar_to_cpp, 1},
     {"wv_avar_mo_cpp", (DL_FUNC) &wv_avar_mo_cpp, 1},
     {"wv_dwt_cpp", (DL_FUNC) &wv_dwt_cpp, 3},
     {"wv_modwt_cpp", (DL_FUNC) &wv_modwt_cpp, 3},
-    {"wv_sp_modwt", (DL_FUNC) &wv_sp_modwt, 3},
+    {"wv_sp_modwt_cpp", (DL_FUNC) &wv_sp_modwt_cpp, 3},
     {"wv_sp_hfilter", (DL_FUNC) &wv_sp_hfilter, 1},
     {"wv_ci_eta3", (DL_FUNC) &wv_ci_eta3, 3},
     {"wv_ci_eta3_robust", (DL_FUNC) &wv_ci_eta3_robust, 4},
@@ -227,6 +229,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"wv_batch_modwt_wvar_cpp", (DL_FUNC) &wv_batch_modwt_wvar_cpp, 8},
     {"wv_scales_cpp", (DL_FUNC) &wv_scales_cpp, 1},
     {"wv_compute_cov_cpp", (DL_FUNC) &wv_compute_cov_cpp, 5},
+    {"wv_sp_modwt",             (DL_FUNC) &wv_sp_modwt,             3},
     {NULL, NULL, 0}
 };
 

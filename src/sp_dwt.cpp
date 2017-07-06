@@ -28,8 +28,7 @@
 //' By default this function will return the wavelet coefficient in
 //' addition to the wavelet
 // [[Rcpp::export]]
-arma::field<arma::vec> sp_modwt(const arma::mat& X, 
-                                    int J1, int J2) {
+arma::field<arma::vec> sp_modwt_cpp(const arma::mat& X, int J1, int J2) {
   // number of rows
   int n = X.n_rows;
   // number of columns

@@ -107,7 +107,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   }else if(decomp == "dwt" && is.null(nlevels)){
     nlevels = floor(log2(length(x)))
   }
-
+  
   # Check Freq
   if(!is(freq,"numeric") || length(freq) != 1){ stop("'freq' must be one numeric number.") }
   if(freq <= 0) { stop("'freq' must be larger than 0.") }
@@ -115,7 +115,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   # Check Unit
   all.units = c('ns', 'ms', 'sec', 'second', 'min', 'minute', 'hour', 'day', 'mon', 'month', 'year')
   if( (!is.null(from.unit) && !from.unit %in% all.units) || (!is.null(to.unit) && !to.unit %in% all.units) ){
-      stop('The supported units are "ns", "ms", "sec", "min", "hour", "day", "month", "year". ')
+    stop('The supported units are "ns", "ms", "sec", "min", "hour", "day", "month", "year". ')
   }
   
   if(robust) {
@@ -125,8 +125,8 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   }
   
   obj = .Call('wv_modwt_wvar_cpp', PACKAGE = 'wv',
-               signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
-               ci_type="eta3", strWavelet=filter, decomp = decomp)
+              signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
+              ci_type="eta3", strWavelet=filter, decomp = decomp)
   
   # nlevels may be changed during modwt
   nlevels = nrow(obj)
@@ -184,15 +184,15 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
 #' @keywords internal
 create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
   structure(list(variance = obj[,1],
-                       ci_low = obj[,2], 
-                       ci_high = obj[,3], 
-                       robust = robust, 
-                       eff = eff,
-                       alpha = alpha,
-                       scales = scales,
-                       decomp = decomp,
-                       unit = unit,
-                       filter = filter), class = "wvar")
+                 ci_low = obj[,2], 
+                 ci_high = obj[,3], 
+                 robust = robust, 
+                 eff = eff,
+                 alpha = alpha,
+                 scales = scales,
+                 decomp = decomp,
+                 unit = unit,
+                 filter = filter), class = "wvar")
 }
 
 #' @title Print Wavelet Variances
@@ -635,134 +635,140 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' @export
 #'
 compare_wvar_split = function(graph_details){
-    
-    par(mfrow = c(graph_details$obj_len, graph_details$obj_len),
-        mar = c(0.45,0.45,0,0), oma = c(4,4,1,1))
   
-    for (i in 1:graph_details$obj_len){
-      for (j in 1:graph_details$obj_len){
-
-        # Main plot                     
-        plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
-             yaxt = 'n', bty = "n", ann = FALSE)
-        win_dim = par("usr")
-        kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+  par(mfrow = c(graph_details$obj_len, graph_details$obj_len),
+      mar = c(0.5,0.5,0.5,1.5), oma = c(4,4,4,4))
+  
+  for (i in 1:graph_details$obj_len){
+    for (j in 1:graph_details$obj_len){
       
-        # Add grid
-        abline(v = graph_details$x_at, lty = 1, col = "grey95")
-        abline(h = graph_details$y_at, lty = 1, col = "grey95")
+      # Main plot                     
+      plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
+           yaxt = 'n', bty = "n", ann = FALSE)
+      win_dim = par("usr")
+      kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+      
+      # Add grid
+      abline(v = graph_details$x_at, lty = 1, col = "grey95")
+      abline(h = graph_details$y_at, lty = 1, col = "grey95")
+      
+      # Add axes and box
+      box(col = "grey")
+      
+      # Corner left piece
+      if (j == 1){
+        axis(2, at = graph_details$y_at[kill_y_tick], 
+             labels = graph_details$y_labels[kill_y_tick], padj = -0.2, cex.axis = 1/log(graph_details$obj_len))
+      }
+      
+      # Corner bottom
+      if (i == graph_details$obj_len){
         
-        # Add axes and box
-        box(col = "grey")
-        
-        # Corner left piece
-        if (j == 1){
-          axis(2, at = graph_details$y_at[kill_y_tick], 
-               labels = graph_details$y_labels[kill_y_tick], padj = -0.2)
-        }
-        
-        # Corner bottom
-        if (i == graph_details$obj_len){
-          
-          axis(1, at = graph_details$x_at, labels = graph_details$x_labels, 
-               padj = 0.1, cex.axis = 1/log(graph_details$obj_len))           # figure out how to size these things for smaller plots
-        }
-        # Diag graph
-        if (i == j){
-          scales   = graph_details$obj_list[[i]]$scales
-          ci_low   = graph_details$obj_list[[i]]$ci_low
-          ci_high  = graph_details$obj_list[[i]]$ci_high
-          variance = graph_details$obj_list[[i]]$variance
+        axis(1, at = graph_details$x_at, labels = graph_details$x_labels, 
+             padj = 0.1, cex.axis = 1/log(graph_details$obj_len))           # figure out how to size these things for smaller plots
+      }
+      # Diag graph
+      if (i == j){
+        scales   = graph_details$obj_list[[i]]$scales
+        ci_low   = graph_details$obj_list[[i]]$ci_low
+        ci_high  = graph_details$obj_list[[i]]$ci_high
+        variance = graph_details$obj_list[[i]]$variance
         if(graph_details$ci_wv[i] == TRUE){  
           polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
                   border = NA, col = graph_details$col_ci[i])
         }
-          lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
-          lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
-                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i]/1.25)
-          
-          win_dim = par("usr")
-          x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
-          y_vec = 10^c(win_dim[4], win_dim[4],
-                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
-                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
-          if (is.null(graph_details$main[i,j])){
-            main = paste("WV:", graph_details$names[i])
-          }
-          
-          box()
-          
-          if (graph_details$add_legend){
-            if (i == j){
-              legend(graph_details$legend_position, graph_details$names, bty = "n",
-                     lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
-                     col = graph_details$col_wv, cex=0.7)
-            }
-          }
-          
+        lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
+        lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
+              pch = 17, cex = graph_details$point_cex[i]/1.25)
+        
+        win_dim = par("usr")
+        x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+        y_vec = 10^c(win_dim[4], win_dim[4],
+                     win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+                     win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+        
+        
+        box()
+        
+#        if (graph_details$add_legend){
+#          if (i == j){
+#            legend(graph_details$legend_position, graph_details$names, bty = "n",
+#                   lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
+#                   col = graph_details$col_wv, cex=0.7)
+#          }
+#        }
+        
+      }
+      
+      if (i != j){
+        scales   = graph_details$obj_list[[i]]$scales
+        ci_low   = graph_details$obj_list[[i]]$ci_low
+        ci_high  = graph_details$obj_list[[i]]$ci_high
+        variance = graph_details$obj_list[[i]]$variance
+        
+        win_dim = par("usr")
+        x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+        y_vec = 10^c(win_dim[4], win_dim[4],
+                     win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+                     win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+        
+        if (is.null(graph_details$main[i,j])){
+          main = paste("WV:", graph_details$names[i], 
+                       "vs", graph_details$names[j])
+        }
+        box()
+        
+        if (i < j && graph_details$ci_wv[i] == TRUE){
+          polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
+                  border = NA, col = graph_details$col_ci[i])
         }
         
-        if (i != j){
-          scales   = graph_details$obj_list[[i]]$scales
-          ci_low   = graph_details$obj_list[[i]]$ci_low
-          ci_high  = graph_details$obj_list[[i]]$ci_high
-          variance = graph_details$obj_list[[i]]$variance
-          
-          win_dim = par("usr")
-          x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
-          y_vec = 10^c(win_dim[4], win_dim[4],
-                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
-                       win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
-          
-          if (is.null(graph_details$main[i,j])){
-            main = paste("WV:", graph_details$names[i], 
-                         "vs", graph_details$names[j])
-          }
-          box()
-          
-          if (i < j && graph_details$ci_wv[i] == TRUE){
-            polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
-                    border = NA, col = graph_details$col_ci[i])
-          }
-          
-          lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
-          lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
-                pch = graph_details$point_pch[i], cex = graph_details$point_cex[i]/1.25)
-          
-          scales   = graph_details$obj_list[[j]]$scales
-          ci_low   = graph_details$obj_list[[j]]$ci_low
-          ci_high  = graph_details$obj_list[[j]]$ci_high
-          variance = graph_details$obj_list[[j]]$variance
-          
-          if (i < j && graph_details$ci_wv[i] == TRUE){ # don't show confidence intervals 
-            polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
-                    border = NA, col = graph_details$col_ci[j])
-          }
-          lines(scales, variance, type = "l", col = graph_details$col_wv[j], pch = 16)
-          lines(scales, variance, type = "p", col = graph_details$col_wv[j], 
-                pch = graph_details$point_pch[j], cex = graph_details$point_cex[j]/1.25)
-        }
+        lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
+        lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
+              pch = 17, cex = graph_details$point_cex[i]/1.25)
         
-        # Add Details
-        # @todo: expand win_dim and position $names
-        if(j==1){
-          text(x = 10^mean(c(win_dim[1], win_dim[2])),
-               y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])),
-               graph_details$names[i])
-        }
+        scales   = graph_details$obj_list[[j]]$scales
+        ci_low   = graph_details$obj_list[[j]]$ci_low
+        ci_high  = graph_details$obj_list[[j]]$ci_high
+        variance = graph_details$obj_list[[j]]$variance
         
-        if(i==1){
-          text(x = 10^mean(c(win_dim[1], win_dim[2])), 
-               y = 10^(win_dim[4]),
-               graph_details$names[j])
+        if (i < j && graph_details$ci_wv[i] == TRUE){ # don't show confidence intervals 
+          polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
+                  border = NA, col = graph_details$col_ci[j])
         }
+        lines(scales, variance, type = "l", col = graph_details$col_wv[j], pch = 16)
+        lines(scales, variance, type = "p", col = graph_details$col_wv[j], 
+              pch = 17, cex = graph_details$point_cex[j]/1.25)
+      }
+      
+      # Add Details
+      # @todo: expand win_dim and position $names
+      if(j==4){
+        
+        x_vec = 13^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+        
+        #mtext(graph_details$names[i], side = 4, line = 0.1, cex = 0.8)
+        
+        par(xpd = TRUE) #Draw outside plot area
+        text(x = x_vec[2], y = 0.03, graph_details$names[i], srt = 270, cex = 1.3, col = graph_details$col_wv[i])
+        par(xpd = FALSE)
+      }
+      
+      if(i==1){
+        mtext(graph_details$names[j], side = 3, line = 0.2, cex = 0.8, col = graph_details$col_wv[j])
       }
     }
-
-    mtext(graph_details$ylab, side = 2, line = 2.80, cex = 0.8, outer = T)
-    mtext(graph_details$xlab, side = 1, line = 2.75, cex = 0.8, outer = T)
-    
   }
+  
+  mtext(graph_details$ylab, side = 2, line = 2.80, cex = 0.8, outer = T)
+  mtext(graph_details$xlab, side = 1, line = 2.75, cex = 0.8, outer = T)
+  
+  if (is.null(graph_details$main)){
+    main = "Haar Wavelet Variance Representation"
+  }else{
+    mtext(main, side = 3, line = 1)
+  }
+}
 
 
 
@@ -790,64 +796,64 @@ compare_wvar_split = function(graph_details){
 #' @export
 #'
 compare_wvar_no_split = function(graph_details){
-    # Main plot                     
-    plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
-             yaxt = 'n', bty = "n", ann = FALSE)
-    win_dim = par("usr")
+  # Main plot                     
+  plot(NA, xlim = graph_details$x_range, ylim = graph_details$y_range, log = "xy", xaxt = 'n', 
+       yaxt = 'n', bty = "n", ann = FALSE)
+  win_dim = par("usr")
+  
+  # Main Plot
+  
+  par(new = TRUE)
+  plot(NA, xlim = graph_details$x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
+       log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", 
+       xlab = graph_details$xlab, ylab = graph_details$ylab)
+  win_dim = par("usr")
+  
+  # Add Grid
+  abline(v = graph_details$x_at, lty = 1, col = "grey95")
+  abline(h = graph_details$y_at, lty = 1, col = "grey95")
+  
+  # Add Title
+  x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
+  y_vec = 10^c(win_dim[4], win_dim[4],
+               win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
+               win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+  polygon(x_vec, y_vec, col = "grey95", border = NA)
+  text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
+       graph_details$main)
+  
+  # Add Axes and Box
+  lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
+  y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+  kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
+  
+  box()
+  axis(1, at = graph_details$x_at, labels = graph_details$x_labels, padj = 0.3)
+  axis(2, at = graph_details$y_at[kill_y_tick], 
+       labels = graph_details$y_labels[kill_y_tick], padj = -0.2)
+  
+  for (i in 1:graph_details$obj_len){
+    scales   = graph_details$obj_list[[i]]$scales
+    ci_low   = graph_details$obj_list[[i]]$ci_low
+    ci_high  = graph_details$obj_list[[i]]$ci_high
+    variance = graph_details$obj_list[[i]]$variance
     
-    # Main Plot
-    
-    par(new = TRUE)
-    plot(NA, xlim = graph_details$x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
-        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", 
-        xlab = graph_details$xlab, ylab = graph_details$ylab)
-    win_dim = par("usr")
-    
-    # Add Grid
-    abline(v = graph_details$x_at, lty = 1, col = "grey95")
-    abline(h = graph_details$y_at, lty = 1, col = "grey95")
-    
-    # Add Title
-    x_vec = 10^c(win_dim[1], win_dim[2], win_dim[2], win_dim[1])
-    y_vec = 10^c(win_dim[4], win_dim[4],
-                 win_dim[4] - 0.09*(win_dim[4] - win_dim[3]), 
-                 win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
-    polygon(x_vec, y_vec, col = "grey95", border = NA)
-    text(x = 10^mean(c(win_dim[1], win_dim[2])), y = 10^(win_dim[4] - 0.09/2*(win_dim[4] - win_dim[3])), 
-         graph_details$main)
-    
-    # Add Axes and Box
-    lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
-    y_ticks = graph_details$y_ticks[(10^graph_details$y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
-    kill_y_tick = graph_details$y_at < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))
-    
-    box()
-    axis(1, at = graph_details$x_at, labels = graph_details$x_labels, padj = 0.3)
-    axis(2, at = graph_details$y_at[kill_y_tick], 
-         labels = graph_details$y_labels[kill_y_tick], padj = -0.2)
-    
-    for (i in 1:graph_details$obj_len){
-      scales   = graph_details$obj_list[[i]]$scales
-      ci_low   = graph_details$obj_list[[i]]$ci_low
-      ci_high  = graph_details$obj_list[[i]]$ci_high
-      variance = graph_details$obj_list[[i]]$variance
-      
-      if (graph_details$ci_wv[i]){
-        polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
-                border = NA, col = graph_details$col_ci[i])
-      }
-      
-      lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
-      lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
-            pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
+    if (graph_details$ci_wv[i]){
+      polygon(c(scales, rev(scales)), c(ci_low, rev(ci_high)),
+              border = NA, col = graph_details$col_ci[i])
     }
     
-    if (graph_details$add_legend){
-      legend(graph_details$legend_position, graph_details$names, bty = "n",
-             lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
-             col = graph_details$col_wv)
-    }
-    
+    lines(scales, variance, type = "l", col = graph_details$col_wv[i], pch = 16)
+    lines(scales, variance, type = "p", col = graph_details$col_wv[i], 
+          pch = graph_details$point_pch[i], cex = graph_details$point_cex[i])
+  }
+  
+  if (graph_details$add_legend){
+    legend(graph_details$legend_position, graph_details$names, bty = "n",
+           lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
+           col = graph_details$col_wv)
+  }
+  
 }
 
 
@@ -908,7 +914,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     # -> plot.wvar
     plot.wvar(..., nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
   }else{
-  
+    
     if (is.null(xlab)){
       if (is.null(units)){
         xlab = expression(paste("Scale ", tau, sep =""))
@@ -920,7 +926,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     }
     
     if (is.null(ylab)){
-        ylab = bquote(paste("Wavelet Variance ", nu^2, sep = " "))
+      ylab = bquote(paste("Wavelet Variance ", nu^2, sep = " "))
     }else{
       ylab = ylab
     }
@@ -928,7 +934,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     if (is.null(ci_wv)){
       ci_wv = rep(TRUE, obj_len)
     }else{
-        ci_wv = rep(ci_wv, obj_len)
+      ci_wv = rep(ci_wv, obj_len)
     }
     
     # Main Title
@@ -1004,7 +1010,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
       y_ticks = y_low + ceiling((y_high - y_low)/(nb_ticks_y + 1))*(0:nb_ticks_y)
     }
     y_labels = sapply(y_ticks, function(i) as.expression(bquote(10^ .(i))))
-    y_at = 10^y_ticks 
+    y_at = 10^y_ticks
     
     # Legend position
     if (is.null(legend_position)){
@@ -1033,18 +1039,18 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     
     #Size of Points
     if (is.null(point_cex)){
-      inter = rep(c(1.25,1.25,1.25,1.6), obj_len)
+      inter = rep(c(1.25,1.25,1.25,1.25), obj_len)
       point_cex = inter[1:obj_len]
     }else{
       if (length(point_pch) != obj_len){
-        inter = rep(c(1.25,1.25,1.25,1.6), obj_len)
+        inter = rep(c(1.25,1.25,1.25,1.25), obj_len)
         point_cex = inter[1:obj_len]
       }
     }
     
     # Names of WVAR Objects
     if (is.null(names)){
-        names = obj_name
+      names = obj_name
     }else{
       if (length(names) != obj_len){
         names = obj_name

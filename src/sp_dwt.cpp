@@ -64,15 +64,11 @@ arma::field<arma::vec> sp_modwt_cpp(const arma::mat& X, int J1, int J2) {
       int pp1 = n - mm1 + 1;
       int pp2 = m - mm2 + 1;
       
-      if(n >= m){
-        arma::mat xh(n, n), xhh(n, n);
-      }else{
-        arma::mat xh(m, m), xhh(m, m);
-      }
+      int max = std::max(n, m); 
       
-      // The authors behind this function make a large assumption
-      // that the matrix contains NA values that can be removed
-      // if an element is not filled. Highly inefficient. 
+      arma::mat xh(max, max), xhh(max, max); 
+      
+      // NA filling Highly inefficient. 
       xh.fill(arma::datum::nan); xhh.fill(arma::datum::nan);
       
       for(int spt = 0; spt < n; ++spt) {

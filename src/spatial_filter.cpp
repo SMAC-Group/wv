@@ -25,12 +25,12 @@
 // [[Rcpp::export]]
 arma::vec sp_hfilter(int jscale){
     
-    // mother wavelet
+    // mother wavelet (1/sqrt(2))*c(1,1)/sqrt(2)
     arma::vec g(2); 
-    g.fill(0.5); // (1/sqrt(2))*c(1,1)/sqrt(2)
-    // father wavelet
+    g.fill(0.5); 
+    // father wavelet (1/sqrt(2),-1/sqrt(2))/sqrt(2)
     arma::vec h(2);
-    h.fill(0.5); // c(1/sqrt(2),-1/sqrt(2))/sqrt(2)
+    h.fill(0.5);
     
     // number of filters
     int L = 2;

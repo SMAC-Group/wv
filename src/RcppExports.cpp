@@ -211,8 +211,6 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP wv_sp_modwt(SEXP, SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"wv_avar_to_cpp", (DL_FUNC) &wv_avar_to_cpp, 1},
     {"wv_avar_mo_cpp", (DL_FUNC) &wv_avar_mo_cpp, 1},
@@ -229,7 +227,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"wv_batch_modwt_wvar_cpp", (DL_FUNC) &wv_batch_modwt_wvar_cpp, 8},
     {"wv_scales_cpp", (DL_FUNC) &wv_scales_cpp, 1},
     {"wv_compute_cov_cpp", (DL_FUNC) &wv_compute_cov_cpp, 5},
-    {"wv_sp_modwt",             (DL_FUNC) &wv_sp_modwt,             3},
     {NULL, NULL, 0}
 };
 

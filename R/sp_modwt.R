@@ -23,8 +23,14 @@
 #' @return A \code{field<vec>} that contains the wavelet coefficients for each decomposition level
 #' @author Justin Lee
 #' @export
-sp_modwt = function(x, J1 = floor(log2(dim(X)[1]-1)), J2 = floor(log2(dim(X)[2]-1))) {
-  ret = sp_modwt_cpp(x = x, J1 = J1, J2 = J2)
+sp_modwt = function(x, J1 = NULL, J2 = NULL) {
+  if(is.null(J1)){
+    J1 = floor(log2(dim(x)[1]-1))
+  }
+  if(is.null(J2)){
+    J2 = floor(log2(dim(x)[2]-1))
+  }
+  ret = sp_modwt_cpp(X = x, J1 = J1, J2 = J2)
   # mostattributes(ret) = list(J=nlevels, filter = filter, class=c("modwt","list"))
   ret
 }

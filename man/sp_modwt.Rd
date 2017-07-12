@@ -4,15 +4,14 @@
 \alias{sp_modwt}
 \title{Maximum Overlap Discrete Wavelet Transform}
 \usage{
-sp_modwt(X, J1 = floor(log2(dim(X)[1] - 1)), J2 = floor(log2(dim(X)[2] -
-  1)))
+sp_modwt(x, J1 = NULL, J2 = NULL)
 }
 \arguments{
+\item{x}{A \code{matrix} with dimensions N x M.}
+
 \item{J1}{A \code{integer} indicating the \eqn{J1} row levels of decomposition.}
 
 \item{J2}{A \code{integer} indicating the \eqn{J2} column levels of decomposition}
-
-\item{x}{A \code{matrix} with dimensions N x M.}
 }
 \value{
 A \code{field<vec>} that contains the wavelet coefficients for each decomposition level

@@ -1,5 +1,5 @@
 ## Function to compute filter for Spatial decomposition
-sp_hfilter = function(jscale){
+sp_hfilter_r = function(jscale){
   
   g = (1/sqrt(2))*c(1,1)/sqrt(2)
   h = c(1/sqrt(2),-1/sqrt(2))/sqrt(2)
@@ -47,7 +47,7 @@ sp_hfilter = function(jscale){
 }
 
 ## General function to compute wavelet coefficients for spatial cases 
-sp_modwt = function(X, J1 = floor(log2(dim(X)[1]-1)), J2 = floor(log2(dim(X)[2]-1))){
+sp_modwt_r = function(X, J1 = floor(log2(dim(X)[1]-1)), J2 = floor(log2(dim(X)[2]-1))){
   
   n = dim(X)[1]
   m = dim(X)[2]

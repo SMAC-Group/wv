@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // avar_to_cpp
 arma::mat avar_to_cpp(arma::vec x);
-RcppExport SEXP wv_avar_to_cpp(SEXP xSEXP) {
+RcppExport SEXP _wv_avar_to_cpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // avar_mo_cpp
 arma::mat avar_mo_cpp(arma::vec x);
-RcppExport SEXP wv_avar_mo_cpp(SEXP xSEXP) {
+RcppExport SEXP _wv_avar_mo_cpp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -30,7 +30,7 @@ END_RCPP
 }
 // dwt_cpp
 arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels);
-RcppExport SEXP wv_dwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP) {
+RcppExport SEXP _wv_dwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // modwt_cpp
 arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels);
-RcppExport SEXP wv_modwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP) {
+RcppExport SEXP _wv_modwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -56,7 +56,7 @@ END_RCPP
 }
 // sp_modwt_cpp
 arma::field<arma::vec> sp_modwt_cpp(const arma::mat& X, int J1, int J2);
-RcppExport SEXP wv_sp_modwt_cpp(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP) {
+RcppExport SEXP _wv_sp_modwt_cpp(SEXP XSEXP, SEXP J1SEXP, SEXP J2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -69,7 +69,7 @@ END_RCPP
 }
 // sp_hfilter
 arma::vec sp_hfilter(int jscale);
-RcppExport SEXP wv_sp_hfilter(SEXP jscaleSEXP) {
+RcppExport SEXP _wv_sp_hfilter(SEXP jscaleSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -80,7 +80,7 @@ END_RCPP
 }
 // ci_eta3
 arma::mat ci_eta3(const arma::vec& y, const arma::vec& dims, double alpha_ov_2);
-RcppExport SEXP wv_ci_eta3(SEXP ySEXP, SEXP dimsSEXP, SEXP alpha_ov_2SEXP) {
+RcppExport SEXP _wv_ci_eta3(SEXP ySEXP, SEXP dimsSEXP, SEXP alpha_ov_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -93,7 +93,7 @@ END_RCPP
 }
 // ci_eta3_robust
 arma::mat ci_eta3_robust(const arma::vec& wv_robust, const arma::mat& wv_ci_class, double alpha_ov_2, double eff);
-RcppExport SEXP wv_ci_eta3_robust(SEXP wv_robustSEXP, SEXP wv_ci_classSEXP, SEXP alpha_ov_2SEXP, SEXP effSEXP) {
+RcppExport SEXP _wv_ci_eta3_robust(SEXP wv_robustSEXP, SEXP wv_ci_classSEXP, SEXP alpha_ov_2SEXP, SEXP effSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -107,7 +107,7 @@ END_RCPP
 }
 // ci_wave_variance
 arma::mat ci_wave_variance(const arma::field<arma::vec>& signal_modwt_bw, const arma::vec& wv, std::string type, double alpha_ov_2, bool robust, double eff);
-RcppExport SEXP wv_ci_wave_variance(SEXP signal_modwt_bwSEXP, SEXP wvSEXP, SEXP typeSEXP, SEXP alpha_ov_2SEXP, SEXP robustSEXP, SEXP effSEXP) {
+RcppExport SEXP _wv_ci_wave_variance(SEXP signal_modwt_bwSEXP, SEXP wvSEXP, SEXP typeSEXP, SEXP alpha_ov_2SEXP, SEXP robustSEXP, SEXP effSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -123,7 +123,7 @@ END_RCPP
 }
 // wave_variance
 arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robust, double eff);
-RcppExport SEXP wv_wave_variance(SEXP signal_modwt_bwSEXP, SEXP robustSEXP, SEXP effSEXP) {
+RcppExport SEXP _wv_wave_variance(SEXP signal_modwt_bwSEXP, SEXP robustSEXP, SEXP effSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -136,7 +136,7 @@ END_RCPP
 }
 // wvar_cpp
 arma::mat wvar_cpp(const arma::field<arma::vec>& signal_modwt_bw, bool robust, double eff, double alpha, std::string ci_type);
-RcppExport SEXP wv_wvar_cpp(SEXP signal_modwt_bwSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP ci_typeSEXP) {
+RcppExport SEXP _wv_wvar_cpp(SEXP signal_modwt_bwSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP ci_typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -151,7 +151,7 @@ END_RCPP
 }
 // modwt_wvar_cpp
 arma::mat modwt_wvar_cpp(const arma::vec& signal, unsigned int nlevels, bool robust, double eff, double alpha, std::string ci_type, std::string strWavelet, std::string decomp);
-RcppExport SEXP wv_modwt_wvar_cpp(SEXP signalSEXP, SEXP nlevelsSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP ci_typeSEXP, SEXP strWaveletSEXP, SEXP decompSEXP) {
+RcppExport SEXP _wv_modwt_wvar_cpp(SEXP signalSEXP, SEXP nlevelsSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP ci_typeSEXP, SEXP strWaveletSEXP, SEXP decompSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -169,7 +169,7 @@ END_RCPP
 }
 // batch_modwt_wvar_cpp
 arma::field<arma::mat> batch_modwt_wvar_cpp(const arma::mat& signal, unsigned int nlevels, bool robust, double eff, double alpha, std::string ci_type, std::string strWavelet, std::string decomp);
-RcppExport SEXP wv_batch_modwt_wvar_cpp(SEXP signalSEXP, SEXP nlevelsSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP ci_typeSEXP, SEXP strWaveletSEXP, SEXP decompSEXP) {
+RcppExport SEXP _wv_batch_modwt_wvar_cpp(SEXP signalSEXP, SEXP nlevelsSEXP, SEXP robustSEXP, SEXP effSEXP, SEXP alphaSEXP, SEXP ci_typeSEXP, SEXP strWaveletSEXP, SEXP decompSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -187,7 +187,7 @@ END_RCPP
 }
 // scales_cpp
 arma::vec scales_cpp(unsigned int nb_level);
-RcppExport SEXP wv_scales_cpp(SEXP nb_levelSEXP) {
+RcppExport SEXP _wv_scales_cpp(SEXP nb_levelSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -198,7 +198,7 @@ END_RCPP
 }
 // compute_cov_cpp
 arma::mat compute_cov_cpp(arma::field<arma::vec> coef1, arma::field<arma::vec> coef2, arma::vec variance, arma::vec lower, arma::vec upper);
-RcppExport SEXP wv_compute_cov_cpp(SEXP coef1SEXP, SEXP coef2SEXP, SEXP varianceSEXP, SEXP lowerSEXP, SEXP upperSEXP) {
+RcppExport SEXP _wv_compute_cov_cpp(SEXP coef1SEXP, SEXP coef2SEXP, SEXP varianceSEXP, SEXP lowerSEXP, SEXP upperSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -212,22 +212,33 @@ BEGIN_RCPP
 END_RCPP
 }
 
+RcppExport SEXP wv_avar_mo_cpp(SEXP);
+RcppExport SEXP wv_avar_to_cpp(SEXP);
+RcppExport SEXP wv_compute_cov_cpp(SEXP, SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP wv_modwt_wvar_cpp(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP wv_scales_cpp(SEXP);
+
 static const R_CallMethodDef CallEntries[] = {
-    {"wv_avar_to_cpp", (DL_FUNC) &wv_avar_to_cpp, 1},
-    {"wv_avar_mo_cpp", (DL_FUNC) &wv_avar_mo_cpp, 1},
-    {"wv_dwt_cpp", (DL_FUNC) &wv_dwt_cpp, 3},
-    {"wv_modwt_cpp", (DL_FUNC) &wv_modwt_cpp, 3},
-    {"wv_sp_modwt_cpp", (DL_FUNC) &wv_sp_modwt_cpp, 3},
-    {"wv_sp_hfilter", (DL_FUNC) &wv_sp_hfilter, 1},
-    {"wv_ci_eta3", (DL_FUNC) &wv_ci_eta3, 3},
-    {"wv_ci_eta3_robust", (DL_FUNC) &wv_ci_eta3_robust, 4},
-    {"wv_ci_wave_variance", (DL_FUNC) &wv_ci_wave_variance, 6},
-    {"wv_wave_variance", (DL_FUNC) &wv_wave_variance, 3},
-    {"wv_wvar_cpp", (DL_FUNC) &wv_wvar_cpp, 5},
-    {"wv_modwt_wvar_cpp", (DL_FUNC) &wv_modwt_wvar_cpp, 8},
-    {"wv_batch_modwt_wvar_cpp", (DL_FUNC) &wv_batch_modwt_wvar_cpp, 8},
-    {"wv_scales_cpp", (DL_FUNC) &wv_scales_cpp, 1},
-    {"wv_compute_cov_cpp", (DL_FUNC) &wv_compute_cov_cpp, 5},
+    {"_wv_avar_to_cpp", (DL_FUNC) &_wv_avar_to_cpp, 1},
+    {"_wv_avar_mo_cpp", (DL_FUNC) &_wv_avar_mo_cpp, 1},
+    {"_wv_dwt_cpp", (DL_FUNC) &_wv_dwt_cpp, 3},
+    {"_wv_modwt_cpp", (DL_FUNC) &_wv_modwt_cpp, 3},
+    {"_wv_sp_modwt_cpp", (DL_FUNC) &_wv_sp_modwt_cpp, 3},
+    {"_wv_sp_hfilter", (DL_FUNC) &_wv_sp_hfilter, 1},
+    {"_wv_ci_eta3", (DL_FUNC) &_wv_ci_eta3, 3},
+    {"_wv_ci_eta3_robust", (DL_FUNC) &_wv_ci_eta3_robust, 4},
+    {"_wv_ci_wave_variance", (DL_FUNC) &_wv_ci_wave_variance, 6},
+    {"_wv_wave_variance", (DL_FUNC) &_wv_wave_variance, 3},
+    {"_wv_wvar_cpp", (DL_FUNC) &_wv_wvar_cpp, 5},
+    {"_wv_modwt_wvar_cpp", (DL_FUNC) &_wv_modwt_wvar_cpp, 8},
+    {"_wv_batch_modwt_wvar_cpp", (DL_FUNC) &_wv_batch_modwt_wvar_cpp, 8},
+    {"_wv_scales_cpp", (DL_FUNC) &_wv_scales_cpp, 1},
+    {"_wv_compute_cov_cpp", (DL_FUNC) &_wv_compute_cov_cpp, 5},
+    {"wv_avar_mo_cpp",           (DL_FUNC) &wv_avar_mo_cpp,           1},
+    {"wv_avar_to_cpp",           (DL_FUNC) &wv_avar_to_cpp,           1},
+    {"wv_compute_cov_cpp",       (DL_FUNC) &wv_compute_cov_cpp,       5},
+    {"wv_modwt_wvar_cpp",        (DL_FUNC) &wv_modwt_wvar_cpp,        8},
+    {"wv_scales_cpp",            (DL_FUNC) &wv_scales_cpp,            1},
     {NULL, NULL, 0}
 };
 

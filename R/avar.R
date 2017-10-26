@@ -69,9 +69,9 @@ avar = function(x, type = "mo") {
   x = as.vector(x)
   
   if(type == "mo"){
-    av = .Call('wv_avar_mo_cpp', PACKAGE = 'wv', x)
+    av = wv_avar_mo_cpp(x)
   }else{
-    av = .Call('wv_avar_to_cpp', PACKAGE = 'wv', x)
+    av = wv_avar_to_cpp(x)
   }
   
   av = list(clusters = av[,1], allan=av[,2], errors=av[,3])
@@ -127,7 +127,7 @@ print.avar = function(x, ...) {
 #' @return Summary table
 #' @keywords internal
 #' @examples
-#' \dontrun
+#' \dontrun{
 #' # Set seed for reproducibility
 #' set.seed(999)
 #' 

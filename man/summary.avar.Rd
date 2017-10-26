@@ -17,6 +17,21 @@ Summary table
 \description{
 Displays the summary table of allan variance
 }
+\examples{
+\dontrun{
+# Set seed for reproducibility
+set.seed(999)
+
+# Generate time series
+x = gen_gts(100, WN(sigma2 = 1))
+
+# Compute Allan
+out = avar(x)
+
+# Summary
+summary( out )
+}
+}
 \author{
 James Balamuta
 }

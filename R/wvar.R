@@ -124,14 +124,13 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
     }
   }
   
-  obj = .Call('wv_modwt_wvar_cpp', PACKAGE = 'wv',
-              signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
+  obj = wv_modwt_wvar_cpp(signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
               ci_type="eta3", strWavelet=filter, decomp = decomp)
   
   # nlevels may be changed during modwt
   nlevels = nrow(obj)
   
-  scales = .Call('wv_scales_cpp', PACKAGE = 'wv', nlevels)/freq
+  scales = wv_scales_cpp(nlevels)/freq
   
   # NO Unit Conversion
   if( is.null(from.unit) && is.null(to.unit)==F ){

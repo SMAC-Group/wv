@@ -19,7 +19,6 @@
 #' The tau-overlap estimator is given by:
 #' 
 #' where \eqn{ {{\bar y}_t}\left( \tau  \right) = \frac{1}{\tau }\sum\limits_{i = 0}^{\tau  - 1} {{{\bar y}_{t - i}}} }.
-#' 
 #' @author James Balamuta
 #' @references Long-Memory Processes, the Allan Variance and Wavelets, D. B. Percival and P. Guttorp
 #' @examples
@@ -34,7 +33,7 @@
 #' av_mat = avar_to_cpp(combined.ts)
 #' @keywords internal
 avar_to_cpp <- function(x) {
-    .Call('wv_avar_to_cpp', PACKAGE = 'wv', x)
+    .Call('_wv_avar_to_cpp', PACKAGE = 'wv', x)
 }
 
 #' @title Compute Maximal-Overlap Allan Variance using Means
@@ -70,7 +69,7 @@ avar_to_cpp <- function(x) {
 #' av_mat = avar_mo_cpp(combined.ts)
 #' @keywords internal
 avar_mo_cpp <- function(x) {
-    .Call('wv_avar_mo_cpp', PACKAGE = 'wv', x)
+    .Call('_wv_avar_mo_cpp', PACKAGE = 'wv', x)
 }
 
 #' @title Discrete Wavelet Transform
@@ -87,9 +86,8 @@ avar_mo_cpp <- function(x) {
 #' set.seed(999)
 #' x = rnorm(2^8)
 #' dwt_cpp(x, filter_name = "haar", nlevels = 4)
-#' @export
 dwt_cpp <- function(x, filter_name, nlevels) {
-    .Call('wv_dwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
+    .Call('_wv_dwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
 }
 
 #' @title Maximum Overlap Discrete Wavelet Transform
@@ -108,9 +106,8 @@ dwt_cpp <- function(x, filter_name, nlevels) {
 #' set.seed(999)
 #' x = rnorm(100)
 #' modwt_cpp(x, filter_name = "haar", nlevels = 4)
-#' @export
 modwt_cpp <- function(x, filter_name, nlevels) {
-    .Call('wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
+    .Call('_wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
 }
 
 #' Compute the Spatial Wavelet Coefficients
@@ -122,14 +119,14 @@ modwt_cpp <- function(x, filter_name, nlevels) {
 #' By default this function will return the wavelet coefficient in
 #' addition to the wavelet
 sp_modwt_cpp <- function(X, J1, J2) {
-    .Call('wv_sp_modwt_cpp', PACKAGE = 'wv', X, J1, J2)
+    .Call('_wv_sp_modwt_cpp', PACKAGE = 'wv', X, J1, J2)
 }
 
 #' Haar filter for a spatial case
 #' @param jscale An \code{int} of the Number of Scales
 #' @export
 sp_hfilter <- function(jscale) {
-    .Call('wv_sp_hfilter', PACKAGE = 'wv', jscale)
+    .Call('_wv_sp_hfilter', PACKAGE = 'wv', jscale)
 }
 
 #' @title Generate eta3 confidence interval
@@ -153,7 +150,7 @@ sp_hfilter <- function(jscale) {
 #' y = wave_variance(decomp)
 #' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 ci_eta3 <- function(y, dims, alpha_ov_2) {
-    .Call('wv_ci_eta3', PACKAGE = 'wv', y, dims, alpha_ov_2)
+    .Call('_wv_ci_eta3', PACKAGE = 'wv', y, dims, alpha_ov_2)
 }
 
 #' @title Generate eta3 robust confidence interval
@@ -180,7 +177,7 @@ ci_eta3 <- function(y, dims, alpha_ov_2) {
 #' y = wave_variance(decomp, robust = TRUE,  eff = 0.6)
 #' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025, robust = TRUE, eff = 0.6)
 ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
-    .Call('wv_ci_eta3_robust', PACKAGE = 'wv', wv_robust, wv_ci_class, alpha_ov_2, eff)
+    .Call('_wv_ci_eta3_robust', PACKAGE = 'wv', wv_robust, wv_ci_class, alpha_ov_2, eff)
 }
 
 #' @title Generate a Confidence interval for a Univariate Time Series
@@ -209,7 +206,7 @@ ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
 #' y = wave_variance(decomp)
 #' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.025, robust = FALSE, eff = 0.6) {
-    .Call('wv_ci_wave_variance', PACKAGE = 'wv', signal_modwt_bw, wv, type, alpha_ov_2, robust, eff)
+    .Call('_wv_ci_wave_variance', PACKAGE = 'wv', signal_modwt_bw, wv, type, alpha_ov_2, robust, eff)
 }
 
 #' @title Generate a Wave Variance for a Univariate Time Series
@@ -228,7 +225,7 @@ ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.
 #' 
 #' wave_variance(decomp, robust = TRUE, eff = 0.6)
 wave_variance <- function(signal_modwt_bw, robust = FALSE, eff = 0.6) {
-    .Call('wv_wave_variance', PACKAGE = 'wv', signal_modwt_bw, robust, eff)
+    .Call('_wv_wave_variance', PACKAGE = 'wv', signal_modwt_bw, robust, eff)
 }
 
 #' @title Computes the (MODWT) wavelet variance
@@ -254,7 +251,7 @@ wave_variance <- function(signal_modwt_bw, robust = FALSE, eff = 0.6) {
 #' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
 #' wvar_cpp(decomp, robust=FALSE, eff=0.6, alpha = 0.05, ci_type="eta3")
 wvar_cpp <- function(signal_modwt_bw, robust, eff, alpha, ci_type) {
-    .Call('wv_wvar_cpp', PACKAGE = 'wv', signal_modwt_bw, robust, eff, alpha, ci_type)
+    .Call('_wv_wvar_cpp', PACKAGE = 'wv', signal_modwt_bw, robust, eff, alpha, ci_type)
 }
 
 #' @title Computes the (MODWT) wavelet variance
@@ -282,7 +279,7 @@ wvar_cpp <- function(signal_modwt_bw, robust, eff, alpha, ci_type) {
 #' modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, alpha = 0.05,
 #'                ci_type="eta3", strWavelet="haar", decomp="modwt")
 modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp) {
-    .Call('wv_modwt_wvar_cpp', PACKAGE = 'wv', signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp)
+    .Call('_wv_modwt_wvar_cpp', PACKAGE = 'wv', signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp)
 }
 
 #' @title Computes the MO/DWT wavelet variance for multiple processes
@@ -311,7 +308,7 @@ modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWave
 #'                      alpha = 0.05, ci_type="eta3", strWavelet="haar", 
 #'                      decomp="modwt")
 batch_modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp) {
-    .Call('wv_batch_modwt_wvar_cpp', PACKAGE = 'wv', signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp)
+    .Call('_wv_batch_modwt_wvar_cpp', PACKAGE = 'wv', signal, nlevels, robust, eff, alpha, ci_type, strWavelet, decomp)
 }
 
 #' @title Computes the MODWT scales
@@ -325,10 +322,10 @@ batch_modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, s
 #' @examples
 #' scales_cpp(5)
 scales_cpp <- function(nb_level) {
-    .Call('wv_scales_cpp', PACKAGE = 'wv', nb_level)
+    .Call('_wv_scales_cpp', PACKAGE = 'wv', nb_level)
 }
 
 compute_cov_cpp <- function(coef1, coef2, variance, lower, upper) {
-    .Call('wv_compute_cov_cpp', PACKAGE = 'wv', coef1, coef2, variance, lower, upper)
+    .Call('_wv_compute_cov_cpp', PACKAGE = 'wv', coef1, coef2, variance, lower, upper)
 }
 

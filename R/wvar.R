@@ -124,7 +124,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
     }
   }
   
-  obj = wv_modwt_wvar_cpp(signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
+  obj = modwt_wvar_cpp(signal=x, nlevels=nlevels, robust=robust, eff=eff, alpha=alpha, 
               ci_type="eta3", strWavelet=filter, decomp = decomp)
   
   # nlevels may be changed during modwt

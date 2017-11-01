@@ -141,7 +141,6 @@ sp_hfilter <- function(jscale) {
 #'  \item{Column 3}{Chi-squared Upper Bounds}
 #' }
 #' @keywords internal
-#' @export
 #' @examples
 #' set.seed(1337)
 #' x = rnorm(100)
@@ -168,7 +167,6 @@ ci_eta3 <- function(y, dims, alpha_ov_2) {
 #' @details
 #' Within this function we are scaling the classical 
 #' @keywords internal
-#' @export
 #' @examples
 #' set.seed(1337)
 #' x = rnorm(100)
@@ -195,7 +193,6 @@ ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
 #'  \item{Column 3}{Chi-squared Upper Bounds}
 #' }
 #' @keywords internal
-#' @export
 #' @details 
 #' This function can be expanded to allow for other confidence interval calculations.
 #' @examples
@@ -216,7 +213,6 @@ ci_wave_variance <- function(signal_modwt_bw, wv, type = "eta3", alpha_ov_2 = 0.
 #' @param eff             A \code{double} that indicates the efficiency.
 #' @return A \code{vec} that contains the wave variance.
 #' @keywords internal
-#' @export
 #' @examples
 #' set.seed(1337)
 #' x = rnorm(100)
@@ -242,7 +238,6 @@ wave_variance <- function(signal_modwt_bw, robust = FALSE, eff = 0.6) {
 #'   \item{"high"}{Upper CI}
 #' }
 #' @keywords internal
-#' @export
 #' @details 
 #' This function does the heavy lifting with the signal_modwt_bw
 #' @examples
@@ -270,7 +265,6 @@ wvar_cpp <- function(signal_modwt_bw, robust, eff, alpha, ci_type) {
 #'   \item{"high"}{Upper CI}
 #' }
 #' @keywords internal
-#' @export
 #' @details 
 #' This function powers the wvar object. It is also extendable...
 #' @examples
@@ -298,7 +292,6 @@ modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWave
 #'   \item{"high"}{Upper CI}
 #' }
 #' @keywords internal
-#' @export
 #' @details 
 #' This function processes the decomposition of multiple signals quickly
 #' @examples
@@ -318,7 +311,6 @@ batch_modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, s
 #' @keywords internal
 #' @details 
 #' Used in wvar object.
-#' @export
 #' @examples
 #' scales_cpp(5)
 scales_cpp <- function(nb_level) {

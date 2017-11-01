@@ -130,7 +130,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   # nlevels may be changed during modwt
   nlevels = nrow(obj)
   
-  scales = wv_scales_cpp(nlevels)/freq
+  scales = scales_cpp(nlevels)/freq
   
   # NO Unit Conversion
   if( is.null(from.unit) && is.null(to.unit)==F ){

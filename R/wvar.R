@@ -863,10 +863,12 @@ compare_wvar_no_split = function(graph_details){
 #' 
 #' @param ...             One or more time series objects.
 #' @param split           A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
+#' @param add_legend      A \code{boolean} that, if TRUE, adds a legend to the plot.
 #' @param units           A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.
 #' @param xlab            A \code{string} that gives a title for the x axes.
 #' @param ylab            A \code{string} that gives a title for the y axes.
 #' @param main            A \code{string} that gives an overall title for the plot.
+#' @param col_wv          A \code{string} that specifies the color of the wavelet variance lines. 
 #' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
@@ -874,7 +876,7 @@ compare_wvar_no_split = function(graph_details){
 #' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
 #' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
-#' 
+#' @param names           A \code{string} that specifies the name of the WVAR objects. 
 #' @author Stephane Guerrier and Justin Lee
 #' @export
 #' @examples

@@ -73,7 +73,7 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' @description The acf function computes the estimated
 #' autocovariance or autocorrelation for both univariate and multivariate cases.
 #' @author Yunxiang Zhang
-#' @param x,object  An \code{"ACF"} object from \code{\link{ACF}}.
+#' @param x         An \code{"ACF"} object from \code{\link{ACF}}.
 #' @param show.ci   A \code{bool} indicating whether to show confidence region
 #' @param ci        A \code{double} containing the 1-alpha level. Default is 0.95
 #' @param ...       Additional parameters
@@ -93,7 +93,7 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' 
 #' # Plot without 95% CI
 #' plot(m, show.ci = FALSE)
-plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
+plot.ACF = function(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   # TO ADD AS INPUTS
   xlab = "Lags"
   ylab = "ACF"
@@ -105,7 +105,7 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   Lag = xmin = xmax = ymin = ymax = NULL 
   
   # Wide to long array transform
-  x2 = as.data.frame.table(object, responseName = "ACF")
+  x2 = as.data.frame.table(x, responseName = "ACF")
   
   colnames(x2) = c("Lag", "Signal X", "Signal Y", "ACF")
   
@@ -116,7 +116,7 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   x_range = range(x2$Lag)
   
   if (show.ci == TRUE){
-    n = attr(object,"n")
+    n = attr(x,"n")
     mult = qnorm(1-alpha/2)
     y_range = range(c(x2$ACF, 1/sqrt(n)*mult*c(-1,1)))
   }else{
@@ -131,10 +131,10 @@ plot.ACF = function(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   
   # Title 
   if (is.null(main)){
-    if (is.null(attr(object,"data_name"))){
+    if (is.null(attr(x,"data_name"))){
       main = paste0("ACF of ",as.character((x2$`Signal Y`)[1]))
     }else{
-      main = paste0("ACF of ", attr(object,"data_name"))
+      main = paste0("ACF of ", attr(x,"data_name"))
     }
   }
   else {

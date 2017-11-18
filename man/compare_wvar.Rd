@@ -14,6 +14,8 @@ compare_wvar(..., split = FALSE, add_legend = TRUE, units = NULL,
 
 \item{split}{A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.}
 
+\item{add_legend}{A \code{boolean} that, if TRUE, adds a legend to the plot.}
+
 \item{units}{A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.}
 
 \item{xlab}{A \code{string} that gives a title for the x axes.}
@@ -21,6 +23,8 @@ compare_wvar(..., split = FALSE, add_legend = TRUE, units = NULL,
 \item{ylab}{A \code{string} that gives a title for the y axes.}
 
 \item{main}{A \code{string} that gives an overall title for the plot.}
+
+\item{col_wv}{A \code{string} that specifies the color of the wavelet variance lines.}
 
 \item{col_ci}{A \code{string} that specifies the color of the confidence interval shade.}
 
@@ -35,6 +39,8 @@ compare_wvar(..., split = FALSE, add_legend = TRUE, units = NULL,
 \item{point_cex}{A \code{double} that specifies the size of each symbol to be plotted.}
 
 \item{point_pch}{A \code{double} that specifies the symbol type to be plotted.}
+
+\item{names}{A \code{string} that specifies the name of the WVAR objects.}
 }
 \description{
 Displays plots of multiple wavelet variances of different time series accounting for CI values.

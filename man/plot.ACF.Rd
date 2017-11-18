@@ -4,14 +4,14 @@
 \alias{plot.ACF}
 \title{Auto-Covariance and Correlation Functions}
 \usage{
-\method{plot}{ACF}(object, show.ci = TRUE, alpha = 0.05, main = NULL, ...)
+\method{plot}{ACF}(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...)
 }
 \arguments{
+\item{x}{An \code{"ACF"} object from \code{\link{ACF}}.}
+
 \item{show.ci}{A \code{bool} indicating whether to show confidence region}
 
 \item{...}{Additional parameters}
-
-\item{x, object}{An \code{"ACF"} object from \code{\link{ACF}}.}
 
 \item{ci}{A \code{double} containing the 1-alpha level. Default is 0.95}
 }

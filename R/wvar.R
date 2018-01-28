@@ -378,7 +378,7 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
   
   # Add Axes and Box
   lines(x_vec[1:2], rep(10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3])),2), col = 1)
-  y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
+  #y_ticks = y_ticks[(2^y_ticks) < 10^(win_dim[4] - 0.09*(win_dim[4] - win_dim[3]))]
   y_labels = y_labels[1:length(y_ticks)]
   box()
   axis(1, at = 2^x_ticks, labels = x_labels, padj = 0.3)

@@ -63,7 +63,7 @@ wccv_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
   lower = sqrt(unname(variance)) * qnorm(0.025)
   upper = sqrt(unname(variance)) * qnorm(0.975)
   
-  obj =  wv_compute_cov_cpp(coef1 = coef1, coef2 = coef2, variance = variance, lower = lower, upper = upper) 
+  obj =  compute_cov_cpp(coef1 = coef1, coef2 = coef2, variance = variance, lower = lower, upper = upper) 
   
   colnames(obj) = c("Cross-Covariance", "Variance", "Lower Bound", "Upper Bound")
   ret = list(obj)

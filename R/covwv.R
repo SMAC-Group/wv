@@ -267,15 +267,16 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
     
   # not sure what this is for 
   if (is.null(theo.wccv) == F){
-    log.theo.positive = sapply(theo.wccv, function(x){ifelse(x < 0, NA, log(x))})
-    log.theo.negative = sapply(theo.wccv, function(x){ifelse(x > 0, NA, log(-x))})
-    lines(x = scales, y = log.theo.positive, lty = 3)
+    # log.theo.positive = sapply(theo.wccv, function(x){ifelse(x < 0, NA, log(x))})
+    # log.theo.negative = sapply(theo.wccv, function(x){ifelse(x > 0, NA, log(-x))})
+    # lines(x = scales, y = log.theo.positive, lty = 3)
+    lines(scales, wccv_get_y(theo.wccv, m, tick_y_min, tick_y_step), col="orange", lty = 3, lwd = 2)
   }
   
-  # not sure what this is for 
-  if (is.null(theo.wccv) == F){
-    lines(x = scales, y = -log.theo.negative, lty = 3)
-  }
+  # # not sure what this is for 
+  # if (is.null(theo.wccv) == F){
+  #   lines(x = scales, y = -log.theo.negative, lty = 3)
+  # }
   
   
 }

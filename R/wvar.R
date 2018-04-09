@@ -917,8 +917,8 @@ compare_wvar_split = function(graph_details){
     }
   }
   
-  mtext(graph_details$ylab, side = 2, line = 2.80, cex = 0.8, outer = T)
-  mtext(graph_details$xlab, side = 1, line = 2.75, cex = 0.8, outer = T)
+  mtext(graph_details$ylab, side = 2, line = 2.80, cex = graph_details$cex_labels, outer = T)
+  mtext(graph_details$xlab, side = 1, line = 2.75, cex = graph_details$cex_labels, outer = T)
   
   if (is.null(graph_details$main)){
     main = "Haar Wavelet Variance Representation"
@@ -963,7 +963,8 @@ compare_wvar_no_split = function(graph_details){
   par(new = TRUE)
   plot(NA, xlim = graph_details$x_range, ylim = 10^c(win_dim[3], win_dim[4] + 0.09*(win_dim[4] - win_dim[3])),
        log = "xy", xaxt = 'n', yaxt = 'n', bty = "n", 
-       xlab = graph_details$xlab, ylab = graph_details$ylab)
+       xlab = graph_details$xlab, ylab = graph_details$ylab,
+       cex.lab = graph_details$cex_labels)
   win_dim = par("usr")
   
   # Add Grid
@@ -1035,6 +1036,7 @@ compare_wvar_no_split = function(graph_details){
 #' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
 #' @param names           A \code{string} that specifies the name of the WVAR objects. 
+#' @param cex_labels      A \code{double} that specifies the magnification of the labels (x and y).
 #' @author Stephane Guerrier and Justin Lee
 #' @export
 #' @examples
@@ -1054,7 +1056,7 @@ compare_wvar_no_split = function(graph_details){
 compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xlab = NULL, 
                         ylab = NULL, main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, 
                         nb_ticks_y = NULL, legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
-                        point_pch = NULL, names = NULL){
+                        point_pch = NULL, names = NULL, cex_labels = 0.8){
   
   obj_list = list(...)
   obj_name = as.character(substitute(...()))
@@ -1223,7 +1225,8 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
                          ci_wv = ci_wv, point_cex = point_cex, point_pch = point_pch,
                          x_range = x_range, y_range = y_range, x_ticks = x_ticks, 
                          x_labels = x_labels, y_labels = y_labels, x_at = x_at, y_at = y_at,
-                         y_ticks = y_ticks, nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y)
+                         y_ticks = y_ticks, nb_ticks_x = nb_ticks_x, nb_ticks_y = nb_ticks_y,
+                         cex_labels = cex_labels)
     
     if (split == FALSE){
       # -> compare_wvar_no_split

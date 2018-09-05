@@ -110,6 +110,589 @@ modwt_cpp <- function(x, filter_name, nlevels) {
     .Call('_wv_modwt_cpp', PACKAGE = 'wv', x, filter_name, nlevels)
 }
 
+#' ARMA process to WV
+#' 
+#' This function computes the Haar Wavelet Variance of an ARMA process
+#' @param ar     A \code{vec} containing the coefficients of the AR process
+#' @param ma     A \code{vec} containing the coefficients of the MA process
+#' @param sigma2 A \code{double} containing the residual variance
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the ARMA process.
+#' @details
+#' The function is a generic implementation that requires a stationary theoretical autocorrelation function (ACF)
+#' and the ability to transform an ARMA(\eqn{p},\eqn{q}) process into an MA(\eqn{\infty}{infinity}) (e.g. infinite MA process).
+#' @template to_wv/haar_arma
+#' @template misc/haar_wv_formulae_link
+#' @backref src/process_to_wv.cpp
+#' @backref src/process_to_wv.h
+#' @examples
+#' # Calculates the Haar WV for an ARMA(2,3).
+#' wv.theo = arma_to_wv(c(.23,.43), c(.34,.41,.59), 3, 2^(1:9))
+#' @seealso \code{\link{ARMAtoMA_cpp}}, \code{\link{ARMAacf_cpp}}, and \code{\link{arma11_to_wv}}
+arma_to_wv <- function(ar, ma, sigma2, tau) {
+    .Call('_wv_arma_to_wv', PACKAGE = 'wv', ar, ma, sigma2, tau)
+}
+
+#' @title Helper Function for ARMA to WV Approximation
+#' @description Indicates where the minimum ARMAacf value is and returns that as an index.
+#' @param ar A \code{vec} containing the coefficients of the AR process
+#' @param ma A \code{vec} containing the coefficients of the MA process
+#' @param last_tau An \code{int} the Jth scale of 2^(1:J)
+#' @param alpha A \code{double} indicating the cutoff.
+#' @return A \code{vec} containing the wavelet variance of the ARMA process.
+#' @keywords internal
+#' @seealso \code{\link{arma_to_wv_app}}
+acf_sum <- function(ar, ma, last_tau, alpha = 0.99) {
+    .Call('_wv_acf_sum', PACKAGE = 'wv', ar, ma, last_tau, alpha)
+}
+
+#' ARMA process to WV Approximation
+#' 
+#' This function computes the (haar) WV of an ARMA process
+#' @param ar A \code{vec} containing the coefficients of the AR process
+#' @param ma A \code{vec} containing the coefficients of the MA process
+#' @param sigma2 A \code{double} containing the residual variance
+#' @template misc/tau
+#' @param alpha A \code{double} indicating the cutoff.
+#' @return A \code{vec} containing the wavelet variance of the ARMA process.
+#' @keywords internal
+#' @details
+#' This function provides an approximation to the \code{\link{arma_to_wv}} as computation times
+#' were previously a concern. However, this is no longer the case and, thus, this has been left
+#' in for the curious soul to discover... 
+#' @template to_wv/haar_arma
+#' @template misc/haar_wv_formulae_link
+#' @backref src/process_to_wv.cpp
+#' @backref src/process_to_wv.h
+#' @examples
+#' # Performs an approximation of the Haar WV for an ARMA(2,3).
+#' wv.theo = arma_to_wv_app(c(.23,.43), c(.34,.41,.59), 3, 2^(1:9), .9)
+#' @seealso \code{\link{ARMAtoMA_cpp}}, \code{\link{ARMAacf_cpp}}, \code{\link{acf_sum}} and \code{\link{arma_to_wv}}
+arma_to_wv_app <- function(ar, ma, sigma2, tau, alpha = 0.9999) {
+    .Call('_wv_arma_to_wv_app', PACKAGE = 'wv', ar, ma, sigma2, tau, alpha)
+}
+
+#' ARMA(1,1) to WV
+#' 
+#' This function computes the WV (haar) of an Autoregressive Order 1 - Moving Average Order 1 (ARMA(1,1)) process.
+#' @param phi    A \code{double} corresponding to the autoregressive term.
+#' @param theta  A \code{double} corresponding to the moving average term. 
+#' @param sigma2 A \code{double} the variance of the process. 
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the ARMA(1,1) process.
+#' @details 
+#' This function is significantly faster than its generalized counter part
+#' \code{\link{arma_to_wv}}
+#' 
+#' @template to_wv/haar_arma11
+#' @template misc/haar_wv_formulae_link
+#' @backref src/process_to_wv.cpp
+#' @backref src/process_to_wv.h
+#' @seealso \code{\link{arma_to_wv}}
+#' @examples
+#' ntau = 7
+#' tau = 2^(1:ntau)
+#' wv.theo = arma11_to_wv(0.3, 0.1, 1, tau)
+arma11_to_wv <- function(phi, theta, sigma2, tau) {
+    .Call('_wv_arma11_to_wv', PACKAGE = 'wv', phi, theta, sigma2, tau)
+}
+
+#' AR(1) process to WV
+#' 
+#' This function computes the Haar WV of an AR(1) process
+#' @param phi    A \code{double} that is the phi term of the AR(1) process
+#' @param sigma2 A \code{double} corresponding to variance of AR(1) process
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the AR(1) process.
+#' @details 
+#' This function is significantly faster than its generalized counter part
+#' \code{\link{arma_to_wv}}.
+#' 
+#' @template to_wv/haar_ar1
+#' @template misc/haar_wv_formulae_link
+#' @backref src/process_to_wv.cpp
+#' @backref src/process_to_wv.h
+#' @seealso \code{\link{arma_to_wv}}, \code{\link{arma11_to_wv}}
+#' @examples
+#' ntau = 7
+#' tau = 2^(1:ntau)
+#' wv.theo = ar1_to_wv(.63, 1, tau)
+ar1_to_wv <- function(phi, sigma2, tau) {
+    .Call('_wv_ar1_to_wv', PACKAGE = 'wv', phi, sigma2, tau)
+}
+
+#' Moving Average Order 1 (MA(1)) to WV
+#' 
+#' This function computes the WV (haar) of a Moving Average order 1 (MA1) process.
+#' @param theta A \code{double} corresponding to the moving average term. 
+#' @param sigma2  A \code{double} the variance of the process. 
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the MA(1) process.
+#' @details 
+#' This function is significantly faster than its generalized counter part
+#' \code{\link{arma_to_wv}}.
+#' 
+#' @template to_wv/haar_ma1
+#' @template misc/haar_wv_formulae_link
+#' @backref src/process_to_wv.cpp
+#' @backref src/process_to_wv.h
+#' @seealso \code{\link{arma_to_wv}}, \code{\link{arma11_to_wv}}
+#' @examples
+#' ntau = 7
+#' tau = 2^(1:ntau)
+#' wv.theo = ma1_to_wv(.3, 1, tau)
+ma1_to_wv <- function(theta, sigma2, tau) {
+    .Call('_wv_ma1_to_wv', PACKAGE = 'wv', theta, sigma2, tau)
+}
+
+#' Quantisation Noise (QN) to WV
+#' 
+#' This function compute the Haar WV of a Quantisation Noise (QN) process
+#' @param q2  A \code{double} corresponding to variance of drift
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the QN.
+#' @template to_wv/haar_qn
+#' @template misc/haar_wv_formulae_link
+#' @backref src/process_to_wv.cpp
+#' @backref src/process_to_wv.h
+#' @examples
+#' ntau = 8
+#' tau = 2^(1:ntau)
+#' wv.theo = qn_to_wv(.42, tau)
+qn_to_wv <- function(q2, tau) {
+    .Call('_wv_qn_to_wv', PACKAGE = 'wv', q2, tau)
+}
+
+#' @title Gaussian White Noise to WV
+#' @description This function compute the Haar WV of a Gaussian White Noise process
+#' @param sigma2 A \code{double} corresponding to variance of WN
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the white noise.
+#' @template to_wv/haar_wn
+#' @template misc/haar_wv_formulae_link
+#' @examples
+#' ntau = 8
+#' tau = 2^(1:ntau)
+#' wv.theo = wn_to_wv(1, tau)
+wn_to_wv <- function(sigma2, tau) {
+    .Call('_wv_wn_to_wv', PACKAGE = 'wv', sigma2, tau)
+}
+
+#' @title Random Walk to WV
+#' @description This function compute the WV (haar) of a Random Walk process
+#' @param gamma2 A \code{double} corresponding to variance of RW
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the random walk.
+#' @template to_wv/haar_rw
+#' @template misc/haar_wv_formulae_link
+#' @examples
+#' ntau = 8
+#' tau = 2^(1:ntau)
+#' wv.theo = rw_to_wv(.37, tau)
+rw_to_wv <- function(gamma2, tau) {
+    .Call('_wv_rw_to_wv', PACKAGE = 'wv', gamma2, tau)
+}
+
+#' @title Drift to WV
+#' @description This function compute the WV (haar) of a Drift process
+#' @param omega A \code{double} corresponding to the slope of the drift
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the drift.
+#' @template to_wv/haar_dr
+#' @template misc/haar_wv_formulae_link
+#' @examples
+#' ntau = 8
+#' tau = 2^(1:ntau)
+#' wv.theo = dr_to_wv(-2.3, tau)
+dr_to_wv <- function(omega, tau) {
+    .Call('_wv_dr_to_wv', PACKAGE = 'wv', omega, tau)
+}
+
+#' Model Process to WV
+#' 
+#' This function computes the summation of all Processes to WV (haar) in a given model
+#' @param theta   A \code{vec} containing the list of estimated parameters.
+#' @param desc    A \code{vector<string>} containing a list of descriptors.
+#' @param objdesc A \code{field<vec>} containing a list of object descriptors.
+#' @template misc/tau
+#' @return A \code{vec} containing the wavelet variance of the model.
+#' @template misc/haar_wv_formulae_link
+#' @examples
+#' model = AR1(.3,2) + RW(.21) + DR(.001)
+#' ntau = 8
+#' tau = 2^(1:ntau)
+#' wv.theo = theoretical_wv(model$theta, model$desc, model$objdesc, tau)
+#' @keywords internal
+theoretical_wv <- function(theta, desc, objdesc, tau) {
+    .Call('_wv_theoretical_wv', PACKAGE = 'wv', theta, desc, objdesc, tau)
+}
+
+#' Each Models Process Decomposed to WV
+#' 
+#' This function computes each process to WV (haar) in a given model.
+#' @param theta   A \code{vec} containing the list of estimated parameters.
+#' @param desc    A \code{vector<string>} containing a list of descriptors.
+#' @param objdesc A \code{field<vec>} containing a list of object descriptors.
+#' @template misc/tau
+#' @return A \code{mat} containing the wavelet variance of each process in the model
+#' @template misc/haar_wv_formulae_link
+#' @examples
+#' model = AR1(.3,2) + DR(.001)
+#' ntau = 8
+#' tau = 2^(1:ntau)
+#' wv.theo = decomp_theoretical_wv(model$theta, model$desc, model$objdesc, tau)
+#' @keywords internal
+decomp_theoretical_wv <- function(theta, desc, objdesc, tau) {
+    .Call('_wv_decomp_theoretical_wv', PACKAGE = 'wv', theta, desc, objdesc, tau)
+}
+
+#' Decomposed WV to Single WV
+#' 
+#' This function computes the combined processes to WV (haar) in a given model.
+#' @param decomp A \code{mat} with scales as rows and processes as columns
+#' @return A \code{vec} containing the wavelet variance of the process for the overall model
+#' @template misc/haar_wv_formulae_link
+#' @examples
+#' model = AR1(.3,2) + DR(.001)
+#' ntau = 8
+#' tau = 2^(1:ntau)
+#' wv.theo = decomp_theoretical_wv(model$theta, model$desc, model$objdesc, tau)
+#' wv.total = decomp_to_theo_wv(wv.theo)
+#' @keywords internal
+decomp_to_theo_wv <- function(decomp) {
+    .Call('_wv_decomp_to_theo_wv', PACKAGE = 'wv', decomp)
+}
+
+#' @title Generate a sequence of values
+#' @description Creates a vector containing a sequence of values starting at the initial point and going to the terminal point.
+#' @param a An \code{int}, that denotes the starting point.
+#' @param b An \code{int}, that denotes the ending point.
+#' @return A \code{vector} containing values moving from a to b. There are no restrictions on A's range.
+#' @author James J Balamuta
+#' @keywords internal
+#' @examples
+#' #Call with the following data:
+#' seq_cpp(3, 5)
+#' seq_cpp(5, 3)
+seq_cpp <- function(a, b) {
+    .Call('_wv_seq_cpp', PACKAGE = 'wv', a, b)
+}
+
+#' @title Generate a sequence of values based on supplied number
+#' @description Creates a vector containing a sequence of values starting at 1 and going to the terminal point.
+#' @param n An \code{int} that denotes the length of the vector.
+#' @return A \code{vector} containing values moving from 1 to n.
+#' @author James J Balamuta
+#' @keywords internal
+#' @examples 
+#' #Call with the following data:
+#' seq_len_cpp(5)
+seq_len_cpp <- function(n) {
+    .Call('_wv_seq_len_cpp', PACKAGE = 'wv', n)
+}
+
+#' @title Find Quantiles
+#' @description Attempts to find quantiles
+#' @param x A \code{vec} of data
+#' @param probs A \code{vec} of the quantiles to find.
+#' @return A \code{vector} containing the quantiles
+#' @author James J Balamuta
+#' @keywords internal
+#' @examples 
+#' #Call with the following data:
+#' quantile_cpp(c(1,2,3,4,5,6,7), c(.25,.5,.75))
+#' quantile(c(1,2,3,4,5,6,7), c(.25,.5,.75))
+quantile_cpp <- function(x, probs) {
+    .Call('_wv_quantile_cpp', PACKAGE = 'wv', x, probs)
+}
+
+#' @title Lagged Differences in Armadillo
+#' @description Returns the ith difference of a time series of rth lag.
+#' @param x A \code{vec} that is the time series
+#' @param lag A \code{unsigned int} that indicates the lag
+#' @param differences A \code{dif} that indicates how many differences should be taken
+#' @return A \code{vector} containing the differenced time series.
+#' @author JJB
+#' @keywords internal
+#' @examples
+#' x = rnorm(10, 0, 1)
+#' diff_cpp(x,1,1)
+diff_cpp <- function(x, lag, differences) {
+    .Call('_wv_diff_cpp', PACKAGE = 'wv', x, lag, differences)
+}
+
+#' @title Converting an ARMA Process to an Infinite MA Process
+#' @description Takes an ARMA function and converts it to an infinite MA process.
+#' @param ar A \code{column vector} of length p
+#' @param ma A \code{column vector} of length q
+#' @param lag_max A \code{int} of the largest MA(Inf) coefficient required.
+#' @return A \code{column vector} containing coefficients
+#' @details This function is a port of the base stats package's ARMAtoMA. There is no significant speed difference between the two.
+#' @author R Core Team and JJB
+#' @keywords internal
+#' @examples
+#' # ARMA(2,1)
+#' ARMAtoMA_cpp(c(1.0, -0.25), 1.0, 10)
+#' # ARMA(0,1)
+#' ARMAtoMA_cpp(numeric(0), 1.0, 10)
+ARMAtoMA_cpp <- function(ar, ma, lag_max) {
+    .Call('_wv_ARMAtoMA_cpp', PACKAGE = 'wv', ar, ma, lag_max)
+}
+
+#' @title Time Series Convolution Filters
+#' @description Applies a convolution filter to a univariate time series.
+#' @param x A \code{column vector} of length T
+#' @param filter A \code{column vector} of length f
+#' @param sides An \code{int} that takes either 1:for using past values only or 2: filter coefficients are centered around lag 0.
+#' @param circular A \code{bool} that indicates if the filter should be wrapped around the ends of the time series.
+#' @return A \code{column vec} that contains the results of the filtering process.
+#' @details This is a port of the cfilter function harnessed by the filter function in stats. 
+#' It is about 5-7 times faster than R's base function. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
+#' @author R Core Team and JJB
+#' @keywords internal
+#' @examples
+#' x = 1:15
+#' # 
+#' cfilter(x, rep(1, 3), sides = 2, circular = FALSE)
+#' # Using R's function
+#' filter(x, rep(1, 3))
+#' #
+#' cfilter(x, rep(1, 3), sides = 1, circular = FALSE)
+#' # Using R's function
+#' filter(x, rep(1, 3), sides = 1)
+#' #
+#' cfilter(x, rep(1, 3), sides = 1, circular = TRUE)
+#' # Using R's function
+#' filter(x, rep(1, 3), sides = 1, circular = TRUE)
+cfilter <- function(x, filter, sides, circular) {
+    .Call('_wv_cfilter', PACKAGE = 'wv', x, filter, sides, circular)
+}
+
+#' @title Time Series Recursive Filters
+#' @description Applies a recursive filter to a univariate time series.
+#' @usage rfilter(x, filter, init)
+#' @param x A \code{column vector} of length T
+#' @param filter A \code{column vector} of length f
+#' @param init A \code{column vector} of length f that contains the initial values of the time series in reverse.
+#' @return x A \code{column vector} with its contents reversed.
+#' @details Note: The length of 'init' must be equal to the length of 'filter'.
+#' This is a port of the rfilter function harnessed by the filter function in stats. 
+#' It is about 6-7 times faster than R's base function. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
+#' @author R Core Team and JJB
+#' @keywords internal
+#' @examples
+#' x = 1:15
+#' # 
+#' rfilter(x, rep(1, 3), rep(1, 3))
+#' # Using R's function
+#' filter(x, rep(1, 3), method="recursive", init=rep(1, 3))
+rfilter <- function(x, filter, init) {
+    .Call('_wv_rfilter', PACKAGE = 'wv', x, filter, init)
+}
+
+#' @title Compute Theoretical ACF for an ARMA Process
+#' @description Compute the theoretical autocorrelation function for an ARMA process.
+#' @usage ARMAacf_cpp(ar,ma,lag_max)
+#' @param ar A \code{vector} of length p containing AR coefficients
+#' @param ma A \code{vector} of length q containing MA coefficients
+#' @param lag_max A \code{unsigned integer} indicating the maximum lag necessary
+#' @return x A \code{matrix} listing values from 1...nx in one column and 1...1, 2...2,....,n...n, in the other
+#' @details This is an implementaiton of the ARMAacf function in R. It is approximately 40x times faster. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
+#' @author R Core Team and JJB
+#' @keywords internal
+#' @examples
+#' # ARMA(2,1)
+#' ARMAacf_cpp(c(1.0, -0.25), 1.0, lag_max = 10)
+#' # ARMA(0,1)
+#' ARMAacf_cpp(numeric(0), .35, lag_max = 10)
+ARMAacf_cpp <- function(ar, ma, lag_max) {
+    .Call('_wv_ARMAacf_cpp', PACKAGE = 'wv', ar, ma, lag_max)
+}
+
+#' @title Discrete Fourier Transformation for Autocovariance Function
+#' @description Calculates the autovariance function (ACF) using Discrete Fourier Transformation.
+#' @param x A \code{cx_vec}. 
+#' @return A \code{vec} containing the ACF.
+#' @details 
+#' This implementation is 2x as slow as Rs. 
+#' Two issues: 1. memory resize and 2. unoptimized fft algorithm in arma.
+#' Consider piping back into R and rewrapping the object. (Decrease of about 10 microseconds.)
+#' @keywords internal
+#' @examples
+#' x=rnorm(10)
+#' dft_acf(x)
+dft_acf <- function(x) {
+    .Call('_wv_dft_acf', PACKAGE = 'wv', x)
+}
+
+#' @title Mean of the First Difference of the Data
+#' @description The mean of the first difference of the data
+#' @param x A \code{vec} containing the data 
+#' @return A \code{double} that contains the mean of the first difference of the data.
+#' @keywords internal
+#' @examples
+#' x=rnorm(10)
+#' mean_diff(x)
+mean_diff <- function(x) {
+    .Call('_wv_mean_diff', PACKAGE = 'wv', x)
+}
+
+#' Replicate a Vector of Elements \eqn{n} times
+#' 
+#' This function takes a vector and replicates all of the data \eqn{n} times
+#' @param x A \code{vec} containing the data
+#' @param n An \code{unsigned int} indicating the number of times the vector should be repeated.
+#' @return A \code{vec} with repeated elements of the initial supplied vector.
+#' @keywords internal
+num_rep <- function(x, n) {
+    .Call('_wv_num_rep', PACKAGE = 'wv', x, n)
+}
+
+#' @rdname diff_inv
+intgr_vec <- function(x, xi, lag) {
+    .Call('_wv_intgr_vec', PACKAGE = 'wv', x, xi, lag)
+}
+
+#' @param xi A \code{vec} with length \eqn{lag*d} that provides initial values for the integration.
+#' @rdname diff_inv
+diff_inv_values <- function(x, lag, d, xi) {
+    .Call('_wv_diff_inv_values', PACKAGE = 'wv', x, lag, d, xi)
+}
+
+#' Discrete Intergral: Inverse Difference
+#' 
+#' Takes the inverse difference (e.g. goes from diff() result back to previous vector)
+#' @param x   A \code{vec} containing the data
+#' @param lag An \code{unsigned int} indicating the lag between observations. 
+#' @param d   An \code{unsigned int} which gives the number of "differences" to invert.
+#' @keywords internal
+diff_inv <- function(x, lag, d) {
+    .Call('_wv_diff_inv', PACKAGE = 'wv', x, lag, d)
+}
+
+#' @title Auto-Covariance and Correlation Functions
+#' @description The acf function computes the estimated
+#' autocovariance or autocorrelation for both univariate and multivariate cases.
+#' @param x      A \code{matrix} with dimensions \eqn{N \times S}{N x S} or N observations and S processes
+#' @param lagmax A \code{integer}
+#' @param cor    A \code{bool} indicating whether the correlation 
+#' (\code{TRUE}) or covariance (\code{FALSE}) should be computed.
+#' @param demean A \code{bool} indicating whether the data should be detrended
+#'  (\code{TRUE}) or not (\code{FALSE})
+#' @keywords internal
+.acf <- function(x, lagmax = 0L, cor = TRUE, demean = TRUE) {
+    .Call('_wv_acf', PACKAGE = 'wv', x, lagmax, cor, demean)
+}
+
+#' Create the ts.model obj.desc given split values
+#' 
+#' Computes the total phi and total theta vector length.
+#' @param ar  A \code{vec} containing the non-seasonal phi parameters.
+#' @param ma  A \code{vec} containing the non-seasonal theta parameters.
+#' @param sar A \code{vec} containing the seasonal phi parameters.
+#' @param sma A \code{vec} containing the seasonal theta parameters.
+#' @param s   An \code{unsigned integer} containing the frequency of seasonality.
+#' @param i   An \code{unsigned integer} containing the number of non-seasonal differences.
+#' @param si  An \code{unsigned integer} containing the number of seasonal differences.
+#' @return A \code{vec} with rows:
+#' \describe{
+#' \item{np}{Number of Non-Seasonal AR Terms}
+#' \item{nq}{Number of Non-Seasonal MA Terms}
+#' \item{nsp}{Number of Seasonal AR Terms}
+#' \item{nsq}{Number of Seasonal MA Terms}
+#' \item{nsigma}{Number of Variances (always 1)}
+#' \item{s}{Season Value}
+#' \item{i}{Number of non-seasonal differences}
+#' \item{si}{Number of Seasonal Differences}
+#' }
+sarma_objdesc <- function(ar, ma, sar, sma, s, i, si) {
+    .Call('_wv_sarma_objdesc', PACKAGE = 'wv', ar, ma, sar, sma, s, i, si)
+}
+
+#' Calculates Length of Seasonal Padding
+#' 
+#' Computes the total phi and total theta vector length.
+#' @param np  An \code{unsigned int} containing the number of non-seasonal phi parameters.
+#' @param nq  An \code{unsigned int} containing the number of non-seasonal theta parameters.
+#' @param nsp An \code{unsigned int} containing the number of seasonal phi parameters.
+#' @param nsq An \code{unsigned int} containing the number of seasonal theta parameters.
+#' @seealso \code{\link{sarma_components}}
+#' @return A \code{vec} with rows:
+#' \describe{
+#'  \item{p}{Number of phi parameters}
+#'  \item{q}{Number of theta parameters}
+#' }
+#' @keywords internal
+#' 
+#' 
+sarma_calculate_spadding <- function(np, nq, nsp, nsq, ns) {
+    .Call('_wv_sarma_calculate_spadding', PACKAGE = 'wv', np, nq, nsp, nsq, ns)
+}
+
+#' Determine parameter expansion based upon objdesc
+#' 
+#' Calculates the necessary vec space needed to pad the vectors
+#' for seasonal terms. 
+#' @param objdesc A \code{vec} with the appropriate sarima object description
+#' @return A \code{vec} with the structure:
+#' \describe{
+#' \item{np}{Number of Non-Seasonal AR Terms}
+#' \item{nq}{Number of Non-Seasonal MA Terms}
+#' \item{nsp}{Number of Seasonal AR Terms}
+#' \item{nsq}{Number of Seasonal MA Terms}
+#' \item{ns}{Number of Seasons (e.g. 12 is year)}
+#' \item{p}{Total number of phi terms}
+#' \item{q}{Total number of theta terms}
+#' }
+#' @keywords internal
+sarma_components <- function(objdesc) {
+    .Call('_wv_sarma_components', PACKAGE = 'wv', objdesc)
+}
+
+#' Efficient way to merge items together
+#' @keywords internal
+sarma_params_construct <- function(ar, ma, sar, sma) {
+    .Call('_wv_sarma_params_construct', PACKAGE = 'wv', ar, ma, sar, sma)
+}
+
+#' (Internal) Expand the SARMA Parameters
+#' @param params  A \code{vec} containing the theta values of the parameters.
+#' @inheritParams sarma_calculate_spadding
+#' @param p An \code{unsigned int} that is the total size of the phi vector. 
+#' @param q An \code{unsigned int} that is the total size of the theta vector. 
+#' @return A \code{field<vec>} that contains the expansion. 
+#' @keywords internal
+sarma_expand_unguided <- function(params, np, nq, nsp, nsq, ns, p, q) {
+    .Call('_wv_sarma_expand_unguided', PACKAGE = 'wv', params, np, nq, nsp, nsq, ns, p, q)
+}
+
+#' Expand Parameters for an SARMA object
+#' 
+#' Creates an expanded PHI and THETA vector for use in other objects. 
+#' @param params  A \code{vec} containing the theta values of the parameters.
+#' @param objdesc A \code{vec} containing the model term information.
+#' @return A \code{field<vec>} of size two as follows:
+#' \itemize{
+#'   \item AR    values
+#'   \item THETA values
+#' }
+#' @details 
+#' The \code{objdesc} is assumed to have the structure of:
+#' \itemize{
+#' \item AR(p)
+#' \item MA(q)
+#' \item SAR(P)
+#' \item SMA(Q)
+#' \item Seasons
+#' }
+#' @keywords internal
+#' @examples
+#' # p, q, P, Q, 1, s, i, si
+#' m = sarma_expand(c(0.5,.2,0,.1,.92,.83,.42,.33,.12), c(2,2,2,3,1,12,0,0))
+sarma_expand <- function(params, objdesc) {
+    .Call('_wv_sarma_expand', PACKAGE = 'wv', params, objdesc)
+}
+
 #' Compute the Spatial Wavelet Coefficients
 #' @param X      is a matrix with row, col orientation
 #' @param J1,J2  is the levels of decomposition along the rows, columns

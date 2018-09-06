@@ -23,11 +23,6 @@ The Drift (DR) process has a Haar Wavelet Variance given by:
 \deqn{ \nu _j^2\left( {{\omega }} \right) = \frac{{\tau _j^2{\omega ^2}}}{{16}}  }{nu[j]^2 (omega) = (tau[j]^2 * omega^2)/16}
 }
 
-\section{Haar Wavelet Derivation Information}{
-
-For more information, please see: \href{http://smac-group.com/computing/process-to-haar-wavelet-variance-formulae}{Supported Haar Wavelet Formulae} (Internet Connection Required).
-}
-
 \examples{
 ntau = 8
 tau = 2^(1:ntau)

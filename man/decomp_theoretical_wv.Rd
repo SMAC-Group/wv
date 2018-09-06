@@ -21,15 +21,4 @@ A \code{mat} containing the wavelet variance of each process in the model
 \description{
 This function computes each process to WV (haar) in a given model.
 }
-\section{Haar Wavelet Derivation Information}{
-
-For more information, please see: \href{http://smac-group.com/computing/process-to-haar-wavelet-variance-formulae}{Supported Haar Wavelet Formulae} (Internet Connection Required).
-}
-
-\examples{
-model = AR1(.3,2) + DR(.001)
-ntau = 8
-tau = 2^(1:ntau)
-wv.theo = decomp_theoretical_wv(model$theta, model$desc, model$objdesc, tau)
-}
 \keyword{internal}

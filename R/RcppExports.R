@@ -122,9 +122,9 @@ modwt_cpp <- function(x, filter_name, nlevels) {
 #' The function is a generic implementation that requires a stationary theoretical autocorrelation function (ACF)
 #' and the ability to transform an ARMA(\eqn{p},\eqn{q}) process into an MA(\eqn{\infty}{infinity}) (e.g. infinite MA process).
 #' @template to_wv/haar_arma
-#' @template misc/haar_wv_formulae_link
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
+#' @export
 #' @examples
 #' # Calculates the Haar WV for an ARMA(2,3).
 #' wv.theo = arma_to_wv(c(.23,.43), c(.34,.41,.59), 3, 2^(1:9))
@@ -185,10 +185,10 @@ arma_to_wv_app <- function(ar, ma, sigma2, tau, alpha = 0.9999) {
 #' \code{\link{arma_to_wv}}
 #' 
 #' @template to_wv/haar_arma11
-#' @template misc/haar_wv_formulae_link
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
 #' @seealso \code{\link{arma_to_wv}}
+#' @export
 #' @examples
 #' ntau = 7
 #' tau = 2^(1:ntau)
@@ -209,10 +209,10 @@ arma11_to_wv <- function(phi, theta, sigma2, tau) {
 #' \code{\link{arma_to_wv}}.
 #' 
 #' @template to_wv/haar_ar1
-#' @template misc/haar_wv_formulae_link
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
 #' @seealso \code{\link{arma_to_wv}}, \code{\link{arma11_to_wv}}
+#' @export
 #' @examples
 #' ntau = 7
 #' tau = 2^(1:ntau)
@@ -233,10 +233,10 @@ ar1_to_wv <- function(phi, sigma2, tau) {
 #' \code{\link{arma_to_wv}}.
 #' 
 #' @template to_wv/haar_ma1
-#' @template misc/haar_wv_formulae_link
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
 #' @seealso \code{\link{arma_to_wv}}, \code{\link{arma11_to_wv}}
+#' @export
 #' @examples
 #' ntau = 7
 #' tau = 2^(1:ntau)
@@ -252,9 +252,9 @@ ma1_to_wv <- function(theta, sigma2, tau) {
 #' @template misc/tau
 #' @return A \code{vec} containing the wavelet variance of the QN.
 #' @template to_wv/haar_qn
-#' @template misc/haar_wv_formulae_link
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
+#' @export
 #' @examples
 #' ntau = 8
 #' tau = 2^(1:ntau)
@@ -269,7 +269,7 @@ qn_to_wv <- function(q2, tau) {
 #' @template misc/tau
 #' @return A \code{vec} containing the wavelet variance of the white noise.
 #' @template to_wv/haar_wn
-#' @template misc/haar_wv_formulae_link
+#' @export
 #' @examples
 #' ntau = 8
 #' tau = 2^(1:ntau)
@@ -284,7 +284,7 @@ wn_to_wv <- function(sigma2, tau) {
 #' @template misc/tau
 #' @return A \code{vec} containing the wavelet variance of the random walk.
 #' @template to_wv/haar_rw
-#' @template misc/haar_wv_formulae_link
+#' @export
 #' @examples
 #' ntau = 8
 #' tau = 2^(1:ntau)
@@ -299,7 +299,7 @@ rw_to_wv <- function(gamma2, tau) {
 #' @template misc/tau
 #' @return A \code{vec} containing the wavelet variance of the drift.
 #' @template to_wv/haar_dr
-#' @template misc/haar_wv_formulae_link
+#' @export
 #' @examples
 #' ntau = 8
 #' tau = 2^(1:ntau)
@@ -316,12 +316,7 @@ dr_to_wv <- function(omega, tau) {
 #' @param objdesc A \code{field<vec>} containing a list of object descriptors.
 #' @template misc/tau
 #' @return A \code{vec} containing the wavelet variance of the model.
-#' @template misc/haar_wv_formulae_link
-#' @examples
-#' model = AR1(.3,2) + RW(.21) + DR(.001)
-#' ntau = 8
-#' tau = 2^(1:ntau)
-#' wv.theo = theoretical_wv(model$theta, model$desc, model$objdesc, tau)
+#' @export
 #' @keywords internal
 theoretical_wv <- function(theta, desc, objdesc, tau) {
     .Call('_wv_theoretical_wv', PACKAGE = 'wv', theta, desc, objdesc, tau)
@@ -335,12 +330,7 @@ theoretical_wv <- function(theta, desc, objdesc, tau) {
 #' @param objdesc A \code{field<vec>} containing a list of object descriptors.
 #' @template misc/tau
 #' @return A \code{mat} containing the wavelet variance of each process in the model
-#' @template misc/haar_wv_formulae_link
-#' @examples
-#' model = AR1(.3,2) + DR(.001)
-#' ntau = 8
-#' tau = 2^(1:ntau)
-#' wv.theo = decomp_theoretical_wv(model$theta, model$desc, model$objdesc, tau)
+#' @export
 #' @keywords internal
 decomp_theoretical_wv <- function(theta, desc, objdesc, tau) {
     .Call('_wv_decomp_theoretical_wv', PACKAGE = 'wv', theta, desc, objdesc, tau)
@@ -351,13 +341,7 @@ decomp_theoretical_wv <- function(theta, desc, objdesc, tau) {
 #' This function computes the combined processes to WV (haar) in a given model.
 #' @param decomp A \code{mat} with scales as rows and processes as columns
 #' @return A \code{vec} containing the wavelet variance of the process for the overall model
-#' @template misc/haar_wv_formulae_link
-#' @examples
-#' model = AR1(.3,2) + DR(.001)
-#' ntau = 8
-#' tau = 2^(1:ntau)
-#' wv.theo = decomp_theoretical_wv(model$theta, model$desc, model$objdesc, tau)
-#' wv.total = decomp_to_theo_wv(wv.theo)
+#' @export
 #' @keywords internal
 decomp_to_theo_wv <- function(decomp) {
     .Call('_wv_decomp_to_theo_wv', PACKAGE = 'wv', decomp)

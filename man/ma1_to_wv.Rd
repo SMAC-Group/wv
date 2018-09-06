@@ -29,11 +29,6 @@ The Moving Average Order \eqn{1} (MA(\eqn{1})) process has a Haar Wavelet Varian
 \deqn{\nu _j^2\left( {\theta ,{\sigma ^2}} \right) = \frac{{\left( {{{\left( {\theta  + 1} \right)}^2}{\tau _j} - 6\theta } \right){\sigma ^2}}}{{\tau _j^2}}}{nu[j]^2 = ((theta+1)^2 * tau[j] - 6*theta)*sigma2 / tau[j]^2}
 }
 
-\section{Haar Wavelet Derivation Information}{
-
-For more information, please see: \href{http://smac-group.com/computing/process-to-haar-wavelet-variance-formulae}{Supported Haar Wavelet Formulae} (Internet Connection Required).
-}
-
 \examples{
 ntau = 7
 tau = 2^(1:ntau)

@@ -23,11 +23,6 @@ The Random Walk (RW) process has a Haar Wavelet Variance given by:
 \deqn{\nu _j^2\left( {{\gamma ^2}} \right) = \frac{{\left( {\tau _j^2 + 2} \right){\gamma ^2}}}{{12{\tau _j}}} }{nu[j]^2 (gamma2) = ((tau[j]^2 + 2)*gamma2)/(12*tau[j])}
 }
 
-\section{Haar Wavelet Derivation Information}{
-
-For more information, please see: \href{http://smac-group.com/computing/process-to-haar-wavelet-variance-formulae}{Supported Haar Wavelet Formulae} (Internet Connection Required).
-}
-
 \examples{
 ntau = 8
 tau = 2^(1:ntau)

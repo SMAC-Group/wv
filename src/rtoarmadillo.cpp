@@ -1,18 +1,4 @@
 
-/* Copyright (C) 2014 - 2015  James Balamuta
- *
- * This file is part of GMWM R Methods Package
- *
- * The file uses methods in the r-to-armadillo project and is free software: you can redistribute it and/or modify it
- * under the terms of the MIT License.
- *
- * The r-to-armadillo project is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * 
- */
-
-
 #include <RcppArmadillo.h>
 
 #include "rtoarmadillo.h"
@@ -133,11 +119,6 @@ arma::vec diff_cpp(arma::vec x, unsigned int lag, unsigned int differences){
 //' @details This function is a port of the base stats package's ARMAtoMA. There is no significant speed difference between the two.
 //' @author R Core Team and JJB
 //' @keywords internal
-//' @examples
-//' # ARMA(2,1)
-//' ARMAtoMA_cpp(c(1.0, -0.25), 1.0, 10)
-//' # ARMA(0,1)
-//' ARMAtoMA_cpp(numeric(0), 1.0, 10)
 // [[Rcpp::export]]
 arma::vec ARMAtoMA_cpp(arma::vec ar, arma::vec ma, int lag_max)
 {
@@ -331,11 +312,6 @@ arma::mat expand_grid_red(int nx){
 //' @details This is an implementaiton of the ARMAacf function in R. It is approximately 40x times faster. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
 //' @author R Core Team and JJB
 //' @keywords internal
-//' @examples
-//' # ARMA(2,1)
-//' ARMAacf_cpp(c(1.0, -0.25), 1.0, lag_max = 10)
-//' # ARMA(0,1)
-//' ARMAacf_cpp(numeric(0), .35, lag_max = 10)
 // [[Rcpp::export]]
 arma::vec ARMAacf_cpp(arma::vec ar, arma::vec ma, unsigned int lag_max) 
 {

@@ -1,20 +1,3 @@
-/* Copyright (C) 2014 - 2016  James Balamuta, Stephane Guerrier, Roberto Molinari
- *
- * This file is part of GMWM R Methods Package
- *
- * The `gmwm` R package is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * The `gmwm` R package is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *  
- */
 
 #include <RcppArmadillo.h>
 #include "process_to_wv.h"
@@ -45,9 +28,6 @@
 //' @backref src/process_to_wv.cpp
 //' @backref src/process_to_wv.h
 //' @export
-//' @examples
-//' # Calculates the Haar WV for an ARMA(2,3).
-//' wv.theo = arma_to_wv(c(.23,.43), c(.34,.41,.59), 3, 2^(1:9))
 //' @seealso \code{\link{ARMAtoMA_cpp}}, \code{\link{ARMAacf_cpp}}, and \code{\link{arma11_to_wv}}
 // [[Rcpp::export]]
 arma::vec arma_to_wv(arma::vec ar, arma::vec ma, double sigma2, arma::vec tau) {
@@ -118,9 +98,6 @@ double acf_sum(arma::vec ar, arma::vec ma, unsigned int last_tau, double alpha =
 //' @template misc/haar_wv_formulae_link
 //' @backref src/process_to_wv.cpp
 //' @backref src/process_to_wv.h
-//' @examples
-//' # Performs an approximation of the Haar WV for an ARMA(2,3).
-//' wv.theo = arma_to_wv_app(c(.23,.43), c(.34,.41,.59), 3, 2^(1:9), .9)
 //' @seealso \code{\link{ARMAtoMA_cpp}}, \code{\link{ARMAacf_cpp}}, \code{\link{acf_sum}} and \code{\link{arma_to_wv}}
 // [[Rcpp::export]]
 arma::vec arma_to_wv_app(arma::vec ar, arma::vec ma, double sigma2, arma::vec tau, double alpha = 0.9999) {

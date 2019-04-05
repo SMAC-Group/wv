@@ -125,9 +125,6 @@ modwt_cpp <- function(x, filter_name, nlevels) {
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
 #' @export
-#' @examples
-#' # Calculates the Haar WV for an ARMA(2,3).
-#' wv.theo = arma_to_wv(c(.23,.43), c(.34,.41,.59), 3, 2^(1:9))
 #' @seealso \code{\link{ARMAtoMA_cpp}}, \code{\link{ARMAacf_cpp}}, and \code{\link{arma11_to_wv}}
 arma_to_wv <- function(ar, ma, sigma2, tau) {
     .Call('_wv_arma_to_wv', PACKAGE = 'wv', ar, ma, sigma2, tau)
@@ -164,9 +161,6 @@ acf_sum <- function(ar, ma, last_tau, alpha = 0.99) {
 #' @template misc/haar_wv_formulae_link
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
-#' @examples
-#' # Performs an approximation of the Haar WV for an ARMA(2,3).
-#' wv.theo = arma_to_wv_app(c(.23,.43), c(.34,.41,.59), 3, 2^(1:9), .9)
 #' @seealso \code{\link{ARMAtoMA_cpp}}, \code{\link{ARMAacf_cpp}}, \code{\link{acf_sum}} and \code{\link{arma_to_wv}}
 arma_to_wv_app <- function(ar, ma, sigma2, tau, alpha = 0.9999) {
     .Call('_wv_arma_to_wv_app', PACKAGE = 'wv', ar, ma, sigma2, tau, alpha)
@@ -414,11 +408,6 @@ diff_cpp <- function(x, lag, differences) {
 #' @details This function is a port of the base stats package's ARMAtoMA. There is no significant speed difference between the two.
 #' @author R Core Team and JJB
 #' @keywords internal
-#' @examples
-#' # ARMA(2,1)
-#' ARMAtoMA_cpp(c(1.0, -0.25), 1.0, 10)
-#' # ARMA(0,1)
-#' ARMAtoMA_cpp(numeric(0), 1.0, 10)
 ARMAtoMA_cpp <- function(ar, ma, lag_max) {
     .Call('_wv_ARMAtoMA_cpp', PACKAGE = 'wv', ar, ma, lag_max)
 }
@@ -484,11 +473,6 @@ rfilter <- function(x, filter, init) {
 #' @details This is an implementaiton of the ARMAacf function in R. It is approximately 40x times faster. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
 #' @author R Core Team and JJB
 #' @keywords internal
-#' @examples
-#' # ARMA(2,1)
-#' ARMAacf_cpp(c(1.0, -0.25), 1.0, lag_max = 10)
-#' # ARMA(0,1)
-#' ARMAacf_cpp(numeric(0), .35, lag_max = 10)
 ARMAacf_cpp <- function(ar, ma, lag_max) {
     .Call('_wv_ARMAacf_cpp', PACKAGE = 'wv', ar, ma, lag_max)
 }

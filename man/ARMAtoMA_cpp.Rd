@@ -22,12 +22,6 @@ Takes an ARMA function and converts it to an infinite MA process.
 \details{
 This function is a port of the base stats package's ARMAtoMA. There is no significant speed difference between the two.
 }
-\examples{
-# ARMA(2,1)
-ARMAtoMA_cpp(c(1.0, -0.25), 1.0, 10)
-# ARMA(0,1)
-ARMAtoMA_cpp(numeric(0), 1.0, 10)
-}
 \author{
 R Core Team and JJB
 }

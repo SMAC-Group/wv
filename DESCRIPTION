@@ -1,17 +1,18 @@
 Package: wv
 Type: Package
 Title: Wavelet variance
-Version: 1.0.0
-Date: 2017-05-28
+Version: 1.0.1
+Date: 2019-04-05
 Authors@R: c(
-    person("Justin", "Lee", email = "munsheet93@gmail.com", role = c("aut","cre")),
+    person("Stephane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
     person("James", "Balamuta", role = "aut"),
-    person("Stephane", "Guerrier", role = "aut"),
+    person("Justin", "Lee", role = "aut"),
     person("Roberto", "Molinari", role = "aut"),
-    person("Nathanael", "Claussen", email = "nclauss2@illinois.edu", role = "ctb"),
-    person("Haotian", "Xu", role = "ctb")
+    person("Nathanael", "Claussen", role = "ctb"),
+    person("Haotian", "Xu", role = "ctb"),
+    person("Yuming", "Zhang", role = "ctb")
     )
-Maintainer: Justin Lee <munsheet93@gmail.com>
+Maintainer: Stephane Guerrier <stef.guerrier@gmail.com>
 Depends: R (>= 3.3)
 Description: Compute the classical and robust wavelet variance for time series and regular lattices.
 License: GPL (>= 2)

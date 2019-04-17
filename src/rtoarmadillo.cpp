@@ -18,10 +18,6 @@
 //' @return A \code{vector} containing values moving from a to b. There are no restrictions on A's range.
 //' @author James J Balamuta
 //' @keywords internal
-//' @examples
-//' #Call with the following data:
-//' seq_cpp(3, 5)
-//' seq_cpp(5, 3)
 // [[Rcpp::export]]
 arma::vec seq_cpp(int a, int b){
   int d = abs(b-a)+1;
@@ -41,9 +37,6 @@ arma::vec seq_cpp(int a, int b){
 //' @return A \code{vector} containing values moving from 1 to n.
 //' @author James J Balamuta
 //' @keywords internal
-//' @examples 
-//' #Call with the following data:
-//' seq_len_cpp(5)
 // [[Rcpp::export]]
 arma::vec seq_len_cpp(unsigned int n){
   arma::vec seq = arma::ones<arma::vec>(n);

@@ -48,8 +48,6 @@ double objFun_find_biwc(double crob, double eff){
 // @usage find_biwc(eff)
 // @param eff A \code{double} that represents the desired level of efficiency as compared to the classic MLE.
 // @return A \code{double} that contains the optimized biwc.
-// @examples
-// find_biwc(0.6)
 double find_biwc(double eff = 0.6){
   Rcpp::Environment stats("package:stats"); 
   Rcpp::Function optimize = stats["optimize"];    

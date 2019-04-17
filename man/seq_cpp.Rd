@@ -17,11 +17,6 @@ A \code{vector} containing values moving from a to b. There are no restrictions 
 \description{
 Creates a vector containing a sequence of values starting at the initial point and going to the terminal point.
 }
-\examples{
-#Call with the following data:
-seq_cpp(3, 5)
-seq_cpp(5, 3)
-}
 \author{
 James J Balamuta
 }

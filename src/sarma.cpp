@@ -65,7 +65,6 @@ arma::vec sarma_objdesc(const arma::vec& ar, const arma::vec& ma,
 //' }
 //' @keywords internal
 //' 
-//' 
 // [[Rcpp::export]]
 arma::vec sarma_calculate_spadding(unsigned int np, unsigned int nq,
                                    unsigned int nsp, unsigned int nsq,

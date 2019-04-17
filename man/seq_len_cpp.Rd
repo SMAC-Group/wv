@@ -15,10 +15,6 @@ A \code{vector} containing values moving from 1 to n.
 \description{
 Creates a vector containing a sequence of values starting at 1 and going to the terminal point.
 }
-\examples{
-#Call with the following data:
-seq_len_cpp(5)
-}
 \author{
 James J Balamuta
 }

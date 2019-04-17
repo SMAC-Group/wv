@@ -22,11 +22,6 @@ Map x to the value in log10 scale
 \details{
 \code{tick_y_min} is usually chosen as \eqn{floor(min(log10(abs(x))))}
 }
-\examples{
-x = 2^(-1:-9)
-y.min = floor(min(log10(abs(x))))
-wccv_get_y(x, y.min, y.step)
-}
 \author{
 James Balamuta and Justin Lee
 }

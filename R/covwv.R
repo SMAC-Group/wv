@@ -265,10 +265,23 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
   
 }
 
-#' Helper function for plot.wccv_pair
-wccv_get_y = function(x, m, tick_y_min, tick_y_step){
+#' @title Mapping to log10 scale
+#' @description 
+#' Map x to the value in log10 scale
+#' @export
+#' @param x        A \code{vector} with dimensions J x 1. 
+#' @param tick_y_min A \code{negtive integer} the minimum power of 10, which corresponds to the smallest scale on y-axis.
+#' @param tick_y_step An \code{integer} indicating the increment of the sequence.
+#' @return A \code{field<vec>} that contains values in log10 scale.
+#' @details
+#' \code{tick_y_min} is usually chosen as \eqn{floor(min(log10(abs(x))))}
+#' @author James Balamuta and Justin Lee
+#' @examples
+#' x = 2^(-1:-9)
+#' y.min = floor(min(log10(abs(x))))
+#' wccv_get_y(x, y.min, y.step)
+wccv_get_y = function(x, tick_y_min, tick_y_step){
   n = length(x)
-  
   for (i in 1:n){
     if (x[i] > 0){
       x[i] = (log10(x[i]) - tick_y_min)/tick_y_step + 1

@@ -1,10 +1,78 @@
-#' @title Wavelet Variance for spatial models
+hfilter = function(jscale) {
+  
+  g = (1/sqrt(2))*c(1, 1)/sqrt(2)
+  h = c(1/sqrt(2), -1/sqrt(2))/sqrt(2)
+  L = 2
+  
+  if(jscale == 1) hup = h
+  
+  if(jscale > 1) {
+    
+    zero = c(rep(0, (2^(jscale-1)-1)))
+    hup = h[1]
+    
+    for(i in 1:(L-1)) hup = c(hup, zero, h[(i+1)])
+    
+    for( j in 0:(jscale-2)) {
+      if(j == 0) gup = g
+      
+      zero = c(rep(0, (2^j-1)))
+      temp = g[1]
+      
+      for(i in 1:(L-1)) temp = c(temp, zero, g[(i+1)]) 
+      
+      if(j > 0) {
+        
+        sala = rep(0, (length(gup)+length(temp)-1))
+        for(k in 1:length(sala)) {
+          
+          dummy = 0
+          
+          for(u in 1:length(gup)) {
+            
+            if((k-u+1) > 0 && (k-u+1) <= length(temp)) dummy = dummy + gup[u]*temp[(k-u+1)]
+            
+          }
+          
+          sala[k] = dummy
+          
+        }
+        
+        gup = sala
+        
+      } 
+      
+    }
+    
+    sala = rep(0, (length(hup)+length(gup)-1))
+    for(k in 1:length(sala)) {
+      
+      dummy=0
+      
+      for(u in 1:length(hup)) {
+        
+        if((k-u+1) > 0 && (k-u+1) <= length(gup)) dummy = dummy + hup[u]*gup[(k-u+1)]
+        
+      }
+      
+      sala[k] = dummy
+      
+    }
+    
+    hup = sala
+    
+  }
+  
+  hup
+  
+}
+
+
+#' @title Wavelet Variance for Regular Lattice Spatial Data
 #' 
-#' 
-#' X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE
 #' @description
-#' General function to compute WV for spatial models (isotropic and anisotropic)
-#' @param X            TO DO
+#' General function to compute standard and robust WV for regular lattice spatial data (isotropic and anisotropic)
+#' @param X            A \code{matrix} with dimensions N x M
 #' @param J1           TO DO    
 #' @param J2           TO DO   
 #' @param eff          TO DO   
@@ -20,10 +88,10 @@
 #' }
 #' @details 
 #' TO DO
-#' @author Roberto Molinari
+#' @author Roberto Molinari and Debashis Mondal
 #' @examples
 #' # An example TO DO
-spat.wavar = function(X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE, ...){
+spat_wavar = function(X, J1 = floor(log2(dim(X)[1])), J2 = floor(log2(dim(X)[2])), eff=0.6, compute.v = FALSE, iso = TRUE, ...){
   
   n = dim(X)[1]
   m = dim(X)[2]

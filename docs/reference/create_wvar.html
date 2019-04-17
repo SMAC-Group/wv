@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a <code>wvar</code> object � create_wvar • wv</title>
+<title>Create a <code>wvar</code> object — create_wvar • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,11 +18,26 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
+<meta property="og:title" content="Create a <code>wvar</code> object — create_wvar" />
+
+<meta property="og:description" content="Structures elements into a wvar object" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -46,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">wv</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">wv</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -57,12 +76,13 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/SMAC-Group/simts">
+  <a href="https://github.com/SMAC-Group/wv">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -70,28 +90,32 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a <code>wvar</code> object</h1>
+    
+    <div class="hidden name"><code>create_wvar.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Structures elements into a <code>wvar</code> object</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>create_wvar</span>(<span class='no'>obj</span>, <span class='no'>decomp</span>, <span class='no'>filter</span>, <span class='no'>robust</span>, <span class='no'>eff</span>, <span class='no'>alpha</span>, <span class='no'>scales</span>, <span class='no'>unit</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>obj</th>
-      <td><p>A <code>matrix</code> with dimensions N x 3, that contains the wavelet variance, low ci, hi ci.</p></td>
+      <td><p>A <code>matrix</code> with dimensions N x 3 that contains Wavelet Variance, Lower CI, and Upper CI.</p></td>
     </tr>
     <tr>
       <th>decomp</th>
-      <td><p>A <code>string</code> that indicates whether to use the "dwt" or "modwt" decomposition.</p></td>
+      <td><p>A <code>string</code> that indicates whether to use a "dwt" or "modwt" decomposition.</p></td>
     </tr>
     <tr>
       <th>filter</th>
@@ -107,15 +131,15 @@
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>A <code>double</code> that indicates the \(\left(1-p\right)*\alpha\) confidence level.</p></td>
+      <td><p>A <code>double</code> that specifies the significance level which in turn specifies the \(1-\alpha\) confidence level.</p></td>
     </tr>
     <tr>
       <th>scales</th>
-      <td><p>A <code>vec</code> that contains the amount of decomposition done at each level.</p></td>
+      <td><p>A <code>vec</code> that contains the amount of decomposition performed at each level.</p></td>
     </tr>
     <tr>
       <th>unit</th>
-      <td><p>A <code>string</code> that contains the unit expression of the frequency.</p></td>
+      <td><p>A <code>string</code> that indicates the unit expression of the frequency.</p></td>
     </tr>
     </table>
     
@@ -126,7 +150,7 @@
   <dt>"ci_low"</dt><dd><p>Lower CI</p></dd>
   <dt>"ci_high"</dt><dd><p>Upper CI</p></dd>
   <dt>"robust"</dt><dd><p>Robust active</p></dd>
-  <dt>"eff"</dt><dd><p>Efficiency level for Robust</p></dd>
+  <dt>"eff"</dt><dd><p>Efficiency level for Robust calculation</p></dd>
   <dt>"alpha"</dt><dd><p>p value used for CI</p></dd>
   <dt>"unit"</dt><dd><p>String representation of the unit</p></dd>
 </dl>
@@ -147,15 +171,18 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Justin Lee, Stephane Guerrier, Roberto Molinari, James Balamuta.</p>
+  <p>Developed by Stephane Guerrier, James Balamuta, Justin Lee, Roberto Molinari.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

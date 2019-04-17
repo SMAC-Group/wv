@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Comparison Between Multiple Wavelet Variances � compare_wvar • wv</title>
+<title>Comparison Between Multiple Wavelet Variances — compare_wvar • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,11 +18,26 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
+<meta property="og:title" content="Comparison Between Multiple Wavelet Variances — compare_wvar" />
+
+<meta property="og:description" content="Displays plots of multiple wavelet variances of different time series accounting for CI values." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -46,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">wv</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">wv</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -57,12 +76,13 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/SMAC-Group/simts">
+  <a href="https://github.com/SMAC-Group/wv">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -70,22 +90,27 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Comparison Between Multiple Wavelet Variances</h1>
+    
+    <div class="hidden name"><code>compare_wvar.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Displays plots of multiple wavelet variances of different time series accounting for CI values.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>compare_wvar</span>(<span class='no'>...</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='st'>"FALSE"</span>, <span class='kw'>add_legend</span> <span class='kw'>=</span> <span class='st'>"TRUE"</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ci_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>point_cex</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>point_pch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>compare_wvar</span>(<span class='no'>...</span>, <span class='kw'>split</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>add_legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ci_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>point_cex</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>point_pch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cex_labels</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -97,8 +122,12 @@
       <td><p>A <code>boolean</code> that, if TRUE, arranges the plots into a matrix-like format.</p></td>
     </tr>
     <tr>
+      <th>add_legend</th>
+      <td><p>A <code>boolean</code> that, if TRUE, adds a legend to the plot.</p></td>
+    </tr>
+    <tr>
       <th>units</th>
-      <td><p>A <code>string</code> that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is given.</p></td>
+      <td><p>A <code>string</code> that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.</p></td>
     </tr>
     <tr>
       <th>xlab</th>
@@ -111,6 +140,14 @@
     <tr>
       <th>main</th>
       <td><p>A <code>string</code> that gives an overall title for the plot.</p></td>
+    </tr>
+    <tr>
+      <th>col_wv</th>
+      <td><p>A <code>string</code> that specifies the color of the wavelet variance lines.</p></td>
+    </tr>
+    <tr>
+      <th>col_ci</th>
+      <td><p>A <code>string</code> that specifies the color of the confidence interval shade.</p></td>
     </tr>
     <tr>
       <th>nb_ticks_x</th>
@@ -126,7 +163,7 @@
     </tr>
     <tr>
       <th>ci_wv</th>
-      <td><p>A <code>double</code> that specifies the confidence interval to be used in the WV calculation.</p></td>
+      <td><p>A <code>boolean</code> that determines whether confidence interval polygons will be drawn.</p></td>
     </tr>
     <tr>
       <th>point_cex</th>
@@ -135,6 +172,14 @@
     <tr>
       <th>point_pch</th>
       <td><p>A <code>double</code> that specifies the symbol type to be plotted.</p></td>
+    </tr>
+    <tr>
+      <th>names</th>
+      <td><p>A <code>string</code> that specifies the name of the WVAR objects.</p></td>
+    </tr>
+    <tr>
+      <th>cex_labels</th>
+      <td><p>A <code>double</code> that specifies the magnification of the labels (x and y).</p></td>
     </tr>
     </table>
     
@@ -152,7 +197,7 @@
 <span class='no'>wv_Zt</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Zt</span>)
 <span class='no'>wv_Wt</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Wt</span>)
 
-<span class='fu'>compare_wvar</span>(<span class='no'>wv_Xt</span>, <span class='no'>wv_Yt</span>, <span class='no'>wv_Zt</span>, <span class='no'>wv_Wt</span>)</div><img src='compare_wvar-2.png' alt='' width='540' height='400' /></pre>
+<span class='fu'>compare_wvar</span>(<span class='no'>wv_Xt</span>, <span class='no'>wv_Yt</span>, <span class='no'>wv_Zt</span>, <span class='no'>wv_Wt</span>)</div><div class='img'><img src='compare_wvar-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -171,15 +216,18 @@ Stephane Guerrier and Justin Lee
 
       <footer>
       <div class="copyright">
-  <p>Developed by Justin Lee, Stephane Guerrier, Roberto Molinari, James Balamuta.</p>
+  <p>Developed by Stephane Guerrier, James Balamuta, Justin Lee, Roberto Molinari.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

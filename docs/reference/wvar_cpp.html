@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Computes the (MODWT) wavelet variance � wvar_cpp • wv</title>
+<title>Computes the (MODWT) wavelet variance — wvar_cpp • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,11 +18,26 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
+<meta property="og:title" content="Computes the (MODWT) wavelet variance — wvar_cpp" />
+
+<meta property="og:description" content="Calculates the (MODWT) wavelet variance" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -46,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">wv</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">wv</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -57,12 +76,13 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/SMAC-Group/simts">
+  <a href="https://github.com/SMAC-Group/wv">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -70,19 +90,23 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Computes the (MODWT) wavelet variance</h1>
+    
+    <div class="hidden name"><code>wvar_cpp.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Calculates the (MODWT) wavelet variance</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>wvar_cpp</span>(<span class='no'>signal_modwt_bw</span>, <span class='no'>robust</span>, <span class='no'>eff</span>, <span class='no'>alpha</span>, <span class='no'>ci_type</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -121,15 +145,6 @@
     <p>This function does the heavy lifting with the signal_modwt_bw</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>1337</span>)
-<span class='no'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
-<span class='no'>decomp</span> <span class='kw'>=</span> <span class='fu'><a href='modwt_cpp.html'>modwt_cpp</a></span>(<span class='no'>x</span>, <span class='kw'>filter_name</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-<span class='fu'>wvar_cpp</span>(<span class='no'>decomp</span>, <span class='kw'>robust</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>eff</span><span class='kw'>=</span><span class='fl'>0.6</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>ci_type</span><span class='kw'>=</span><span class='st'>"eta3"</span>)</div><div class='output co'>#&gt;            [,1]       [,2]      [,3]
-#&gt; [1,] 0.64088561 0.44794042 0.9927384
-#&gt; [2,] 0.24456060 0.14944086 0.4714211
-#&gt; [3,] 0.14316837 0.07297261 0.3980537
-#&gt; [4,] 0.06702458 0.02668282 0.3738411</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -139,24 +154,25 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Justin Lee, Stephane Guerrier, Roberto Molinari, James Balamuta.</p>
+  <p>Developed by Stephane Guerrier, James Balamuta, Justin Lee, Roberto Molinari.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

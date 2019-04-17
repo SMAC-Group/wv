@@ -15,6 +15,14 @@ library(wv)
 ```
 
 [![Travis-CI Build Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/dplyr?branch=master&svg=true)](https://ci.appveyor.com/project/stephaneguerrier/wv)
+[![Project Status: Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
+[![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=wv)
+[![packageversion](https://img.shields.io/badge/Package%20version-0.1.1-orange.svg?style=flat-square)](commits/develop)
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](/commits/master)
+
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 
@@ -71,9 +79,6 @@ sudo yum install curl curl-devel libxml2 libxml2-dev
 With the system dependency taken care of, we continue on by installing the R specific package dependencies and finally the package itself by doing the following in an R session: 
 
 ```{r, eval = F}
-# Install dependencies
-install.packages(c("RcppArmadillo","reshape2","devtools","knitr","rmarkdown"))
-
 # Install the package from GitHub without Vignettes/User Guides
 devtools::install_github("SMAC-Group/wv")
 ```

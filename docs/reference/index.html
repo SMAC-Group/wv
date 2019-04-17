@@ -18,11 +18,24 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
+<meta property="og:title" content="Function reference" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -46,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">wv</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">wv</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -57,12 +74,13 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/SMAC-Group/simts">
+  <a href="https://github.com/SMAC-Group/wv">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -70,106 +88,175 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;1.0.0</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="avar.html">avar</a></code> </p>
-          </td>
-          <td><p>Calculate the Allan Variance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="compare_wvar.html">compare_wvar</a></code> </p>
-          </td>
-          <td><p>Comparison Between Multiple Wavelet Variances</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="dwt.html">dwt</a></code> </p>
-          </td>
-          <td><p>Discrete Wavelet Transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="MOAV.html">MOAV</a></code> </p>
-          </td>
-          <td><p>Non-stationary Maximal-overlapping Allan Variance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="modwt.html">modwt</a></code> </p>
-          </td>
-          <td><p>Maximum Overlap Discrete Wavelet Transform</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="NOAV.html">NOAV</a></code> </p>
-          </td>
-          <td><p>Non-stationary Non-overlapping Allan Variance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="print.avar.html">print</a></code> </p>
-          </td>
-          <td><p>Prints Allan Variance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="robust_eda.html">robust_eda</a></code> </p>
-          </td>
-          <td><p>Comparison between classical and robust Wavelet Variances</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary.avar.html">summary</a></code> </p>
-          </td>
-          <td><p>Summary Allan Variance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="wccv.html">wccv</a></code> </p>
-          </td>
-          <td><p>Cross Covariance of Matrix</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="wccv_pair.html">wccv_pair</a></code> </p>
-          </td>
-          <td><p>Cross Covariance of a TS Pair</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="wvar.html">wvar</a></code> </p>
-          </td>
-          <td><p>Wavelet Variance</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="ACF.html">ACF()</a></code> </p>
+        </td>
+        <td><p>Auto-Covariance and Correlation Functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ar1_to_wv.html">ar1_to_wv()</a></code> </p>
+        </td>
+        <td><p>AR(1) process to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="arma11_to_wv.html">arma11_to_wv()</a></code> </p>
+        </td>
+        <td><p>ARMA(1,1) to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="arma_to_wv.html">arma_to_wv()</a></code> </p>
+        </td>
+        <td><p>ARMA process to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="av_ar1.html">av_ar1()</a></code> </p>
+        </td>
+        <td><p>Calculate Theoretical Allan Variance for Stationary First-Order Autoregressive 
+(AR1) Process</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="av_wn.html">av_wn()</a></code> </p>
+        </td>
+        <td><p>Calculate Theoretical Allan Variance for Stationary White Noise Process</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="compare_wvar.html">compare_wvar()</a></code> </p>
+        </td>
+        <td><p>Comparison Between Multiple Wavelet Variances</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="compare_wvar_no_split.html">compare_wvar_no_split()</a></code> </p>
+        </td>
+        <td><p>Combined Plot Comparison Between Multiple Wavelet Variances</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="compare_wvar_split.html">compare_wvar_split()</a></code> </p>
+        </td>
+        <td><p>Multi-Plot Comparison Between Multiple Wavelet Variances</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dr_to_wv.html">dr_to_wv()</a></code> </p>
+        </td>
+        <td><p>Drift to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dwt.html">dwt()</a></code> </p>
+        </td>
+        <td><p>Discrete Wavelet Transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ma1_to_wv.html">ma1_to_wv()</a></code> </p>
+        </td>
+        <td><p>Moving Average Order 1 (MA(1)) to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="modwt.html">modwt()</a></code> </p>
+        </td>
+        <td><p>Maximum Overlap Discrete Wavelet Transform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="qn_to_wv.html">qn_to_wv()</a></code> </p>
+        </td>
+        <td><p>Quantisation Noise (QN) to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="robust_eda.html">robust_eda()</a></code> </p>
+        </td>
+        <td><p>Comparison between classical and robust Wavelet Variances</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rw_to_wv.html">rw_to_wv()</a></code> </p>
+        </td>
+        <td><p>Random Walk to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sarma_objdesc.html">sarma_objdesc()</a></code> </p>
+        </td>
+        <td><p>Create the ts.model obj.desc given split values</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sp_hfilter.html">sp_hfilter()</a></code> </p>
+        </td>
+        <td><p>Haar filter for a spatial case</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sp_modwt_cpp.html">sp_modwt_cpp()</a></code> </p>
+        </td>
+        <td><p>Compute the Spatial Wavelet Coefficients</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wccv.html">wccv()</a></code> </p>
+        </td>
+        <td><p>Cross Covariance of Matrix</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wccv_get_y.html">wccv_get_y()</a></code> </p>
+        </td>
+        <td><p>Mapping to log10 scale</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wccv_pair.html">wccv_pair()</a></code> </p>
+        </td>
+        <td><p>Cross Covariance of a TS Pair</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wn_to_wv.html">wn_to_wv()</a></code> </p>
+        </td>
+        <td><p>Gaussian White Noise to WV</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wvar.html">wvar()</a></code> </p>
+        </td>
+        <td><p>Wavelet Variance</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -182,15 +269,18 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Justin Lee, Stephane Guerrier, Roberto Molinari, James Balamuta.</p>
+  <p>Developed by Stephane Guerrier, James Balamuta, Justin Lee, Roberto Molinari.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Comparison between classical and robust Wavelet Variances � robust_eda • wv</title>
+<title>Comparison between classical and robust Wavelet Variances — robust_eda • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,11 +18,26 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
+<meta property="og:title" content="Comparison between classical and robust Wavelet Variances — robust_eda" />
+
+<meta property="og:description" content="Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -46,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">wv</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">wv</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -57,12 +76,13 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/SMAC-Group/simts">
+  <a href="https://github.com/SMAC-Group/wv">
     <span class="fa fa-github"></span>
      
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -70,26 +90,30 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Comparison between classical and robust Wavelet Variances</h1>
+    
+    <div class="hidden name"><code>robust_eda.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>robust_eda</span>(<span class='no'>x</span>, <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nb_ticks_x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>nb_ticks_y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A time series object.</p></td>
+      <td><p>A time series objects.</p></td>
     </tr>
     <tr>
       <th>eff</th>
@@ -147,7 +171,8 @@
 <span class='no'>n</span> <span class='kw'>=</span> <span class='fl'>10</span>^<span class='fl'>4</span>
 <span class='no'>Xt</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='no'>n</span>)
 <span class='no'>wv</span> <span class='kw'>=</span> <span class='fu'><a href='wvar.html'>wvar</a></span>(<span class='no'>Xt</span>)
-<span class='fu'>plot</span>(<span class='no'>wv</span>)</div><img src='robust_eda-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Simulated white noise"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Scales"</span>)</div><img src='robust_eda-4.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"sec"</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='st'>"topright"</span>)</div><img src='robust_eda-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='st'>"darkred"</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)</div><img src='robust_eda-8.png' alt='' width='540' height='400' /></pre>
+
+<span class='fu'>plot</span>(<span class='no'>wv</span>)</div><div class='img'><img src='robust_eda-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Simulated white noise"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Scales"</span>)</div><div class='img'><img src='robust_eda-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"sec"</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='st'>"topright"</span>)</div><div class='img'><img src='robust_eda-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>wv</span>, <span class='kw'>col_wv</span> <span class='kw'>=</span> <span class='st'>"darkred"</span>, <span class='kw'>col_ci</span> <span class='kw'>=</span> <span class='st'>"pink"</span>)</div><div class='img'><img src='robust_eda-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -168,15 +193,18 @@ Stephane Guerrier, Nathanael Claussen, and Justin Lee
 
       <footer>
       <div class="copyright">
-  <p>Developed by Justin Lee, Stephane Guerrier, Roberto Molinari, James Balamuta.</p>
+  <p>Developed by Stephane Guerrier, James Balamuta, Justin Lee, Roberto Molinari.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

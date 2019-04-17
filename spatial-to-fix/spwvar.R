@@ -1,3 +1,18 @@
+#' @title Compute the Wavelet Filter for a given scale of Spatial Decomposition
+#' 
+#' @description
+#' General function to compute standard and robust WV for regular lattice spatial data (isotropic and anisotropic)
+#' @param jscale    An \code{integer} indicating the scale of wavelet decomposition for which the filter needs to be computed
+#' @return A \code{list} with the structure: IT MIGHT BE A GOOD TO MATCH THE OUTPUT OF WVAR
+#' \describe{
+#'   \item{""}{TO DO}
+#' }
+#' @details 
+#' TO DO
+#' @author Debashis Mondal
+#' @examples
+#' # An example TO DO
+
 hfilter = function(jscale) {
   
   g = (1/sqrt(2))*c(1, 1)/sqrt(2)
@@ -88,23 +103,23 @@ hfilter = function(jscale) {
 #' }
 #' @details 
 #' TO DO
-#' @author Roberto Molinari and Debashis Mondal
+#' @author Roberto Molinari
 #' @examples
 #' # An example TO DO
 spat_wavar = function(X, J1 = floor(log2(dim(X)[1])), J2 = floor(log2(dim(X)[2])), eff=0.6, compute.v = FALSE, iso = TRUE, ...){
   
   n = dim(X)[1]
   m = dim(X)[2]
-  wv = matrix(NA,J1,J2)
-  wv.rob = matrix(NA,J1,J2)
-  wv.mp = matrix(NA,J1,J2)
-  sig.ci = matrix(NA,J1,J2)
-  mn = matrix(NA,J1,J2)
-  CI = matrix(NA,min(J1,J2),3)
-  CI.rob = matrix(NA,min(J1,J2),3)
+  wv = matrix(NA, J1, J2)
+  wv.rob = matrix(NA, J1, J2)
+  wv.mp = matrix(NA, J1, J2)
+  sig.ci = matrix(NA, J1, J2)
+  mn = matrix(NA, J1, J2)
+  CI = matrix(NA, min(J1, J2), 3)
+  CI.rob = matrix(NA, min(J1, J2), 3)
   nb.level = J1*J2
   
-  if(compute.v==TRUE) wv.coeffs = vector("list",nb.level)
+  if(compute.v == TRUE) wv.coeffs = vector("list", nb.level)
   
   i = 0
   k = 0
@@ -142,15 +157,16 @@ spat_wavar = function(X, J1 = floor(log2(dim(X)[1])), J2 = floor(log2(dim(X)[2])
       
       wv.coeff = c(xhh)
       wv.coeff = wv.coeff[!is.na(wv.coeff)]
+      sig.ci[j1,j2] = sum(acf(wv.coeff, type="covariance", plot=F)$acf^2)/2
+      mn[j1,j2] = length(wv.coeff)
       
-      if(compute.v==TRUE) wv.coeffs[[i]] = wv.coeff
+      if(compute.v == TRUE) wv.coeffs[[i]] = wv.coeff
       
       # Standard
       wv[j1,j2] = sum(wv.coeff^2,na.rm=T)/(pp1*pp2)
       
       # Robust
-      wv.mp[j1,j2] = percival(wv.coeff)
-      wv.rob[j1,j2] = sig.rob.bw(eff,wv.coeff)
+      wv.rob[j1,j2] = sig_rob_bw(wv.coeff, eff)
       
     }
     

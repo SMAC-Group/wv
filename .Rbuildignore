@@ -6,5 +6,6 @@
 ^test_modwt\.R$
 ^docs$
 ^man-roxygen$
+^spatial-to-fix$
 ^figures$
 ^README\.rmd$

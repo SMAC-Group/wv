@@ -1057,6 +1057,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
 #'  \item{x}{Data}
 #'  \item{converted}{A \code{boolean} indicating whether conversion is made}
 #' }
+#' @export
 #' @examples
 #' x = seq(60, 3600, 60)
 #' unitConversion(x, 'sec', 'min')

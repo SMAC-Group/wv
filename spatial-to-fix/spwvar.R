@@ -1,5 +1,29 @@
-## General function to compute WV for spatial models (isotropic and anisotropic)
-spat.wavar = function(X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE){
+#' @title Wavelet Variance for spatial models
+#' 
+#' 
+#' X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE
+#' @description
+#' General function to compute WV for spatial models (isotropic and anisotropic)
+#' @param X            TO DO
+#' @param J1           TO DO    
+#' @param J2           TO DO   
+#' @param eff          TO DO   
+#' @param compute.v    TO DO 
+#' @param iso          TO DO 
+#' @param ...       Further arguments passed to or from other methods.
+#' @return A \code{list} with the structure: IT MIGHT BE A GOOD TO MATCH THE OUTPUT OF WVAR
+#' \describe{
+#'   \item{"wv"}{TO DO}
+#'   \item{"wv.rob"}{TO DO}
+#'   \item{"wv.mp"}{TO DO}
+#'   \item{"V"}{TO DO}
+#' }
+#' @details 
+#' TO DO
+#' @author Roberto Molinari
+#' @examples
+#' # An example TO DO
+spat.wavar = function(X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE, ...){
   
   n = dim(X)[1]
   m = dim(X)[2]

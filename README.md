@@ -1,70 +1,61 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
 
-`wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
-===================================================================================================================================
+[![Travis-CI Build
+Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/dplyr?branch=master&svg=true)](https://ci.appveyor.com/project/stephaneguerrier/wv)
+[![Project Status:
+Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
+[![minimal R
+version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
+[![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=wv)
+[![packageversion](https://img.shields.io/badge/Package%20version-0.1.1-orange.svg?style=flat-square)](commits/develop)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--17-yellowgreen.svg)](/commits/master)
 
-This repository holds the Wavelet Variance (wv) R package. This estimation technique computes the classical and robust wavelet variance for time series and regular lattices.
+# `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
+
+This repository holds the Wavelet Variance (`wv`) R package. This
+estimation technique computes the classical and robust wavelet variance
+for time series and regular lattices.
 
 Below are examples of the capabilities of the `wv` package.
 
-Install Instructions
---------------------
+## Install Instructions
 
-To install the `wv` package, there is currently one option: GitHub (Developmental).
+To install the `simts` package, there is currently one option:
+[GitHub](https://github.com/SMAC-Group/wv/). For users who are
+interested in having the latest developments, this option is ideal
+although more dependencies are required to run a stable version of the
+package. Most importantly, users **must** have a (C++) compiler
+installed on their machine that is compatible with R (e.g. Clang).
 
-### Recommended R Interface
-
-We firmly recommend that any users of this package use the [RStudio IDE](https://www.rstudio.com/products/rstudio/download/) over the default R GUI.
-
-### Installing the package through GitHub (Developmental)
-
-For users who are interested in having the latest and greatest developments withing wavelets or GMWM methodology, this option is ideal. Though, there is considerably more work that a user must do to have a stable version of the package. **The setup to obtain the development version is platform dependent.**
-
-Specifically, one **must** have a compiler installed on your system that is compatible with R.
-
-For help on obtaining a compiler consult:
-
--   [OS X](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/)
--   [Windows](https://cran.r-project.org/bin/windows/Rtools/)
-
-Depending on your operating system, further requirements exist such as:
-
-**OS X**
-
-Some user report the need to use X11 to suppress shared library errors. To install X11, visit [xquartz.org](http://www.xquartz.org/)
-
-**Linux**
-
-Both curl and libxml are required.
-
-For **Debian** systems, enter the following in terminal:
-
-``` bash
-sudo apt-get install curl libcurl3 libcurl3-dev libxml2 libxml2-dev
-```
-
-For **RHEL** systems, enter the following in terminal:
-
-``` bash
-sudo yum install curl curl-devel libxml2 libxml2-dev
-```
+*The setup to obtain the development version of `simts` is platform
+dependent.*
 
 **All Systems**
 
-With the system dependency taken care of, we continue on by installing the R specific package dependencies and finally the package itself by doing the following in an R session:
+The following R packages are also required. Once you’ve made sure that
+you have a compatible C++ compiler installed on your computer, run the
+following code in an R session and you will be ready to use the
+devlopment version of `simts`.
 
 ``` r
-# Install dependencies
-install.packages(c("RcppArmadillo","reshape2","devtools","knitr","rmarkdown"))
-
-# Install the package from GitHub without Vignettes/User Guides
+# Install the package from GitHub
 devtools::install_github("SMAC-Group/wv")
 ```
 
-Discrete Wavelet Transformation
--------------------------------
+## License
+
+The license this source code is released under is the GNU AFFERO GENERAL
+PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text.
+Otherwise, please consult [TLDR
+Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-\(agpl-3.0\))
+or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will
+provide a synopsis of the restrictions placed upon the code.
+
+## Discrete Wavelet Transformation
 
 ``` r
 # Set seed for reproducibility 
@@ -109,13 +100,9 @@ summary(Xt.dwt)
 plot(Xt.dwt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."  />
-<p class="caption">
-Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise.
-</p>
+<img src="man/figures/README-unnamed-chunk-4-1.png" title="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
 
-Maximum Overlap Discrete Wavelet Transformation
------------------------------------------------
+## Maximum Overlap Discrete Wavelet Transformation
 
 ``` r
 # MODWT
@@ -149,13 +136,9 @@ summary(Xt.modwt)
 plot(Xt.modwt, index = "all")
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."  />
-<p class="caption">
-Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simulated Gaussian white noise.
-</p>
+<img src="man/figures/README-unnamed-chunk-5-1.png" title="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
 
-Wavelet Variance
-----------------
+## Wavelet Variance
 
 ``` r
 # Set seed for reproducibility 
@@ -174,10 +157,7 @@ plot(wvar(WN), main = "White noise")
 plot(wvar(RW), main = "Random walk", legend_position = NULL)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)."  />
-<p class="caption">
-Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
-</p>
+<img src="man/figures/README-unnamed-chunk-6-1.png" title="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." style="display: block; margin: auto;" />
 
 ``` r
 # Add contamination
@@ -189,7 +169,7 @@ robust_eda(RW, main = "RW without contamination")
 robust_eda(RW2, legend_position = NULL, main = "RW with contamination")
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
 ``` r
 n = 10^5
@@ -206,11 +186,14 @@ wv_Wt = wvar(Wt)
 compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
 
-User Guides
-===========
+# User Guides
 
-Various guides ship with package or are available on <http://smac-group.com/> to provide insight into how to use the different methods. At the present time, the following vignettes are available:
+Various guides ship with package or are available on
+<http://smac-group.com/> to provide insight into how to use the
+different methods. At the present time, the following vignettes are
+available:
 
-1.  Process to Haar Wavelet Variance [(Online)](https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html)
+1.  Process to Haar Wavelet Variance
+    [(Online)](https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html)

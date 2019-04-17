@@ -7,31 +7,7 @@
 compare_wvar_split(graph_details)
 }
 \arguments{
-\item{...}{Several time series objects.}
-
-\item{split}{A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.}
-
-\item{units}{A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.}
-
-\item{xlab}{A \code{string} that gives a title for the x axes.}
-
-\item{ylab}{A \code{string} that gives a title for the y axes.}
-
-\item{main}{A \code{string} that gives an overall title for the plot.}
-
-\item{nb_ticks_x}{An \code{integer} that specifies the maximum number of ticks for the x-axis.}
-
-\item{nb_ticks_y}{An \code{integer} that specifies the maximum number of ticks for the y-axis.}
-
-\item{legend_position}{A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).}
-
-\item{ci_wv}{A \code{boolean} that determines whether confidence interval polygons will be drawn.}
-
-\item{col_ci}{A \code{string} that specifies the color of the confidence interval shade.}
-
-\item{point_pch}{A \code{double} that specifies the symbol type to be plotted.}
-
-\item{point_cex}{A \code{double} that specifies the size of each symbol to be plotted.}
+\item{graph_details}{List of inputs}
 }
 \description{
 This is a helper function for the \code{compare_var()} function. 

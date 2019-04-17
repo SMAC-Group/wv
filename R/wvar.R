@@ -600,19 +600,7 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #' This method accepts the same set of arguments as \code{compare_wvar} and returns a comparision 
 #' of multiple wavelet variances of different time series accounting for CI values as a set of different plots.
 #' 
-#' @param ...              Several time series objects.
-#' @param split            A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
-#' @param units            A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.
-#' @param xlab             A \code{string} that gives a title for the x axes.
-#' @param ylab             A \code{string} that gives a title for the y axes.
-#' @param main             A \code{string} that gives an overall title for the plot.
-#' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
-#' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
-#' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv            A \code{boolean} that determines whether confidence interval polygons will be drawn.
-#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
-#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
-#' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
+#' @param graph_details       List of inputs
 #' 
 #' @author Stephane Guerrier, Justin Lee, and Nathanael Claussen
 #' @export
@@ -761,19 +749,7 @@ compare_wvar_split = function(graph_details){
 #' This method accepts the same set of arguments as \code{compare_wvar} and returns a single plot
 #' that compares multiple wavelet variances of different time series accounting for CI values.
 #' 
-#' @param ...              Several time series objects.
-#' @param split            A \code{boolean} that, if TRUE, arranges the plots into a matrix-like format.
-#' @param units            A \code{string} that specifies the units of time plotted on the x axes. Note: This argument will not be used if xlab is specified.
-#' @param xlab             A \code{string} that gives a title for the x axes.
-#' @param ylab             A \code{string} that gives a title for the y axes.
-#' @param main             A \code{string} that gives an overall title for the plot.
-#' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
-#' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
-#' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param ci_wv            A \code{boolean} that determines whether confidence interval polygons will be drawn.
-#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
-#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
-#' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
+#' @param graph_details       List of inputs
 #' 
 #' @author Stephane Guerrier, Justin Lee, and Nathanael Claussen
 #' @export

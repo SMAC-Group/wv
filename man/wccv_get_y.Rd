@@ -25,6 +25,7 @@ Map x to the value in log10 scale
 \examples{
 x = 2^(-1:-9)
 y.min = floor(min(log10(abs(x))))
+y.step = 2
 wccv_get_y(x, y.min, y.step)
 }
 \author{

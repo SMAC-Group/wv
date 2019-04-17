@@ -285,8 +285,6 @@ arma::field<arma::mat> batch_modwt_wvar_cpp(const arma::mat& signal, unsigned in
 //' @keywords internal
 //' @details 
 //' Used in wvar object.
-//' @examples
-//' scales_cpp(5)
 // [[Rcpp::export]]
 arma::vec scales_cpp(unsigned int nb_level){
   // Define scales

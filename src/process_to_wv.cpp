@@ -255,10 +255,6 @@ arma::vec ma1_to_wv(double theta, double sigma2, const arma::vec& tau){
 //' @backref src/process_to_wv.cpp
 //' @backref src/process_to_wv.h
 //' @export
-//' @examples
-//' ntau = 8
-//' tau = 2^(1:ntau)
-//' wv.theo = qn_to_wv(.42, tau)
 // [[Rcpp::export]]
 arma::vec qn_to_wv(double q2, const arma::vec& tau){
   return 6.0*q2/arma::square(tau);
@@ -271,10 +267,6 @@ arma::vec qn_to_wv(double q2, const arma::vec& tau){
 //' @return A \code{vec} containing the wavelet variance of the white noise.
 //' @template to_wv/haar_wn
 //' @export
-//' @examples
-//' ntau = 8
-//' tau = 2^(1:ntau)
-//' wv.theo = wn_to_wv(1, tau)
 // [[Rcpp::export]]
 arma::vec wn_to_wv(double sigma2, arma::vec tau){
   return sigma2/tau;
@@ -288,10 +280,6 @@ arma::vec wn_to_wv(double sigma2, arma::vec tau){
 //' @return A \code{vec} containing the wavelet variance of the random walk.
 //' @template to_wv/haar_rw
 //' @export
-//' @examples
-//' ntau = 8
-//' tau = 2^(1:ntau)
-//' wv.theo = rw_to_wv(.37, tau)
 // [[Rcpp::export]]
 arma::vec rw_to_wv(double gamma2, const arma::vec& tau){
   return gamma2*((arma::square(tau) + 2.0)/(12.0*tau));
@@ -305,10 +293,6 @@ arma::vec rw_to_wv(double gamma2, const arma::vec& tau){
 //' @return A \code{vec} containing the wavelet variance of the drift.
 //' @template to_wv/haar_dr
 //' @export
-//' @examples
-//' ntau = 8
-//' tau = 2^(1:ntau)
-//' wv.theo = dr_to_wv(-2.3, tau)
 // [[Rcpp::export]]
 arma::vec dr_to_wv(double omega, const arma::vec& tau){
 	return square(omega)*arma::square(tau)/16.0;

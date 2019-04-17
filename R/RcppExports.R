@@ -158,10 +158,6 @@ ma1_to_wv <- function(theta, sigma2, tau) {
 #' @backref src/process_to_wv.cpp
 #' @backref src/process_to_wv.h
 #' @export
-#' @examples
-#' ntau = 8
-#' tau = 2^(1:ntau)
-#' wv.theo = qn_to_wv(.42, tau)
 qn_to_wv <- function(q2, tau) {
     .Call('_wv_qn_to_wv', PACKAGE = 'wv', q2, tau)
 }
@@ -173,10 +169,6 @@ qn_to_wv <- function(q2, tau) {
 #' @return A \code{vec} containing the wavelet variance of the white noise.
 #' @template to_wv/haar_wn
 #' @export
-#' @examples
-#' ntau = 8
-#' tau = 2^(1:ntau)
-#' wv.theo = wn_to_wv(1, tau)
 wn_to_wv <- function(sigma2, tau) {
     .Call('_wv_wn_to_wv', PACKAGE = 'wv', sigma2, tau)
 }
@@ -188,10 +180,6 @@ wn_to_wv <- function(sigma2, tau) {
 #' @return A \code{vec} containing the wavelet variance of the random walk.
 #' @template to_wv/haar_rw
 #' @export
-#' @examples
-#' ntau = 8
-#' tau = 2^(1:ntau)
-#' wv.theo = rw_to_wv(.37, tau)
 rw_to_wv <- function(gamma2, tau) {
     .Call('_wv_rw_to_wv', PACKAGE = 'wv', gamma2, tau)
 }
@@ -203,10 +191,6 @@ rw_to_wv <- function(gamma2, tau) {
 #' @return A \code{vec} containing the wavelet variance of the drift.
 #' @template to_wv/haar_dr
 #' @export
-#' @examples
-#' ntau = 8
-#' tau = 2^(1:ntau)
-#' wv.theo = dr_to_wv(-2.3, tau)
 dr_to_wv <- function(omega, tau) {
     .Call('_wv_dr_to_wv', PACKAGE = 'wv', omega, tau)
 }
@@ -257,10 +241,6 @@ decomp_to_theo_wv <- function(decomp) {
 #' @return A \code{vector} containing values moving from a to b. There are no restrictions on A's range.
 #' @author James J Balamuta
 #' @keywords internal
-#' @examples
-#' #Call with the following data:
-#' seq_cpp(3, 5)
-#' seq_cpp(5, 3)
 seq_cpp <- function(a, b) {
     .Call('_wv_seq_cpp', PACKAGE = 'wv', a, b)
 }
@@ -271,9 +251,6 @@ seq_cpp <- function(a, b) {
 #' @return A \code{vector} containing values moving from 1 to n.
 #' @author James J Balamuta
 #' @keywords internal
-#' @examples 
-#' #Call with the following data:
-#' seq_len_cpp(5)
 seq_len_cpp <- function(n) {
     .Call('_wv_seq_len_cpp', PACKAGE = 'wv', n)
 }
@@ -467,7 +444,6 @@ sarma_objdesc <- function(ar, ma, sar, sma, s, i, si) {
 #'  \item{q}{Number of theta parameters}
 #' }
 #' @keywords internal
-#' 
 #' 
 sarma_calculate_spadding <- function(np, nq, nsp, nsq, ns) {
     .Call('_wv_sarma_calculate_spadding', PACKAGE = 'wv', np, nq, nsp, nsq, ns)
@@ -691,8 +667,6 @@ batch_modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, s
 #' @keywords internal
 #' @details 
 #' Used in wvar object.
-#' @examples
-#' scales_cpp(5)
 scales_cpp <- function(nb_level) {
     .Call('_wv_scales_cpp', PACKAGE = 'wv', nb_level)
 }

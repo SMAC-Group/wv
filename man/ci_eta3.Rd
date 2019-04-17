@@ -24,12 +24,4 @@ A \code{matrix} with the structure:
 \description{
 Computes the eta3 CI
 }
-\examples{
-set.seed(1337)
-x = rnorm(100)
-# Uses the internal MODWT function not associated with an S3 class.
-decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-y = wave_variance(decomp)
-ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
-}
 \keyword{internal}

@@ -178,10 +178,6 @@ arma::vec arma_to_wv_app(arma::vec ar, arma::vec ma, double sigma2, arma::vec ta
 //' @backref src/process_to_wv.h
 //' @seealso \code{\link{arma_to_wv}}
 //' @export
-//' @examples
-//' ntau = 7
-//' tau = 2^(1:ntau)
-//' wv.theo = arma11_to_wv(0.3, 0.1, 1, tau)
 // [[Rcpp::export]]
 arma::vec arma11_to_wv(double phi, double theta, double sigma2, const arma::vec& tau){
   
@@ -215,10 +211,6 @@ arma::vec arma11_to_wv(double phi, double theta, double sigma2, const arma::vec&
 //' @backref src/process_to_wv.h
 //' @seealso \code{\link{arma_to_wv}}, \code{\link{arma11_to_wv}}
 //' @export
-//' @examples
-//' ntau = 7
-//' tau = 2^(1:ntau)
-//' wv.theo = ar1_to_wv(.63, 1, tau)
 // [[Rcpp::export]]
 arma::vec ar1_to_wv(double phi, double sigma2, const arma::vec& tau){
   unsigned int size_tau = tau.n_elem;
@@ -248,10 +240,6 @@ arma::vec ar1_to_wv(double phi, double sigma2, const arma::vec& tau){
 //' @backref src/process_to_wv.h
 //' @seealso \code{\link{arma_to_wv}}, \code{\link{arma11_to_wv}}
 //' @export
-//' @examples
-//' ntau = 7
-//' tau = 2^(1:ntau)
-//' wv.theo = ma1_to_wv(.3, 1, tau)
 // [[Rcpp::export]]
 arma::vec ma1_to_wv(double theta, double sigma2, const arma::vec& tau){
   return sigma2 * (square(theta + 1.0) * tau - 6.0 * theta)/arma::square(tau);

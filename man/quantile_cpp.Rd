@@ -17,11 +17,6 @@ A \code{vector} containing the quantiles
 \description{
 Attempts to find quantiles
 }
-\examples{
-#Call with the following data:
-quantile_cpp(c(1,2,3,4,5,6,7), c(.25,.5,.75))
-quantile(c(1,2,3,4,5,6,7), c(.25,.5,.75))
-}
 \author{
 James J Balamuta
 }

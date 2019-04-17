@@ -31,10 +31,4 @@ Calculates the (MODWT) wavelet variance
 \details{
 This function does the heavy lifting with the signal_modwt_bw
 }
-\examples{
-set.seed(1337)
-x = rnorm(100)
-decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-wvar_cpp(decomp, robust=FALSE, eff=0.6, alpha = 0.05, ci_type="eta3")
-}
 \keyword{internal}

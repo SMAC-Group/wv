@@ -58,10 +58,6 @@ arma::vec seq_len_cpp(unsigned int n){
 //' @return A \code{vector} containing the quantiles
 //' @author James J Balamuta
 //' @keywords internal
-//' @examples 
-//' #Call with the following data:
-//' quantile_cpp(c(1,2,3,4,5,6,7), c(.25,.5,.75))
-//' quantile(c(1,2,3,4,5,6,7), c(.25,.5,.75))
 // [[Rcpp::export]]
 arma::vec quantile_cpp(arma::vec x, const arma::vec& probs) {
   
@@ -92,9 +88,6 @@ arma::vec quantile_cpp(arma::vec x, const arma::vec& probs) {
 //' @return A \code{vector} containing the differenced time series.
 //' @author JJB
 //' @keywords internal
-//' @examples
-//' x = rnorm(10, 0, 1)
-//' diff_cpp(x,1,1)
 // [[Rcpp::export]]
 arma::vec diff_cpp(arma::vec x, unsigned int lag, unsigned int differences){
   
@@ -155,20 +148,6 @@ arma::vec ARMAtoMA_cpp(arma::vec ar, arma::vec ma, int lag_max)
 //' It is about 5-7 times faster than R's base function. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
 //' @author R Core Team and JJB
 //' @keywords internal
-//' @examples
-//' x = 1:15
-//' # 
-//' cfilter(x, rep(1, 3), sides = 2, circular = FALSE)
-//' # Using R's function
-//' filter(x, rep(1, 3))
-//' #
-//' cfilter(x, rep(1, 3), sides = 1, circular = FALSE)
-//' # Using R's function
-//' filter(x, rep(1, 3), sides = 1)
-//' #
-//' cfilter(x, rep(1, 3), sides = 1, circular = TRUE)
-//' # Using R's function
-//' filter(x, rep(1, 3), sides = 1, circular = TRUE)
 // [[Rcpp::export]]
 arma::vec cfilter(arma::vec x, arma::vec filter, int sides, bool circular)
 {
@@ -233,12 +212,6 @@ arma::vec cfilter(arma::vec x, arma::vec filter, int sides, bool circular)
 //' It is about 6-7 times faster than R's base function. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
 //' @author R Core Team and JJB
 //' @keywords internal
-//' @examples
-//' x = 1:15
-//' # 
-//' rfilter(x, rep(1, 3), rep(1, 3))
-//' # Using R's function
-//' filter(x, rep(1, 3), method="recursive", init=rep(1, 3))
 // [[Rcpp::export]]
 arma::vec rfilter(arma::vec x, arma::vec filter, arma::vec init)
 {
@@ -417,9 +390,6 @@ arma::vec ARMAacf_cpp(arma::vec ar, arma::vec ma, unsigned int lag_max)
 //' Two issues: 1. memory resize and 2. unoptimized fft algorithm in arma.
 //' Consider piping back into R and rewrapping the object. (Decrease of about 10 microseconds.)
 //' @keywords internal
-//' @examples
-//' x=rnorm(10)
-//' dft_acf(x)
 // [[Rcpp::export]]
 arma::vec dft_acf(const arma::vec& x){
     unsigned int n = x.n_elem;
@@ -439,9 +409,6 @@ arma::vec dft_acf(const arma::vec& x){
 //' @param x A \code{vec} containing the data 
 //' @return A \code{double} that contains the mean of the first difference of the data.
 //' @keywords internal
-//' @examples
-//' x=rnorm(10)
-//' mean_diff(x)
 // [[Rcpp::export]]
 double mean_diff(const arma::vec& x){
   return arma::mean(diff_cpp(x, 1, 1));

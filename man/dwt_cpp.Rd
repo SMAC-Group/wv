@@ -22,11 +22,6 @@ Calculation of the coefficients for the discrete wavelet transformation.
 \details{
 Performs a level J decomposition of the time series using the pyramid algorithm
 }
-\examples{
-set.seed(999)
-x = rnorm(2^8)
-dwt_cpp(x, filter_name = "haar", nlevels = 4)
-}
 \author{
 James Balamuta and Justin Lee
 }

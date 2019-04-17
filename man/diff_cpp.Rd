@@ -19,10 +19,6 @@ A \code{vector} containing the differenced time series.
 \description{
 Returns the ith difference of a time series of rth lag.
 }
-\examples{
-x = rnorm(10, 0, 1)
-diff_cpp(x,1,1)
-}
 \author{
 JJB
 }

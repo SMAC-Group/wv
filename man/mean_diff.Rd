@@ -15,8 +15,4 @@ A \code{double} that contains the mean of the first difference of the data.
 \description{
 The mean of the first difference of the data
 }
-\examples{
-x=rnorm(10)
-mean_diff(x)
-}
 \keyword{internal}

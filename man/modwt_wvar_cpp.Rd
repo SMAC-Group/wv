@@ -36,10 +36,4 @@ Calculates the (MODWT) wavelet variance
 \details{
 This function powers the wvar object. It is also extendable...
 }
-\examples{
-set.seed(1337)
-x=rnorm(100)
-modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, alpha = 0.05,
-               ci_type="eta3", strWavelet="haar", decomp="modwt")
-}
 \keyword{internal}

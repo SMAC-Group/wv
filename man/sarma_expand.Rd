@@ -31,8 +31,4 @@ The \code{objdesc} is assumed to have the structure of:
 \item Seasons
 }
 }
-\examples{
-# p, q, P, Q, 1, s, i, si
-m = sarma_expand(c(0.5,.2,0,.1,.92,.83,.42,.33,.12), c(2,2,2,3,1,12,0,0))
-}
 \keyword{internal}

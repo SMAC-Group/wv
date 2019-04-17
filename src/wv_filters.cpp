@@ -34,10 +34,6 @@ const std::map<std::string, arma::field<arma::vec> (*)()> A::filterMap =  A::cre
 //' @return A \code{vector} that contains either the forward QMF (evalute in order) or the inverse QMF (reverse order). 
 //' @author James Balamuta
 //' @keywords internal
-//' @examples
-//' # Haar values
-//' g = rep(1/sqrt(2),2)
-//' qmf(g)
 arma::vec qmf(arma::vec g, bool inverse = true) {
   
   unsigned int L = g.n_elem;
@@ -68,8 +64,6 @@ arma::vec qmf(arma::vec g, bool inverse = true) {
 //' This template can be used to increase the amount of filters available for selection.
 //' @author James Balamuta
 //' @keywords internal
-//' @examples
-//' haar_filter()
 arma::field<arma::vec> haar_filter() {
   
     arma::vec L(1);
@@ -103,8 +97,6 @@ arma::field<arma::vec> haar_filter() {
 //' The package is oriented toward using only the haar filter. If the package extends at a later time, then the supporting infrastructure is there.
 //' @author James Balamuta
 //' @keywords internal
-//' @examples
-//' select_filter("haar")
 arma::field<arma::vec> select_filter(std::string filter_name = "haar")
 {
   

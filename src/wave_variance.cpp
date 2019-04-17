@@ -20,13 +20,6 @@
 //'  \item{Column 3}{Chi-squared Upper Bounds}
 //' }
 //' @keywords internal
-//' @examples
-//' set.seed(1337)
-//' x = rnorm(100)
-//' # Uses the internal MODWT function not associated with an S3 class.
-//' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-//' y = wave_variance(decomp)
-//' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 // [[Rcpp::export]]
 arma::mat ci_eta3(const arma::vec& y, const arma::vec& dims, double alpha_ov_2) {
     
@@ -60,13 +53,6 @@ arma::mat ci_eta3(const arma::vec& y, const arma::vec& dims, double alpha_ov_2) 
 //' @details
 //' Within this function we are scaling the classical 
 //' @keywords internal
-//' @examples
-//' set.seed(1337)
-//' x = rnorm(100)
-//' # Uses the internal MODWT function not associated with an S3 class.
-//' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-//' y = wave_variance(decomp, robust = TRUE,  eff = 0.6)
-//' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025, robust = TRUE, eff = 0.6)
 // [[Rcpp::export]]
 arma::mat ci_eta3_robust(const arma::vec& wv_robust, const arma::mat& wv_ci_class, double alpha_ov_2, double eff) {
     unsigned int num_elem = wv_robust.n_elem;
@@ -124,13 +110,6 @@ arma::mat ci_eta3_robust(const arma::vec& wv_robust, const arma::mat& wv_ci_clas
 //' @keywords internal
 //' @details 
 //' This function can be expanded to allow for other confidence interval calculations.
-//' @examples
-//' set.seed(1337)
-//' x = rnorm(100)
-//' # Uses the internal MODWT function not associated with an S3 class.
-//' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-//' y = wave_variance(decomp)
-//' ci_wave_variance(decomp, y, type = "eta3", alpha_ov_2 = 0.025)
 // [[Rcpp::export]]
 arma::mat ci_wave_variance(const arma::field<arma::vec>& signal_modwt_bw, const arma::vec& wv,
                             std::string type = "eta3", double alpha_ov_2 = 0.025, bool robust = false, double eff = 0.6){
@@ -174,13 +153,6 @@ arma::mat ci_wave_variance(const arma::field<arma::vec>& signal_modwt_bw, const 
 //' @param eff             A \code{double} that indicates the efficiency.
 //' @return A \code{vec} that contains the wave variance.
 //' @keywords internal
-//' @examples
-//' set.seed(1337)
-//' x = rnorm(100)
-//' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-//' wave_variance(decomp)
-//' 
-//' wave_variance(decomp, robust = TRUE, eff = 0.6)
 // [[Rcpp::export]]
 arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robust = false, double eff = 0.6){
   
@@ -221,11 +193,6 @@ arma::vec wave_variance(const arma::field<arma::vec>& signal_modwt_bw, bool robu
 //' @keywords internal
 //' @details 
 //' This function does the heavy lifting with the signal_modwt_bw
-//' @examples
-//' set.seed(1337)
-//' x = rnorm(100)
-//' decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-//' wvar_cpp(decomp, robust=FALSE, eff=0.6, alpha = 0.05, ci_type="eta3")
 // [[Rcpp::export]]
 arma::mat wvar_cpp(const arma::field<arma::vec>& signal_modwt_bw, 
                    bool robust, double eff, double alpha, 
@@ -259,11 +226,6 @@ arma::mat wvar_cpp(const arma::field<arma::vec>& signal_modwt_bw,
 //' @keywords internal
 //' @details 
 //' This function powers the wvar object. It is also extendable...
-//' @examples
-//' set.seed(1337)
-//' x=rnorm(100)
-//' modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, alpha = 0.05,
-//'                ci_type="eta3", strWavelet="haar", decomp="modwt")
 // [[Rcpp::export]]
 arma::mat modwt_wvar_cpp(const arma::vec& signal, unsigned int nlevels, bool robust, double eff, double alpha, 
                          std::string ci_type, std::string strWavelet, std::string decomp) {
@@ -300,12 +262,6 @@ arma::mat modwt_wvar_cpp(const arma::vec& signal, unsigned int nlevels, bool rob
 //' @keywords internal
 //' @details 
 //' This function processes the decomposition of multiple signals quickly
-//' @examples
-//' set.seed(1337)
-//' x = cbind(rnorm(100),rnorm(100))
-//' batch_modwt_wvar_cpp(x, nlevels=4, robust=FALSE, eff=0.6, 
-//'                      alpha = 0.05, ci_type="eta3", strWavelet="haar", 
-//'                      decomp="modwt")
 // [[Rcpp::export]]
 arma::field<arma::mat> batch_modwt_wvar_cpp(const arma::mat& signal, unsigned int nlevels, bool robust, double eff, double alpha, 
                                           std::string ci_type, std::string strWavelet, std::string decomp) {

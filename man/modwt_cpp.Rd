@@ -24,11 +24,6 @@ Performs a level J decomposition of the time series using the pyramid algorithm.
 Use this implementation to supply custom parameters instead of modwt(x),
 which serves as a wrapper function.
 }
-\examples{
-set.seed(999)
-x = rnorm(100)
-modwt_cpp(x, filter_name = "haar", nlevels = 4)
-}
 \author{
 James Balamuta and Justin Lee
 }

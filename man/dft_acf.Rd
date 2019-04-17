@@ -20,8 +20,4 @@ This implementation is 2x as slow as Rs.
 Two issues: 1. memory resize and 2. unoptimized fft algorithm in arma.
 Consider piping back into R and rewrapping the object. (Decrease of about 10 microseconds.)
 }
-\examples{
-x=rnorm(10)
-dft_acf(x)
-}
 \keyword{internal}

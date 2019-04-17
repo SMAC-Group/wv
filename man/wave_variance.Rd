@@ -19,12 +19,4 @@ A \code{vec} that contains the wave variance.
 \description{
 Computes an estimate of the wave variance
 }
-\examples{
-set.seed(1337)
-x = rnorm(100)
-decomp = modwt_cpp(x, filter_name = "haar", nlevels = 4)
-wave_variance(decomp)
-
-wave_variance(decomp, robust = TRUE, eff = 0.6)
-}
 \keyword{internal}

@@ -20,6 +20,6 @@ A \code{vector} containing the differenced time series.
 Returns the ith difference of a time series of rth lag.
 }
 \author{
-JJB
+James J Balamuta
 }
 \keyword{internal}

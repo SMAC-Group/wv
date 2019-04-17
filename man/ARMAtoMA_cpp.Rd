@@ -23,6 +23,6 @@ Takes an ARMA function and converts it to an infinite MA process.
 This function is a port of the base stats package's ARMAtoMA. There is no significant speed difference between the two.
 }
 \author{
-R Core Team and JJB
+James J Balamuta
 }
 \keyword{internal}

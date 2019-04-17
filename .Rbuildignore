@@ -5,5 +5,6 @@
 ^test_dwt\.R$
 ^test_modwt\.R$
 ^docs$
+^man-roxygen$
 ^figures$
 ^README\.rmd$

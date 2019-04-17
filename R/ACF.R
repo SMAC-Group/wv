@@ -21,6 +21,8 @@
 #' 
 #' # Get Autocovariance and do not remove trend from signal
 #' m = ACF(datasets::AirPassengers, cor = FALSE, demean = FALSE)
+#' @importFrom stats is.ts
+#' @importFrom stats acf
 ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
   
   # Change the data to matrix form
@@ -76,6 +78,7 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' 
 #' # Plot without 95% CI
 #' plot(m, show.ci = FALSE)
+#' @importFrom grDevices rgb
 plot.ACF = function(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   # TO ADD AS INPUTS
   xlab = "Lags"

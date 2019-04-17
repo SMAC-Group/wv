@@ -239,13 +239,13 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
   axis(1, at = x_at, labels = x_labels) 
   
   # Add CI 
-  y_low_ci  = wccv_get_y(x[,3], m, tick_y_min, tick_y_step)
-  y_high_ci = wccv_get_y(x[,4], m, tick_y_min, tick_y_step)
+  y_low_ci  = wccv_get_y(x[,3], tick_y_min, tick_y_step)
+  y_high_ci = wccv_get_y(x[,4], tick_y_min, tick_y_step)
   polygon(c(scales, rev(scales)), c(y_low_ci, rev(y_high_ci)),
           border = NA, col = col_ci)
   
   # Add wccv
-  y_wccv = wccv_get_y(x[,1], m, tick_y_min, tick_y_step)
+  y_wccv = wccv_get_y(x[,1], tick_y_min, tick_y_step)
   lines(x = scales, y = y_wccv, type = "l", col = col_wccv, pch = 16, cex = 1.25)
   lines(x = scales, y = y_wccv, type = "p", col = col_wccv, pch = 16)
     
@@ -254,7 +254,7 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
     # log.theo.positive = sapply(theo.wccv, function(x){ifelse(x < 0, NA, log(x))})
     # log.theo.negative = sapply(theo.wccv, function(x){ifelse(x > 0, NA, log(-x))})
     # lines(x = scales, y = log.theo.positive, lty = 3)
-    lines(scales, wccv_get_y(theo.wccv, m, tick_y_min, tick_y_step), col="orange", lty = 3, lwd = 2)
+    lines(scales, wccv_get_y(theo.wccv, tick_y_min, tick_y_step), col="orange", lty = 3, lwd = 2)
   }
   
   # # not sure what this is for 
@@ -279,6 +279,7 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
 #' @examples
 #' x = 2^(-1:-9)
 #' y.min = floor(min(log10(abs(x))))
+#' y.step = 2
 #' wccv_get_y(x, y.min, y.step)
 wccv_get_y = function(x, tick_y_min, tick_y_step){
   n = length(x)

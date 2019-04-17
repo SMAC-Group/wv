@@ -15,7 +15,7 @@ Authors@R: c(
 Maintainer: Stephane Guerrier <stef.guerrier@gmail.com>
 Depends: R (>= 3.3)
 Description: Compute the classical and robust wavelet variance for time series and regular lattices.
-License: GPL (>= 2)
+License: AGPL-3 | file LICENSE
 Imports: 
   Rcpp (>= 0.12.10),
   utils,

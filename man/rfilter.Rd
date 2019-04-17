@@ -25,6 +25,6 @@ This is a port of the rfilter function harnessed by the filter function in stats
 It is about 6-7 times faster than R's base function. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
 }
 \author{
-R Core Team and JJB
+James J Balamuta
 }
 \keyword{internal}

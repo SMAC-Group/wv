@@ -23,6 +23,6 @@ Compute the theoretical autocorrelation function for an ARMA process.
 This is an implementaiton of the ARMAacf function in R. It is approximately 40x times faster. The benchmark was done on iMac Late 2013 using vecLib as the BLAS.
 }
 \author{
-R Core Team and JJB
+James J Balamuta
 }
 \keyword{internal}

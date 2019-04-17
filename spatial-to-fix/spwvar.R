@@ -1,10 +1,8 @@
-#' @title Wavelet Variance for spatial models
+#' @title Wavelet Variance for Regular Lattice Spatial Data
 #' 
-#' 
-#' X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE
 #' @description
-#' General function to compute WV for spatial models (isotropic and anisotropic)
-#' @param X            TO DO
+#' General function to compute standard and robust WV for regular lattice spatial data (isotropic and anisotropic)
+#' @param X            A \code{matrix} with dimensions N x M
 #' @param J1           TO DO    
 #' @param J2           TO DO   
 #' @param eff          TO DO   
@@ -23,20 +21,20 @@
 #' @author Roberto Molinari
 #' @examples
 #' # An example TO DO
-spat.wavar = function(X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE, ...){
+spat_wavar = function(X, J1 = floor(log2(dim(X)[1])), J2 = floor(log2(dim(X)[2])), eff=0.6, compute.v = FALSE, iso = TRUE, ...){
   
   n = dim(X)[1]
   m = dim(X)[2]
-  wv = matrix(NA,J1,J2)
-  wv.rob = matrix(NA,J1,J2)
-  wv.mp = matrix(NA,J1,J2)
-  sig.ci = matrix(NA,J1,J2)
-  mn = matrix(NA,J1,J2)
-  CI = matrix(NA,min(J1,J2),3)
-  CI.rob = matrix(NA,min(J1,J2),3)
+  wv = matrix(NA, J1, J2)
+  wv.rob = matrix(NA, J1, J2)
+  wv.mp = matrix(NA, J1, J2)
+  sig.ci = matrix(NA, J1, J2)
+  mn = matrix(NA, J1, J2)
+  CI = matrix(NA, min(J1, J2), 3)
+  CI.rob = matrix(NA, min(J1, J2), 3)
   nb.level = J1*J2
   
-  if(compute.v==TRUE) wv.coeffs = vector("list",nb.level)
+  if(compute.v == TRUE) wv.coeffs = vector("list", nb.level)
   
   i = 0
   k = 0
@@ -74,15 +72,16 @@ spat.wavar = function(X, J1, J2, eff=0.6, compute.v = FALSE, iso = TRUE, ...){
       
       wv.coeff = c(xhh)
       wv.coeff = wv.coeff[!is.na(wv.coeff)]
+      sig.ci[j1,j2] = sum(acf(wv.coeff, type="covariance", plot=F)$acf^2)/2
+      mn[j1,j2] = length(wv.coeff)
       
-      if(compute.v==TRUE) wv.coeffs[[i]] = wv.coeff
+      if(compute.v == TRUE) wv.coeffs[[i]] = wv.coeff
       
       # Standard
       wv[j1,j2] = sum(wv.coeff^2,na.rm=T)/(pp1*pp2)
       
       # Robust
-      wv.mp[j1,j2] = percival(wv.coeff)
-      wv.rob[j1,j2] = sig.rob.bw(eff,wv.coeff)
+      wv.rob[j1,j2] = sig_rob_bw(wv.coeff, eff)
       
     }
     

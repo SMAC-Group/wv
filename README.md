@@ -1,43 +1,80 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/dplyr?branch=master&svg=true)](https://ci.appveyor.com/project/stephaneguerrier/wv) [![Project Status: Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/) [![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=wv) [![packageversion](https://img.shields.io/badge/Package%20version-0.1.1-orange.svg?style=flat-square)](commits/develop) [![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--22-yellowgreen.svg)](/commits/master)
 
-`wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
-===================================================================================================================================
+[![Travis-CI Build
+Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/dplyr?branch=master&svg=true)](https://ci.appveyor.com/project/stephaneguerrier/wv)
+[![Project Status:
+Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
+[![minimal R
+version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
+[![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=wv)
+[![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](commits/develop)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--24-yellowgreen.svg)](/commits/master)
 
-This repository is dedicated to the Wavelet Variance (`wv`) R package where different tools to perform wavelet variance analysis are provided (both standard and robust analysis). Below are instructions and examples on how to install and make use of the `wv` package.
+# `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 
-*Currently the only implemented wavelet filter in the package is the Haar wavelet filter.*
+This repository is dedicated to the Wavelet Variance (`wv`) R package
+where different tools to perform wavelet variance analysis are provided
+(both standard and robust analysis). Below are instructions and examples
+on how to install and make use of the `wv` package.
 
-Install Instructions
---------------------
+*Currently the only implemented wavelet filter in the package is the
+Haar wavelet filter.*
 
-To install the `wv` package, there is currently one option: [GitHub](https://github.com/SMAC-Group/wv/). For users who are interested in having the latest developments, this option is ideal although more dependencies are required to run a stable version of the package. Most importantly, users **must** have a (C++) compiler installed on their machine that is compatible with R (e.g. Clang).
+## Install Instructions
 
-*The setup to obtain the development version of `wv` is platform-dependent.*
+To install the `wv` package, there is currently one option:
+[GitHub](https://github.com/SMAC-Group/wv/). For users who are
+interested in having the latest developments, this option is ideal
+although more dependencies are required to run a stable version of the
+package. Most importantly, users **must** have a (C++) compiler
+installed on their machine that is compatible with R (e.g. Clang).
+
+*The setup to obtain the development version of `wv` is
+platform-dependent.*
 
 **All Systems**
 
-The following R packages are also required. Once you've made sure that you have a compatible C++ compiler installed on your computer, run the following code in an R session and you will be ready to use the devlopment version of `wv`.
+The following R packages are also required. Once you’ve made sure that
+you have a compatible C++ compiler installed on your computer, run the
+following code in an R session and you will be ready to use the
+devlopment version of `wv`.
 
 ``` r
 # Install the package from GitHub
 devtools::install_github("SMAC-Group/wv")
 ```
 
-License
--------
+## License
 
-The license this source code is released under is the GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text. Otherwise, please consult [TLDR Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)) or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will provide a synopsis of the restrictions placed upon the code.
+The license this source code is released under is the GNU AFFERO GENERAL
+PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text.
+Otherwise, please consult [TLDR
+Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-\(agpl-3.0\))
+or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will
+provide a synopsis of the restrictions placed upon the code.
 
-Wavelet Variance Analysis
--------------------------
+## Wavelet Variance Analysis
 
-Below are some examples of how to make use of some of the main functions in the `wv` package. Firstly, we highlight the functions that perform the wavelet decomposition of a time series (both the discrete and maximum-overlap discrete wavelet transforms) based on which the following functions can compute the wavelet variance and its corresponding confidence intervals for inference. These are particularly useful, for example, when comparing the wavelet variance of different time series in order to understand if they share common properties or not.
+Below are some examples of how to make use of some of the main functions
+in the `wv` package. Firstly, we highlight the functions that perform
+the wavelet decomposition of a time series (both the discrete and
+maximum-overlap discrete wavelet transforms) based on which the
+following functions can compute the wavelet variance and its
+corresponding confidence intervals for inference. These are particularly
+useful, for example, when comparing the wavelet variance of different
+time series in order to understand if they share common properties or
+not.
 
 ### Discrete Wavelet Transform (DWT)
 
-The DWT performs a wavelet decomposition by applying the wavelet filter to non-overlapping windows of the time series. Below is an example of how to perform this decomposition on a simulated Gaussian random walk process.
+The DWT performs a wavelet decomposition by applying the wavelet filter
+to non-overlapping windows of the time series. Below is an example of
+how to perform this decomposition on a simulated Gaussian random walk
+process.
 
 ``` r
 # Set seed for reproducibility 
@@ -51,11 +88,15 @@ Xt = cumsum(rnorm(n))
 plot(Xt, type = "l")
 ```
 
-![](man/figures/README-unnamed-chunk-3-1.png)
+![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
-Based on the above code, we have simulated a random walk with null expectation unit innovation variance. The functions to compute the DWT, access its output and plot the related wavelet coefficients can be found below.
+Based on the above code, we have simulated a random walk with null
+expectation unit innovation variance. The functions to compute the DWT,
+access its output and plot the related wavelet coefficients can be found
+below.
 
 <!-- For the moment this method will only work with Haar wavelets.  -->
+
 ``` r
 # DWT
 Xt.dwt = dwt(Xt)
@@ -88,14 +129,14 @@ summary(Xt.dwt)
 plot(Xt.dwt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."  />
-<p class="caption">
-Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise.
-</p>
+<img src="man/figures/README-unnamed-chunk-4-1.png" title="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
 
 ### Maximum Overlap Discrete Wavelet Transformation (MODWT)
 
-Compared to the DWT, the MODWT applies the wavelet filter to overlapping windows of the time series (more specifically it slides the filter by one observation at a time). As for the DWT, the functions to perform the MODWT are below.
+Compared to the DWT, the MODWT applies the wavelet filter to overlapping
+windows of the time series (more specifically it slides the filter by
+one observation at a time). As for the DWT, the functions to perform the
+MODWT are below.
 
 ``` r
 # MODWT
@@ -129,14 +170,17 @@ summary(Xt.modwt)
 plot(Xt.modwt, index = "all")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."  />
-<p class="caption">
-Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simulated Gaussian white noise.
-</p>
+<img src="man/figures/README-unnamed-chunk-5-1.png" title="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
 
 ### Wavelet Variance
 
-If the interest of the user lies solely in the wavelet variance (issued from either DWT or MODWT), then the package provides functions that directly compute this quantity and deliver the tools necessary to analyse it (confidence intervals and plots). Below is a code that simulates a white noise and a random walk process and directly plots their respective wavelet variances in a log-log plot applying the `plot()` function to the package function `wvar()`.
+If the interest of the user lies solely in the wavelet variance (issued
+from either DWT or MODWT), then the package provides functions that
+directly compute this quantity and deliver the tools necessary to
+analyse it (confidence intervals and plots). Below is a code that
+simulates a white noise and a random walk process and directly plots
+their respective wavelet variances in a log-log plot applying the
+`plot()` function to the package function `wvar()`.
 
 ``` r
 # Set seed for reproducibility 
@@ -155,12 +199,15 @@ plot(wvar(WN), main = "White noise")
 plot(wvar(RW), main = "Random walk", legend_position = NULL)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)."  />
-<p class="caption">
-Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel).
-</p>
+<img src="man/figures/README-unnamed-chunk-6-1.png" title="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." style="display: block; margin: auto;" />
 
-As indicated in the legends, the light shaded blue area represents the 95% confidence intervals for each scale of estimated wavelet variance. However, there could be many practical settings where the time series can suffer from some "contamination" (e.g. outliers) which can seriously bias the standard estimator of wavelet variance. The code below randomly replaces one percent of the observations from the above simulated random walk with observations from a white noise process with larger variance.
+As indicated in the legends, the light shaded blue area represents the
+95% confidence intervals for each scale of estimated wavelet variance.
+However, there could be many practical settings where the time series
+can suffer from some “contamination” (e.g. outliers) which can seriously
+bias the standard estimator of wavelet variance. The code below randomly
+replaces one percent of the observations from the above simulated random
+walk with observations from a white noise process with larger variance.
 
 ``` r
 # Add contamination
@@ -174,9 +221,17 @@ robust_eda(RW2, legend_position = NULL, main = "RW with contamination")
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-It can be seen how the classic and robust wavelet variance estimates agree when there is no contamination (left plot) but they classic estimates are heavily biased (especially at the first more informative scales) when the random walk has only 1% contamination.
+It can be seen how the classic and robust wavelet variance estimates
+agree when there is no contamination (left plot) but they classic
+estimates are heavily biased (especially at the first more informative
+scales) when the random walk has only 1% contamination.
 
-When dealing with different time series, it is possible to compare their respective wavelet variances to understand if they have similar behaviour/properties. An example is given below where four different first-order autoregressive processes (with different values of the autoregressive parameters) are simulated and succesively their wavelet variance is computed.
+When dealing with different time series, it is possible to compare their
+respective wavelet variances to understand if they have similar
+behaviour/properties. An example is given below where four different
+first-order autoregressive processes (with different values of the
+autoregressive parameters) are simulated and succesively their wavelet
+variance is computed.
 
 ``` r
 n = 10^5
@@ -195,11 +250,19 @@ compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
 
-As seen above, the function `compare_wvar()` allows to plot different outputs of the `wvar()` function and it can be seen how the four time series deliver different wavelet variances (as the autoregressive parameter approaches zero, the shape of the wavelet variance plot approaches the behaviour of the wavelet variance of a white noise process).
+As seen above, the function `compare_wvar()` allows to plot different
+outputs of the `wvar()` function and it can be seen how the four time
+series deliver different wavelet variances (as the autoregressive
+parameter approaches zero, the shape of the wavelet variance plot
+approaches the behaviour of the wavelet variance of a white noise
+process).
 
-User Guides
-===========
+# User Guides
 
-Various guides ship with package or are available on <http://smac-group.com/> to provide insight into how to use the different methods. At the present time, the following vignettes are available:
+Various guides ship with package or are available on
+<http://smac-group.com/> to provide insight into how to use the
+different methods. At the present time, the following vignettes are
+available:
 
-1.  Process to Haar Wavelet Variance [(Online)](https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html)
+1.  Process to Haar Wavelet Variance
+    [(Online)](https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html)

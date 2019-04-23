@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate eta3 robust confidence interval — ci_eta3_robust • wv</title>
+<title>Changelog • wv</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,7 @@
 
 
 
-<meta property="og:title" content="Generate eta3 robust confidence interval — ci_eta3_robust" />
-
-<meta property="og:description" content="Computes the eta3 robust CI" />
+<meta property="og:title" content="Changelog" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -51,7 +49,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -93,66 +91,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate eta3 robust confidence interval</h1>
-    <small class="dont-index">Source: <a href='https://github.com/SMAC-Group/wv/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a></small>
-    <div class="hidden name"><code>ci_eta3_robust.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/SMAC-Group/wv/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    
-    <p>Computes the eta3 robust CI</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>ci_eta3_robust</span>(<span class='no'>wv_robust</span>, <span class='no'>wv_ci_class</span>, <span class='no'>alpha_ov_2</span>, <span class='no'>eff</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>wv_robust</th>
-      <td><p>A <code>vec</code> that computes the modwt dot product of each wavelet coefficient divided by their length.</p></td>
-    </tr>
-    <tr>
-      <th>wv_ci_class</th>
-      <td><p>A <code>mat</code> that contains the CI mean, CI Lower, and CI Upper</p></td>
-    </tr>
-    <tr>
-      <th>alpha_ov_2</th>
-      <td><p>A <code>double</code> that indicates the \(\left(1-p\right)*\alpha\) confidence level</p></td>
-    </tr>
-    <tr>
-      <th>eff</th>
-      <td><p>A <code>double</code> that indicates the efficiency.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A <code>matrix</code> with the structure:</p><ul>
-<li><p>Column 1Robust Wavelet Variance</p></li>
-<li><p>Column 2Chi-squared Lower Bounds</p></li>
-<li><p>Column 3Chi-squared Upper Bounds</p></li>
+    <div id="wv-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#wv-0-1-0" class="anchor"></a>wv 0.1.0</h1>
+<div id="features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#features" class="anchor"></a>Features</h2>
+<p>This R package provides a series of tools to compute and plot quantities related to wavelet transformation and wavelet variance (WV). More specifically, it provides the following features:</p>
+<ul>
+<li>Calculation and plotting of coefficients for the Discrete Wavelet Transform (DWT) and Maximum Overlap Discrete Wavelet Transform (MODWT).</li>
+<li>Computation of WV and robust WV as well as of their respective confidence intervals.</li>
+<li>Visualization of the estimated WV with different options comparing classic and robust estimates as well as different times series.</li>
 </ul>
-
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Within this function we are scaling the classical</p>
-    
-
+</div>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-          </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#wv-0-1-0">0.1.0</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>

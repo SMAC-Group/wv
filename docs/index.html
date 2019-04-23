@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">wv</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
       </span>
     </div>
 
@@ -68,15 +68,15 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#wv-overview" class="anchor"></a><code>wv</code> Overview <a href="https://smac-group.com/"><img src="reference/figures/logo.png" align="right" style="width: 20%; height: 20%"></a>
 </h1></div>
-<p>This repository holds the Wavelet Variance (<code>wv</code>) R package. This estimation technique computes the classical and robust wavelet variance for time series and regular lattices.</p>
-<p>Below are examples of the capabilities of the <code>wv</code> package.</p>
+<p>This repository is dedicated to the Wavelet Variance (<code>wv</code>) R package where different tools to perform wavelet variance analysis are provided (both standard and robust analysis). Below are instructions and examples on how to install and make use of the <code>wv</code> package.</p>
+<p><em>Currently the only implemented wavelet filter in the package is the Haar wavelet filter.</em></p>
 <div id="install-instructions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install-instructions" class="anchor"></a>Install Instructions</h2>
-<p>To install the <code>simts</code> package, there is currently one option: <a href="https://github.com/SMAC-Group/wv/">GitHub</a>. For users who are interested in having the latest developments, this option is ideal although more dependencies are required to run a stable version of the package. Most importantly, users <strong>must</strong> have a (C++) compiler installed on their machine that is compatible with R (e.g. Clang).</p>
-<p><em>The setup to obtain the development version of <code>simts</code> is platform dependent.</em></p>
+<p>To install the <code>wv</code> package, there is currently one option: <a href="https://github.com/SMAC-Group/wv/">GitHub</a>. For users who are interested in having the latest developments, this option is ideal although more dependencies are required to run a stable version of the package. Most importantly, users <strong>must</strong> have a (C++) compiler installed on their machine that is compatible with R (e.g. Clang).</p>
+<p><em>The setup to obtain the development version of <code>wv</code> is platform-dependent.</em></p>
 <p><strong>All Systems</strong></p>
-<p>The following R packages are also required. Once you’ve made sure that you have a compatible C++ compiler installed on your computer, run the following code in an R session and you will be ready to use the devlopment version of <code>simts</code>.</p>
+<p>The following R packages are also required. Once you’ve made sure that you have a compatible C++ compiler installed on your computer, run the following code in an R session and you will be ready to use the devlopment version of <code>wv</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Install the package from GitHub</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"SMAC-Group/wv"</span>)</a></code></pre></div>
 </div>
@@ -85,22 +85,32 @@
 <a href="#license" class="anchor"></a>License</h2>
 <p>The license this source code is released under is the GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text. Otherwise, please consult <a href="https://tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)">TLDR Legal</a> or <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU</a> which will provide a synopsis of the restrictions placed upon the code.</p>
 </div>
-<div id="discrete-wavelet-transformation" class="section level2">
+<div id="wavelet-variance-analysis" class="section level2">
 <h2 class="hasAnchor">
-<a href="#discrete-wavelet-transformation" class="anchor"></a>Discrete Wavelet Transformation</h2>
+<a href="#wavelet-variance-analysis" class="anchor"></a>Wavelet Variance Analysis</h2>
+<p>Below are some examples of how to make use of some of the main functions in the <code>wv</code> package. Firstly, we highlight the functions that perform the wavelet decomposition of a time series (both the discrete and maximum-overlap discrete wavelet transforms) based on which the following functions can compute the wavelet variance and its corresponding confidence intervals for inference. These are particularly useful, for example, when comparing the wavelet variance of different time series in order to understand if they share common properties or not.</p>
+<div id="discrete-wavelet-transform-dwt" class="section level3">
+<h3 class="hasAnchor">
+<a href="#discrete-wavelet-transform-dwt" class="anchor"></a>Discrete Wavelet Transform (DWT)</h3>
+<p>The DWT performs a wavelet decomposition by applying the wavelet filter to non-overlapping windows of the time series. Below is an example of how to perform this decomposition on a simulated Gaussian random walk process.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Set seed for reproducibility </span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># Simulate a Gaussian random walk</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">n =<span class="st"> </span><span class="dv">10</span><span class="op">^</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">Xt =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rnorm</span>(n))</a></code></pre></div>
-<p>For the moment this method will only work with Haar wavelets.</p>
+<a class="sourceLine" id="cb2-6" data-line-number="6">Xt =<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rnorm</span>(n))</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co"># Plot the simulated random walk</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">plot</span>(Xt, <span class="dt">type =</span> <span class="st">"l"</span>)</a></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="700"></p>
+<p>Based on the above code, we have simulated a random walk with null expectation unit innovation variance. The functions to compute the DWT, access its output and plot the related wavelet coefficients can be found below.</p>
+<!-- For the moment this method will only work with Haar wavelets.  -->
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># DWT</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">Xt.dwt =<span class="st"> </span><span class="kw"><a href="reference/dwt.html">dwt</a></span>(Xt)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Warning in dwt(Xt): The data has been truncated so that it is divisible by</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; `nlevels` (e.g. 2^*)</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># Summary of Discrete Wavelet Coefficients </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># Print the Wavelet Coefficients </span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">summary</span>(Xt.dwt)</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; Results of DWT using haar filter with 8 levels:</span></a>
@@ -130,9 +140,10 @@ Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian whit
 </p>
 </div>
 </div>
-<div id="maximum-overlap-discrete-wavelet-transformation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#maximum-overlap-discrete-wavelet-transformation" class="anchor"></a>Maximum Overlap Discrete Wavelet Transformation</h2>
+<div id="maximum-overlap-discrete-wavelet-transformation-modwt" class="section level3">
+<h3 class="hasAnchor">
+<a href="#maximum-overlap-discrete-wavelet-transformation-modwt" class="anchor"></a>Maximum Overlap Discrete Wavelet Transformation (MODWT)</h3>
+<p>Compared to the DWT, the MODWT applies the wavelet filter to overlapping windows of the time series (more specifically it slides the filter by one observation at a time). As for the DWT, the functions to perform the MODWT are below.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># MODWT</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">Xt.modwt =<span class="st"> </span><span class="kw"><a href="reference/modwt.html">modwt</a></span>(Xt)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"></a>
@@ -168,9 +179,10 @@ Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simul
 </p>
 </div>
 </div>
-<div id="wavelet-variance" class="section level2">
-<h2 class="hasAnchor">
-<a href="#wavelet-variance" class="anchor"></a>Wavelet Variance</h2>
+<div id="wavelet-variance" class="section level3">
+<h3 class="hasAnchor">
+<a href="#wavelet-variance" class="anchor"></a>Wavelet Variance</h3>
+<p>If the interest of the user lies solely in the wavelet variance (issued from either DWT or MODWT), then the package provides functions that directly compute this quantity and deliver the tools necessary to analyse it (confidence intervals and plots). Below is a code that simulates a white noise and a random walk process and directly plots their respective wavelet variances in a log-log plot applying the <code>plot()</code> function to the package function <code><a href="reference/wvar.html">wvar()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Set seed for reproducibility </span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">999</span>)</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"></a>
@@ -186,10 +198,11 @@ Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simul
 <a class="sourceLine" id="cb5-13" data-line-number="13"><span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(WN), <span class="dt">main =</span> <span class="st">"White noise"</span>)</a>
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="kw">plot</span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(RW), <span class="dt">main =</span> <span class="st">"Random walk"</span>, <span class="dt">legend_position =</span> <span class="ot">NULL</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel)." width="696"><p class="caption">
-Wavelet variance of two simulated processes, i.e white noise (left panel) and random waLk (right panel).
+<img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." width="696"><p class="caption">
+Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel).
 </p>
 </div>
+<p>As indicated in the legends, the light shaded blue area represents the 95% confidence intervals for each scale of estimated wavelet variance. However, there could be many practical settings where the time series can suffer from some “contamination” (e.g. outliers) which can seriously bias the standard estimator of wavelet variance. The code below randomly replaces one percent of the observations from the above simulated random walk with observations from a white noise process with larger variance.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Add contamination</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">gamma =<span class="st"> </span><span class="fl">0.01</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">RW2 =<span class="st"> </span>RW</a>
@@ -198,6 +211,8 @@ Wavelet variance of two simulated processes, i.e white noise (left panel) and ra
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW, <span class="dt">main =</span> <span class="st">"RW without contamination"</span>)</a>
 <a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(RW2, <span class="dt">legend_position =</span> <span class="ot">NULL</span>, <span class="dt">main =</span> <span class="st">"RW with contamination"</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="696" style="display: block; margin: auto;"></p>
+<p>It can be seen how the classic and robust wavelet variance estimates agree when there is no contamination (left plot) but they classic estimates are heavily biased (especially at the first more informative scales) when the random walk has only 1% contamination.</p>
+<p>When dealing with different time series, it is possible to compare their respective wavelet variances to understand if they have similar behaviour/properties. An example is given below where four different first-order autoregressive processes (with different values of the autoregressive parameters) are simulated and succesively their wavelet variance is computed.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">n =<span class="st"> </span><span class="dv">10</span><span class="op">^</span><span class="dv">5</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">Xt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.10</span>))</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">Yt =<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> n, <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.35</span>))</a>
@@ -211,6 +226,8 @@ Wavelet variance of two simulated processes, i.e white noise (left panel) and ra
 <a class="sourceLine" id="cb7-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb7-12" data-line-number="12"><span class="kw"><a href="reference/compare_wvar.html">compare_wvar</a></span>(wv_Xt, wv_Yt, wv_Zt, wv_Wt)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="696" style="display: block; margin: auto;"></p>
+<p>As seen above, the function <code><a href="reference/compare_wvar.html">compare_wvar()</a></code> allows to plot different outputs of the <code><a href="reference/wvar.html">wvar()</a></code> function and it can be seen how the four time series deliver different wavelet variances (as the autoregressive parameter approaches zero, the shape of the wavelet variance plot approaches the behaviour of the wavelet variance of a white noise process).</p>
+</div>
 </div>
 </div>
 <div id="user-guides" class="section level1">
@@ -262,8 +279,8 @@ Wavelet variance of two simulated processes, i.e white noise (left panel) and ra
 <li><a href="https://opensource.org/licenses/AGPL-3.0"><img src="https://img.shields.io/badge/licence-AGPL--3.0-blue.svg" alt="Licence"></a></li>
 <li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg" alt="minimal R version"></a></li>
 <li><a href="https://cran.r-project.org/package=wv"><img src="http://www.r-pkg.org/badges/version/simts" alt="CRAN"></a></li>
-<li><a href="commits/develop"><img src="https://img.shields.io/badge/Package%20version-0.1.1-orange.svg?style=flat-square" alt="packageversion"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/last%20change-2019--04--17-yellowgreen.svg" alt="Last-changedate"></a></li>
+<li><a href="commits/develop"><img src="https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square" alt="packageversion"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/last%20change-2019--04--24-yellowgreen.svg" alt="Last-changedate"></a></li>
 </ul>
 </div>
 </div>

@@ -118,12 +118,8 @@ plot.modwt = function(x, index = NULL, couleur = NULL, ...){
   if (is.null(index)){
     index = 1:(min(c(4,J)))
   }else{
-    if (index == "all"){
-      index = 1:J
-    }else{
       if (max(index) > J || min(index) < 1){
         stop("Incorrect index specified")
-      }
     }
   }
   

@@ -1,6 +1,6 @@
 Package: wv
 Type: Package
-Title: Wavelet variance
+Title: Wavelet Variance
 Version: 0.1.0
 Date: 2019-04-24
 Authors@R: c(

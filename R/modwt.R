@@ -8,7 +8,7 @@
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
 #' The default \eqn{J} is determined by \eqn{floor\left(log_2 \left(length\left(x\right)\right)\right)}{floor(log2(length(x)))}
-#' @author James Balamuta, Justin Lee and Stéphane Guerrier
+#' @author James Balamuta, Justin Lee and Stephane Guerrier
 #' @export
 #' @examples
 #' set.seed(999)
@@ -105,9 +105,14 @@ plot.modwt = function(x, index = NULL, couleur = NULL, ...){
   if (is.null(index)){
     index = 1:(min(c(4,J)))
   }else{
+      if (index == "all"){
+        index = 1:J
+      }
+    
       if (max(index) > J || min(index) < 1){
         stop("Incorrect index specified")
-    }
+      }
+    
   }
   
   nb_plot = length(index)

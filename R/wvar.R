@@ -25,7 +25,7 @@
 #' }
 #' @details 
 #' The default value of \code{nlevels} will be set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}, unless otherwise specified.
-#' @author James Balamuta, Justin Lee and Stéphane Guerrier
+#' @author James Balamuta, Justin Lee and Stephane Guerrier
 #' @rdname wvar
 #' @examples
 #' set.seed(999)
@@ -83,6 +83,7 @@ wvar.ts = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 0
 #' @rdname wvar
 #' @export
 #' @importFrom methods is
+#' @importFrom simts unitConversion
 wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, freq = 1, from.unit = NULL, to.unit = NULL, ...){
   if(is.null(x)){
     stop("`x` must contain a value")

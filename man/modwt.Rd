@@ -33,5 +33,5 @@ summary(ret)
 plot(ret)
 }
 \author{
-James Balamuta and Justin Lee
+James Balamuta, Justin Lee and Stephane Guerrier
 }

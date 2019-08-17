@@ -84,5 +84,5 @@ wvar(x, robust = FALSE, eff=0.3)
 wvar(x, alpha = 0.10)
 }
 \author{
-James Balamuta and Justin Lee
+James Balamuta, Justin Lee and Stephane Guerrier
 }

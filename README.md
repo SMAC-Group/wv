@@ -3,8 +3,6 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/dplyr?branch=master&svg=true)](https://ci.appveyor.com/project/stephaneguerrier/wv)
 [![Project Status:
 Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
@@ -12,7 +10,7 @@ Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostat
 version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
 [![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=wv)
 [![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](commits/develop)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--24-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--08--17-yellowgreen.svg)](/commits/master)
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 
@@ -77,15 +75,20 @@ how to perform this decomposition on a simulated Gaussian random walk
 process.
 
 ``` r
+# Load packages
+library(wv)
+library(simts)
+
 # Set seed for reproducibility 
 set.seed(999)
 
 # Simulate a Gaussian random walk
 n = 10^3
-Xt = cumsum(rnorm(n))
+model = RW(gamma2 = 1)
+Xt = gen_gts(n = n, model = model)
 
 # Plot the simulated random walk
-plot(Xt, type = "l")
+plot(Xt)
 ```
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
@@ -186,17 +189,17 @@ their respective wavelet variances in a log-log plot applying the
 # Set seed for reproducibility 
 set.seed(999)
 
+# Simulate Gaussian White noise
 n = 10^4
-# Simulate White noise
-WN = rnorm(n)
+Xt = gen_gts(n = n, model = WN(sigma2 = 1))
 
-# Simulate Random walk
-RW = cumsum(rnorm(n))
+# Simulate Gaussian Random walk
+Yt = gen_gts(n = n, model = RW(gamma2 = 1))
 
 # Plot WV
 par(mfrow = c(1,2), mar = c(4,5,1,1))
-plot(wvar(WN), main = "White noise")
-plot(wvar(RW), main = "Random walk", legend_position = NULL)
+plot(wvar(Xt), main = "White noise")
+plot(wvar(Yt), main = "Random walk", legend_position = NULL)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" title="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." style="display: block; margin: auto;" />
@@ -212,11 +215,11 @@ walk with observations from a white noise process with larger variance.
 ``` r
 # Add contamination
 gamma = 0.01
-RW2 = RW
-RW2[sample(1:n,round(gamma*n))] = rnorm(round(gamma*n),0,5)
+Yt2 = Yt
+Yt2[sample(1:n,round(gamma*n))] = rnorm(round(gamma*n),0,5)
 par(mfrow = c(1,2), mar = c(4,5,1,1))
-robust_eda(RW, main = "RW without contamination")
-robust_eda(RW2, legend_position = NULL, main = "RW with contamination")
+robust_eda(Yt, main = "RW without contamination")
+robust_eda(Yt2, legend_position = NULL, main = "RW with contamination")
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
@@ -234,17 +237,20 @@ autoregressive parameters) are simulated and succesively their wavelet
 variance is computed.
 
 ``` r
+# Simulate AR processes
 n = 10^5
-Xt = arima.sim(n = n, list(ar = 0.10))
-Yt = arima.sim(n = n, list(ar = 0.35))
-Zt = arima.sim(n = n, list(ar = 0.70))
-Wt = arima.sim(n = n, list(ar = 0.95))
+Xt = gen_gts(n = n, model = AR1(phi = 0.10, sigma2 = 1))
+Yt = gen_gts(n = n, model = AR1(phi = 0.35, sigma2 = 1))
+Zt = gen_gts(n = n, model = AR1(phi = 0.79, sigma2 = 1))
+Wt = gen_gts(n = n, model = AR1(phi = 0.95, sigma2 = 1))
 
+# Compute WV
 wv_Xt = wvar(Xt)
 wv_Yt = wvar(Yt)
 wv_Zt = wvar(Zt)
 wv_Wt = wvar(Wt)
 
+# Plot results
 compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 ```
 

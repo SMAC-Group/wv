@@ -14,6 +14,14 @@
 #' @export
 #' @author Justin Lee
 wccv_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
+  if (sum(class(x) %in% "gts") == 1){
+    x = as.numeric(x)
+  }
+  
+  if (sum(class(y) %in% "gts") == 1){
+    y = as.numeric(y)
+  }
+  
   if(is.null(x) || is.null(y)){
     stop("`x` or `y` must contain a value.")
   }else if((is.data.frame(x) || is.matrix(x)) || is.data.frame(y) || is.matrix(y)){
@@ -70,7 +78,11 @@ wccv_pair = function(x, y, decomp = "modwt", filter = "haar", nlevels = NULL){
 #' @export
 #' @author Justin Lee
 wccv = function(x, decomp = "modwt", filter = "haar", nlevels = NULL){
-  if(is.null(x)) stop("`x` must contain a value.")
+    if (sum(class(x) %in% "gts") == 1){
+      x = as.numeric(x)
+    }
+  
+   if(is.null(x)) stop("`x` must contain a value.")
 
   if(decomp == "modwt"){
     if(is.null(nlevels)){
@@ -282,6 +294,10 @@ plot.wccv_pair = function(x, theo.wccv = NULL, main = NULL, xlab = NULL, ylab = 
 #' y.step = 2
 #' wccv_get_y(x, y.min, y.step)
 wccv_get_y = function(x, tick_y_min, tick_y_step){
+  if (sum(class(x) %in% "gts") == 1){
+    x = as.numeric(x)
+  }
+  
   n = length(x)
   for (i in 1:n){
     if (x[i] > 0){

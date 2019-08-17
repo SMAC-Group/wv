@@ -25,6 +25,10 @@
 #' @importFrom stats acf
 ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
   
+  if (sum(class(x) %in% "gts") == 1){
+    x = as.numeric(x)
+  }
+  
   # Change the data to matrix form
   if(is.ts(x) || is.atomic(x)){
     x2 = data.matrix(x)        
@@ -80,6 +84,10 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' plot(m, show.ci = FALSE)
 #' @importFrom grDevices rgb
 plot.ACF = function(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
+  if (sum(class(x) %in% "gts") == 1){
+    x = as.numeric(x)
+  }
+  
   # TO ADD AS INPUTS
   xlab = "Lags"
   ylab = "ACF"

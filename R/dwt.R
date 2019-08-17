@@ -9,7 +9,7 @@
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
 #' The default \eqn{J} is determined by \eqn{floor\left(log_2 \left(length\left(x\right)\right)\right)}{floor(log2(length(x)))}
-#' @author James Balamuta and Justin Lee
+#' @author James Balamuta, Justin Lee and Stéphane Guerrier
 #' @examples
 #' set.seed(999)
 #' x = rnorm(2^8)
@@ -19,6 +19,10 @@
 #' 
 #' plot(ret)
 dwt = function(x, nlevels = floor(log2(length(x))), filter = "haar") {
+  
+  if (sum(class(x) %in% "gts") == 1){
+    x = as.numeric(x)
+  }
   
   if(is.vector(x) && length(x) %% 2^nlevels != 0){
     warning("The data has been truncated so that it is divisible by `nlevels` (e.g. 2^*)")

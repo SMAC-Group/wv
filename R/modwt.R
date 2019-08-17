@@ -1,19 +1,3 @@
-# Copyright (C) 2017 James Balamuta, Justin Lee, Stephane Guerrier, Roberto Molinari
-#
-# This file is part of wv R Methods Package
-#
-# The `wv` R package is free software: you can redistribute it and/or modify it
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# The `wv` R package is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 #' @title Maximum Overlap Discrete Wavelet Transform
 #' @description 
 #' Calculates the coefficients for the discrete wavelet transformation
@@ -24,7 +8,7 @@
 #' @details
 #' Performs a level \eqn{J} decomposition of the time series using the pyramid algorithm.
 #' The default \eqn{J} is determined by \eqn{floor\left(log_2 \left(length\left(x\right)\right)\right)}{floor(log2(length(x)))}
-#' @author James Balamuta and Justin Lee
+#' @author James Balamuta, Justin Lee and Stéphane Guerrier
 #' @export
 #' @examples
 #' set.seed(999)
@@ -35,6 +19,9 @@
 #' 
 #' plot(ret)
 modwt = function(x, nlevels = floor(log2(length(x)-1)), filter = "haar") {
+  if (sum(class(x) %in% "gts") == 1){
+    x = as.numeric(x)
+  }
   ret = modwt_cpp(x = x, filter_name = filter, nlevels)
   mostattributes(ret) = list(J=nlevels, filter = filter, class=c("modwt","list"))
   ret

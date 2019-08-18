@@ -290,7 +290,7 @@ arma::vec scales_cpp(unsigned int nb_level){
   // Define scales
   arma::vec scales(nb_level);
   for(unsigned int i=0; i< nb_level;i++){
-    scales(i) = pow(2,i+1);
+    scales(i) = pow(2.0,double(i+1));
   }
   return scales;
 }

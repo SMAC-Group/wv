@@ -32,7 +32,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned in
     J = nlevels; 
   }
   
-  unsigned int tau = pow(2,J);
+  unsigned int tau = pow(2.0,double(J));
 
   if(double(N)/double(tau) != floor(double(N)/double(tau))){
     Rcpp::stop("The supplied sample size ('x') must be divisible by 2^(nlevels). Either truncate or expand the number of samples.");
@@ -51,7 +51,7 @@ arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned in
 
   for(unsigned int j = 0; j < J; j++) {
 
-    unsigned int M = N/pow(2,j);
+    unsigned int M = N/pow(2.0,double(j));
     unsigned int M_over_2 = M/2;
 
     arma::vec Wj(M_over_2);
@@ -103,7 +103,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
   
   unsigned int J = nlevels;
   
-  unsigned int tau = pow(2,J);
+  unsigned int tau = pow(2.0,double(J));
   
   if(tau > N) Rcpp::stop("The number of levels [ 2^(nlevels) ] exceeds sample size ('x'). Supply a lower number of levels.");
   
@@ -114,7 +114,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
   arma::vec gt = filter_info(2);
   
   // modwt transform
-  double transform_factor = sqrt(2);
+  double transform_factor = sqrt(2.0);
   ht /= transform_factor;
   gt /= transform_factor;
   
@@ -135,7 +135,7 @@ arma::field<arma::vec> modwt_cpp(arma::vec x, std::string filter_name, unsigned 
       double Vjt = gt(0)*x(k);
       
       for(int n = 1; n < L; n++){
-        k -= pow(2, j);
+        k -= pow(2.0,double(j));
         if(k < 0){
           k += N;
         }

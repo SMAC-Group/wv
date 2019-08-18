@@ -46,7 +46,7 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
   dimnames(acfe)  = list(seq_len(nrow(acfe))-1, "ACF", varName)
   
   if (is.null(attr(x, "data_name"))){
-    acfe = structure(acfe, n = nrow(x2), class = c("ACF", "array"))
+    acfe = structure(acfe, n = nrow(x2), class = c("auto_corr", "array"))
   }else{
     acfe = structure(acfe, n = nrow(x2), main = attr(x, "data_name"), class = c("ACF", "array"))
   }
@@ -67,7 +67,7 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' @param ci        A \code{double} containing the 1-alpha level. Default is 0.95
 #' @param ...       Additional parameters
 #' @return An \code{array} of dimensions \eqn{N \times S \times S}{N x S x S}.
-#' @rdname plot.ACF
+#' @rdname plot.auto_corr
 #' @keywords internal
 #' @export
 #' @examples 
@@ -83,7 +83,7 @@ ACF = function(x, lagmax = 0, cor = TRUE, demean = TRUE){
 #' # Plot without 95% CI
 #' plot(m, show.ci = FALSE)
 #' @importFrom grDevices rgb
-plot.ACF = function(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
+plot.auto_corr = function(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   if (sum(class(x) %in% "gts") == 1){
     x = as.numeric(x)
   }

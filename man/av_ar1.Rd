@@ -24,11 +24,9 @@ first-order autoregressive (AR1) process.
 \note{
 This function is based on the calculation of the theoretical allan variance 
 for stationary AR1 process raised in "Allan Variance of Time Series Models for 
-Measurement Data" by Nien Fan Zhang. (For more details: 
-\url{http://iopscience.iop.org/article/10.1088/0026-1394/45/5/009/meta}.) This calculation
+Measurement Data" by Nien Fan Zhang.) This calculation
 is fundamental and necessary for the study in "A Study of the Allan Variance for Constant-Mean 
-Non-Stationary Processes" by Xu et al. (IEEE Signal Processing Letters, 2017), preprint available:
-\url{https://arxiv.org/abs/1702.07795}.
+Non-Stationary Processes" by Xu et al. (IEEE Signal Processing Letters, 2017).
 }
 \examples{
 av1 = av_ar1(n = 5, phi = 0.9, sigma2 = 1)

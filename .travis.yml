@@ -1,10 +1,13 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+language: r
 
-language: R
 sudo: false
-cache: packages
-warnings_are_errors: false
+
+dist: trusty
+
+warnings_are_errors: true
+
+cache:
+  packages: true
+
 notifications:
-  email:
-    on_success: never
-    on_failure: never
+  slack: smac-group:9cr5A6p7QLkgJRnBUjDG9pKk

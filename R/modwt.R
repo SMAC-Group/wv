@@ -105,7 +105,7 @@ plot.modwt = function(x, index = NULL, couleur = NULL, ...){
   if (is.null(index)){
     index = 1:(min(c(4,J)))
   }else{
-      if (index == "all"){
+      if (sum(index == "all") == 1){     # i.e. index == "all"
         index = 1:J
       }
     

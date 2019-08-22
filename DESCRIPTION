@@ -2,9 +2,9 @@ Package: wv
 Type: Package
 Title: Wavelet Variance
 Version: 0.1.0
-Date: 2019-08-17
+Date: 2019-08-22
 Authors@R: c(
-    person("Stephane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
+    person("Stéphane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
     person("James", "Balamuta", role = "aut"),
     person("Justin", "Lee", role = "aut"),
     person("Roberto", "Molinari", role = "aut"),
@@ -12,12 +12,13 @@ Authors@R: c(
     person("Haotian", "Xu", role = "ctb"),
     person("Yuming", "Zhang", role = "ctb")
     )
-Maintainer: Stephane Guerrier <stef.guerrier@gmail.com>
-Depends: R (>= 3.3)
+Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
 Description: Compute the classical and robust wavelet variance for time series and regular lattices.
+Depends:
+    R (>= 3.4.0)
 License: AGPL-3 | file LICENSE
 Imports: 
-  Rcpp (>= 0.12.10),
+  Rcpp,
   simts,
   utils,
   grDevices,
@@ -27,5 +28,10 @@ Imports:
   stats
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 6.1.1
+Encoding: UTF-8
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
 URL: https://github.com/SMAC-Group/wv
 BugReports: https://github.com/SMAC-Group/wv/issues

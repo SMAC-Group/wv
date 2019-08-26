@@ -11,7 +11,7 @@ There was 1 NOTE:
 
 * checking CRAN incoming feasibility ... NOTE
   
-This is the first submission of our package.
+It appears that within the Windows and Debian architectures, the CHECK procedure returns only one NOTE regarding the CRAN incoming feasibility issue. This is because of the fact that this is the first submission of our package. 
 
 ## Downstream dependencies
 

@@ -612,8 +612,9 @@ robust_eda = function(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL, main
 #'
 compare_wvar_split = function(graph_details){
   
-  par(mfrow = c(graph_details$obj_len, graph_details$obj_len),
-      mar = c(0.5,0.5,0.5,1.5), oma = c(4,4,4,4))
+  old_pars = par(mfrow = c(graph_details$obj_len, graph_details$obj_len),
+             mar = c(0.5,0.5,0.5,1.5), oma = c(4,4,4,4))
+  on.exit(par(old_pars))
   
   for (i in 1:graph_details$obj_len){
     for (j in 1:graph_details$obj_len){

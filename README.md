@@ -10,7 +10,7 @@ Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostat
 version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
 [![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=wv)
 [![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](https://github.com/SMAC-Group/wv/blob/master/DESCRIPTION)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--08--21-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--08--27-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 

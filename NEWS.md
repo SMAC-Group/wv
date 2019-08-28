@@ -12,6 +12,7 @@ This R package provides a series of tools to compute and plot quantities related
 
 In this submission version, we made the following changes:
 
+- We omit the LICENSE file and simply put "License: AGPL-3" in the DESCRIPTION file, as there are no restrictions to the license.
 - We add more details in the description field of what the package does. We also add more reference that describes the methods in our pacakge. 
 - For the function compare_wvar_split(), we add the use of on.exit() to ensure the settings are reset after we change the user's options.
 

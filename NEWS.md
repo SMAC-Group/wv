@@ -14,5 +14,7 @@ In this submission version, we made the following changes:
 
 - We omit the LICENSE file and simply put "License: AGPL-3" in the DESCRIPTION file, as there are no restrictions to the license.
 - We add more details in the description field of what the package does. We also add more reference that describes the methods in our pacakge. 
-- For the function compare_wvar_split(), we add the use of on.exit() to ensure the settings are reset after we change the user's options.
+- For the functions where we have to change the user's options, we add the use of on.exit() to ensure the settings are reset. As this is the first time we encounter such an issue, we hope that this issue has been overcome, but we remain available to correct the package should other issues arise.
+
+
 

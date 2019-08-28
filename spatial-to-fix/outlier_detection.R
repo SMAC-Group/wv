@@ -118,7 +118,8 @@ detect <- function(signal, eff = 0.6, w = 0, identify = FALSE) {
 plot.detect <- function(x) {
   
   quartz()
-  par(mfrow = c(length(x$weights), 1), mar = c(3, 3, 1, 1))
+  old_pars = par(mfrow = c(length(x$weights), 1), mar = c(3, 3, 1, 1))
+  on.exit(par(old_pars))
   
   for(i in 1:length(x$weights)) {
     

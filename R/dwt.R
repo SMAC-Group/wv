@@ -140,7 +140,9 @@ plot.dwt = function(x, index = NULL, couleur = NULL, ...){
     }
   }
   
-  par(mfrow = c(nb_plot,1), mar = c(0,3,0,0), oma = c(5,2,1,1))
+  old_pars = par(mfrow = c(nb_plot,1), mar = c(0,3,0,0), oma = c(5,2,1,1))
+  on.exit(par(old_pars))
+  
   x_range = length(x[[1]])
   for (i in seq_len(nb_plot)){
     current_time_series = x[[index[i]]]

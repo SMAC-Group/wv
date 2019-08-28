@@ -120,7 +120,9 @@ plot.auto_corr = function(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...){
   
   x_ticks = seq(x_range[1], x_range[2], by = 1)
   y_ticks = seq(y_range[1], y_range[2], by = 0.05)
-  par(mar = c(5.1, 5.1, 1, 2.1))
+  
+  old_pars = par(mar = c(5.1, 5.1, 1, 2.1))
+  on.exit(par(old_pars))
   
   
   # Title 

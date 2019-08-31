@@ -8,9 +8,9 @@ Authors@R: c(
     person("James", "Balamuta", role = "aut"),
     person("Justin", "Lee", role = "aut"),
     person("Roberto", "Molinari", role = "aut"),
+    person("Yuming", "Zhang", role = "aut"),
     person("Nathanael", "Claussen", role = "ctb"),
-    person("Haotian", "Xu", role = "ctb"),
-    person("Yuming", "Zhang", role = "ctb")
+    person("Haotian", "Xu", role = "ctb")
     )
 Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
 Description: Provides a series of tools to compute and plot quantities related to classical and robust wavelet variance for time series and regular lattices. More details can be found, for example, in Serroukh, A., Walden, A.T., & Percival, D.B. (2000) <doi:10.2307/2669537> and Guerrier, S. & Molinari, R. (2016) <arXiv:1607.05858>.  

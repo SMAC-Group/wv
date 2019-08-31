@@ -3,14 +3,15 @@
 
 [![Travis-CI Build
 Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
-[![Project Status:
-Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
-[![CRAN](http://www.r-pkg.org/badges/version/simts)](https://cran.r-project.org/package=wv)
-[![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](https://github.com/SMAC-Group/wv/blob/master/DESCRIPTION)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--08--27-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
+[![CRAN](http://www.r-pkg.org/badges/version/wv)](https://cran.r-project.org/package=wv)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/wv)](http://www.r-pkg.org/pkg/wv)
+[![CRAN RStudio mirror
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/wv)](http://www.r-pkg.org/pkg/wv)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--09--01-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 
@@ -24,36 +25,34 @@ Haar wavelet filter.*
 
 ## Install Instructions
 
-To install the `wv` package, there is currently one option:
-[GitHub](https://github.com/SMAC-Group/wv/). For users who are
-interested in having the latest developments, this option is ideal
-although more dependencies are required to run a stable version of the
-package. Most importantly, users **must** have a (C++) compiler
-installed on their machine that is compatible with R (e.g. Clang).
+The `wv` package is available on both CRAN and GitHub. The CRAN version
+is considered stable while the GitHub version is subject to
+modifications/updates which may lead to installation problems or broken
+functions. You can install the stable version of the `wv` package with:
 
-*The setup to obtain the development version of `wv` is
-platform-dependent.*
+``` r
+install.packages("wv")
+```
 
-**All Systems**
-
-The following R packages are also required. Once you’ve made sure that
-you have a compatible C++ compiler installed on your computer, run the
-following code in an R session and you will be ready to use the
+For users who are interested in having the latest developments, the
+[GitHub](https://github.com/SMAC-Group/wv) version is ideal although
+more dependencies are required to run a stable version of the package.
+Most importantly, users **must** have a (C++) compiler installed on
+their machine that is compatible with R (e.g. Clang). Once you’ve made
+sure that you have a compatible C++ compiler installed on your computer,
+run the following code in an R session and you will be ready to use the
 devlopment version of `wv`.
 
 ``` r
-# Install the package from GitHub
+# Install dependencies
+install.packages(c("devtools"))
+
+# Install/Update the package from GitHub
 devtools::install_github("SMAC-Group/wv")
+
+# Install the package with Vignettes/User Guides 
+devtools::install_github("SMAC-Group/wv", build_vignettes = TRUE)
 ```
-
-## License
-
-The license this source code is released under is the GNU AFFERO GENERAL
-PUBLIC LICENSE (AGPL) v3.0. Please see the LICENSE file for full text.
-Otherwise, please consult [TLDR
-Legal](https://tldrlegal.com/license/gnu-affero-general-public-license-v3-\(agpl-3.0\))
-or [GNU](https://www.gnu.org/licenses/agpl-3.0.en.html) which will
-provide a synopsis of the restrictions placed upon the code.
 
 ## Wavelet Variance Analysis
 
@@ -91,7 +90,7 @@ Xt = gen_gts(n = n, model = model)
 plot(Xt)
 ```
 
-![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 Based on the above code, we have simulated a random walk with null
 expectation unit innovation variance. The functions to compute the DWT,
@@ -132,7 +131,7 @@ summary(Xt.dwt)
 plot(Xt.dwt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" title="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" title="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
 
 ### Maximum Overlap Discrete Wavelet Transformation (MODWT)
 
@@ -173,7 +172,7 @@ summary(Xt.modwt)
 plot(Xt.modwt, index = "all")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" title="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" title="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
 
 ### Wavelet Variance
 
@@ -202,7 +201,7 @@ plot(wvar(Xt), main = "White noise")
 plot(wvar(Yt), main = "Random walk", legend_position = NULL)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" title="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" title="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." style="display: block; margin: auto;" />
 
 As indicated in the legends, the light shaded blue area represents the
 95% confidence intervals for each scale of estimated wavelet variance.
@@ -222,7 +221,7 @@ robust_eda(Yt, main = "RW without contamination")
 robust_eda(Yt2, legend_position = NULL, main = "RW with contamination")
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
 
 It can be seen how the classic and robust wavelet variance estimates
 agree when there is no contamination (left plot) but they classic
@@ -254,7 +253,7 @@ wv_Wt = wvar(Wt)
 compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
 As seen above, the function `compare_wvar()` allows to plot different
 outputs of the `wvar()` function and it can be seen how the four time

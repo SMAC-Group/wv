@@ -27,7 +27,7 @@ Imports:
   graphics, 
   stats
 LinkingTo: Rcpp, RcppArmadillo
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8
 Suggests:
     knitr,

@@ -4,10 +4,22 @@
 \alias{plot.wvar}
 \title{Plot Wavelet Variances}
 \usage{
-\method{plot}{wvar}(x, units = NULL, xlab = NULL, ylab = NULL,
-  main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL,
-  nb_ticks_y = NULL, legend_position = NULL, ci_wv = NULL,
-  point_cex = NULL, point_pch = NULL, ...)
+\method{plot}{wvar}(
+  x,
+  units = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  main = NULL,
+  col_wv = NULL,
+  col_ci = NULL,
+  nb_ticks_x = NULL,
+  nb_ticks_y = NULL,
+  legend_position = NULL,
+  ci_wv = NULL,
+  point_cex = NULL,
+  point_pch = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A \code{wvar} object.}

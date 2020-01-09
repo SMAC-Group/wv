@@ -4,8 +4,7 @@
 \alias{plot.auto_corr}
 \title{Auto-Covariance and Correlation Functions}
 \usage{
-\method{plot}{auto_corr}(x, show.ci = TRUE, alpha = 0.05,
-  main = NULL, ...)
+\method{plot}{auto_corr}(x, show.ci = TRUE, alpha = 0.05, main = NULL, ...)
 }
 \arguments{
 \item{x}{An \code{"ACF"} object from \code{\link{ACF}}.}

@@ -1,3 +1,65 @@
+#' @title Convert Unit of Time Series Data
+#' @description Manipulate the units of time to different ones
+#' @keywords internal
+#' @param x          A \code{vector} containing the values on x-axis.
+#' @param from.unit  A \code{string} indicating the unit which the data is converted from.
+#' @param to.unit    A \code{string} indicating the unit which the data is converted to.
+#' @details
+#' The supported units are "ns"(nanosecond), "ms"(millisecond), "sec", "min", "hour", "day", "month", and "year".
+#' Make sure \code{from.unit} and \code{to.unit} are not \code{NULL} before it is passed to this function.
+#' @return A \code{list} with the following structure:
+#' \describe{
+#'  \item{x}{Data}
+#'  \item{converted}{A \code{boolean} indicating whether conversion is made}
+#' }
+#' @examples
+#' x = seq(60, 3600, 60)
+#' unitConversion(x, 'sec', 'min')
+#' y = 1:10
+#' unitConversion(y, 'hour', 'sec')
+unitConversion = function(x, from.unit, to.unit){
+  
+  #ns, ms, second, min, hour, day, month, year
+  unit = c(ns = 1, ms = 2,se = 3, mi = 4, ho = 5, da = 6, mo = 7, ye = 8)
+  
+  #assume 1 month = 30 days
+  ratio = c(1E6, 1E3, 60, 60, 24, 30, 12)
+  from.unit.1 = substr(from.unit, 1, 2)
+  to.unit.1 = substr(to.unit, 1, 2)
+  
+  #check unit:
+  no.convert = F
+  if(from.unit.1 == to.unit.1){no.convert = T}
+  if(is.na(unit[from.unit.1]) ) {
+    message = paste('No such unit: ', from.unit, '. Supported units are "ns"(nanosecond), "ms"(millisecond), "sec", "min", "hour", "day", "month", and "year". Conversion is terminated.', sep = '')
+    warning(message); no.convert = T}
+  if(is.na(unit[to.unit.1]) ) {
+    message = paste('No such unit: ', to.unit, '. Supported units are "ns"(nanosecond), "ms"(millisecond), "sec", "min", "hour", "day", "month", and "year". Conversion is terminated.', sep = '')
+    warning(message); no.convert = T}
+  
+  if(!no.convert){
+    #print out warning when day is convert to month, or month is converted to day.
+    conversionRange = unit[from.unit.1] : unit[to.unit.1]
+    if(6 %in% conversionRange && 7 %in% conversionRange){
+      warning('Unit conversion might be wrong because this function simply assumes 1 month = 30 days.')
+    }
+  }
+  
+  if(!no.convert){
+    if(unit[from.unit.1] > unit[to.unit.1]){
+      temp = ratio[unit[to.unit.1]: (unit[from.unit.1]-1)]
+      multiplier = prod(temp)
+      x = x*multiplier
+    }else{
+      temp = ratio[unit[from.unit.1]: (unit[to.unit.1]-1) ]
+      multiplier = prod(temp)
+      x = x/multiplier
+    }
+  }
+  obj = list(x = x, converted = !no.convert)  
+  return(obj)
+}
+
 #' @title Wavelet Variance
 #' 
 #' @description
@@ -83,7 +145,6 @@ wvar.ts = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 0
 #' @rdname wvar
 #' @export
 #' @importFrom methods is
-#' @importFrom simts unitConversion
 wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, freq = 1, from.unit = NULL, to.unit = NULL, ...){
   if(is.null(x)){
     stop("`x` must contain a value")

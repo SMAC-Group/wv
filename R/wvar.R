@@ -142,6 +142,71 @@ wvar.ts = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 0
   wvar.default(x, decomp, filter, nlevels, alpha, robust, eff, freq = freq, from.unit = unit, to.unit = to.unit)
 }
 
+
+#' @rdname wvar
+#' @export
+wvar.imu = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, to.unit = NULL, ...){
+  # Retrive sensor name
+  if (!is.null(attr(x, "stype"))){
+    sensor_name = attr(x, "stype")
+  }else{
+    warning("Unknown sensor name. IMU object is missing some information.")
+    sensor_name = NULL
+  }
+  
+  # Retrive freq
+  if (!is.null(attr(x, "freq"))){
+    freq = attr(x, "freq")
+  }else{
+    warning("Unknown frequency. IMU object is missing some information. Freq is set to 1 by default.")
+    freq = 1
+  }
+  
+  # Retrive sample size
+  if (!is.null(attr(x, "dim"))){
+    n = attr(x, "dim")[1]
+  }else{
+    warning("Unknown sample size. IMU object is missing some information.")
+    n = NULL
+  }
+  
+  # Retrive col names
+  if (!is.null(attr(x, "dimnames")[[2]])){
+    col_names = attr(x, "dimnames")[[2]]
+  }else{
+    stop("Unknown colunms names. IMU object is missing some information.")
+    col_names = NULL
+  }
+  
+  # Retrive sensor
+  if (!is.null(attr(x, "sensor"))){
+    sensor = attr(x, "sensor")
+  }else{
+    warning("Unknown sensor. IMU object is missing some information.")
+    sensor = NULL
+  }
+  
+  # Retrive axis
+  if (!is.null(attr(x, "axis"))){
+    ax = attr(x, "axis")
+  }else{
+    warning("Unknown axes. IMU object is missing some information.")
+    ax = NULL
+  }
+  
+  # Compute avar
+  m = length(col_names)
+  wvariance = list()
+  for (i in 1:m){
+    wvariance[[i]] = wvar.default(x[,i], decomp, filter, nlevels, alpha, robust, eff, freq = freq, from.unit = unit, to.unit = to.unit)
+  }
+  names(wvariance) = col_names
+  out = list(sensor = sensor_name, freq = freq, n = n, type = sensor, axis = ax, wvar = wvariance)
+  class(out) = "imu_wvar"
+  invisible(out)
+}
+
+
 #' @rdname wvar
 #' @export
 #' @importFrom methods is

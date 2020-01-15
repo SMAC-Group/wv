@@ -3,6 +3,7 @@
 \docType{package}
 \name{wv}
 \alias{wv}
+\alias{wv-package}
 \title{wv}
 \description{
 wv

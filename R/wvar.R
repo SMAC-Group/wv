@@ -198,7 +198,7 @@ wvar.imu = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 
   m = length(col_names)
   wvariance = list()
   for (i in 1:m){
-    wvariance[[i]] = wvar.default(x[,i], decomp, filter, nlevels, alpha, robust, eff, freq = freq, from.unit = unit, to.unit = to.unit)
+    wvariance[[i]] = wvar.default(x[,i], decomp, filter, nlevels, alpha, robust, eff, freq = freq, to.unit = to.unit)
   }
   names(wvariance) = col_names
   out = list(sensor = sensor_name, freq = freq, n = n, type = sensor, axis = ax, wvar = wvariance)

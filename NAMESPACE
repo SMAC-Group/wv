@@ -2,6 +2,7 @@
 
 S3method(plot,auto_corr)
 S3method(plot,dwt)
+S3method(plot,imu_wvar)
 S3method(plot,modwt)
 S3method(plot,wccv_pair)
 S3method(plot,wvar)

@@ -3,6 +3,7 @@ Type: Package
 Title: Wavelet Variance
 Version: 0.1.1
 Date: 2020-01-16
+LazyData: true
 Authors@R: c(
     person("Stéphane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
     person("James", "Balamuta", role = "aut"),

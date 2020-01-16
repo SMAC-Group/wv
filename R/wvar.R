@@ -12,6 +12,7 @@
 #'  \item "x": Data
 #'  \item "converted": A \code{boolean} indicating whether conversion is made
 #' }
+#' @export
 #' @examples
 #' x = seq(60, 3600, 60)
 #' unitConversion(x, 'sec', 'min')
@@ -103,7 +104,7 @@ unitConversion = function(x, from.unit, to.unit){
 #' # 90% Confidence Interval 
 #' wvar(x, alpha = 0.10)
 #' @export
-wvar = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, freq = 1, from.unit = NULL, to.unit = NULL, ...) {
+wvar = function(x, ...) {
   if (sum(class(x) %in% "gts") == 1){
     x = as.numeric(x)
   }

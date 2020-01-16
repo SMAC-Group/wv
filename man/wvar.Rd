@@ -9,19 +9,7 @@
 \alias{wvar.default}
 \title{Wavelet Variance}
 \usage{
-wvar(
-  x,
-  decomp = "modwt",
-  filter = "haar",
-  nlevels = NULL,
-  alpha = 0.05,
-  robust = FALSE,
-  eff = 0.6,
-  freq = 1,
-  from.unit = NULL,
-  to.unit = NULL,
-  ...
-)
+wvar(x, ...)
 
 \method{wvar}{lts}(
   x,
@@ -88,6 +76,8 @@ wvar(
 \arguments{
 \item{x}{A \code{vector} with dimensions N x 1.}
 
+\item{...}{Further arguments passed to or from other methods.}
+
 \item{decomp}{A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.}
 
 \item{filter}{A \code{string} that specifies which wavelet filter to use.}
@@ -100,13 +90,11 @@ wvar(
 
 \item{eff}{A \code{double} that indicates the efficiency as it relates to an MLE.}
 
+\item{to.unit}{A \code{string} indicating the unit to which the data is converted.}
+
 \item{freq}{A \code{numeric} that provides the rate of samples.}
 
 \item{from.unit}{A \code{string} indicating the unit from which the data is converted.}
-
-\item{to.unit}{A \code{string} indicating the unit to which the data is converted.}
-
-\item{...}{Further arguments passed to or from other methods.}
 }
 \value{
 A \code{list} with the structure:

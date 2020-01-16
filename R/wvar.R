@@ -8,9 +8,9 @@
 #' The supported units are "ns"(nanosecond), "ms"(millisecond), "sec", "min", "hour", "day", "month", and "year".
 #' Make sure \code{from.unit} and \code{to.unit} are not \code{NULL} before it is passed to this function.
 #' @return A \code{list} with the following structure:
-#' \describe{
-#'  \item{x}{Data}
-#'  \item{converted}{A \code{boolean} indicating whether conversion is made}
+#' \itemize{
+#'  \item "x": Data
+#'  \item "converted": A \code{boolean} indicating whether conversion is made
 #' }
 #' @examples
 #' x = seq(60, 3600, 60)
@@ -61,29 +61,27 @@ unitConversion = function(x, from.unit, to.unit){
 }
 
 #' @title Wavelet Variance
-#' 
-#' @description
-#' Calculates the (MO)DWT wavelet variance
+#' @description Calculates the (MO)DWT wavelet variance
 #' @param x         A \code{vector} with dimensions N x 1.
 #' @param decomp    A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.
 #' @param filter    A \code{string} that specifies which wavelet filter to use.
 #' @param nlevels   An \code{integer} that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).
+#' @param alpha     A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.
 #' @param robust    A \code{boolean} that triggers the use of the robust estimate.
 #' @param eff       A \code{double} that indicates the efficiency as it relates to an MLE.
-#' @param alpha     A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.
 #' @param freq      A \code{numeric} that provides the rate of samples.
 #' @param from.unit A \code{string} indicating the unit from which the data is converted.
 #' @param to.unit   A \code{string} indicating the unit to which the data is converted.
 #' @param ...       Further arguments passed to or from other methods.
 #' @return A \code{list} with the structure:
-#' \describe{
-#'   \item{"variance"}{Wavelet Variance}
-#'   \item{"ci_low"}{Lower CI}
-#'   \item{"ci_high"}{Upper CI}
-#'   \item{"robust"}{Robust active}
-#'   \item{"eff"}{Efficiency level for Robust calculation}
-#'   \item{"alpha"}{p value used for CI}
-#'   \item{"unit"}{String representation of the unit}
+#' \itemize{
+#'   \item "variance": Wavelet Variance
+#'   \item "ci_low": Lower CI
+#'   \item "ci_high": Upper CI
+#'   \item "robust": Robust active 
+#'   \item "eff": Efficiency level for Robust calculation
+#'   \item "alpha": p value used for CI
+#'   \item "unit": String representation of the unit
 #' }
 #' @details 
 #' The default value of \code{nlevels} will be set to \eqn{\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor}{floor(log2(length(x)))}, unless otherwise specified.
@@ -105,7 +103,7 @@ unitConversion = function(x, from.unit, to.unit){
 #' # 90% Confidence Interval 
 #' wvar(x, alpha = 0.10)
 #' @export
-wvar = function(x, ...) {
+wvar = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, alpha = 0.05, robust = FALSE, eff = 0.6, freq = 1, from.unit = NULL, to.unit = NULL, ...) {
   if (sum(class(x) %in% "gts") == 1){
     x = as.numeric(x)
   }
@@ -274,9 +272,7 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
 }
 
 #' @title Create a \code{wvar} object
-#' 
-#' @description
-#' Structures elements into a \code{wvar} object
+#' @description Structures elements into a \code{wvar} object
 #' @param obj    A \code{matrix} with dimensions N x 3 that contains Wavelet Variance, Lower CI, and Upper CI.
 #' @param decomp A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.
 #' @param filter A \code{string} that specifies the type of wavelet filter used in the decomposition.
@@ -286,14 +282,14 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
 #' @param scales A \code{vec} that contains the amount of decomposition performed at each level.
 #' @param unit   A \code{string} that indicates the unit expression of the frequency.
 #' @return A \code{list} with the structure:
-#' \describe{
-#'   \item{"variance"}{Wavelet Variance}
-#'   \item{"ci_low"}{Lower CI}
-#'   \item{"ci_high"}{Upper CI}
-#'   \item{"robust"}{Robust active}
-#'   \item{"eff"}{Efficiency level for Robust calculation}
-#'   \item{"alpha"}{p value used for CI}
-#'   \item{"unit"}{String representation of the unit}
+#' \itemize{
+#'   \item "variance": Wavelet variance
+#'   \item "ci_low": Lower CI
+#'   \item "ci_high": Upper CI
+#'   \item "robust": Robust active
+#'   \item "eff": Efficiency level for robust calculation
+#'   \item "alpha": p value used for CI
+#'   \item "unit": String representation of the unit
 #' }
 #' @keywords internal
 create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
@@ -310,9 +306,7 @@ create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
 }
 
 #' @title Print Wavelet Variances
-#' 
-#' @description
-#' Displays the summary table of wavelet variance.
+#' @description Displays the summary table of wavelet variance.
 #' @author James Balamuta 
 #' @method print wvar
 #' @export
@@ -333,9 +327,7 @@ print.wvar = function(x, ...){
 }
 
 #' @title Summary of Wavelet Variances
-#' 
-#' @description 
-#' Displays the summary table of wavelet variance accounting for CI values and supplied efficiency.
+#' @description Displays the summary table of wavelet variance accounting for CI values and supplied efficiency.
 #' @method summary wvar
 #' @export
 #' @keywords internal
@@ -364,10 +356,8 @@ summary.wvar = function(object, ...){
   print(object)
 }
 
-#' @title Plot Wavelet Variances
-#' 
-#' @description 
-#' Displays a plot of wavelet variance accounting for CI values and supplied efficiency.
+#' @title Plot Wavelet Variance
+#' @description Displays a plot of wavelet variance accounting for CI values and supplied efficiency.
 #' @method plot wvar
 #' @keywords internal
 #' @param x                A \code{wvar} object.
@@ -377,12 +367,12 @@ summary.wvar = function(object, ...){
 #' @param main             A \code{string} that gives an overall title for the plot.
 #' @param col_wv           A \code{string} that specifies the color of the wavelet variance line.
 #' @param col_ci           A \code{string} that specifies the color of the confidence interval polygon.
-#' @param ci_wv            A \code{boolean} that determines whether a confidence interval polygon will be drawn.
 #' @param nb_ticks_x       An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y       An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position  A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
-#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
+#' @param ci_wv            A \code{boolean} that determines whether a confidence interval polygon will be drawn.
 #' @param point_cex        A \code{double} that specifies the size of each symbol to be plotted.
+#' @param point_pch        A \code{double} that specifies the symbol type to be plotted.
 #' @param ...              Additional arguments affecting the plot.
 #' @return Plot of wavelet variance and confidence interval for each scale.
 #' @author Stephane Guerrier, Nathanael Claussen, and Justin Lee
@@ -552,10 +542,8 @@ plot.wvar = function(x, units = NULL, xlab = NULL, ylab = NULL, main = NULL,
 
 
 #' @title Comparison between classical and robust Wavelet Variances
-#' 
-#' @description 
-#' Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
-#' @param x A time series objects.
+#' @description Displays a plot of the wavelet variances (classical and robust) for a given time series accounting for CI values.
+#' @param x               A time series objects.
 #' @param eff             An \code{integer} that specifies the efficiency of the robust estimator.
 #' @param units           A \code{string} that specifies the units of time plotted on the x axis.
 #' @param xlab            A \code{string} that gives a title for the x axis.
@@ -962,13 +950,13 @@ compare_wvar_no_split = function(graph_details){
 #' @param ylab            A \code{string} that gives a title for the y axes.
 #' @param main            A \code{string} that gives an overall title for the plot.
 #' @param col_wv          A \code{string} that specifies the color of the wavelet variance lines. 
+#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
 #' @param nb_ticks_x      An \code{integer} that specifies the maximum number of ticks for the x-axis.
 #' @param nb_ticks_y      An \code{integer} that specifies the maximum number of ticks for the y-axis.
 #' @param legend_position A \code{string} that specifies the position of the legend (use \code{legend_position = NA} to remove legend).
 #' @param ci_wv           A \code{boolean} that determines whether confidence interval polygons will be drawn.
-#' @param col_ci          A \code{string} that specifies the color of the confidence interval shade.
-#' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
 #' @param point_cex       A \code{double} that specifies the size of each symbol to be plotted.
+#' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
 #' @param names           A \code{string} that specifies the name of the WVAR objects. 
 #' @param cex_labels      A \code{double} that specifies the magnification of the labels (x and y).
 #' @author Stephane Guerrier and Justin Lee

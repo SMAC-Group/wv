@@ -4,9 +4,20 @@
 \alias{robust_eda}
 \title{Comparison between classical and robust Wavelet Variances}
 \usage{
-robust_eda(x, eff = 0.6, units = NULL, xlab = NULL, ylab = NULL,
-  main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL,
-  nb_ticks_y = NULL, legend_position = NULL, ...)
+robust_eda(
+  x,
+  eff = 0.6,
+  units = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  main = NULL,
+  col_wv = NULL,
+  col_ci = NULL,
+  nb_ticks_x = NULL,
+  nb_ticks_y = NULL,
+  legend_position = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A time series objects.}

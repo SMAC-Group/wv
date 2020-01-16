@@ -194,7 +194,7 @@ wvar.imu = function(x, decomp="modwt", filter = "haar", nlevels = NULL, alpha = 
     ax = NULL
   }
   
-  # Compute avar
+  # Compute wvar
   m = length(col_names)
   wvariance = list()
   for (i in 1:m){

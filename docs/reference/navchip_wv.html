@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cross Covariance of Matrix — wccv • wv</title>
+<title>Wavelet variance of IMU Data from a navchip sensor — navchip_wv • wv</title>
 
 
 <!-- jquery -->
@@ -33,8 +33,8 @@
 
 
 
-<meta property="og:title" content="Cross Covariance of Matrix — wccv" />
-<meta property="og:description" content="Calculates the Cross-covariance between multiple wavelet transfomations (dwt or modwt)" />
+<meta property="og:title" content="Wavelet variance of IMU Data from a navchip sensor — navchip_wv" />
+<meta property="og:description" content="This data set contains wavelet variance of gyroscope and accelerometer data from a navchip sensor." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -96,56 +96,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cross Covariance of Matrix</h1>
-    <small class="dont-index">Source: <a href='https://github.com/SMAC-Group/wv/blob/master/R/covwv.R'><code>R/covwv.R</code></a></small>
-    <div class="hidden name"><code>wccv.Rd</code></div>
+    <h1>Wavelet variance of IMU Data from a navchip sensor</h1>
+    <small class="dont-index">Source: <a href='https://github.com/SMAC-Group/wv/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>navchip_wv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculates the Cross-covariance between multiple wavelet transfomations (dwt or modwt)</p>
+    <p>This data set contains wavelet variance of gyroscope and accelerometer data from a navchip sensor.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>wccv</span>(<span class='no'>x</span>, <span class='kw'>decomp</span> <span class='kw'>=</span> <span class='st'>"modwt"</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>, <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='no'>navchip_wv</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>A <code>vector</code> with dimensions N x M.</p></td>
-    </tr>
-    <tr>
-      <th>decomp</th>
-      <td><p>A <code>string</code> that indicates whether to use the "dwt" or "modwt" decomposition.</p></td>
-    </tr>
-    <tr>
-      <th>filter</th>
-      <td><p>A <code>string</code> that specifies what wavelet filter to use.</p></td>
-    </tr>
-    <tr>
-      <th>nlevels</th>
-      <td><p>An <code>integer</code> that indicates the level of decomposition. It must be less than or equal to floor(log2(length(x))).</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>Returns a <code>matrix</code> of <code>lists</code> of all the possible pair cross-covariance, variance of each wavelet cross-covariance and its 95<!-- % CI. --></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>A list of the following elements:</p><ul>
+<li><p>"sensor": Name of the sensor.</p></li>
+<li><p>"freq": The frequency at which the error signal is measured.</p></li>
+<li><p>"n": Sample size of the data.</p></li>
+<li><p>"type": The types of sensors considered in the data.</p></li>
+<li><p>"axis": The axes of sensors considered in the data.</p></li>
+<li><p>"wvar": A list containing the computed wavelet variance based on the data.</p></li>
+</ul>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>If <code>nlevels</code> is not specified, it is set to \(\left\lfloor {{{\log }_2}\left( {length\left( x \right)} \right)} \right\rfloor\)</p>
+    <p>The IMU data of the navchip sensor comes from Geodetic Engineering Laboratory (TOPO) and Swiss Federal Institute of Technology Lausanne (EPFL).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
+      <li><a href="#format">Format</a></li>
+      <li><a href="#source">Source</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Justin Lee</p>
   </div>
 </div>
 

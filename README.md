@@ -11,7 +11,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-
 downloads](http://cranlogs.r-pkg.org/badges/wv)](http://www.r-pkg.org/pkg/wv)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/wv)](http://www.r-pkg.org/pkg/wv)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--09--01-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2020--01--16-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 
@@ -261,6 +261,21 @@ series deliver different wavelet variances (as the autoregressive
 parameter approaches zero, the shape of the wavelet variance plot
 approaches the behaviour of the wavelet variance of a white noise
 process).
+
+### Wavelet Variance on IMU Data
+
+In the package, we also add some datasets which are the wavelet variance
+computed based on real IMU data. Currently the package includes datasets
+`adis_wv`, `imar_wv`, `kvh1750_wv`, `ln200_wv` and `navchip_av`. We can
+plot these wavelet variance simply with the `plot` function. As an
+example:
+
+``` r
+data("kvh1750_wv")
+plot(kvh1750_wv)
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
 # User Guides
 

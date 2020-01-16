@@ -107,7 +107,7 @@ plot(Xt.modwt, index = "all")
 
 If the interest of the user lies solely in the wavelet variance (issued from either DWT or MODWT), then the package provides functions that directly compute this quantity and deliver the tools necessary to analyse it (confidence intervals and plots). Below is a code that simulates a white noise and a random walk process and directly plots their respective wavelet variances in a log-log plot applying the `plot()` function to the package function `wvar()`.
 
-```{r, fig.height = 3.5, fig.width = 7.25, fig.align = 'center', fig.cap = "Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel).", }
+```{r, fig.height = 3.5, fig.width = 7.25, fig.align = 'center', fig.cap = "Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)."}
 # Set seed for reproducibility 
 set.seed(999)
 
@@ -159,6 +159,15 @@ compare_wvar(wv_Xt, wv_Yt, wv_Zt, wv_Wt)
 ```
 
 As seen above, the function `compare_wvar()` allows to plot different outputs of the `wvar()` function and it can be seen how the four time series deliver different wavelet variances (as the autoregressive parameter approaches zero, the shape of the wavelet variance plot approaches the behaviour of the wavelet variance of a white noise process).
+
+### Wavelet Variance on IMU Data
+
+In the package, we also add some datasets which are the wavelet variance computed based on real IMU data. Currently the package includes datasets `adis_wv`, `imar_wv`, `kvh1750_wv`, `ln200_wv` and `navchip_av`. We can plot these wavelet variance simply with the `plot` function. As an example:
+
+```{r, fig.height = 8, fig.width = 8, fig.align = 'center'}
+data("kvh1750_wv")
+plot(kvh1750_wv)
+```
 
 # User Guides
 

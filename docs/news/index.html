@@ -8,10 +8,12 @@
 
 <title>Changelog • wv</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -30,10 +32,11 @@
 
 
 
-<meta property="og:title" content="Changelog" />
 
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -63,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -73,7 +76,6 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/SMAC-Group/wv">
@@ -97,9 +99,9 @@
       <small>Source: <a href='https://github.com/SMAC-Group/wv/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="wv-0-1-0" class="section level1">
+    <div id="wv-0-1-1" class="section level1">
 <h1 class="page-header">
-<a href="#wv-0-1-0" class="anchor"></a>wv 0.1.0<small> 2019-08-30 </small>
+<a href="#wv-0-1-1" class="anchor"></a>wv 0.1.1<small> Unreleased </small>
 </h1>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
@@ -114,11 +116,11 @@
 <div id="updates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#updates" class="anchor"></a>Updates</h2>
-<p>In this submission version, we made the following changes:</p>
+<p>Compared to the 0.1.0 version, we add the application of wavelet variance on IMU data. Specifically, we add the following new features:</p>
 <ul>
-<li>We omit the LICENSE file and simply put “License: AGPL-3” in the DESCRIPTION file, as there are no restrictions to the license.</li>
-<li>We add more details in the description field of what the package does. We also add more reference that describes the methods in our pacakge.</li>
-<li>For the functions where we have to change the user’s options, we add the use of on.exit() to ensure the settings are reset. As this is the first time we encounter such an issue, we hope that this issue has been overcome, but we remain available to correct the package should other issues arise.</li>
+<li>New function wvar.imu() which allows the computation of wavelet variance based on IMU data;</li>
+<li>New function plot.imu_wvar() which allows to plot the wavelet variance computed based on IMU data;</li>
+<li>A few datasets of wavelet variance based on real IMU data as examples to test the new functions.</li>
 </ul>
 </div>
 </div>
@@ -128,7 +130,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#wv-0-1-0">0.1.0</a></li>
+        <li><a href="#wv-0-1-1">0.1.1</a></li>
       </ul>
     </div>
   </div>

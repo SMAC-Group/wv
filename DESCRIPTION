@@ -1,8 +1,8 @@
 Package: wv
 Type: Package
 Title: Wavelet Variance
-Version: 0.1.0
-Date: 2019-08-29
+Version: 0.1.1
+Date: 2020-01-16
 Authors@R: c(
     person("Stéphane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
     person("James", "Balamuta", role = "aut"),
@@ -10,7 +10,8 @@ Authors@R: c(
     person("Roberto", "Molinari", role = "aut"),
     person("Yuming", "Zhang", role = "aut"),
     person("Nathanael", "Claussen", role = "ctb"),
-    person("Haotian", "Xu", role = "ctb")
+    person("Haotian", "Xu", role = "ctb"),
+    person("Lionel", "Voirol", role = "ctb")
     )
 Maintainer: Stéphane Guerrier <stef.guerrier@gmail.com>
 Description: Provides a series of tools to compute and plot quantities related to classical and robust wavelet variance for time series and regular lattices. More details can be found, for example, in Serroukh, A., Walden, A.T., & Percival, D.B. (2000) <doi:10.2307/2669537> and Guerrier, S. & Molinari, R. (2016) <arXiv:1607.05858>.  

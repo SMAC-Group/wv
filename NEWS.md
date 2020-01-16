@@ -1,4 +1,4 @@
-# wv 0.1.0
+# wv 0.1.1
 
 ## Features
 
@@ -8,13 +8,13 @@ This R package provides a series of tools to compute and plot quantities related
 - Computation of WV and robust WV as well as of their respective confidence intervals.
 - Visualization of the estimated WV with different options comparing classic and robust estimates as well as different times series.
 
-## Updates
+## Updates 
 
-In this submission version, we made the following changes:
+Compared to the 0.1.0 version, we add the application of wavelet variance on IMU data. Specifically, we add the following new features: 
 
-- We omit the LICENSE file and simply put "License: AGPL-3" in the DESCRIPTION file, as there are no restrictions to the license.
-- We add more details in the description field of what the package does. We also add more reference that describes the methods in our pacakge. 
-- For the functions where we have to change the user's options, we add the use of on.exit() to ensure the settings are reset. As this is the first time we encounter such an issue, we hope that this issue has been overcome, but we remain available to correct the package should other issues arise.
+- New function wvar.imu() which allows the computation of wavelet variance based on IMU data;
+- New function plot.imu_wvar() which allows to plot the wavelet variance computed based on IMU data;
+- A few datasets of wavelet variance based on real IMU data as examples to test the new functions.
 
 
 

@@ -4,11 +4,25 @@
 \alias{compare_wvar}
 \title{Comparison Between Multiple Wavelet Variances}
 \usage{
-compare_wvar(..., split = FALSE, add_legend = TRUE, units = NULL,
-  xlab = NULL, ylab = NULL, main = NULL, col_wv = NULL,
-  col_ci = NULL, nb_ticks_x = NULL, nb_ticks_y = NULL,
-  legend_position = NULL, ci_wv = NULL, point_cex = NULL,
-  point_pch = NULL, names = NULL, cex_labels = 0.8)
+compare_wvar(
+  ...,
+  split = FALSE,
+  add_legend = TRUE,
+  units = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  main = NULL,
+  col_wv = NULL,
+  col_ci = NULL,
+  nb_ticks_x = NULL,
+  nb_ticks_y = NULL,
+  legend_position = NULL,
+  ci_wv = NULL,
+  point_cex = NULL,
+  point_pch = NULL,
+  names = NULL,
+  cex_labels = 0.8
+)
 }
 \arguments{
 \item{...}{One or more time series objects.}

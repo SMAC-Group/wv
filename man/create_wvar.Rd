@@ -25,14 +25,14 @@ create_wvar(obj, decomp, filter, robust, eff, alpha, scales, unit)
 }
 \value{
 A \code{list} with the structure:
-\describe{
-  \item{"variance"}{Wavelet Variance}
-  \item{"ci_low"}{Lower CI}
-  \item{"ci_high"}{Upper CI}
-  \item{"robust"}{Robust active}
-  \item{"eff"}{Efficiency level for Robust calculation}
-  \item{"alpha"}{p value used for CI}
-  \item{"unit"}{String representation of the unit}
+\itemize{
+  \item "variance": Wavelet variance
+  \item "ci_low": Lower CI
+  \item "ci_high": Upper CI
+  \item "robust": Robust active
+  \item "eff": Efficiency level for robust calculation
+  \item "alpha": p value used for CI
+  \item "unit": String representation of the unit
 }
 }
 \description{

@@ -105,19 +105,7 @@
     <p>Calculates the (MO)DWT wavelet variance</p>
     </div>
 
-    <pre class="usage"><span class='fu'>wvar</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>decomp</span> <span class='kw'>=</span> <span class='st'>"modwt"</span>,
-  <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"haar"</span>,
-  <span class='kw'>nlevels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>eff</span> <span class='kw'>=</span> <span class='fl'>0.6</span>,
-  <span class='kw'>freq</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>from.unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>to.unit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)
+    <pre class="usage"><span class='fu'>wvar</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for lts</span>
 <span class='fu'>wvar</span>(
@@ -194,6 +182,10 @@
       <td><p>A <code>vector</code> with dimensions N x 1.</p></td>
     </tr>
     <tr>
+      <th>...</th>
+      <td><p>Further arguments passed to or from other methods.</p></td>
+    </tr>
+    <tr>
       <th>decomp</th>
       <td><p>A <code>string</code> that indicates whether to use a "dwt" or "modwt" decomposition.</p></td>
     </tr>
@@ -218,20 +210,16 @@
       <td><p>A <code>double</code> that indicates the efficiency as it relates to an MLE.</p></td>
     </tr>
     <tr>
+      <th>to.unit</th>
+      <td><p>A <code>string</code> indicating the unit to which the data is converted.</p></td>
+    </tr>
+    <tr>
       <th>freq</th>
       <td><p>A <code>numeric</code> that provides the rate of samples.</p></td>
     </tr>
     <tr>
       <th>from.unit</th>
       <td><p>A <code>string</code> indicating the unit from which the data is converted.</p></td>
-    </tr>
-    <tr>
-      <th>to.unit</th>
-      <td><p>A <code>string</code> indicating the unit to which the data is converted.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Further arguments passed to or from other methods.</p></td>
     </tr>
     </table>
 
@@ -300,7 +288,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Stéphane Guerrier, James Balamuta, Justin Lee, Roberto Molinari, Yuming Zhang.</p>
+  <p>Developed by Stéphane Guerrier, James Balamuta, Justin Lee, Roberto Molinari, Yuming Zhang, Mucyo Karemera.</p>
 </div>
 
 <div class="pkgdown">

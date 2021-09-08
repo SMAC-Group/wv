@@ -4,7 +4,4 @@
 \name{wv}
 \alias{wv}
 \title{wv}
-\description{
-wv
-}
 \keyword{internal}

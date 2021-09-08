@@ -269,19 +269,31 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
   }else{
     unit = from.unit}
   
-  create_wvar(obj, decomp, filter, robust, eff, alpha, scales, unit)
+  # Additional internal useful values
+  mean_diff = mean(diff(x))
+  N = length(x)
+  ranged = (max(x) - min(x))/N
+  J = nlevels
+  
+  create_wvar(obj, decomp, filter, robust, eff, alpha, scales, unit,
+              mean_diff, N, ranged, J)
 }
 
 #' @title Create a \code{wvar} object
 #' @description Structures elements into a \code{wvar} object
-#' @param obj    A \code{matrix} with dimensions N x 3 that contains Wavelet Variance, Lower CI, and Upper CI.
-#' @param decomp A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.
-#' @param filter A \code{string} that specifies the type of wavelet filter used in the decomposition.
-#' @param robust A \code{boolean} that triggers the use of the robust estimate.
-#' @param eff    A \code{double} that indicates the efficiency as it relates to an MLE.
-#' @param alpha  A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.
-#' @param scales A \code{vec} that contains the amount of decomposition performed at each level.
-#' @param unit   A \code{string} that indicates the unit expression of the frequency.
+#' @param obj         A \code{matrix} with dimensions N x 3 that contains Wavelet Variance, Lower CI, and Upper CI.
+#' @param decomp      A \code{string} that indicates whether to use a "dwt" or "modwt" decomposition.
+#' @param filter      A \code{string} that specifies the type of wavelet filter used in the decomposition.
+#' @param robust      A \code{boolean} that triggers the use of the robust estimate.
+#' @param eff         A \code{double} that indicates the efficiency as it relates to an MLE.
+#' @param alpha       A \code{double} that specifies the significance level which in turn specifies the \eqn{1-\alpha} confidence level.
+#' @param scales      A \code{vec} that contains the amount of decomposition performed at each level.
+#' @param unit        A \code{string} that indicates the unit expression of the frequency.
+#' @param mean_diff   A \code{double} that specified the empirical mean of the first difference.
+#' @param N           A \code{integer} that specified the empirical length of the time series.
+#' @param ranged      A \code{double} that specified the scaled range of the data, i.e. (max(x) - min(x))/length(x).
+#' @param J           A \code{integer} that specified the number of scales.
+#' 
 #' @return A \code{list} with the structure:
 #' \itemize{
 #'   \item "variance": Wavelet variance
@@ -291,9 +303,13 @@ wvar.default = function(x, decomp = "modwt", filter = "haar", nlevels = NULL, al
 #'   \item "eff": Efficiency level for robust calculation
 #'   \item "alpha": p value used for CI
 #'   \item "unit": String representation of the unit
+#'   \item "mean_diff": Empirical mean of the first difference
+#'   \item "N": Length of the time series
+#'   \item "ranged": Scaled range of the data, i.e. (max(x) - min(x))/length(x)
+#'   \item "J": Number of scales
 #' }
 #' @keywords internal
-create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
+create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit, mean_diff, N, ranged, J){
   structure(list(variance = obj[,1],
                  ci_low = obj[,2], 
                  ci_high = obj[,3], 
@@ -303,6 +319,10 @@ create_wvar = function(obj, decomp, filter, robust, eff, alpha, scales, unit){
                  scales = scales,
                  decomp = decomp,
                  unit = unit,
+                 mean_diff = mean_diff,
+                 N = N,
+                 ranged = ranged,
+                 J = J,
                  filter = filter), class = "wvar")
 }
 

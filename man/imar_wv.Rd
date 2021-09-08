@@ -4,7 +4,8 @@
 \name{imar_wv}
 \alias{imar_wv}
 \title{Wavelet variance of IMU Data from IMAR Gyroscopes}
-\format{A list of the following elements:
+\format{
+A list of the following elements:
 \itemize{
  \item "sensor": Name of the sensor.
  \item "freq": The frequency at which the error signal is measured.
@@ -12,7 +13,8 @@
  \item "type": The types of sensors considered in the data.
  \item "axis": The axes of sensors considered in the data.
  \item "wvar": A list containing the computed wavelet variance based on the data.
-}}
+}
+}
 \source{
 The IMU data comes from Geodetic Engineering Laboratory (TOPO) and Swiss Federal Institute of Technology Lausanne (EPFL).
 }

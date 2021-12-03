@@ -995,7 +995,7 @@ compare_wvar_split = function(graph_details){
         
 #        if (graph_details$add_legend){
 #          if (i == j){
-#            legend(graph_details$legend_position, graph_details$names, bty = "n",
+#            legend(graph_details$legend_position, legend = graph_details$names, bty = "n",
 #                   lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
 #                   col = graph_details$col_wv, cex=0.7)
 #          }
@@ -1141,7 +1141,7 @@ compare_wvar_no_split = function(graph_details){
   }
   
   if (graph_details$add_legend){
-    legend(graph_details$legend_position, graph_details$names, bty = "n",
+    legend(graph_details$legend_position, legend = graph_details$names, bty = "n",
            lwd = 1, pt.cex = graph_details$point_cex, pch = graph_details$point_pch,
            col = graph_details$col_wv)
   }

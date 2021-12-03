@@ -664,8 +664,9 @@ plot.imu_wvar = function(x, xlab = NULL, ylab = NULL, main = NULL,
   if (is.null(xlab)){
     xlab = bquote(paste("Averaging time ", tau, " [sec]", sep = " "))
   }
-  if (is.null(ylab)){
-    ylab = expression(paste("Wavelet Variance ", nu, sep = ""))
+  if (is.null(ylab) || is.null(ylab[["Gyroscope"]]) || is.null(ylab[["Accelerometer"]])){
+    lab = expression(paste("Wavelet Variance ", nu, sep = ""))
+    ylab = list(Gyroscope=lab, Accelerometer=lab)
   }
   
   # Main plot
@@ -690,7 +691,7 @@ plot.imu_wvar = function(x, xlab = NULL, ylab = NULL, main = NULL,
       }
       if (i == 1){
         mtext("Gyroscope", 2, line = 4.5)
-        mtext(ylab, 2, line = 2.5)
+        mtext(ylab$Gyroscope, 2, line = 2.5)
       }
       abline(h = 10^y_ticks, col = "grey85")
       abline(v = 10^x_ticks, col = "grey85")
@@ -725,7 +726,7 @@ plot.imu_wvar = function(x, xlab = NULL, ylab = NULL, main = NULL,
       }
       if (i == 1){
         mtext("Accelerometer", 2, line = 4.5)
-        mtext(ylab, 2, line = 2.5)
+        mtext(ylab$Accelerometer, 2, line = 2.5)
       }
       if (length(accel_index) == 3 && i == 2){
         mtext(xlab, 1, line = 3.5)

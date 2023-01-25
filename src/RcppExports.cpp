@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // dwt_cpp
 arma::field<arma::vec> dwt_cpp(arma::vec x, std::string filter_name, unsigned int nlevels);
 RcppExport SEXP _wv_dwt_cpp(SEXP xSEXP, SEXP filter_nameSEXP, SEXP nlevelsSEXP) {

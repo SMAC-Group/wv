@@ -1171,6 +1171,8 @@ compare_wvar_no_split = function(graph_details){
 #' @param point_pch       A \code{double} that specifies the symbol type to be plotted.
 #' @param names           A \code{string} that specifies the name of the WVAR objects. 
 #' @param cex_labels      A \code{double} that specifies the magnification of the labels (x and y).
+#' @param x_range         A \code{vector} that specifies the range of values on the x axis (default NULL).
+#' @param y_range         A \code{vector} that specifies the range of values on the y axis (default NULL).
 #' @author Stephane Guerrier and Justin Lee
 #' @export
 #' @examples
@@ -1190,7 +1192,7 @@ compare_wvar_no_split = function(graph_details){
 compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xlab = NULL, 
                         ylab = NULL, main = NULL, col_wv = NULL, col_ci = NULL, nb_ticks_x = NULL, 
                         nb_ticks_y = NULL, legend_position = NULL, ci_wv = NULL, point_cex = NULL, 
-                        point_pch = NULL, names = NULL, cex_labels = 0.8){
+                        point_pch = NULL, names = NULL, cex_labels = 0.8, x_range = NULL, y_range = NULL){
   
   obj_list = list(...)
   obj_name = as.character(substitute(...()))
@@ -1262,7 +1264,7 @@ compare_wvar = function(... , split = FALSE, add_legend = TRUE, units = NULL, xl
     }
     
     # X and Y Limits
-    x_range = y_range = rep(NULL, 2)
+    #x_range = y_range = rep(NULL, 2)
     for (i in 1:obj_len){
       x_range = range(c(x_range, obj_list[[i]]$scales))
       y_range = range(c(y_range, obj_list[[i]]$ci_low, obj_list[[i]]$ci_high))

@@ -21,7 +21,9 @@ compare_wvar(
   point_cex = NULL,
   point_pch = NULL,
   names = NULL,
-  cex_labels = 0.8
+  cex_labels = 0.8,
+  x_range = NULL,
+  y_range = NULL
 )
 }
 \arguments{
@@ -58,6 +60,10 @@ compare_wvar(
 \item{names}{A \code{string} that specifies the name of the WVAR objects.}
 
 \item{cex_labels}{A \code{double} that specifies the magnification of the labels (x and y).}
+
+\item{x_range}{A \code{vector} that specifies the range of values on the x axis (default NULL).}
+
+\item{y_range}{A \code{vector} that specifies the range of values on the y axis (default NULL).}
 }
 \description{
 Displays plots of multiple wavelet variances of different time series accounting for CI values.

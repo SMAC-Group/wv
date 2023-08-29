@@ -13,3 +13,4 @@
 ^figures$
 ^README\.rmd$
 ^CRAN-SUBMISSION$
+^\.github$

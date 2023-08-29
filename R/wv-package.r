@@ -7,3 +7,4 @@
 #' @name wv
 #' @docType package
 NULL
+"_PACKAGE"

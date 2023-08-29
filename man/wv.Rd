@@ -3,8 +3,37 @@
 \docType{package}
 \name{wv}
 \alias{wv}
+\alias{wv-package}
 \title{wv}
 \description{
 Provides a series of tools to compute and plot quantities related to classical and robust wavelet variance for time series and regular lattices. More details can be found, for example, in Serroukh, A., Walden, A.T., & Percival, D.B. (2000) <doi:10.2307/2669537> and Guerrier, S. & Molinari, R. (2016) <arXiv:1607.05858>.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/SMAC-Group/wv}
+  \item Report bugs at \url{https://github.com/SMAC-Group/wv/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Stéphane Guerrier \email{stef.guerrier@gmail.com}
+
+Authors:
+\itemize{
+  \item James Balamuta
+  \item Justin Lee
+  \item Roberto Molinari
+  \item Yuming Zhang
+  \item Mucyo Karemera
+}
+
+Other contributors:
+\itemize{
+  \item Nathanael Claussen [contributor]
+  \item Haotian Xu [contributor]
+  \item Lionel Voirol [contributor]
+}
+
 }
 \keyword{internal}

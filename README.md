@@ -11,7 +11,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-
 downloads](http://cranlogs.r-pkg.org/badges/wv)](http://www.r-pkg.org/pkg/wv)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/wv)](http://www.r-pkg.org/pkg/wv)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2020--01--16-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--08--29-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 
@@ -77,6 +77,11 @@ process.
 # Load packages
 library(wv)
 library(simts)
+#> 
+#> Attaching package: 'simts'
+#> The following object is masked from 'package:wv':
+#> 
+#>     unitConversion
 
 # Set seed for reproducibility 
 set.seed(999)
@@ -131,7 +136,15 @@ summary(Xt.dwt)
 plot(Xt.dwt)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" title="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."  />
+<p class="caption">
+Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated
+Gaussian white noise.
+</p>
+
+</div>
 
 ### Maximum Overlap Discrete Wavelet Transformation (MODWT)
 
@@ -172,7 +185,15 @@ summary(Xt.modwt)
 plot(Xt.modwt, index = "all")
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" title="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."  />
+<p class="caption">
+Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for
+a simulated Gaussian white noise.
+</p>
+
+</div>
 
 ### Wavelet Variance
 
@@ -201,7 +222,15 @@ plot(wvar(Xt), main = "White noise")
 plot(wvar(Yt), main = "Random walk", legend_position = NULL)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" title="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)."  />
+<p class="caption">
+Wavelet variance of two simulated processes, i.e white noise (left
+panel) and random walk (right panel).
+</p>
+
+</div>
 
 As indicated in the legends, the light shaded blue area represents the
 95% confidence intervals for each scale of estimated wavelet variance.

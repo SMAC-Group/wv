@@ -1,8 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build
-Status](https://travis-ci.org/SMAC-Group/wv.svg?branch=master)](https://travis-ci.org/SMAC-Group/wv)
+![example
+workflow](https://github.com/SMAC-Group/wv/actions/workflows/R-CMD-check.yaml/badge.svg)
 [![Licence](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
@@ -11,7 +11,6 @@ version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-
 downloads](http://cranlogs.r-pkg.org/badges/wv)](http://www.r-pkg.org/pkg/wv)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/wv)](http://www.r-pkg.org/pkg/wv)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2023--08--29-yellowgreen.svg)](https://github.com/SMAC-Group/wv)
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 
@@ -309,7 +308,7 @@ plot(kvh1750_wv)
 # User Guides
 
 Various guides ship with package or are available on
-<http://smac-group.com/> to provide insight into how to use the
+<https://smac-group.com/> to provide insight into how to use the
 different methods. At the present time, the following vignettes are
 available:
 

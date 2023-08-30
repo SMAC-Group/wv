@@ -8,9 +8,9 @@ workflow](https://github.com/SMAC-Group/wv/actions/workflows/R-CMD-check.yaml/ba
 version](https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg)](https://cran.r-project.org/)
 [![CRAN](http://www.r-pkg.org/badges/version/wv)](https://cran.r-project.org/package=wv)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/wv)](http://www.r-pkg.org/pkg/wv)
+downloads](http://cranlogs.r-pkg.org/badges/wv)](https://www.r-pkg.org/pkg/wv)
 [![CRAN RStudio mirror
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/wv)](http://www.r-pkg.org/pkg/wv)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/wv)](https://www.r-pkg.org/pkg/wv)
 
 # `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
 

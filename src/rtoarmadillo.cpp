@@ -538,8 +538,8 @@ arma::cube acf(arma::mat& x, int lagmax = 0, bool cor = true, bool demean = true
         
         for(int i = 0; i < nobs-lag; i++){
           
-          if(arma::is_finite(x[i + lag + nobs*u]) &&
-             arma::is_finite(x[i + nobs*v])) {
+          if(std::isfinite(x[i + lag + nobs*u]) &&
+             std::isfinite(x[i + nobs*v])) {
             nu++;
             sum += x[i + lag + nobs*u] * x[i + nobs*v];
           }

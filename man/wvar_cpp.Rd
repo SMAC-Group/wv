@@ -18,12 +18,10 @@ wvar_cpp(signal_modwt_bw, robust, eff, alpha, ci_type)
 \item{ci_type}{A \code{String} indicating the confidence interval being calculated. Valid value: "eta3"}
 }
 \value{
-A \code{mat} with the structure:
-\itemize{
+A \code{mat} with the following structure:
   \item{"variance"}{Wavelet Variance}
   \item{"low"}{Lower CI}
   \item{"high"}{Upper CI}
-}
 }
 \description{
 Calculates the (MODWT) wavelet variance

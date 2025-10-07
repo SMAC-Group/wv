@@ -27,12 +27,10 @@ ci_wave_variance(
 \item{eff}{A \code{double} that indicates the efficiency.}
 }
 \value{
-A \code{matrix} with the structure:
-\itemize{
+A \code{matrix} with the following structure:
  \item{Column 1}{Wavelet Variance}
  \item{Column 2}{Chi-squared Lower Bounds}
  \item{Column 3}{Chi-squared Upper Bounds}
-}
 }
 \description{
 Computes an estimate of the multiscale variance and a chi-squared confidence interval

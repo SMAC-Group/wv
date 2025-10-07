@@ -16,12 +16,10 @@ ci_eta3_robust(wv_robust, wv_ci_class, alpha_ov_2, eff)
 \item{eff}{A \code{double} that indicates the efficiency.}
 }
 \value{
-A \code{matrix} with the structure:
-\itemize{
+A \code{matrix} with the following columns:
  \item{Column 1}{Robust Wavelet Variance}
  \item{Column 2}{Chi-squared Lower Bounds}
  \item{Column 3}{Chi-squared Upper Bounds}
-}
 }
 \description{
 Computes the eta3 robust CI

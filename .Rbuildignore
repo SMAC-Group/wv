@@ -14,3 +14,4 @@
 ^README\.rmd$
 ^CRAN-SUBMISSION$
 ^\.github$
+^pkgdown$

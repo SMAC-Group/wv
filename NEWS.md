@@ -1,3 +1,8 @@
+# wv 0.1.3
+
+- solved problems related to documentation
+- moved from arma::is_finite to std::isfinite in file src/rtoarmadillo.cpp
+
 # wv 0.1.1
 
 ## Features

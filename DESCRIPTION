@@ -1,8 +1,7 @@
 Package: wv
 Type: Package
 Title: Wavelet Variance
-Version: 0.1.2
-Date: 2023-08-29
+Version: 0.1.3
 LazyData: true
 Authors@R: c(
     person("Stéphane", "Guerrier", email = "stef.guerrier@gmail.com", role = c("aut","cre")),
@@ -30,7 +29,7 @@ Imports:
   graphics, 
   stats
 LinkingTo: Rcpp, RcppArmadillo
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 Encoding: UTF-8
 Suggests:
     knitr,

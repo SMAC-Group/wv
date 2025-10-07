@@ -31,12 +31,10 @@ modwt_wvar_cpp(
 \item{decomp}{A \code{string} indicating whether to use "modwt" or "dwt" decomp}
 }
 \value{
-A \code{mat} with the structure:
-\itemize{
+A \code{mat} with the following structure:
   \item{"variance"}{Wavelet Variance}
   \item{"low"}{Lower CI}
   \item{"high"}{Upper CI}
-}
 }
 \description{
 Calculates the (MODWT) wavelet variance

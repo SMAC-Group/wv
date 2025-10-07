@@ -14,12 +14,10 @@ ci_eta3(y, dims, alpha_ov_2)
 \item{alpha_ov_2}{A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level}
 }
 \value{
-A \code{matrix} with the structure:
-\itemize{
- \item{Column 1}{Wavelet Variance}
- \item{Column 2}{Chi-squared Lower Bounds}
- \item{Column 3}{Chi-squared Upper Bounds}
-}
+A \code{matrix} with the following columns:
+\item{Column 1}{Wavelet Variance.}
+\item{Column 2}{Chi-squared Lower Bounds.}
+\item{Column 3}{Chi-squared Upper Bounds.}
 }
 \description{
 Computes the eta3 CI

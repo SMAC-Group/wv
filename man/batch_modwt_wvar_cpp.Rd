@@ -32,11 +32,9 @@ batch_modwt_wvar_cpp(
 }
 \value{
 A \code{field<mat>} with the structure:
-\itemize{
-  \item{"variance"}{Wavelet Variance}
-  \item{"low"}{Lower CI}
-  \item{"high"}{Upper CI}
-}
+\item{variance}{Wavelet Variance.}
+\item{low}{Lower Confidence Interval.}
+\item{high}{Upper Confidence Interval.}
 }
 \description{
 Calculates the MO/DWT wavelet variance

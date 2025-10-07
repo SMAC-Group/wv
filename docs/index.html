@@ -6,20 +6,28 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wavelet Variance • wv</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- favicons --><link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Wavelet Variance">
-<meta property="og:description" content="Provides a series of tools to compute and plot quantities related to classical and robust wavelet variance for time series and regular lattices. More details can be found, for example, in Serroukh, A., Walden, A.T., &amp; Percival, D.B. (2000) &lt;doi:10.2307/2669537&gt; and Guerrier, S. &amp; Molinari, R. (2016) &lt;arXiv:1607.05858&gt;.  ">
+<meta property="og:description" content="Provides a series of tools to compute and plot quantities related to classical and robust wavelet variance for time series and regular lattices. More details can be found, for example, in Serroukh, A., Walden, A.T., &amp; Percival, D.B. (2000) &lt;doi:10.2307/2669537&gt; and Guerrier, S. &amp; Molinari, R. (2016) &lt;arXiv:1607.05858&gt;.">
 <meta property="og:image" content="/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
-    <div class="container template-article">
+<body data-spy="scroll" data-target="#toc">
+
+
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -31,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">wv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3</span>
       </span>
     </div>
 
@@ -43,9 +51,9 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/SMAC-Group/wv">
+  <a href="https://github.com/SMAC-Group/wv" class="external-link">
     <span class="fa fa-github"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -56,269 +64,291 @@
 </div>
 <!--/.navbar -->
 
-      
+
+
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
+  <div class="contents col-md-9">
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<div id="wv-overview" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#wv-overview" class="anchor"></a><code>wv</code> Overview <a href="https://smac-group.com/"><img src="reference/figures/logo.png" align="right" style="width: 20%; height: 20%"></a>
+<div class="section level1">
+<div class="page-header"><h1 id="wv-overview-">
+<code>wv</code> Overview <a href="https://smac-group.com/" class="external-link"><img src="reference/figures/logo.png" align="right" style="width: 20%; height: 20%"></a>
+<a class="anchor" aria-label="anchor" href="#wv-overview-"></a>
 </h1></div>
 <p>This repository is dedicated to the Wavelet Variance (<code>wv</code>) R package where different tools to perform wavelet variance analysis are provided (both standard and robust analysis). Below are instructions and examples on how to install and make use of the <code>wv</code> package.</p>
 <p><em>Currently the only implemented wavelet filter in the package is the Haar wavelet filter.</em></p>
-<div id="install-instructions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install-instructions" class="anchor"></a>Install Instructions</h2>
+<div class="section level2">
+<h2 id="install-instructions">Install Instructions<a class="anchor" aria-label="anchor" href="#install-instructions"></a>
+</h2>
 <p>The <code>wv</code> package is available on both CRAN and GitHub. The CRAN version is considered stable while the GitHub version is subject to modifications/updates which may lead to installation problems or broken functions. You can install the stable version of the <code>wv</code> package with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"wv"</span>)</a></code></pre></div>
-<p>For users who are interested in having the latest developments, the <a href="https://github.com/SMAC-Group/wv">GitHub</a> version is ideal although more dependencies are required to run a stable version of the package. Most importantly, users <strong>must</strong> have a (C++) compiler installed on their machine that is compatible with R (e.g. Clang). Once you’ve made sure that you have a compatible C++ compiler installed on your computer, run the following code in an R session and you will be ready to use the devlopment version of <code>wv</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Install dependencies</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"devtools"</span>))</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># Install/Update the package from GitHub</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/remote-reexports">install_github</a></span>(<span class="st">"SMAC-Group/wv"</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># Install the package with Vignettes/User Guides </span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/remote-reexports">install_github</a></span>(<span class="st">"SMAC-Group/wv"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"wv"</span><span class="op">)</span></span></code></pre></div>
+<p>For users who are interested in having the latest developments, the <a href="https://github.com/SMAC-Group/wv" class="external-link">GitHub</a> version is ideal although more dependencies are required to run a stable version of the package. Most importantly, users <strong>must</strong> have a (C++) compiler installed on their machine that is compatible with R (e.g. Clang). Once you’ve made sure that you have a compatible C++ compiler installed on your computer, run the following code in an R session and you will be ready to use the devlopment version of <code>wv</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install dependencies</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Install/Update the package from GitHub</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"SMAC-Group/wv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Install the package with Vignettes/User Guides </span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"SMAC-Group/wv"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="wavelet-variance-analysis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#wavelet-variance-analysis" class="anchor"></a>Wavelet Variance Analysis</h2>
+<div class="section level2">
+<h2 id="wavelet-variance-analysis">Wavelet Variance Analysis<a class="anchor" aria-label="anchor" href="#wavelet-variance-analysis"></a>
+</h2>
 <p>Below are some examples of how to make use of some of the main functions in the <code>wv</code> package. Firstly, we highlight the functions that perform the wavelet decomposition of a time series (both the discrete and maximum-overlap discrete wavelet transforms) based on which the following functions can compute the wavelet variance and its corresponding confidence intervals for inference. These are particularly useful, for example, when comparing the wavelet variance of different time series in order to understand if they share common properties or not.</p>
-<div id="discrete-wavelet-transform-dwt" class="section level3">
-<h3 class="hasAnchor">
-<a href="#discrete-wavelet-transform-dwt" class="anchor"></a>Discrete Wavelet Transform (DWT)</h3>
+<div class="section level3">
+<h3 id="discrete-wavelet-transform-dwt">Discrete Wavelet Transform (DWT)<a class="anchor" aria-label="anchor" href="#discrete-wavelet-transform-dwt"></a>
+</h3>
 <p>The DWT performs a wavelet decomposition by applying the wavelet filter to non-overlapping windows of the time series. Below is an example of how to perform this decomposition on a simulated Gaussian random walk process.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Load packages</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(wv)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(simts)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co"># Set seed for reproducibility </span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># Simulate a Gaussian random walk</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">n =<span class="st"> </span><span class="dv">10</span><span class="op">^</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">model =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/RW">RW</a></span>(<span class="dt">gamma2 =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">Xt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/gen_gts">gen_gts</a></span>(<span class="dt">n =</span> n, <span class="dt">model =</span> model)</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co"># Plot the simulated random walk</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(Xt)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="700"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SMAC-Group/wv" class="external-link">wv</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SMAC-Group/simts" class="external-link">simts</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'simts'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:wv':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     unitConversion</span></span>
+<span></span>
+<span><span class="co"># Set seed for reproducibility </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">999</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Simulate a Gaussian random walk</span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">3</span></span>
+<span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/RW.html" class="external-link">RW</a></span><span class="op">(</span>gamma2 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">Xt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/gen_gts.html" class="external-link">gen_gts</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, model <span class="op">=</span> <span class="va">model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the simulated random walk</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Xt</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
 <p>Based on the above code, we have simulated a random walk with null expectation unit innovation variance. The functions to compute the DWT, access its output and plot the related wavelet coefficients can be found below.</p>
 <!-- For the moment this method will only work with Haar wavelets.  -->
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># DWT</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">Xt.dwt =<span class="st"> </span><span class="kw"><a href="reference/dwt.html">dwt</a></span>(Xt)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; Warning in dwt(Xt): The data has been truncated so that it is divisible by</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; `nlevels` (e.g. 2^*)</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># Print the Wavelet Coefficients </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(Xt.dwt)</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; Results of DWT using haar filter with 8 levels:</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; Displaying only the first 6 coefficients...</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; Level 1 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  -0.9281198 0.1909687 -0.4002392 -0.8957566 -0.7926733 0.09473632 ...</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; Level 2 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;  0.2739394 -2.795066 0.8319477 0.3625764 -0.08550498 0.108777 ...</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; Level 3 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  -2.384147 2.388987 -2.733086 -1.928826 -2.133592 -2.809311 ...</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; Level 4 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;  -6.282995 -5.729953 -7.616116 1.635971 1.2219 4.605007 ...</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; Level 5 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;  -10.03819 -6.631445 -0.6948675 -19.01644 12.1667 -5.350667 ...</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; Level 6 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;  -23.08426 -18.32217 18.40802 -8.680854 -4.335243 6.224648 ...</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; Level 7 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt;  -34.68146 -7.485961 -5.448519 -30.51181 ...</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; Level 8 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt;  -50.81154 1.13322 ...</span></a>
-<a class="sourceLine" id="cb4-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co"># Plot of Discrete Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(Xt.dwt)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># DWT</span></span>
+<span><span class="va">Xt.dwt</span> <span class="op">=</span> <span class="fu"><a href="reference/dwt.html">dwt</a></span><span class="op">(</span><span class="va">Xt</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in dwt(Xt): The data has been truncated so that it is divisible by</span></span>
+<span><span class="co">#&gt; `nlevels` (e.g. 2^*)</span></span>
+<span></span>
+<span><span class="co"># Print the Wavelet Coefficients </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">Xt.dwt</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Results of DWT using haar filter with 8 levels:</span></span>
+<span><span class="co">#&gt; Displaying only the first 6 coefficients...</span></span>
+<span><span class="co">#&gt; Level 1 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -0.9281198 0.1909687 -0.4002392 -0.8957566 -0.7926733 0.09473632 ...</span></span>
+<span><span class="co">#&gt; Level 2 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  0.2739394 -2.795066 0.8319477 0.3625764 -0.08550498 0.108777 ...</span></span>
+<span><span class="co">#&gt; Level 3 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -2.384147 2.388987 -2.733086 -1.928826 -2.133592 -2.809311 ...</span></span>
+<span><span class="co">#&gt; Level 4 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -6.282995 -5.729953 -7.616116 1.635971 1.2219 4.605007 ...</span></span>
+<span><span class="co">#&gt; Level 5 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -10.03819 -6.631445 -0.6948675 -19.01644 12.1667 -5.350667 ...</span></span>
+<span><span class="co">#&gt; Level 6 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -23.08426 -18.32217 18.40802 -8.680854 -4.335243 6.224648 ...</span></span>
+<span><span class="co">#&gt; Level 7 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -34.68146 -7.485961 -5.448519 -30.51181 ...</span></span>
+<span><span class="co">#&gt; Level 8 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -50.81154 1.13322 ...</span></span>
+<span></span>
+<span><span class="co"># Plot of Discrete Wavelet Coefficients</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Xt.dwt</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-5-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise." width="700"><p class="caption">
+<img src="reference/figures/README-unnamed-chunk-5-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."><p class="caption">
 Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise.
 </p>
 </div>
 </div>
-<div id="maximum-overlap-discrete-wavelet-transformation-modwt" class="section level3">
-<h3 class="hasAnchor">
-<a href="#maximum-overlap-discrete-wavelet-transformation-modwt" class="anchor"></a>Maximum Overlap Discrete Wavelet Transformation (MODWT)</h3>
+<div class="section level3">
+<h3 id="maximum-overlap-discrete-wavelet-transformation-modwt">Maximum Overlap Discrete Wavelet Transformation (MODWT)<a class="anchor" aria-label="anchor" href="#maximum-overlap-discrete-wavelet-transformation-modwt"></a>
+</h3>
 <p>Compared to the DWT, the MODWT applies the wavelet filter to overlapping windows of the time series (more specifically it slides the filter by one observation at a time). As for the DWT, the functions to perform the MODWT are below.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># MODWT</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">Xt.modwt =<span class="st"> </span><span class="kw"><a href="reference/modwt.html">modwt</a></span>(Xt)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># Summary of Maximum Overlap Discrete Wavelet Coefficients </span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(Xt.modwt)</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; Results of MODWT using haar filter with 9 levels:</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; Displaying only the first 6 coefficients...</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; Level 1 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  -0.6562798 0.397592 0.1350352 -0.1386532 -0.2830119 -0.9393291 ...</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; Level 2 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  0.1369697 0.2645046 -0.2126415 -0.822003 -1.397533 -1.344998 ...</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; Level 3 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  -0.8429231 -1.362249 -2.044266 -1.991537 -1.571604 -0.827054 ...</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; Level 4 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  -1.570749 -1.175945 -0.7167598 -0.3172241 -0.04720348 0.01135659 ...</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; Level 5 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  -1.774519 -1.731545 -1.702113 -1.711879 -1.649612 -1.530804 ...</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; Level 6 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  -2.885532 -2.821419 -2.829503 -2.839451 -2.783538 -2.726905 ...</span></a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; Level 7 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt;  -3.065437 -3.069304 -3.063743 -3.03344 -2.997907 -2.955661 ...</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; Level 8 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt;  -3.175721 -3.114701 -3.064177 -3.0097 -2.956361 -2.910441 ...</span></a>
-<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt; Level 9 Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt;  -6.967706 -6.925613 -6.884283 -6.838645 -6.79024 -6.735489 ...</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co"># Plot of Maximum Overlap Discrete Wavelet Coefficients</span></a>
-<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(Xt.modwt, <span class="dt">index =</span> <span class="st">"all"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># MODWT</span></span>
+<span><span class="va">Xt.modwt</span> <span class="op">=</span> <span class="fu"><a href="reference/modwt.html">modwt</a></span><span class="op">(</span><span class="va">Xt</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Summary of Maximum Overlap Discrete Wavelet Coefficients </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">Xt.modwt</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Results of MODWT using haar filter with 9 levels:</span></span>
+<span><span class="co">#&gt; Displaying only the first 6 coefficients...</span></span>
+<span><span class="co">#&gt; Level 1 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -0.6562798 0.397592 0.1350352 -0.1386532 -0.2830119 -0.9393291 ...</span></span>
+<span><span class="co">#&gt; Level 2 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  0.1369697 0.2645046 -0.2126415 -0.822003 -1.397533 -1.344998 ...</span></span>
+<span><span class="co">#&gt; Level 3 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -0.8429231 -1.362249 -2.044266 -1.991537 -1.571604 -0.827054 ...</span></span>
+<span><span class="co">#&gt; Level 4 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -1.570749 -1.175945 -0.7167598 -0.3172241 -0.04720348 0.01135659 ...</span></span>
+<span><span class="co">#&gt; Level 5 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -1.774519 -1.731545 -1.702113 -1.711879 -1.649612 -1.530804 ...</span></span>
+<span><span class="co">#&gt; Level 6 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -2.885532 -2.821419 -2.829503 -2.839451 -2.783538 -2.726905 ...</span></span>
+<span><span class="co">#&gt; Level 7 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -3.065437 -3.069304 -3.063743 -3.03344 -2.997907 -2.955661 ...</span></span>
+<span><span class="co">#&gt; Level 8 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -3.175721 -3.114701 -3.064177 -3.0097 -2.956361 -2.910441 ...</span></span>
+<span><span class="co">#&gt; Level 9 Wavelet Coefficients</span></span>
+<span><span class="co">#&gt;  -6.967706 -6.925613 -6.884283 -6.838645 -6.79024 -6.735489 ...</span></span>
+<span></span>
+<span><span class="co"># Plot of Maximum Overlap Discrete Wavelet Coefficients</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Xt.modwt</span>, index <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise." width="700"><p class="caption">
+<img src="reference/figures/README-unnamed-chunk-6-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."><p class="caption">
 Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for a simulated Gaussian white noise.
 </p>
 </div>
 </div>
-<div id="wavelet-variance" class="section level3">
-<h3 class="hasAnchor">
-<a href="#wavelet-variance" class="anchor"></a>Wavelet Variance</h3>
-<p>If the interest of the user lies solely in the wavelet variance (issued from either DWT or MODWT), then the package provides functions that directly compute this quantity and deliver the tools necessary to analyse it (confidence intervals and plots). Below is a code that simulates a white noise and a random walk process and directly plots their respective wavelet variances in a log-log plot applying the <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code> function to the package function <code><a href="reference/wvar.html">wvar()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Set seed for reproducibility </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># Simulate Gaussian White noise</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">n =<span class="st"> </span><span class="dv">10</span><span class="op">^</span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">Xt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/gen_gts">gen_gts</a></span>(<span class="dt">n =</span> n, <span class="dt">model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/WN">WN</a></span>(<span class="dt">sigma2 =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co"># Simulate Gaussian Random walk</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">Yt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/gen_gts">gen_gts</a></span>(<span class="dt">n =</span> n, <span class="dt">model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/RW">RW</a></span>(<span class="dt">gamma2 =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co"># Plot WV</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(Xt), <span class="dt">main =</span> <span class="st">"White noise"</span>)</a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="kw"><a href="reference/wvar.html">wvar</a></span>(Yt), <span class="dt">main =</span> <span class="st">"Random walk"</span>, <span class="dt">legend_position =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<div class="section level3">
+<h3 id="wavelet-variance">Wavelet Variance<a class="anchor" aria-label="anchor" href="#wavelet-variance"></a>
+</h3>
+<p>If the interest of the user lies solely in the wavelet variance (issued from either DWT or MODWT), then the package provides functions that directly compute this quantity and deliver the tools necessary to analyse it (confidence intervals and plots). Below is a code that simulates a white noise and a random walk process and directly plots their respective wavelet variances in a log-log plot applying the <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function to the package function <code><a href="reference/wvar.html">wvar()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set seed for reproducibility </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">999</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Simulate Gaussian White noise</span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">4</span></span>
+<span><span class="va">Xt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/gen_gts.html" class="external-link">gen_gts</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/WN.html" class="external-link">WN</a></span><span class="op">(</span>sigma2 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Simulate Gaussian Random walk</span></span>
+<span><span class="va">Yt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/gen_gts.html" class="external-link">gen_gts</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/RW.html" class="external-link">RW</a></span><span class="op">(</span>gamma2 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot WV</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="reference/wvar.html">wvar</a></span><span class="op">(</span><span class="va">Xt</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"White noise"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="reference/wvar.html">wvar</a></span><span class="op">(</span><span class="va">Yt</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Random walk"</span>, legend_position <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/README-unnamed-chunk-7-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)." width="696"><p class="caption">
+<img src="reference/figures/README-unnamed-chunk-7-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)."><p class="caption">
 Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel).
 </p>
 </div>
 <p>As indicated in the legends, the light shaded blue area represents the 95% confidence intervals for each scale of estimated wavelet variance. However, there could be many practical settings where the time series can suffer from some “contamination” (e.g. outliers) which can seriously bias the standard estimator of wavelet variance. The code below randomly replaces one percent of the observations from the above simulated random walk with observations from a white noise process with larger variance.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Add contamination</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">gamma =<span class="st"> </span><span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">Yt2 =<span class="st"> </span>Yt</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">Yt2[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span>n,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(gamma<span class="op">*</span>n))] =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(gamma<span class="op">*</span>n),<span class="dv">0</span>,<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfrow =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(Yt, <span class="dt">main =</span> <span class="st">"RW without contamination"</span>)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="kw"><a href="reference/robust_eda.html">robust_eda</a></span>(Yt2, <span class="dt">legend_position =</span> <span class="ot">NULL</span>, <span class="dt">main =</span> <span class="st">"RW with contamination"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="696" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Add contamination</span></span>
+<span><span class="va">gamma</span> <span class="op">=</span> <span class="fl">0.01</span></span>
+<span><span class="va">Yt2</span> <span class="op">=</span> <span class="va">Yt</span></span>
+<span><span class="va">Yt2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>,<span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">gamma</span><span class="op">*</span><span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">gamma</span><span class="op">*</span><span class="va">n</span><span class="op">)</span>,<span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/robust_eda.html">robust_eda</a></span><span class="op">(</span><span class="va">Yt</span>, main <span class="op">=</span> <span class="st">"RW without contamination"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/robust_eda.html">robust_eda</a></span><span class="op">(</span><span class="va">Yt2</span>, legend_position <span class="op">=</span> <span class="cn">NULL</span>, main <span class="op">=</span> <span class="st">"RW with contamination"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" style="display: block; margin: auto;"></p>
 <p>It can be seen how the classic and robust wavelet variance estimates agree when there is no contamination (left plot) but they classic estimates are heavily biased (especially at the first more informative scales) when the random walk has only 1% contamination.</p>
 <p>When dealing with different time series, it is possible to compare their respective wavelet variances to understand if they have similar behaviour/properties. An example is given below where four different first-order autoregressive processes (with different values of the autoregressive parameters) are simulated and succesively their wavelet variance is computed.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Simulate AR processes</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">n =<span class="st"> </span><span class="dv">10</span><span class="op">^</span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">Xt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/gen_gts">gen_gts</a></span>(<span class="dt">n =</span> n, <span class="dt">model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/AR1">AR1</a></span>(<span class="dt">phi =</span> <span class="fl">0.10</span>, <span class="dt">sigma2 =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">Yt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/gen_gts">gen_gts</a></span>(<span class="dt">n =</span> n, <span class="dt">model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/AR1">AR1</a></span>(<span class="dt">phi =</span> <span class="fl">0.35</span>, <span class="dt">sigma2 =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">Zt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/gen_gts">gen_gts</a></span>(<span class="dt">n =</span> n, <span class="dt">model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/AR1">AR1</a></span>(<span class="dt">phi =</span> <span class="fl">0.79</span>, <span class="dt">sigma2 =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">Wt =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/gen_gts">gen_gts</a></span>(<span class="dt">n =</span> n, <span class="dt">model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/simts/topics/AR1">AR1</a></span>(<span class="dt">phi =</span> <span class="fl">0.95</span>, <span class="dt">sigma2 =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co"># Compute WV</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">wv_Xt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Xt)</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">wv_Yt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Yt)</a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">wv_Zt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Zt)</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">wv_Wt =<span class="st"> </span><span class="kw"><a href="reference/wvar.html">wvar</a></span>(Wt)</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co"># Plot results</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="kw"><a href="reference/compare_wvar.html">compare_wvar</a></span>(wv_Xt, wv_Yt, wv_Zt, wv_Wt)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="696" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Simulate AR processes</span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">5</span></span>
+<span><span class="va">Xt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/gen_gts.html" class="external-link">gen_gts</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/AR1.html" class="external-link">AR1</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.10</span>, sigma2 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Yt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/gen_gts.html" class="external-link">gen_gts</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/AR1.html" class="external-link">AR1</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.35</span>, sigma2 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Zt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/gen_gts.html" class="external-link">gen_gts</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/AR1.html" class="external-link">AR1</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.79</span>, sigma2 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Wt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/gen_gts.html" class="external-link">gen_gts</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/simts/man/AR1.html" class="external-link">AR1</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.95</span>, sigma2 <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute WV</span></span>
+<span><span class="va">wv_Xt</span> <span class="op">=</span> <span class="fu"><a href="reference/wvar.html">wvar</a></span><span class="op">(</span><span class="va">Xt</span><span class="op">)</span></span>
+<span><span class="va">wv_Yt</span> <span class="op">=</span> <span class="fu"><a href="reference/wvar.html">wvar</a></span><span class="op">(</span><span class="va">Yt</span><span class="op">)</span></span>
+<span><span class="va">wv_Zt</span> <span class="op">=</span> <span class="fu"><a href="reference/wvar.html">wvar</a></span><span class="op">(</span><span class="va">Zt</span><span class="op">)</span></span>
+<span><span class="va">wv_Wt</span> <span class="op">=</span> <span class="fu"><a href="reference/wvar.html">wvar</a></span><span class="op">(</span><span class="va">Wt</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot results</span></span>
+<span><span class="fu"><a href="reference/compare_wvar.html">compare_wvar</a></span><span class="op">(</span><span class="va">wv_Xt</span>, <span class="va">wv_Yt</span>, <span class="va">wv_Zt</span>, <span class="va">wv_Wt</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" style="display: block; margin: auto;"></p>
 <p>As seen above, the function <code><a href="reference/compare_wvar.html">compare_wvar()</a></code> allows to plot different outputs of the <code><a href="reference/wvar.html">wvar()</a></code> function and it can be seen how the four time series deliver different wavelet variances (as the autoregressive parameter approaches zero, the shape of the wavelet variance plot approaches the behaviour of the wavelet variance of a white noise process).</p>
 </div>
-<div id="wavelet-variance-on-imu-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#wavelet-variance-on-imu-data" class="anchor"></a>Wavelet Variance on IMU Data</h3>
+<div class="section level3">
+<h3 id="wavelet-variance-on-imu-data">Wavelet Variance on IMU Data<a class="anchor" aria-label="anchor" href="#wavelet-variance-on-imu-data"></a>
+</h3>
 <p>In the package, we also add some datasets which are the wavelet variance computed based on real IMU data. Currently the package includes datasets <code>adis_wv</code>, <code>imar_wv</code>, <code>kvh1750_wv</code>, <code>ln200_wv</code> and <code>navchip_av</code>. We can plot these wavelet variance simply with the <code>plot</code> function. As an example:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"kvh1750_wv"</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(kvh1750_wv)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="768" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"kvh1750_wv"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">kvh1750_wv</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
 </div>
-<div id="user-guides" class="section level1">
-<h1 class="hasAnchor">
-<a href="#user-guides" class="anchor"></a>User Guides</h1>
-<p>Various guides ship with package or are available on <a href="http://smac-group.com/" class="uri">http://smac-group.com/</a> to provide insight into how to use the different methods. At the present time, the following vignettes are available:</p>
+<div class="section level1">
+<h1 id="user-guides">User Guides<a class="anchor" aria-label="anchor" href="#user-guides"></a>
+</h1>
+<p>Various guides ship with package or are available on <a href="https://smac-group.com/" class="external-link uri">https://smac-group.com/</a> to provide insight into how to use the different methods. At the present time, the following vignettes are available:</p>
 <ol style="list-style-type: decimal">
-<li>Process to Haar Wavelet Variance <a href="https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html">(Online)</a>
+<li>Process to Haar Wavelet Variance <a href="https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html" class="external-link">(Online)</a>
 </li>
 </ol>
 </div>
+
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=wv">https://​cloud.r-project.org/​package=wv</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/SMAC-Group/wv">https://​github.com/​SMAC-Group/​wv</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/SMAC-Group/wv/issues">https://​github.com/​SMAC-Group/​wv/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=wv" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/SMAC-Group/wv/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/SMAC-Group/wv/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://www.r-project.org/Licenses/AGPL-3">AGPL-3</a> </li>
+<li><a href="https://www.r-project.org/Licenses/AGPL-3" class="external-link">AGPL-3</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing wv</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Stéphane Guerrier <br><small class="roles"> Author, maintainer </small>  </li>
-<li>James Balamuta <br><small class="roles"> Author </small>  </li>
-<li>Justin Lee <br><small class="roles"> Author </small>  </li>
-<li>Roberto Molinari <br><small class="roles"> Author </small>  </li>
-<li>Yuming Zhang <br><small class="roles"> Author </small>  </li>
-<li>Mucyo Karemera <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>Stéphane Guerrier <br><small class="roles"> Author, maintainer </small>   </li>
+<li>James Balamuta <br><small class="roles"> Author </small>   </li>
+<li>Justin Lee <br><small class="roles"> Author </small>   </li>
+<li>Roberto Molinari <br><small class="roles"> Author </small>   </li>
+<li>Yuming Zhang <br><small class="roles"> Author </small>   </li>
+<li>Mucyo Karemera <br><small class="roles"> Author </small>   </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-
-      <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/SMAC-Group/wv"><img src="https://travis-ci.org/SMAC-Group/wv.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://opensource.org/licenses/AGPL-3.0"><img src="https://img.shields.io/badge/licence-AGPL--3.0-blue.svg" alt="Licence"></a></li>
-<li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg" alt="minimal R version"></a></li>
-<li><a href="https://cran.r-project.org/package=wv"><img src="http://www.r-pkg.org/badges/version/wv" alt="CRAN"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/wv"><img src="http://cranlogs.r-pkg.org/badges/wv" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/wv"><img src="https://cranlogs.r-pkg.org/badges/grand-total/wv" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://github.com/SMAC-Group/wv"><img src="https://img.shields.io/badge/last%20change-2020--10--23-yellowgreen.svg" alt="Last-changedate"></a></li>
+<li><a href="https://opensource.org/licenses/AGPL-3.0" class="external-link"><img src="https://img.shields.io/badge/licence-AGPL--3.0-blue.svg" alt="Licence"></a></li>
+<li><a href="https://cran.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg" alt="minimal R version"></a></li>
+<li><a href="https://cran.r-project.org/package=wv" class="external-link"><img src="http://www.r-pkg.org/badges/version/wv" alt="CRAN"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/wv" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/wv" alt="CRAN RStudio mirror downloads"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/wv" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/wv" alt="CRAN RStudio mirror downloads"></a></li>
 </ul>
 </div>
-</div>
 
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Stéphane Guerrier, James Balamuta, Justin Lee, Roberto Molinari, Yuming Zhang, Mucyo Karemera.</p>
+  <p></p>
+<p>Developed by Stéphane Guerrier, James Balamuta, Justin Lee, Roberto Molinari, Yuming Zhang, Mucyo Karemera.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
+
       </footer>
 </div>
 
-  
+
+
+
+
 
   </body>
 </html>

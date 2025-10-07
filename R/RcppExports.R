@@ -534,12 +534,10 @@ sp_hfilter <- function(jscale) {
 #' @param y          A \code{vec} that computes the modwt dot product of each wavelet coefficient divided by their length.
 #' @param dims       A \code{String} indicating the confidence interval being calculated.
 #' @param alpha_ov_2 A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level 
-#' @return A \code{matrix} with the structure:
-#' \itemize{
-#'  \item{Column 1}{Wavelet Variance}
-#'  \item{Column 2}{Chi-squared Lower Bounds}
-#'  \item{Column 3}{Chi-squared Upper Bounds}
-#' }
+#' @return A \code{matrix} with the following columns:
+#' \item{Column 1}{Wavelet Variance.}
+#' \item{Column 2}{Chi-squared Lower Bounds.}
+#' \item{Column 3}{Chi-squared Upper Bounds.}
 #' @keywords internal
 ci_eta3 <- function(y, dims, alpha_ov_2) {
     .Call('_wv_ci_eta3', PACKAGE = 'wv', y, dims, alpha_ov_2)
@@ -551,12 +549,10 @@ ci_eta3 <- function(y, dims, alpha_ov_2) {
 #' @param wv_ci_class A \code{mat} that contains the CI mean, CI Lower, and CI Upper
 #' @param alpha_ov_2  A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level
 #' @param eff         A \code{double} that indicates the efficiency.
-#' @return A \code{matrix} with the structure:
-#' \itemize{
+#' @return A \code{matrix} with the following columns:
 #'  \item{Column 1}{Robust Wavelet Variance}
 #'  \item{Column 2}{Chi-squared Lower Bounds}
 #'  \item{Column 3}{Chi-squared Upper Bounds}
-#' }
 #' @details
 #' Within this function we are scaling the classical 
 #' @keywords internal
@@ -572,12 +568,10 @@ ci_eta3_robust <- function(wv_robust, wv_ci_class, alpha_ov_2, eff) {
 #' @param alpha_ov_2      A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level.
 #' @param robust          A \code{boolean} to determine the type of wave estimation.
 #' @param eff             A \code{double} that indicates the efficiency.
-#' @return A \code{matrix} with the structure:
-#' \itemize{
+#' @return A \code{matrix} with the following structure:
 #'  \item{Column 1}{Wavelet Variance}
 #'  \item{Column 2}{Chi-squared Lower Bounds}
 #'  \item{Column 3}{Chi-squared Upper Bounds}
-#' }
 #' @keywords internal
 #' @details 
 #' This function can be expanded to allow for other confidence interval calculations.
@@ -603,12 +597,10 @@ wave_variance <- function(signal_modwt_bw, robust = FALSE, eff = 0.6) {
 #' @param eff              A \code{double} that indicates the efficiency as it relates to an MLE.
 #' @param alpha            A \code{double} that indicates the \eqn{\left(1-p\right)*\alpha}{(1-p)*alpha} confidence level 
 #' @param ci_type          A \code{String} indicating the confidence interval being calculated. Valid value: "eta3"
-#' @return A \code{mat} with the structure:
-#' \itemize{
+#' @return A \code{mat} with the following structure:
 #'   \item{"variance"}{Wavelet Variance}
 #'   \item{"low"}{Lower CI}
 #'   \item{"high"}{Upper CI}
-#' }
 #' @keywords internal
 #' @details 
 #' This function does the heavy lifting with the signal_modwt_bw
@@ -625,12 +617,10 @@ wvar_cpp <- function(signal_modwt_bw, robust, eff, alpha, ci_type) {
 #' @param ci_type    A \code{string} indicating the confidence interval being calculated. Valid value: "eta3"
 #' @param strWavelet A \code{string} indicating the type of wave filter to be applied. Must be "haar"
 #' @param decomp     A \code{string} indicating whether to use "modwt" or "dwt" decomp
-#' @return A \code{mat} with the structure:
-#' \itemize{
+#' @return A \code{mat} with the following structure:
 #'   \item{"variance"}{Wavelet Variance}
 #'   \item{"low"}{Lower CI}
 #'   \item{"high"}{Upper CI}
-#' }
 #' @keywords internal
 #' @details 
 #' This function powers the wvar object. It is also extendable...
@@ -648,11 +638,9 @@ modwt_wvar_cpp <- function(signal, nlevels, robust, eff, alpha, ci_type, strWave
 #' @param strWavelet A \code{string} indicating the type of wave filter to be applied. Must be "haar"
 #' @param decomp     A \code{string} indicating whether to use "modwt" or "dwt" decomp
 #' @return A \code{field<mat>} with the structure:
-#' \itemize{
-#'   \item{"variance"}{Wavelet Variance}
-#'   \item{"low"}{Lower CI}
-#'   \item{"high"}{Upper CI}
-#' }
+#' \item{variance}{Wavelet Variance.}
+#' \item{low}{Lower Confidence Interval.}
+#' \item{high}{Upper Confidence Interval.}
 #' @keywords internal
 #' @details 
 #' This function processes the decomposition of multiple signals quickly

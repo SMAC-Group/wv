@@ -12,7 +12,7 @@ downloads](http://cranlogs.r-pkg.org/badges/wv)](https://www.r-pkg.org/pkg/wv)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/wv)](https://www.r-pkg.org/pkg/wv)
 
-# `wv` Overview <a href="https://smac-group.com/"><img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/></a>
+# `wv` Overview <img src="man/figures/logo.png" align="right" style="width: 20%; height: 20%"/>
 
 This repository is dedicated to the Wavelet Variance (`wv`) R package
 where different tools to perform wavelet variance analysis are provided
@@ -139,6 +139,7 @@ plot(Xt.dwt)
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" alt="Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated Gaussian white noise."  />
 <p class="caption">
+
 Discrete Wavelet Transform (DWT) for scales 1 to 4 for a simulated
 Gaussian white noise.
 </p>
@@ -188,6 +189,7 @@ plot(Xt.modwt, index = "all")
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" alt="Maximum Overlap Discrete Wavelet Transform  (MODWT) for scales 1 to 9 for a simulated Gaussian white noise."  />
 <p class="caption">
+
 Maximum Overlap Discrete Wavelet Transform (MODWT) for scales 1 to 9 for
 a simulated Gaussian white noise.
 </p>
@@ -225,6 +227,7 @@ plot(wvar(Yt), main = "Random walk", legend_position = NULL)
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" alt="Wavelet variance of two simulated processes, i.e white noise (left panel) and random walk (right panel)."  />
 <p class="caption">
+
 Wavelet variance of two simulated processes, i.e white noise (left
 panel) and random walk (right panel).
 </p>
@@ -307,10 +310,5 @@ plot(kvh1750_wv)
 
 # User Guides
 
-Various guides ship with package or are available on
-<https://smac-group.com/> to provide insight into how to use the
-different methods. At the present time, the following vignettes are
-available:
-
-1.  Process to Haar Wavelet Variance
-    [(Online)](https://smac-group.com/computing/2016/05/23/process-to-haar-wavelet-variance-formulae.html)
+Find the user’s manual at the [package
+website](https://smac-group.github.io/wv/).
